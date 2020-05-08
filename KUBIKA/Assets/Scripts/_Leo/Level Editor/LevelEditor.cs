@@ -1,7 +1,4 @@
 ﻿using Kubika.Game;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kubika.LevelEditor
@@ -30,36 +27,48 @@ namespace Kubika.LevelEditor
 
         void Update()
         {
+            PlaceCube();
+        }
+
+        private void PlaceCube()
+        {
             if (Input.GetMouseButtonDown(0))
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
                     hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
-                    PlaceCube(hit.normal);
+                    //create a new Cube and add the CubeObject component to store its index
+                    GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                    newCube.transform.position = GetCubePosition(hit.normal, newCube);
+                    newCube.transform.parent = gridRef.transform;
+
+                    newCube.AddComponent(typeof(CubeBase));
+
+                    CubeBase cubeObj = newCube.GetComponent<CubeBase>();
+                    cubeObj.myIndex = GetCubeIndex();
                 }
             }
         }
 
-        private void PlaceCube(Vector3 cubeNormal)
+        //get the position of the cube you are placing and set it as the cubeOnPosition
+        private Vector3 GetCubePosition(Vector3 cubeNormal, GameObject newCube)
         {
             if (cubeNormal == Vector3.up) moveWeight = 1; //+ 1
             if (cubeNormal == Vector3.down) moveWeight = -1; //- 1
             if (cubeNormal == Vector3.right) moveWeight = gridRef.gridSize; //+ the grid size
             if (cubeNormal == Vector3.left) moveWeight = -gridRef.gridSize; //- the grid size
             if (cubeNormal == Vector3.forward) moveWeight = gridRef.gridSize * gridRef.gridSize; //+ the grid size squared
-            if (cubeNormal == Vector3.back) moveWeight = - (gridRef.gridSize * gridRef.gridSize); //- the grid size squared
-
-            //create a new Cube and add the CubeObject component to store its index
-            GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            newCube.AddComponent(typeof(CubeBase));
-
-            //get the component so we can assign its index
-            CubeBase cubeObj = newCube.GetComponent<CubeBase>();
-
-            cubeObj.myIndex = gridRef.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
-            cubeObj.transform.position = gridRef.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
+            if (cubeNormal == Vector3.back) moveWeight = -(gridRef.gridSize * gridRef.gridSize); //- the grid size squared
 
             gridRef.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition = newCube;
+
+            return gridRef.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
+        }
+
+        private int GetCubeIndex()
+        {
+            return gridRef.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
         }
     }
 }

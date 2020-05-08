@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Kubika.Game;
 
 namespace Kubika.LevelEditor
 {
@@ -9,6 +10,8 @@ namespace Kubika.LevelEditor
     {
         public int nodeIndex;
         public GameObject cubeOnPosition;
+
+        public CubeLayers cubeLayers;
 
         public int xCoord, yCoord, zCoord;
         public Vector3 worldPosition;
