@@ -12,7 +12,7 @@ namespace Kubika.LevelEditor
         {
             Vector3 center = GetComponent<Renderer>().bounds.center;
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(center, new Vector3(2, 2, 2));
+            Gizmos.DrawWireCube(center, new Vector3(1, 1, 1));
         }
     }
 }
