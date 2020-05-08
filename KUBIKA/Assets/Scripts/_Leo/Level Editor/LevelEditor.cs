@@ -18,9 +18,9 @@ namespace Kubika.LevelEditor
             gridRef = Grid.instance;
 
             GameObject firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            firstCube.AddComponent(typeof(CubeObject));
+            firstCube.AddComponent(typeof(CubeBase));
 
-            CubeObject cubeObj = firstCube.GetComponent<CubeObject>();
+            CubeBase cubeObj = firstCube.GetComponent<CubeBase>();
 
             cubeObj.transform.position = gridRef.kuboGrid[0].worldPosition;
             gridRef.kuboGrid[0].cubeOnPosition = firstCube;
@@ -34,7 +34,7 @@ namespace Kubika.LevelEditor
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
-                    hitIndex = hit.collider.gameObject.GetComponent<CubeObject>().myIndex;
+                    hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
                     PlaceCube(hit.normal);
                 }
             }
@@ -49,10 +49,12 @@ namespace Kubika.LevelEditor
             if (cubeNormal == Vector3.forward) moveWeight = gridRef.gridSize * gridRef.gridSize; //+ the grid size squared
             if (cubeNormal == Vector3.back) moveWeight = - (gridRef.gridSize * gridRef.gridSize); //- the grid size squared
 
+            //create a new Cube and add the CubeObject component to store its index
             GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            newCube.AddComponent(typeof(CubeObject));
+            newCube.AddComponent(typeof(CubeBase));
 
-            CubeObject cubeObj = newCube.GetComponent<CubeObject>();
+            //get the component so we can assign its index
+            CubeBase cubeObj = newCube.GetComponent<CubeBase>();
 
             cubeObj.myIndex = gridRef.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
             cubeObj.transform.position = gridRef.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
