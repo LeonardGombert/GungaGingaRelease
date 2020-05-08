@@ -15,8 +15,7 @@ namespace Kubika.LevelEditor
         [Range(0.5f, 5)] [SerializeField] float offset;
         Vector3Int gridSizeVector;
 
-        public Node[] kuboGrid; //3D jagged array of nodes
-        List<GameObject> nodeVizList = new List<GameObject>(); //list of node visualisations
+        public Node[] kuboGrid;
 
         public bool setupBaseLevel;
 
@@ -33,12 +32,6 @@ namespace Kubika.LevelEditor
         private void Start()
         {
             CreateGrid();
-        }
-
-        private void Update()
-        {
-            /*if (visualizeNodes) foreach (GameObject item in nodeVizList) item.SetActive(true);
-            else if (!visualizeNodes) foreach (GameObject item in nodeVizList) item.SetActive(false);*/
         }
 
         private void CreateGrid()
