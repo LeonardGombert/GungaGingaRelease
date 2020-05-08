@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CubeLayers
+namespace Kubika.Game
 {
-    cubeEmpty,
-    cubeFull,
-    cubeMoveable
+    public enum CubeLayers
+    {
+        cubeEmpty,
+        cubeFull,
+        cubeMoveable
+    }
 }
