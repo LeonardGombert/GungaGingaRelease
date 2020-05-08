@@ -1,4 +1,5 @@
 ﻿using Kubika.Game;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kubika.LevelEditor
@@ -6,6 +7,7 @@ namespace Kubika.LevelEditor
     public class LevelEditor : MonoBehaviour
     {
         RaycastHit hit;
+        List<RaycastHit> hits = new List<RaycastHit>();
         int hitIndex;
         int moveWeight;
         Grid gridRef;
@@ -32,7 +34,39 @@ namespace Kubika.LevelEditor
 
         private void PlaceCube()
         {
-            if (Input.GetMouseButtonDown(0))
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                    {
+                        if (!hits.Contains(hit)) hits.Add(hit);
+                    }
+                }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    foreach (RaycastHit hit in hits)
+                    {
+                        hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+                        //create a new Cube and add the CubeObject component to store its index
+                        GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                        newCube.transform.position = GetCubePosition(hit.normal, newCube);
+                        newCube.transform.parent = gridRef.transform;
+
+                        newCube.AddComponent(typeof(CubeBase));
+
+                        CubeBase cubeObj = newCube.GetComponent<CubeBase>();
+                        cubeObj.myIndex = GetCubeIndex();
+
+                        cubeObj.isStatic = true;
+                    }
+                }
+            }
+
+
+            else if (Input.GetMouseButtonDown(0))
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {

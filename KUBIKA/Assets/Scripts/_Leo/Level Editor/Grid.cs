@@ -63,23 +63,13 @@ namespace Kubika.LevelEditor
 
                         currentNode.nodeIndex = i;
                         currentNode.worldPosition = nodePosition;
+                        currentNode.cubeLayers = CubeLayers.cubeEmpty;
 
                         kuboGrid[i - 1] = currentNode;
 
-                        /*//instantiate gameObjects, but only for visualization
-                        GameObject gridNode = Instantiate(nodeVizPrefab, nodePosition, Quaternion.identity, transform);
-                        gridNode.AddComponent(typeof(NodeInterface));
-                        gridNode.name = i.ToString();
 
-                        nodeVizList.Add(gridNode);
-
-                        currentNode.cubeOnPosition = gridNode;
-
-                        if (x == 0 || y == 0 || z == 0) gridNode.SetActive(true);
-                        else gridNode.SetActive(false);*/
-
-
-                        if(setupBaseLevel)
+                        //if you want to load the level editor with a base level
+                        if (setupBaseLevel)
                         {
                             if (x == 0 || y == 0 || z == 0)
                             {
@@ -96,8 +86,6 @@ namespace Kubika.LevelEditor
 
                                 cubeObj.myIndex = i;
                             }
-
-                            else currentNode.cubeLayers = CubeLayers.cubeEmpty;
                         }
                     }
                 }
