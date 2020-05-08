@@ -52,13 +52,6 @@ namespace Kubika.LevelEditor
                     {
                         Vector3 nodePosition = new Vector3(x * offset, y * offset, z * offset);
 
-                        //instantiate gameObjects, but only for visualization
-                        GameObject gridNode = Instantiate(nodeVizPrefab, nodePosition, Quaternion.identity, transform);
-                        gridNode.AddComponent(typeof(NodeInterface));
-                        gridNode.name = i.ToString();
-
-                        nodeVizList.Add(gridNode);
-
                         Node currentNode = new Node();
                         
                         currentNode.xCoord = x;
@@ -68,12 +61,19 @@ namespace Kubika.LevelEditor
                         currentNode.nodeIndex = i;
                         currentNode.worldPosition = nodePosition;
 
+                        kuboGrid[i - 1] = currentNode;
+
+                        /*//instantiate gameObjects, but only for visualization
+                        GameObject gridNode = Instantiate(nodeVizPrefab, nodePosition, Quaternion.identity, transform);
+                        gridNode.AddComponent(typeof(NodeInterface));
+                        gridNode.name = i.ToString();
+
+                        nodeVizList.Add(gridNode);
+
                         currentNode.cubeOnPosition = gridNode;
 
                         if (x == 0 || y == 0 || z == 0) gridNode.SetActive(true);
-                        else gridNode.SetActive(false);
-
-                        kuboGrid[i-1] = currentNode;
+                        else gridNode.SetActive(false);*/
                     }
                 }
             }

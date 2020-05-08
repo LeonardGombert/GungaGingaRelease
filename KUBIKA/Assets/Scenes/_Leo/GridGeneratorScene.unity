@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 4
-  offset: 1.5
+  offset: 1.05
   kuboGrid: []
   visualizeNodes: 0
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
@@ -351,10 +351,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653004007}
-  m_LocalRotation: {x: 0.09429867, y: -0.89895505, z: 0.2388897, w: 0.35485113}
+  m_LocalRotation: {x: 0.12509541, y: -0.8707668, z: 0.28771928, w: 0.3785946}
   m_LocalPosition: {x: 6.96, y: 5.58, z: 6.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 29.764002, y: -136.918, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.569, y: -133.003, z: 0}
