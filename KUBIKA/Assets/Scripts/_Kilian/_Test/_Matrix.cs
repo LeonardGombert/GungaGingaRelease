@@ -33,7 +33,8 @@ namespace Kubika.Test
 
         // Update is called once per frame
         void Update()
-        {
+        { 
+            // X Axis
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (((indexC1 - matrixLength) + (matrixLength * matrixLength) - 1) / ((matrixLength * matrixLength) * (indexC1 / (matrixLength * matrixLength)) + (matrixLength * matrixLength)) != 0)
@@ -49,6 +50,7 @@ namespace Kubika.Test
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
+                // -X Axis
                 if ((indexC1 + matrixLength) / ((matrixLength * matrixLength) * (indexC1 / (matrixLength * matrixLength) + 1)) != 1)
                 {
                     StartCoroutine(Cube1.Move(nodeMatrix[indexC1 + matrixLength - 1].position));
@@ -62,6 +64,7 @@ namespace Kubika.Test
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
+                // -Z Axis
                 if (indexC1 -(matrixLength * matrixLength) >= 0)
                 {
                     StartCoroutine(Cube1.Move( nodeMatrix[indexC1 - (matrixLength * matrixLength) - 1].position));
@@ -75,6 +78,7 @@ namespace Kubika.Test
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
+                // Z Axis
                 if ((indexC1 + (matrixLength * matrixLength)) / ((matrixLength * matrixLength * matrixLength)) != 1)
                 {
                     StartCoroutine(Cube1.Move(nodeMatrix[indexC1 + (matrixLength * matrixLength) - 1].position));
@@ -88,6 +92,7 @@ namespace Kubika.Test
             }
             else if (Input.GetKeyDown(KeyCode.R))
             {
+                // Y Axis
                 if (indexC1 % matrixLength != 0)
                 {
                     StartCoroutine(Cube1.Move(nodeMatrix[indexC1 +1 -1].position));
@@ -101,6 +106,7 @@ namespace Kubika.Test
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
+                // -Y Axis
                 if ((indexC1 - 1) % matrixLength != 0)
                 {
                     StartCoroutine(Cube1.Move( nodeMatrix[indexC1 -1 -1].position));

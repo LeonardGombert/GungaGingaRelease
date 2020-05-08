@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/_Kilian_Scene/_TestScene/MatrixScene.unity
+    guid: 31d8271fed62f2e44a74707462b586a3
   m_configObjects: {}
