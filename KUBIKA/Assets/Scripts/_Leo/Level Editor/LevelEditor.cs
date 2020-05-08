@@ -53,7 +53,7 @@ namespace Kubika.LevelEditor
             }
         }
 
-        //get the position of the cube you are placing and set it as the cubeOnPosition
+        //get the position of the cube you are placing and set the cubeOnPosition
         private Vector3 GetCubePosition(Vector3 cubeNormal, GameObject newCube)
         {
             if (cubeNormal == Vector3.up) moveWeight = 1; //+ 1
@@ -63,6 +63,7 @@ namespace Kubika.LevelEditor
             if (cubeNormal == Vector3.forward) moveWeight = gridRef.gridSize * gridRef.gridSize; //+ the grid size squared
             if (cubeNormal == Vector3.back) moveWeight = -(gridRef.gridSize * gridRef.gridSize); //- the grid size squared
 
+            //set the cubeOnPosition of the target node
             gridRef.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition = newCube;
 
             return gridRef.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
