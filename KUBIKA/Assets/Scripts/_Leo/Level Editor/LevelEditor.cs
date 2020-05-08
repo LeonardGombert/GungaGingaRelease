@@ -8,7 +8,7 @@ namespace Kubika.LevelEditor
     public class LevelEditor : MonoBehaviour
     {
         RaycastHit hit;
-        List<RaycastHit> hits = new List<RaycastHit>();
+        [SerializeField] List<RaycastHit> hits = new List<RaycastHit>();
         int hitIndex;
         int moveWeight;
         Grid gridRef;
@@ -33,75 +33,52 @@ namespace Kubika.LevelEditor
 
         void Update()
         {
-            PlaceCube();
+            CheckIfPlacing();
         }
 
-        private void PlaceCube()
+        private void CheckIfPlacing()
         {
             //Drag and Release placement
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                if (Input.GetMouseButton(0))
-                {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                    {
-                        if (!hits.Contains(hit)) hits.Add(hit);
-                    }
-                }
+                //add the cubes you hit to a list of RaycastHits
+                if(Input.GetMouseButton(0)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) if (!hits.Contains(hit)) hits.Add(hit);
 
+                //when the user releases the mouse, place all the cubes at once
                 if (Input.GetMouseButtonUp(0))
                 {
-                    foreach (RaycastHit hit in hits)
-                    {
-                        hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
-
-                        CubeOffset(hit.normal);
-
-                        if (IndexIsEmpty())
-                        {
-                            //create a new Cube and add the CubeObject component to store its index
-                            GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-                            newCube.transform.position = GetCubePosition(newCube);
-                            newCube.transform.parent = gridRef.transform;
-
-                            newCube.AddComponent(typeof(CubeBase));
-
-                            CubeBase cubeObj = newCube.GetComponent<CubeBase>();
-                            cubeObj.myIndex = GetCubeIndex();
-
-                            cubeObj.isStatic = true;
-                        }
-                    }
+                    foreach (RaycastHit hit in hits) PlaceCube(hit);
+                    hits.Clear();
                 }
             }
 
             //single click and place
-            else if (Input.GetMouseButtonDown(0))
+            else if (Input.GetMouseButtonDown(0)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) PlaceCube(hit);
+        }
+
+        private void PlaceCube(RaycastHit hit)
+        {
+            //get the index of the cube you just hit
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+
+            //calculate where you're placing the new cube
+            CubeOffset(hit.normal);
+
+            //if the current node doesn't have a cube on it, place a new cube
+            if (IndexIsEmpty())
             {
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                {
-                    hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+                //create a new Cube and add the CubeObject component to store its index
+                GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                    CubeOffset(hit.normal);
+                newCube.transform.position = GetCubePosition(newCube);
+                newCube.transform.parent = gridRef.transform;
 
-                    if (IndexIsEmpty())
-                    {
-                        //create a new Cube and add the CubeObject component to store its index
-                        GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                newCube.AddComponent(typeof(CubeBase));
 
-                        newCube.transform.position = GetCubePosition(newCube);
-                        newCube.transform.parent = gridRef.transform;
+                CubeBase cubeObj = newCube.GetComponent<CubeBase>();
+                cubeObj.myIndex = GetCubeIndex();
 
-
-                        newCube.AddComponent(typeof(CubeBase));
-
-                        CubeBase cubeObj = newCube.GetComponent<CubeBase>();
-                        cubeObj.myIndex = GetCubeIndex();
-
-                        cubeObj.isStatic = true;
-                    }
-                }
+                cubeObj.isStatic = true;
             }
         }
 
