@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Kubika.Game
 {
@@ -16,12 +15,13 @@ namespace Kubika.Game
         public void Start()
         {
             gridRef = LevelEditor.Grid.instance;
+            isStatic = true;
+            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
         }
 
-        // Update is called once per frame
         public void Update()
         {
-            if(isStatic) gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
+            
         }
 
         //EVERYTHING TO DO WHEN YOU MOVE A CUBE

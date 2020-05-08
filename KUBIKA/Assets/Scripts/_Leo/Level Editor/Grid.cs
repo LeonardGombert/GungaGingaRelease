@@ -1,7 +1,4 @@
 ﻿using Kubika.Game;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kubika.LevelEditor
@@ -71,11 +68,12 @@ namespace Kubika.LevelEditor
                                 baseLevelCube.transform.parent = gameObject.transform;
 
                                 CubeBase cubeObj = baseLevelCube.GetComponent<CubeBase>();
-
                                 cubeObj.transform.position = nodePosition;
-                                currentNode.cubeOnPosition = baseLevelCube;
+                                cubeObj.isStatic = true;
 
                                 currentNode.cubeLayers = CubeLayers.cubeFull;
+
+                                currentNode.cubeOnPosition = baseLevelCube;
 
                                 cubeObj.myIndex = i;
                             }
