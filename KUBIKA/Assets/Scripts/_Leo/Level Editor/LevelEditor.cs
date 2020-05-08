@@ -42,7 +42,7 @@ namespace Kubika.LevelEditor
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 //add the cubes you hit to a list of RaycastHits
-                if(Input.GetMouseButton(0)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) if (!hits.Contains(hit)) hits.Add(hit);
+                if (Input.GetMouseButton(0)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) if (!hits.Contains(hit)) hits.Add(hit);
 
                 //when the user releases the mouse, place all the cubes at once
                 if (Input.GetMouseButtonUp(0))
@@ -50,10 +50,22 @@ namespace Kubika.LevelEditor
                     foreach (RaycastHit hit in hits) PlaceCube(hit);
                     hits.Clear();
                 }
+
+                //add the cubes you hit to a list of RaycastHits
+                if (Input.GetMouseButton(1))
+                {
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) 
+                        if (!hits.Contains(hit)) hits.Add(hit);
+                    
+                    foreach (RaycastHit hit in hits) DeleteCube(hit);
+                    hits.Clear();
+                }
             }
 
             //single click and place
             else if (Input.GetMouseButtonDown(0)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) PlaceCube(hit);
+
+            if (Input.GetMouseButtonDown(1)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) DeleteCube(hit);
         }
 
         private void PlaceCube(RaycastHit hit)
@@ -79,6 +91,21 @@ namespace Kubika.LevelEditor
                 cubeObj.myIndex = GetCubeIndex();
 
                 cubeObj.isStatic = true;
+            }
+        }
+
+        private void DeleteCube(RaycastHit hit)
+        {
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+
+            moveWeight = 0;
+
+            //if there is a cube
+            if (!IndexIsEmpty())
+            {
+                Destroy(gridRef.kuboGrid[hitIndex - 1].cubeOnPosition);
+                //gridRef.kuboGrid[hitIndex - 1].cubeOnPosition = null; //maybe be unecessary if cube is getting destroyed anyway(?)
+                gridRef.kuboGrid[hitIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
             }
         }
 
