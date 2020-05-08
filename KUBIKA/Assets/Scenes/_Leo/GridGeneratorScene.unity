@@ -246,6 +246,7 @@ MonoBehaviour:
   gridSize: 4
   offset: 1.05
   kuboGrid: []
+  setupBaseLevel: 1
   visualizeNodes: 0
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}

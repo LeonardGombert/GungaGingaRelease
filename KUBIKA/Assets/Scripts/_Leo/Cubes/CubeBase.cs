@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kubika.Game
 {
@@ -9,19 +10,18 @@ namespace Kubika.Game
         public int myIndex; 
         public bool isStatic;
 
-        LevelEditor.Grid gridRef;
+        public LevelEditor.Grid gridRef;
 
         // Start is called before the first frame update
-        void Start()
+        public void Start()
         {
             gridRef = LevelEditor.Grid.instance;
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
             if(isStatic) gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
-            if(!isStatic) gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
         }
 
         //EVERYTHING TO DO WHEN YOU MOVE A CUBE
@@ -41,7 +41,6 @@ namespace Kubika.Game
              *      d. set the target node's layer as this object's layer
              */
 
-
             //clear the old cubeOnPos. Use (myIndex -1) because myIndex starts at 1 and array starts at 0
             gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
 
@@ -60,6 +59,5 @@ namespace Kubika.Game
             //set the new node's layer as CUBE FULL
             gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
         }
-
     }
 }

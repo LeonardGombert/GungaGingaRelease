@@ -47,6 +47,8 @@ namespace Kubika.LevelEditor
 
                     CubeBase cubeObj = newCube.GetComponent<CubeBase>();
                     cubeObj.myIndex = GetCubeIndex();
+
+                    cubeObj.isStatic = true;
                 }
             }
         }

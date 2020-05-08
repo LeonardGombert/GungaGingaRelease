@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kubika.Game;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace Kubika.LevelEditor
 
         public Node[] kuboGrid; //3D jagged array of nodes
         List<GameObject> nodeVizList = new List<GameObject>(); //list of node visualisations
+
+        public bool setupBaseLevel;
 
         public bool visualizeNodes;
         public GameObject nodeVizPrefab;
@@ -74,6 +77,28 @@ namespace Kubika.LevelEditor
 
                         if (x == 0 || y == 0 || z == 0) gridNode.SetActive(true);
                         else gridNode.SetActive(false);*/
+
+
+                        if(setupBaseLevel)
+                        {
+                            if (x == 0 || y == 0 || z == 0)
+                            {
+                                GameObject baseLevelCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                baseLevelCube.AddComponent(typeof(CubeBase));
+                                baseLevelCube.transform.parent = gameObject.transform;
+
+                                CubeBase cubeObj = baseLevelCube.GetComponent<CubeBase>();
+
+                                cubeObj.transform.position = nodePosition;
+                                currentNode.cubeOnPosition = baseLevelCube;
+
+                                currentNode.cubeLayers = CubeLayers.cubeFull;
+
+                                cubeObj.myIndex = i;
+                            }
+
+                            else currentNode.cubeLayers = CubeLayers.cubeEmpty;
+                        }
                     }
                 }
             }
