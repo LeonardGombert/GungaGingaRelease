@@ -10,12 +10,21 @@ namespace Kubika.Saving
 {
     public class SaveAndLoad : MonoBehaviour
     {
+        private static SaveAndLoad _instance;
+        public static SaveAndLoad instance { get { return _instance; } }
+
         LevelEditor.Grid grid;
 
         //a list of the nodes in grid node that have cubes on them
         List<Node> activeNodes = new List<Node>();
 
         LevelEditorData levelData;
+
+        private void Awake()
+        {
+            if (_instance != null && _instance != this) Destroy(this);
+            else _instance = this;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -71,7 +80,7 @@ namespace Kubika.Saving
             string path = Path.Combine(folder, levelFile);
 
             if(File.Exists(path))
-            { 
+            {
                 string json = File.ReadAllText(path);
                 levelData = JsonUtility.FromJson<LevelEditorData>(json);
 
@@ -79,7 +88,7 @@ namespace Kubika.Saving
             }
         }
 
-        private void ExtractAndRebuildLevel(LevelEditorData recoveredData)
+        public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {

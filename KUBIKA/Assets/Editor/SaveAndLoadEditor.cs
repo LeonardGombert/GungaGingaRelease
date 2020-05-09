@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using Kubika.Saving;
+using Sirenix.OdinInspector.Editor;
 
 [CustomEditor(typeof(SaveAndLoad))]
-public class SaveAndLoadEditor : Editor
+public class SaveAndLoadEditor : OdinEditor
 {
     public static string levelName;
 

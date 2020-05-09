@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 368073838}
   - component: {fileID: 368073837}
   m_Layer: 0
-  m_Name: DATA_MANAGER (1)
+  m_Name: DATA_MANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea573a5b3054f2849b955ef09d06ad19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 4
+  gridSize: 20
   offset: 1.05
   kuboGrid: []
   setupBaseLevel: 0
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 2083801838}
   - component: {fileID: 2083801837}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Level Queuer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbf4a6c3e0728f4eb064c678c8ef940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listOfLevels: []
+  listOfLevels:
+  - levelName: Yes
+    levelFile: {fileID: 4900000, guid: 993ed3de6e2840c49882e1eeff0532de, type: 3}
+    minimumMoves: 4
 --- !u!4 &2083801838
 Transform:
   m_ObjectHideFlags: 0
