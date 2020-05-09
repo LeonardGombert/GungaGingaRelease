@@ -29,6 +29,7 @@ namespace Kubika.LevelEditor
         private void Start()
         {
             CreateGrid();
+            _DirectionCustom.matrixLengthDirection = gridSize;
         }
 
         private void CreateGrid()
