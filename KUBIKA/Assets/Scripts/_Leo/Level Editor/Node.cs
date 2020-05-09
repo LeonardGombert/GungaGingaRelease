@@ -14,7 +14,7 @@ namespace Kubika.LevelEditor
 
         public CubeLayers cubeLayers;
 
-        public int xCoord, yCoord, zCoord;
+        //public int xCoord, yCoord, zCoord;
         public Vector3 worldPosition;
     }
 }

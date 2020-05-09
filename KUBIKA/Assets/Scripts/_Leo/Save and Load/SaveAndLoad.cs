@@ -102,6 +102,7 @@ namespace Kubika.Saving
                         newCube.AddComponent(typeof(CubeBase));
                         CubeBase staticCube = newCube.GetComponent<CubeBase>();
 
+                        //set the cube's index so that you can assign its other variables (position, leyer, type, etc.)
                         staticCube.myIndex = recoveredNode.nodeIndex;
 
                         grid.kuboGrid[staticCube.myIndex - 1].cubeOnPosition = newCube;
@@ -121,9 +122,27 @@ namespace Kubika.Saving
                         break;
 
                     case CubeTypes.VictoryCube:
+                        newCube.AddComponent(typeof(_VictoryCube));
+                        _VictoryCube victoryCube = newCube.GetComponent<_VictoryCube>();
+
+                        victoryCube.myIndex = recoveredNode.nodeIndex;
+
+                        grid.kuboGrid[victoryCube.myIndex - 1].cubeOnPosition = newCube;
+                        grid.kuboGrid[victoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                        grid.kuboGrid[victoryCube.myIndex - 1].cubeType = CubeTypes.VictoryCube;
                         break;
+
                     case CubeTypes.DeliveryCube:
+                        newCube.AddComponent(typeof(_DeliveryCube));
+                        _DeliveryCube deliveryCube = newCube.GetComponent<_DeliveryCube>();
+
+                        deliveryCube.myIndex = recoveredNode.nodeIndex;
+
+                        grid.kuboGrid[deliveryCube.myIndex - 1].cubeOnPosition = newCube;
+                        grid.kuboGrid[deliveryCube.myIndex - 1].cubeLayers = CubeLayers.cubeFull;
+                        grid.kuboGrid[deliveryCube.myIndex - 1].cubeType = CubeTypes.DeliveryCube;
                         break;
+
                     case CubeTypes.ElevatorCube:
                         break;
                     case CubeTypes.ConcreteCube:

@@ -47,9 +47,9 @@ namespace Kubika.LevelEditor
 
                         Node currentNode = new Node();
                         
-                        currentNode.xCoord = x;
+                        /*currentNode.xCoord = x;
                         currentNode.yCoord = y;
-                        currentNode.zCoord = z;
+                        currentNode.zCoord = z;*/
 
                         currentNode.nodeIndex = i;
                         currentNode.worldPosition = nodePosition;
