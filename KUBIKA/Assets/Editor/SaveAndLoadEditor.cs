@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using Kubika.Saving;
 
 [CustomEditor(typeof(SaveAndLoad))]
-public class LoadingEditor : Editor
+public class SaveAndLoadEditor : Editor
 {
     public static string levelName;
 

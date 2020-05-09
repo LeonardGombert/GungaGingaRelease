@@ -31,12 +31,6 @@ namespace Kubika.Saving
             return levelData;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         public void SaveLevel(string levelName)
         {
             for (int i = 0; i < grid.kuboGrid.Length; i++)
@@ -145,16 +139,22 @@ namespace Kubika.Saving
 
                     case CubeTypes.ElevatorCube:
                         break;
+
                     case CubeTypes.ConcreteCube:
                         break;
+
                     case CubeTypes.MineCube:
                         break;
+
                     case CubeTypes.TimerCube:
                         break;
+
                     case CubeTypes.SwitchCube:
                         break;
+
                     case CubeTypes.MirrorCube:
                         break;
+
                     case CubeTypes.ChaosBall:
                         break;
 
