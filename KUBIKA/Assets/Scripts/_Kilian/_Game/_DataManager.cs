@@ -18,6 +18,9 @@ namespace Kubika.Game
         public UnityEvent EndChecking;
         public UnityEvent EndFalling;
 
+        // _DIRECTION_CUSTOM
+        public int actualRotation;
+
         private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
@@ -37,12 +40,26 @@ namespace Kubika.Game
             {
                 moveCube = FindObjectsOfType<_MoveableCube>(); // TODO : DEGEULASSE
             }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                foreach (_MoveableCube cubes in moveCube)
+                {
+                    cubes.CheckIfFalling();
+                }
+                StartCoroutine(CheckIfCubeAreChecking());
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                _DirectionCustom.rotationState = actualRotation;
+            }
         }
 
         #region TIMED EVENT
         public IEnumerator CheckIfCubeAreChecking()
         {
-            moveCube = FindObjectsOfType<_MoveableCube>();
+            moveCube = FindObjectsOfType<_MoveableCube>(); // TODO PUE LA MERDE
             while (EveryCubeAreChecking(moveCube) == false)
             {
                 Debug.LogError("CheckError");

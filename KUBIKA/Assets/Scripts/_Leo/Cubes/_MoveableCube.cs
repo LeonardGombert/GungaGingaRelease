@@ -20,7 +20,7 @@ namespace Kubika.Game
         Vector3 currentPos;
         Vector3 basePos;
         float currentTime;
-        public float moveTime = 1;
+        public float moveTime = 0.25f;
         float time;
 
         //LAYERS
@@ -47,21 +47,13 @@ namespace Kubika.Game
                 gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
                 cubeLayers = gridRef.kuboGrid[myIndex - 1].cubeLayers;
             }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                isChecking = true;
-                StartCoroutine(_DataManager.instance.CheckIfCubeAreChecking());
-                thereIsEmpty = false;
-                nbrCubeMouvableBelow = 0;
-                nbrCubeEmptyBelow = 0;
-                Fall(1);
-            }
 
             TEMPORARY______SHIT();
         }
 
-        private void CheckIfFalling()
+        public void CheckIfFalling()
         {
+            /*
             if (gridRef.kuboGrid[myIndex +_DirectionCustom.down -1].cubeLayers == CubeLayers.cubeEmpty)
             {
                 //"garbage collection"
@@ -78,7 +70,15 @@ namespace Kubika.Game
                 transform.position = gridRef.kuboGrid[myIndex + _DirectionCustom.down].worldPosition;
                 //set updated index to cubeMoveable
                 gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-            }
+            }*/
+
+            isChecking = true;
+            thereIsEmpty = false;
+            nbrCubeMouvableBelow = 0;
+            nbrCubeEmptyBelow = 0;
+            indexTargetNode = 0;
+
+            Fall(1);
         }
 
         public void Fall(int nbrCubeBelowParam)
@@ -90,22 +90,26 @@ namespace Kubika.Game
 
             if (gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeEmpty)
             {
-                Debug.Log("EmptyDetected --" + (_DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex);
+                Debug.Log("EmptyDetected --" + (myIndex - 1 + _DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 thereIsEmpty = true;
                 nbrCubeEmptyBelow += 1;
                 Fall(nbrCubeBelowParam + 1); 
             }
             else if (gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeMoveable)
             {
-                Debug.Log("MoveDetected --" + (_DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex);
+                Debug.Log("MoveDetected --" + (myIndex - 1 + _DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 nbrCubeMouvableBelow += 1;
                 Fall(nbrCubeBelowParam + 1);
             }
             else if (gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeFull)
             {
-                Debug.Log("FULLDetected --" + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1) + " || myIndex " + myIndex);
+                Debug.Log("FULLDetected --" + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex -1));
                 nbrCubeBelow = nbrCubeBelowParam;
-                nextPosition = gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1))].worldPosition;
+
+                indexTargetNode = myIndex + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1));
+                nextPosition = gridRef.kuboGrid[indexTargetNode - 1].worldPosition;
+
+                Debug.Log("FULLDetected -- Final Destination " + (myIndex - 1 + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1))) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 isChecking = false;
             }
         }
@@ -114,13 +118,14 @@ namespace Kubika.Game
 
         public void FallMoveFunction()
         {
-            if ( thereIsEmpty == true && !isChecking)
+            Debug.Log("FallMoveFunction");
+            if ( thereIsEmpty == true)
                 StartCoroutine(FallMove(nextPosition, nbrCubeEmptyBelow, nbrCubeBelow));
         }
 
         public IEnumerator FallMove(Vector3 fallPosition, int nbrCub, int nbrCubeBelowParam)
         {
-            Debug.Log("MOVING");
+            Debug.Log("MOVING ");
             isFalling = true;
             gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
             gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
@@ -142,10 +147,10 @@ namespace Kubika.Game
 
             isFalling = false;
 
-            myIndex = gridRef.kuboGrid[myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1 + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1))].nodeIndex;
-            gridRef.kuboGrid[myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1 + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1))].cubeOnPosition = gameObject;
+            myIndex = indexTargetNode;
+            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
-            gridRef.kuboGrid[myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1 + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1))].cubeLayers = CubeLayers.cubeMoveable;
+            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
         }
 
         public IEnumerator Move(Vector3 nextPosition)
