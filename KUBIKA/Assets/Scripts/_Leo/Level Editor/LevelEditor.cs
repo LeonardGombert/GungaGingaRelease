@@ -1,4 +1,5 @@
 ﻿using Kubika.Game;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,54 +8,44 @@ namespace Kubika.LevelEditor
     public class LevelEditor : MonoBehaviour
     {
         RaycastHit hit;
-        [SerializeField] List<RaycastHit> hits = new List<RaycastHit>();
         int hitIndex;
         int moveWeight;
-        Grid gridRef;
+        Grid grid;
 
-        public CurrentPlaceCube currentCube;
+        public CubeTypes currentCube;
+        [SerializeField] List<RaycastHit> hits = new List<RaycastHit>();
 
         private void Start()
         {
-            gridRef = Grid.instance;
+            Initialization();
+        }
 
-            if (!gridRef.setupBaseLevel)
+        private void Initialization()
+        {
+            grid = Grid.instance;
+
+            if (!grid.setupBaseLevel)
             {
                 GameObject firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 firstCube.AddComponent(typeof(CubeBase));
 
                 CubeBase cubeObj = firstCube.GetComponent<CubeBase>();
 
-                cubeObj.transform.position = gridRef.kuboGrid[0].worldPosition;
-                gridRef.kuboGrid[0].cubeOnPosition = firstCube;
+                cubeObj.transform.position = grid.kuboGrid[0].worldPosition;
+                grid.kuboGrid[0].cubeOnPosition = firstCube;
 
                 cubeObj.myIndex = 1;
             }
         }
 
-        void Update()
+        private void Update()
         {
-            CheckIfPlacing();
+            PlacingCube();
             SelectCube();
         }
 
-        private void SelectCube()
-        {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
-            {
-                if (currentCube == CurrentPlaceCube.StaticCube) currentCube = CurrentPlaceCube.ChaosBall;
-                else currentCube--;
-            }
-
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-            {
-                if (currentCube == CurrentPlaceCube.ChaosBall) currentCube = CurrentPlaceCube.StaticCube;
-                else currentCube++;
-            }
-
-        }
-
-        private void CheckIfPlacing()
+        #region PLACE AND REMOVE CUBES
+        private void PlacingCube()
         {
             //Drag and Release placement
             if (Input.GetKey(KeyCode.LeftShift))
@@ -104,109 +95,11 @@ namespace Kubika.LevelEditor
                 GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
                 newCube.transform.position = GetCubePosition(newCube);
-                newCube.transform.parent = gridRef.transform;
+                newCube.transform.parent = grid.transform;
 
                 CubeType(newCube);
             }
         }
-
-        //use to place cubes in the editor
-        private void CubeType(GameObject newCube)
-        {
-            switch (currentCube)
-            {
-                case CurrentPlaceCube.StaticCube:
-                    newCube.AddComponent(typeof(CubeBase));
-
-                    CubeBase staticCube = newCube.GetComponent<CubeBase>();
-                    staticCube.myIndex = GetCubeIndex();
-                    staticCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.MoveableCube:
-                    newCube.AddComponent(typeof(_MoveableCube));
-                    _MoveableCube moveableCube = newCube.GetComponent<_MoveableCube>();
-
-                    moveableCube.myIndex = GetCubeIndex();
-                    moveableCube.isStatic = false;
-                    break;
-
-                case CurrentPlaceCube.VictoryCube:
-                    newCube.AddComponent(typeof(_VictoryCube));
-                    _VictoryCube victoryCube = newCube.GetComponent<_VictoryCube>();
-
-                    victoryCube.myIndex = GetCubeIndex();
-                    victoryCube.isStatic = false;
-                    break;
-
-                case CurrentPlaceCube.DeliveryCube:
-                    newCube.AddComponent(typeof(_DeliveryCube));
-                    _DeliveryCube deliveryCube = newCube.GetComponent<_DeliveryCube>();
-
-                    deliveryCube.myIndex = GetCubeIndex();
-                    break;
-
-                case CurrentPlaceCube.ElevatorCube:
-                    newCube.AddComponent(typeof(_ElevatorCube));
-                    _ElevatorCube elevatorCube = newCube.GetComponent<_ElevatorCube>();
-
-                    elevatorCube.myIndex = GetCubeIndex();
-                    elevatorCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.ConcreteCube:
-                    newCube.AddComponent(typeof(_ConcreteCube));
-                    _ConcreteCube concreteCube = newCube.GetComponent<_ConcreteCube>();
-
-                    concreteCube.myIndex = GetCubeIndex();
-                    concreteCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.MineCube:
-                    newCube.AddComponent(typeof(_MineCube));
-                    _MineCube mineCube = newCube.GetComponent<_MineCube>();
-
-                    mineCube.myIndex = GetCubeIndex();
-                    mineCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.TimerCube:
-                    newCube.AddComponent(typeof(_TimerCube));
-                    _TimerCube timerCube = newCube.GetComponent<_TimerCube>();
-
-                    timerCube.myIndex = GetCubeIndex();
-                    timerCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.SwitchCube:
-                    newCube.AddComponent(typeof(_SwitchCube));
-                    _SwitchCube switchCube = newCube.GetComponent<_SwitchCube>();
-
-                    switchCube.myIndex = GetCubeIndex();
-                    switchCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.MirrorCube:
-                    newCube.AddComponent(typeof(_MirrorCube));
-                    _MirrorCube mirrorCube = newCube.GetComponent<_MirrorCube>();
-
-                    mirrorCube.myIndex = GetCubeIndex();
-                    mirrorCube.isStatic = true;
-                    break;
-
-                case CurrentPlaceCube.ChaosBall:
-                    newCube.AddComponent(typeof(_ChaosBall));
-                    _ChaosBall chaosBall = newCube.GetComponent<_ChaosBall>();
-
-                    chaosBall.myIndex = GetCubeIndex();
-                    chaosBall.isStatic = true;
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
         private void DeleteCube(RaycastHit hit)
         {
             hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
@@ -216,26 +109,156 @@ namespace Kubika.LevelEditor
             //if there is a cube
             if (!IndexIsEmpty())
             {
-                Destroy(gridRef.kuboGrid[hitIndex - 1].cubeOnPosition);
-                //gridRef.kuboGrid[hitIndex - 1].cubeOnPosition = null; //maybe be unecessary if cube is getting destroyed anyway(?)
-                gridRef.kuboGrid[hitIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);                
+                grid.kuboGrid[hitIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
             }
         }
+        #endregion
+
+        #region CHANGE CUBE SELECTION
+        private void SelectCube()
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                if (currentCube == CubeTypes.StaticCube) currentCube = CubeTypes.ChaosBall;
+                else currentCube--;
+            }
+
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                if (currentCube == CubeTypes.ChaosBall) currentCube = CubeTypes.StaticCube;
+                else currentCube++;
+            }
+        }
+        //use to place cubes in the editor
+        private void CubeType(GameObject newCube)
+        {
+            switch (currentCube)
+            {
+                case CubeTypes.StaticCube:
+                    newCube.AddComponent(typeof(CubeBase));
+
+                    CubeBase staticCube = newCube.GetComponent<CubeBase>();
+                    staticCube.myIndex = GetCubeIndex();
+                    SetCubeType(staticCube.myIndex, CubeTypes.StaticCube);
+                    staticCube.isStatic = true;
+                    break;
+
+                case CubeTypes.MoveableCube:
+                    newCube.AddComponent(typeof(_MoveableCube));
+                    _MoveableCube moveableCube = newCube.GetComponent<_MoveableCube>();
+
+                    moveableCube.myIndex = GetCubeIndex();
+                    SetCubeType(moveableCube.myIndex, CubeTypes.MoveableCube);
+                    moveableCube.isStatic = false;
+                    break;
+
+                case CubeTypes.VictoryCube:
+                    newCube.AddComponent(typeof(_VictoryCube));
+                    _VictoryCube victoryCube = newCube.GetComponent<_VictoryCube>();
+
+                    victoryCube.myIndex = GetCubeIndex();
+                    SetCubeType(victoryCube.myIndex, CubeTypes.VictoryCube);
+
+                    victoryCube.isStatic = false;
+                    break;
+
+                case CubeTypes.DeliveryCube:
+                    newCube.AddComponent(typeof(_DeliveryCube));
+                    _DeliveryCube deliveryCube = newCube.GetComponent<_DeliveryCube>();
+                    deliveryCube.myIndex = GetCubeIndex();
+                    SetCubeType(deliveryCube.myIndex, CubeTypes.DeliveryCube);
+                    deliveryCube.isStatic = true;
+                    break;
+
+                case CubeTypes.ElevatorCube:
+                    newCube.AddComponent(typeof(_ElevatorCube));
+                    _ElevatorCube elevatorCube = newCube.GetComponent<_ElevatorCube>();
+
+                    elevatorCube.myIndex = GetCubeIndex();
+                    SetCubeType(elevatorCube.myIndex, CubeTypes.ElevatorCube);
+                    elevatorCube.isStatic = true;
+                    break;
+
+                case CubeTypes.ConcreteCube:
+                    newCube.AddComponent(typeof(_ConcreteCube));
+                    _ConcreteCube concreteCube = newCube.GetComponent<_ConcreteCube>();
+
+                    concreteCube.myIndex = GetCubeIndex();
+                    SetCubeType(concreteCube.myIndex, CubeTypes.ConcreteCube);
+                    concreteCube.isStatic = true;
+                    break;
+
+                case CubeTypes.MineCube:
+                    newCube.AddComponent(typeof(_MineCube));
+                    _MineCube mineCube = newCube.GetComponent<_MineCube>();
+
+                    mineCube.myIndex = GetCubeIndex();
+                    SetCubeType(mineCube.myIndex, CubeTypes.MineCube);
+                    mineCube.isStatic = true;
+                    break;
+
+                case CubeTypes.TimerCube:
+                    newCube.AddComponent(typeof(_TimerCube));
+                    _TimerCube timerCube = newCube.GetComponent<_TimerCube>();
+
+                    timerCube.myIndex = GetCubeIndex();
+                    SetCubeType(timerCube.myIndex, CubeTypes.TimerCube);
+                    timerCube.isStatic = true;
+                    break;
+
+                case CubeTypes.SwitchCube:
+                    newCube.AddComponent(typeof(_SwitchCube));
+                    _SwitchCube switchCube = newCube.GetComponent<_SwitchCube>();
+
+                    switchCube.myIndex = GetCubeIndex();
+                    SetCubeType(switchCube.myIndex, CubeTypes.SwitchCube);
+                    switchCube.isStatic = true;
+                    break;
+
+                case CubeTypes.MirrorCube:
+                    newCube.AddComponent(typeof(_MirrorCube));
+                    _MirrorCube mirrorCube = newCube.GetComponent<_MirrorCube>();
+
+                    mirrorCube.myIndex = GetCubeIndex();
+                    SetCubeType(mirrorCube.myIndex, CubeTypes.MirrorCube);
+                    mirrorCube.isStatic = true;
+                    break;
+
+                case CubeTypes.ChaosBall:
+                    newCube.AddComponent(typeof(_ChaosBall));
+                    _ChaosBall chaosBall = newCube.GetComponent<_ChaosBall>();
+
+                    chaosBall.myIndex = GetCubeIndex();
+                    SetCubeType(chaosBall.myIndex, CubeTypes.ChaosBall);
+                    chaosBall.isStatic = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        #endregion
 
         #region GET OFFSET AND CHECK INDEX STATE
         void CubeOffset(Vector3 cubeNormal)
         {
             if (cubeNormal == Vector3.up) moveWeight = 1; //+ 1
             if (cubeNormal == Vector3.down) moveWeight = -1; //- 1
-            if (cubeNormal == Vector3.right) moveWeight = gridRef.gridSize; //+ the grid size
-            if (cubeNormal == Vector3.left) moveWeight = -gridRef.gridSize; //- the grid size
-            if (cubeNormal == Vector3.forward) moveWeight = gridRef.gridSize * gridRef.gridSize; //+ the grid size squared
-            if (cubeNormal == Vector3.back) moveWeight = -(gridRef.gridSize * gridRef.gridSize); //- the grid size squared
+            if (cubeNormal == Vector3.right) moveWeight = grid.gridSize; //+ the grid size
+            if (cubeNormal == Vector3.left) moveWeight = -grid.gridSize; //- the grid size
+            if (cubeNormal == Vector3.forward) moveWeight = grid.gridSize * grid.gridSize; //+ the grid size squared
+            if (cubeNormal == Vector3.back) moveWeight = -(grid.gridSize * grid.gridSize); //- the grid size squared
+        }
+
+        void SetCubeType(int cubeIndex, CubeTypes cubeType)
+        {
+            grid.kuboGrid[cubeIndex - 1].cubeType = cubeType;
         }
 
         bool IndexIsEmpty()
         {
-            if (gridRef.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition == null) return true;
+            if (grid.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition == null) return true;
             else return false;
         }
         #endregion
@@ -245,14 +268,14 @@ namespace Kubika.LevelEditor
         Vector3 GetCubePosition(GameObject newCube)
         {
             //set the cubeOnPosition of the target node
-            gridRef.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition = newCube;
+            grid.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition = newCube;
 
-            return gridRef.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
+            return grid.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
         }
 
         int GetCubeIndex()
         {
-            return gridRef.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
+            return grid.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
         }
         #endregion
     }

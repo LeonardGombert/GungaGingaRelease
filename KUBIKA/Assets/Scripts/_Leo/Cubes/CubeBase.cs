@@ -9,14 +9,14 @@ namespace Kubika.Game
         public int myIndex; 
         public bool isStatic;
 
-        public LevelEditor.Grid gridRef;
+        public LevelEditor.Grid grid;
 
         // Start is called before the first frame update
         public void Start()
         {
-            gridRef = LevelEditor.Grid.instance;
+            grid = LevelEditor.Grid.instance;
             isStatic = true;
-            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
         }
 
         public void Update()
@@ -42,22 +42,22 @@ namespace Kubika.Game
              */
 
             //clear the old cubeOnPos. Use (myIndex -1) because myIndex starts at 1 and array starts at 0
-            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
 
             //set the old node's layer as CUBE EMPTY
-            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
 
             //change the index to this cube's old index + value based on how the cube is moving (here let's say it's +4)
-            myIndex = gridRef.kuboGrid[myIndex - 1 + 4].nodeIndex;
+            myIndex = grid.kuboGrid[myIndex - 1 + 4].nodeIndex;
 
             //the index in this case is the cube's "new" index
-            transform.position = gridRef.kuboGrid[myIndex - 1].worldPosition;
+            transform.position = grid.kuboGrid[myIndex - 1].worldPosition;
 
             //set this gameobject as the cubeOnPosition of the new node
-            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
 
             //set the new node's layer as CUBE FULL
-            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
         }
     }
 }

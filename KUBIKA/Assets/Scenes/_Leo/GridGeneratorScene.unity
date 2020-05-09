@@ -246,7 +246,7 @@ MonoBehaviour:
   gridSize: 4
   offset: 1.05
   kuboGrid: []
-  setupBaseLevel: 1
+  setupBaseLevel: 0
   visualizeNodes: 0
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
@@ -274,6 +274,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe0c401d0157a3b4e9a3fe7d129cfd92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCube: 0
+--- !u!1 &1381233211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1381233212}
+  - component: {fileID: 1381233213}
+  m_Layer: 0
+  m_Name: Save and Load
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1381233212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381233211}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2472887, y: 2.2648792, z: -0.9322357}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1381233213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381233211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555aa84eb0fbfa44fb740533620d6cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1653004007

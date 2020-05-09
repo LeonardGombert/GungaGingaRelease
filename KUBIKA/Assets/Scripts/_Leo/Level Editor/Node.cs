@@ -9,6 +9,9 @@ namespace Kubika.LevelEditor
         public int nodeIndex;
         public GameObject cubeOnPosition;
 
+        //used for saving and loading levels
+        public CubeTypes cubeType;
+
         public CubeLayers cubeLayers;
 
         public int xCoord, yCoord, zCoord;

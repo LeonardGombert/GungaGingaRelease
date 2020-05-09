@@ -18,22 +18,22 @@
 
         private void CheckIfFalling()
         {
-            if (gridRef.kuboGrid[myIndex - 2].cubeLayers == CubeLayers.cubeEmpty)
+            if (grid.kuboGrid[myIndex - 2].cubeLayers == CubeLayers.cubeEmpty)
             {
                 //"garbage collection"
                 //-1 because you're looking at the curretn NODE
-                gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
-                gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+                grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
 
                 //falling     
 
                 //set the new index
-                myIndex = gridRef.kuboGrid[myIndex - 2].nodeIndex;
+                myIndex = grid.kuboGrid[myIndex - 2].nodeIndex;
                 
                 //move to updated index
-                transform.position = gridRef.kuboGrid[myIndex - 1].worldPosition;
+                transform.position = grid.kuboGrid[myIndex - 1].worldPosition;
                 //set updated index to cubeMoveable
-                gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿public enum CurrentPlaceCube
+﻿public enum CubeTypes
 {
     StaticCube,
     MoveableCube,

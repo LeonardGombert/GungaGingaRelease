@@ -71,6 +71,7 @@ namespace Kubika.LevelEditor
                                 cubeObj.transform.position = nodePosition;
                                 cubeObj.isStatic = true;
 
+                                currentNode.cubeType = CubeTypes.StaticCube;
                                 currentNode.cubeLayers = CubeLayers.cubeFull;
 
                                 currentNode.cubeOnPosition = baseLevelCube;
