@@ -8,11 +8,14 @@ namespace Kubika.Game
     public class ScenesManager : MonoBehaviour
     {
         ScenesIndex loadToScene;
+        ScenesIndex currentActiveScene;
+        AsyncOperation loadingSceneOp;
 
         // Start is called before the first frame update
         void Start()
         {
-            SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
+            currentActiveScene = loadToScene;
+            loadingSceneOp = SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
         }
 
         // Update is called once per frame
@@ -21,9 +24,14 @@ namespace Kubika.Game
 
         }
 
-        void LoadScene(ScenesIndex targetScene)
+        IEnumerator LoadScene(ScenesIndex targetScene)
         {
-            SceneManager.LoadSceneAsync((int)targetScene, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync((int)currentActiveScene);
+            
+            loadingSceneOp = SceneManager.LoadSceneAsync((int)targetScene, LoadSceneMode.Additive);
+            
+            currentActiveScene = targetScene;
+            yield return null;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Kubika.LevelEditor
         [SerializeField] CubeTypes currentCube;
         List<RaycastHit> hits = new List<RaycastHit>();
 
-        public static bool isInEditor = true;
+        public static bool isInEditor;
 
         private void Awake()
         {

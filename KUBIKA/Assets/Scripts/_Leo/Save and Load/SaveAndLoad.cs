@@ -13,7 +13,7 @@ namespace Kubika.Saving
         private static SaveAndLoad _instance;
         public static SaveAndLoad instance { get { return _instance; } }
 
-        LevelEditor._Grid grid;
+        _Grid grid;
 
         //a list of the nodes in grid node that have cubes on them
         List<Node> activeNodes = new List<Node>();
@@ -90,6 +90,7 @@ namespace Kubika.Saving
 
         public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
+            // start by resetting the grid's nodes to their base states
             grid.ResetGrid();
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
