@@ -2,18 +2,32 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Kubika.LevelEditor
 {
     public class LevelEditor : MonoBehaviour
     {
+        private static LevelEditor _instance;
+        public static LevelEditor instance { get { return _instance; } }
+
         RaycastHit hit;
         int hitIndex;
         int moveWeight;
-        Grid grid;
+        _Grid grid;
 
-        public CubeTypes currentCube;
-        [SerializeField] List<RaycastHit> hits = new List<RaycastHit>();
+        [SerializeField] CubeTypes currentCube;
+        List<RaycastHit> hits = new List<RaycastHit>();
+
+        public static bool isInEditor = true;
+
+        private void Awake()
+        {
+            if (_instance != null && _instance != this) Destroy(this);
+            else _instance = this;
+
+            if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isInEditor = true;
+        }
 
         private void Start()
         {
@@ -22,20 +36,7 @@ namespace Kubika.LevelEditor
 
         private void Initialization()
         {
-            grid = Grid.instance;
-
-            if (!grid.setupBaseLevel)
-            {
-                GameObject firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                firstCube.AddComponent(typeof(CubeBase));
-
-                CubeBase cubeObj = firstCube.GetComponent<CubeBase>();
-
-                cubeObj.transform.position = grid.kuboGrid[0].worldPosition;
-                grid.kuboGrid[0].cubeOnPosition = firstCube;
-
-                cubeObj.myIndex = 1;
-            }
+            grid = _Grid.instance;
         }
 
         private void Update()

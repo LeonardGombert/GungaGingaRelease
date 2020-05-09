@@ -10,5 +10,5 @@
     TimerCube,
     SwitchCube,
     MirrorCube,
-    ChaosBall,
+    ChaosBall
 }

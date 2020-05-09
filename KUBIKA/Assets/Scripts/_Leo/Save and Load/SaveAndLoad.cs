@@ -13,7 +13,7 @@ namespace Kubika.Saving
         private static SaveAndLoad _instance;
         public static SaveAndLoad instance { get { return _instance; } }
 
-        LevelEditor.Grid grid;
+        LevelEditor._Grid grid;
 
         //a list of the nodes in grid node that have cubes on them
         List<Node> activeNodes = new List<Node>();
@@ -29,7 +29,7 @@ namespace Kubika.Saving
         // Start is called before the first frame update
         void Start()
         {
-            grid = LevelEditor.Grid.instance;
+            grid = _Grid.instance;
             CreateEditorData();
         }
 
@@ -90,6 +90,8 @@ namespace Kubika.Saving
 
         public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
+            grid.ResetGrid();
+
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
                 GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
