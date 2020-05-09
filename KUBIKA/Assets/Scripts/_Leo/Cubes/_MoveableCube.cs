@@ -12,16 +12,24 @@ namespace Kubika.Game
         int nbrCubeBelow;
         int indexTargetNode;
         bool thereIsEmpty = false;
+        Vector3 nextPosition;
+
+        // BOOL ACTION
         public bool isChecking;
         public bool isFalling;
-        Vector3 nextPosition;
+        public bool isMoving;
 
         //FALL MOVE
         Vector3 currentPos;
         Vector3 basePos;
         float currentTime;
-        public float moveTime = 0.25f;
+        public float moveTime = 0.5f;
         float time;
+
+        // COORD SYSTEM
+        public int xCoordLocal;
+        public int yCoordLocal;
+        public int zCoordLocal;
 
         //LAYERS
         public CubeLayers cubeLayers;
@@ -125,7 +133,6 @@ namespace Kubika.Game
 
         public IEnumerator FallMove(Vector3 fallPosition, int nbrCub, int nbrCubeBelowParam)
         {
-            Debug.Log("MOVING ");
             isFalling = true;
             gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
             gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
@@ -145,16 +152,27 @@ namespace Kubika.Game
                 yield return transform.position;
             }
 
-            isFalling = false;
 
             myIndex = indexTargetNode;
             gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
             gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+
+            xCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].xCoord;
+            yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
+            zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
+
+
+            isFalling = false;
         }
 
         public IEnumerator Move(Vector3 nextPosition)
         {
+            isMoving = false;
+
+            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+
             basePos = transform.position;
             currentTime = 0;
 
@@ -168,9 +186,92 @@ namespace Kubika.Game
                 transform.position = currentPos;
                 yield return transform.position;
             }
+
+            myIndex = indexTargetNode;
+            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
+            //set updated index to cubeMoveable
+            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+
+            xCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].xCoord;
+            yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
+            zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
+
+            isMoving = true;
+
         }
 
-        #endregion 
+        public IEnumerator MoveFromMap(Vector3 nextPosition)
+        {
+            isMoving = false;
+
+            Vector3 degeulasseAUSSI = new Vector3(nextPosition.x * gridRef.offset, nextPosition.y * gridRef.offset, nextPosition.z * gridRef.offset);
+
+            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+
+            basePos = transform.position;
+            currentTime = 0;
+
+            while (currentTime <= 1)
+            {
+                currentTime += Time.deltaTime;
+                currentTime = (currentTime / moveTime);
+
+                currentPos = Vector3.Lerp(basePos, degeulasseAUSSI, currentTime);
+
+                transform.position = currentPos;
+                yield return transform.position;
+            }
+
+            myIndex = indexTargetNode;
+            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
+            //set updated index to cubeMoveable
+            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+
+            xCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].xCoord;
+            yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
+            zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
+
+            isMoving = true;
+
+        }
+
+        public IEnumerator FallFromMap(Vector3 fallFromMapPosition, int nbrCaseBelow)
+        {
+            isFalling = true;
+            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+
+
+            basePos = transform.position;
+            currentTime = 0;
+
+            while (currentTime <= 1)
+            {
+                currentTime += Time.deltaTime / nbrCaseBelow;
+                currentTime = (currentTime / moveTime);
+
+                currentPos = Vector3.Lerp(basePos, fallFromMapPosition, currentTime);
+
+                transform.position = currentPos;
+                yield return transform.position;
+            }
+
+
+            myIndex = indexTargetNode;
+            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
+            //set updated index to cubeMoveable
+            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+
+            xCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].xCoord;
+            yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
+            zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
+
+
+            isFalling = false;
+        }
+
+        #endregion
 
 
         void TEMPORARY______SHIT()
@@ -180,8 +281,16 @@ namespace Kubika.Game
             {
                 if (((myIndex - gridRef.gridSize) + (gridRef.gridSize * gridRef.gridSize) - 1) / ((gridRef.gridSize * gridRef.gridSize) * (myIndex / (gridRef.gridSize * gridRef.gridSize)) + (gridRef.gridSize * gridRef.gridSize)) != 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.left - 1].worldPosition));
+                    indexTargetNode = myIndex + _DirectionCustom.left;
+                    StartCoroutine(Move(gridRef.kuboGrid[indexTargetNode - 1].worldPosition));
                     myIndex = myIndex - gridRef.gridSize;
+                }
+                else
+                {
+                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    degeulasseTODO += _DirectionCustom.vectorLeft;
+                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    Debug.LogError("Z AU BORD");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.S))
@@ -189,8 +298,16 @@ namespace Kubika.Game
                 // -X Axis
                 if ((myIndex + gridRef.gridSize) / ((gridRef.gridSize * gridRef.gridSize) * (myIndex / (gridRef.gridSize * gridRef.gridSize) + 1)) != 1)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.right - 1].worldPosition));
+                    indexTargetNode = myIndex + _DirectionCustom.right;
+                    StartCoroutine(Move(gridRef.kuboGrid[indexTargetNode - 1].worldPosition));
                     myIndex = myIndex + gridRef.gridSize;
+                }
+                else
+                {
+                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    degeulasseTODO += _DirectionCustom.vectorRight;
+                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    Debug.LogError("S AU BORD");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Q))
@@ -198,8 +315,16 @@ namespace Kubika.Game
                 // -Z Axis
                 if (myIndex - (gridRef.gridSize * gridRef.gridSize) >= 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.backward - 1].worldPosition));
+                    indexTargetNode = myIndex + _DirectionCustom.backward;
+                    StartCoroutine(Move(gridRef.kuboGrid[indexTargetNode - 1].worldPosition));
                     myIndex = myIndex - (gridRef.gridSize * gridRef.gridSize);
+                }
+                else
+                {
+                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    degeulasseTODO += _DirectionCustom.vectorBack;
+                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    Debug.LogError("Q AU BORD");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.D))
@@ -207,8 +332,16 @@ namespace Kubika.Game
                 // Z Axis
                 if ((myIndex + (gridRef.gridSize * gridRef.gridSize)) / ((gridRef.gridSize * gridRef.gridSize * gridRef.gridSize)) != 1)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.forward - 1].worldPosition));
+                    indexTargetNode = myIndex + _DirectionCustom.forward;
+                    StartCoroutine(Move(gridRef.kuboGrid[indexTargetNode - 1].worldPosition));
                     myIndex = myIndex + (gridRef.gridSize * gridRef.gridSize);
+                }
+                else
+                {
+                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    degeulasseTODO += _DirectionCustom.vectorForward;
+                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    Debug.LogError("D AU BORD");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.R))
@@ -216,8 +349,13 @@ namespace Kubika.Game
                 // Y Axis
                 if (myIndex % gridRef.gridSize != 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.up - 1].worldPosition));
+                    indexTargetNode = myIndex + _DirectionCustom.up ;
+                    StartCoroutine(Move(gridRef.kuboGrid[indexTargetNode - 1].worldPosition));
                     myIndex = myIndex + 1;
+                }
+                else
+                {
+                    Debug.LogError("R AU BORD");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.F))
@@ -225,8 +363,13 @@ namespace Kubika.Game
                 // -Y Axis
                 if ((myIndex - 1) % gridRef.gridSize != 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.down - 1].worldPosition));
+                    indexTargetNode = myIndex + _DirectionCustom.down ;
+                    StartCoroutine(Move(gridRef.kuboGrid[indexTargetNode - 1].worldPosition));
                     myIndex = myIndex - 1;
+                }
+                else
+                {
+                    Debug.LogError("F AU BORD");
                 }
             }
         }

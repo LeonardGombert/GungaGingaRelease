@@ -12,7 +12,7 @@ namespace Kubika.LevelEditor
         public static Grid instance { get { return _instance; } }
 
         public int gridSize; //the square root of the Matrix
-        [Range(0.5f, 5)] [SerializeField] float offset;
+        [Range(0.5f, 5)] public float offset;
         Vector3Int gridSizeVector;
 
         public Node[] kuboGrid; //3D jagged array of nodes
