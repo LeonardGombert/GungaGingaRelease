@@ -21,7 +21,7 @@ namespace Kubika.Game
         // Update is called once per frame
         public void Update()
         {
-            if(isStatic) gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
+            if(isStatic) gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull; // TODO : DEGEULASSE
         }
 
         //EVERYTHING TO DO WHEN YOU MOVE A CUBE
