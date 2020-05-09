@@ -1,4 +1,7 @@
-﻿namespace Kubika.Game
+﻿using System.Collections;
+using UnityEngine;
+
+namespace Kubika.Game
 {
     public class _MoveableCube : CubeBase
     {
@@ -27,7 +30,7 @@
         {
             base.Start();
             isStatic = false;
-
+            
             _DataManager.instance.EndChecking.AddListener(FallMoveFunction);
         }
 
@@ -40,8 +43,8 @@
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // Put Actual Node as Moveable
-                gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-                cubeLayers = gridRef.kuboGrid[myIndex - 1].cubeLayers;
+                grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                cubeLayers = grid.kuboGrid[myIndex - 1].cubeLayers;
             }
 
             TEMPORARY______SHIT();
@@ -84,26 +87,26 @@
             //Debug.Log("Index 3==" + (myIndex + (_DirectionCustom.down) - 1));
             //Debug.Log("Index 4==" + (myIndex + (_DirectionCustom.down)));
 
-            if (gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeEmpty)
+            if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeEmpty)
             {
                 Debug.Log("EmptyDetected --" + (myIndex - 1 + _DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 thereIsEmpty = true;
                 nbrCubeEmptyBelow += 1;
                 Fall(nbrCubeBelowParam + 1); 
             }
-            else if (gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeMoveable)
+            else if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeMoveable)
             {
                 Debug.Log("MoveDetected --" + (myIndex - 1 + _DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 nbrCubeMouvableBelow += 1;
                 Fall(nbrCubeBelowParam + 1);
             }
-            else if (gridRef.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeFull)
+            else if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeFull)
             {
                 Debug.Log("FULLDetected --" + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex -1));
                 nbrCubeBelow = nbrCubeBelowParam;
 
                 indexTargetNode = myIndex + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1));
-                nextPosition = gridRef.kuboGrid[indexTargetNode - 1].worldPosition;
+                nextPosition = grid.kuboGrid[indexTargetNode - 1].worldPosition;
 
                 Debug.Log("FULLDetected -- Final Destination " + (myIndex - 1 + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1))) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 isChecking = false;
@@ -123,8 +126,8 @@
         {
             Debug.Log("MOVING ");
             isFalling = true;
-            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
-            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
 
 
             basePos = transform.position;
@@ -144,9 +147,9 @@
             isFalling = false;
 
             myIndex = indexTargetNode;
-            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
+            grid.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
-            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+            grid.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
         }
 
         public IEnumerator Move(Vector3 nextPosition)
@@ -174,54 +177,54 @@
             // X Axis
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (((myIndex - gridRef.gridSize) + (gridRef.gridSize * gridRef.gridSize) - 1) / ((gridRef.gridSize * gridRef.gridSize) * (myIndex / (gridRef.gridSize * gridRef.gridSize)) + (gridRef.gridSize * gridRef.gridSize)) != 0)
+                if (((myIndex - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.left - 1].worldPosition));
-                    myIndex = myIndex - gridRef.gridSize;
+                    StartCoroutine(Move(grid.kuboGrid[myIndex + _DirectionCustom.left - 1].worldPosition));
+                    myIndex = myIndex - grid.gridSize;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
                 // -X Axis
-                if ((myIndex + gridRef.gridSize) / ((gridRef.gridSize * gridRef.gridSize) * (myIndex / (gridRef.gridSize * gridRef.gridSize) + 1)) != 1)
+                if ((myIndex + grid.gridSize) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize) + 1)) != 1)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.right - 1].worldPosition));
-                    myIndex = myIndex + gridRef.gridSize;
+                    StartCoroutine(Move(grid.kuboGrid[myIndex + _DirectionCustom.right - 1].worldPosition));
+                    myIndex = myIndex + grid.gridSize;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
                 // -Z Axis
-                if (myIndex - (gridRef.gridSize * gridRef.gridSize) >= 0)
+                if (myIndex - (grid.gridSize * grid.gridSize) >= 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.backward - 1].worldPosition));
-                    myIndex = myIndex - (gridRef.gridSize * gridRef.gridSize);
+                    StartCoroutine(Move(grid.kuboGrid[myIndex + _DirectionCustom.backward - 1].worldPosition));
+                    myIndex = myIndex - (grid.gridSize * grid.gridSize);
                 }
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 // Z Axis
-                if ((myIndex + (gridRef.gridSize * gridRef.gridSize)) / ((gridRef.gridSize * gridRef.gridSize * gridRef.gridSize)) != 1)
+                if ((myIndex + (grid.gridSize * grid.gridSize)) / ((grid.gridSize * grid.gridSize * grid.gridSize)) != 1)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.forward - 1].worldPosition));
-                    myIndex = myIndex + (gridRef.gridSize * gridRef.gridSize);
+                    StartCoroutine(Move(grid.kuboGrid[myIndex + _DirectionCustom.forward - 1].worldPosition));
+                    myIndex = myIndex + (grid.gridSize * grid.gridSize);
                 }
             }
             else if (Input.GetKeyDown(KeyCode.R))
             {
                 // Y Axis
-                if (myIndex % gridRef.gridSize != 0)
+                if (myIndex % grid.gridSize != 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.up - 1].worldPosition));
+                    StartCoroutine(Move(grid.kuboGrid[myIndex + _DirectionCustom.up - 1].worldPosition));
                     myIndex = myIndex + 1;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
                 // -Y Axis
-                if ((myIndex - 1) % gridRef.gridSize != 0)
+                if ((myIndex - 1) % grid.gridSize != 0)
                 {
-                    StartCoroutine(Move(gridRef.kuboGrid[myIndex + _DirectionCustom.down - 1].worldPosition));
+                    StartCoroutine(Move(grid.kuboGrid[myIndex + _DirectionCustom.down - 1].worldPosition));
                     myIndex = myIndex - 1;
                 }
             }

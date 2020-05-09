@@ -332,6 +332,7 @@ MonoBehaviour:
   EndFalling:
     m_PersistentCalls:
       m_Calls: []
+  actualRotation: 0
 --- !u!4 &1808604063
 Transform:
   m_ObjectHideFlags: 0
@@ -376,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0c401d0157a3b4e9a3fe7d129cfd92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCube: 0
 --- !u!114 &2017944100
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -157,7 +157,10 @@ namespace Kubika.Saving
                         break;
                     case CubeTypes.ChaosBall:
                         break;
+
                     default:
+                        //set epmty cubes as cubeEmpty
+                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                         break;
                 }
             }
