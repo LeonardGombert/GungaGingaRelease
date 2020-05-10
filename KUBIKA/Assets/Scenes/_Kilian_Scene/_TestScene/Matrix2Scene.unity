@@ -488,6 +488,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   actualRotation: 0
+  indexBankScriptable: {fileID: 11400000, guid: d359a46e83d75aa4bb3f6cdc3aaa501c,
+    type: 2}
 --- !u!4 &1808604063
 Transform:
   m_ObjectHideFlags: 0
@@ -611,6 +613,7 @@ MonoBehaviour:
   eulerAnglesList: []
   rotationSpeed: 0.01
   turningSpeed: 0.5
+  actualRotation: 0
 --- !u!1 &2039919303
 GameObject:
   m_ObjectHideFlags: 0

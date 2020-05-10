@@ -28,9 +28,11 @@ namespace Kubika.Game
 
             if(Input.GetKeyDown(KeyCode.X))
             {
-
+                AssignDataBank();
             }
         }
+
+        #region CREATE GRID
 
         private void CreateGrid0()
         {
@@ -138,5 +140,49 @@ namespace Kubika.Game
             }
 
         }
+
+        #endregion
+
+        #region ASSIGN DATA BANK
+
+        void AssignDataBank()
+        {
+
+            //gridSizeVector = new Vector3Int(gridSize, gridSize, gridSize);
+
+            //indexBankScriptable.indexBank = new Node[gridSize * gridSize * gridSize];
+
+
+            for (int i = 0; i < grid0.Length; i++)
+            {
+                indexBankScriptable.indexBank[i].nodeIndex = grid0[i].nodeIndex;
+                indexBankScriptable.indexBank[i].nodeIndex0 = grid0[i].nodeIndex;
+
+
+                for (int y = 0; y < grid1.Length; y++)
+                {
+
+                    if(grid0[i].worldPosition == grid1[y].worldPosition)
+                    {
+                        indexBankScriptable.indexBank[i].nodeIndex2 = grid1[y].nodeIndex;
+                        break;
+                    }
+                }
+
+                for (int z = 0; z < grid2.Length; z++)
+                {
+                    if (grid0[i].worldPosition == grid2[z].worldPosition)
+                    {
+                        indexBankScriptable.indexBank[i].nodeIndex1 = grid2[z].nodeIndex;
+                        break;
+                    }
+                }
+
+            }
+
+
+        }
+
+        #endregion
     }
 }

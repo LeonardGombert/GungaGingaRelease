@@ -75,69 +75,73 @@ namespace Kubika.Game
 
         public IEnumerator Rotate(bool rightSide)
         {
-            isTurning = true;
-
-            currentRot = baseRot = moveRot = transform.eulerAngles;
-
-            lerpValue = 0;
-            currentValue = 0;
-
-
-            // There is two axis of rotation (left and right) , TODO = OPTI
-            if (rightSide)
+            if (_DataManager.instance.EveryCubeAreFalling(_DataManager.instance.moveCube) == true)
             {
-                moveRot.z = transform.eulerAngles.z + 120;
 
-                // Rotation using a Lerp
-                do
+                isTurning = true;
+
+                currentRot = baseRot = moveRot = transform.eulerAngles;
+
+                lerpValue = 0;
+                currentValue = 0;
+
+
+                // There is two axis of rotation (left and right) , TODO = OPTI
+                if (rightSide)
                 {
-                    lerpValue += Time.deltaTime;
-                    currentValue = lerpValue / turningSpeed;
+                    moveRot.z = transform.eulerAngles.z + 120;
 
-                    currentRot.z = (Mathf.SmoothStep(baseRot.z, moveRot.z, currentValue));
-                    transform.eulerAngles = currentRot;
+                    _DataManager.instance.ResetIndex(1);
+                    // Rotation using a Lerp
+                    do
+                    {
+                        lerpValue += Time.deltaTime;
+                        currentValue = lerpValue / turningSpeed;
 
-                    yield return null;
+                        currentRot.z = (Mathf.SmoothStep(baseRot.z, moveRot.z, currentValue));
+                        transform.eulerAngles = currentRot;
+
+                        yield return null;
+                    }
+                    while (currentValue < 1);
+
                 }
-                while (currentValue < 1);
 
-            }
-
-            else
-            {
-                moveRot.z = transform.eulerAngles.z - 120;
-
-                do
+                else
                 {
-                    lerpValue += Time.deltaTime;
-                    currentValue = lerpValue / turningSpeed;
+                    moveRot.z = transform.eulerAngles.z - 120;
+                    _DataManager.instance.ResetIndex(2);
+                    do
+                    {
+                        lerpValue += Time.deltaTime;
+                        currentValue = lerpValue / turningSpeed;
 
-                    currentRot.z = (Mathf.SmoothStep(baseRot.z, moveRot.z, currentValue));
-                    transform.eulerAngles = currentRot;
+                        currentRot.z = (Mathf.SmoothStep(baseRot.z, moveRot.z, currentValue));
+                        transform.eulerAngles = currentRot;
 
-                    yield return null;
+                        yield return null;
+                    }
+                    while (currentValue < 1);
                 }
-                while (currentValue < 1);
+
+                Debug.LogError("(int)moveRot.z " + (int)moveRot.z + " ||  " + Mathf.RoundToInt((int)moveRot.z));
+                currentRot.z = Mathf.RoundToInt((int)moveRot.z);
+                transform.eulerAngles = currentRot;
+
+                //=============// //
+
+                //Debug.Log("Tout les Cubes sont posé");
+
+                Debug.LogError("transform.eulerAngles.z " + (int)transform.eulerAngles.z + " ||  " + (int)transform.eulerAngles.z % 360);
+
+
+                _DirectionCustom.rotationState = (int)transform.eulerAngles.z % 360 == 0 ? 0 :
+                                            ((int)transform.eulerAngles.z % 360 == 121 ? 1 :
+                                            ((int)transform.eulerAngles.z % 360 == 239 ? 2 : 0));  /// TODO : MAGIK NUMBERS !!!!!!!!!!!!!!!!!!!!
+
+                _DataManager.instance.MakeFall();
+                isTurning = false;
             }
-
-            Debug.LogError("(int)moveRot.z " + (int)moveRot.z + " ||  " + Mathf.RoundToInt((int)moveRot.z));
-            currentRot.z = Mathf.RoundToInt( (int)moveRot.z);
-            transform.eulerAngles = currentRot;
-
-            //=============// //
-
-            //Debug.Log("Tout les Cubes sont posé");
-            isTurning = false;
-
-            Debug.LogError("transform.eulerAngles.z " + (int)transform.eulerAngles.z + " ||  " + (int)transform.eulerAngles.z % 360);
-
-
-            _DirectionCustom.rotationState = (int)transform.eulerAngles.z % 360 == 0 ? 0 :
-                                        ((int)transform.eulerAngles.z % 360 == 121 ? 1 :
-                                        ((int)transform.eulerAngles.z % 360 == 239 ? 2 : 0));  /// TODO : MAGIK NUMBERS !!!!!!!!!!!!!!!!!!!!
-           
-
-            _DataManager.instance.MakeFall();
         }
 
 

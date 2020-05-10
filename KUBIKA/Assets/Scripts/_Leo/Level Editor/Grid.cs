@@ -42,6 +42,23 @@ namespace Kubika.LevelEditor
             else if (!visualizeNodes) foreach (GameObject item in nodeVizList) item.SetActive(false);*/
         }
 
+        public void ResetIndexGrid()
+        {
+            for(int i = 0; i < kuboGrid.Length; i++)
+            {
+                kuboGrid[i].cubeOnPosition = null;
+                kuboGrid[i].cubeLayers = CubeLayers.cubeEmpty;
+            }
+        }
+
+        /*public void SetIndexGrid(int index)
+        {
+
+            kuboGrid[index].cubeOnPosition = null;
+            kuboGrid[index].cubeLayers = CubeLayers.cubeEmpty;
+
+        }*/
+
         private void CreateGrid()
         {
             gridSizeVector = new Vector3Int(gridSize, gridSize, gridSize);

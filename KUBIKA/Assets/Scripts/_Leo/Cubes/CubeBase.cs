@@ -9,6 +9,7 @@ namespace Kubika.Game
         //starts at 1
         public int myIndex; 
         public bool isStatic;
+        public CubeLayers layer;
 
         public LevelEditor.Grid gridRef;
 
@@ -16,6 +17,7 @@ namespace Kubika.Game
         public void Start()
         {
             gridRef = LevelEditor.Grid.instance;
+            layer = CubeLayers.cubeFull;
         }
 
         // Update is called once per frame

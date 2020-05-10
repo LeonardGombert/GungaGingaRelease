@@ -62,8 +62,9 @@ namespace Kubika.Game
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // Put Actual Node as Moveable
-                gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-                cubeLayers = gridRef.kuboGrid[myIndex - 1].cubeLayers;
+                layer = CubeLayers.cubeMoveable;
+                gridRef.kuboGrid[myIndex - 1].cubeLayers = layer;
+                cubeLayers = layer;
             }
 
             TEMPORARY______SHIT();
