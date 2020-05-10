@@ -1,8 +1,9 @@
 ﻿using Kubika.Game;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kubika.LevelEditor
+namespace Kubika.CustomLevelEditor
 {
     public class _Grid : MonoBehaviour
     {
@@ -20,6 +21,7 @@ namespace Kubika.LevelEditor
         [Range(0.5f, 5)] public float offset;
 
         public Node[] kuboGrid;
+        public List<GameObject> placedObjects = new List<GameObject>();
 
         public GameObject nodeVizPrefab;
         
@@ -63,10 +65,11 @@ namespace Kubika.LevelEditor
                         currentNode.nodeIndex = index;
                         currentNode.worldPosition = nodePosition;
                         currentNode.cubeLayers = CubeLayers.cubeEmpty;
+                        currentNode.cubeType = CubeTypes.None;
 
                         kuboGrid[index - 1] = currentNode;
 
-                        if(LevelEditor.isDevScene)
+                        if(LevelEditor.isDevScene || LevelEditor.isLevelEditor)
                         {
                             switch (levelSetup)
                             {
@@ -107,19 +110,21 @@ namespace Kubika.LevelEditor
 
         private void SpawnBaseGrid(int index, Vector3 position = default, Node node = default)
         {
-            GameObject baseLevelCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            baseLevelCube.AddComponent(typeof(CubeBase));
-            baseLevelCube.transform.parent = gameObject.transform;
+            GameObject levelCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            levelCube.AddComponent(typeof(CubeBase));
+            levelCube.transform.parent = gameObject.transform;
 
-            CubeBase cubeObj = baseLevelCube.GetComponent<CubeBase>();
+            CubeBase cubeObj = levelCube.GetComponent<CubeBase>();
             cubeObj.transform.position = position;
-            node.cubeOnPosition = baseLevelCube;
+            node.cubeOnPosition = levelCube;
 
             cubeObj.isStatic = true;
-            node.cubeType = CubeTypes.StaticCube;
             node.cubeLayers = CubeLayers.cubeFull;
+            node.cubeType = CubeTypes.StaticCube;
 
             cubeObj.myIndex = index;
+
+            placedObjects.Add(levelCube);
         }
 
         public void ResetGrid()

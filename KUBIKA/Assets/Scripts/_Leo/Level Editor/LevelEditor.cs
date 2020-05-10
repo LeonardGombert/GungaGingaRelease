@@ -1,6 +1,7 @@
 ﻿using Kubika.Game;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -106,6 +107,7 @@ namespace Kubika.CustomLevelEditor
                 newCube.transform.parent = grid.transform;
 
                 CubeType(newCube);
+                grid.placedObjects.Add(newCube);
             }
         }
 
@@ -121,6 +123,10 @@ namespace Kubika.CustomLevelEditor
                 Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);                
                 grid.kuboGrid[hitIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
             }
+
+            grid.placedObjects.Remove(hit.collider.gameObject);
+
+            if (!grid.placedObjects.Any()) grid.RefreshGrid();
         }
         #endregion
 
