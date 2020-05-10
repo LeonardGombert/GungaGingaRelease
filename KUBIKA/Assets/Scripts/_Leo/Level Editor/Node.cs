@@ -9,9 +9,9 @@ namespace Kubika.LevelEditor
     public class Node
     {
         public int nodeIndex;
+        public int nodeIndex0;
         public int nodeIndex1;
         public int nodeIndex2;
-        public int nodeIndex3;
         public GameObject cubeOnPosition;
 
         public CubeLayers cubeLayers;
