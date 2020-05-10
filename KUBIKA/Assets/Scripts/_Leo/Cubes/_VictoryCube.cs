@@ -1,6 +1,6 @@
 ﻿namespace Kubika.Game
 {
-    public class _VictoryCube : CubeBase
+    public class _VictoryCube : _MoveableCube
     {
         // Start is called before the first frame update
         new void Start()
