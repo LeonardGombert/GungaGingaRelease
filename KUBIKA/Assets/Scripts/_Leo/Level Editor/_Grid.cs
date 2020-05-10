@@ -111,10 +111,10 @@ namespace Kubika.CustomLevelEditor
         private void SpawnBaseGrid(int index, Vector3 position = default, Node node = default)
         {
             GameObject levelCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            levelCube.AddComponent(typeof(CubeBase));
+            levelCube.AddComponent(typeof(_StaticCube));
             levelCube.transform.parent = gameObject.transform;
 
-            CubeBase cubeObj = levelCube.GetComponent<CubeBase>();
+            _StaticCube cubeObj = levelCube.GetComponent<_StaticCube>();
             cubeObj.transform.position = position;
             node.cubeOnPosition = levelCube;
 

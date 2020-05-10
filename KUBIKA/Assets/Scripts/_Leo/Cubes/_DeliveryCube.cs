@@ -2,16 +2,21 @@
 
 namespace Kubika.Game
 {
-    public class _DeliveryCube : CubeBase
+    public class _DeliveryCube : CubeScanner
     {
-        bool touchingCube;
+        bool touchingVictory;
 
         // Start is called before the first frame update
         new void Start()
         {
-            base.Start();
+            myCubeType = CubeTypes.DeliveryCube;
+            myCubeLayer = CubeLayers.cubeFull;
+
             forward = backward = left = right = up = down = true;
+
             SetScanDirections();
+
+            base.Start();
         }
 
         // Update is called once per frame
@@ -20,8 +25,8 @@ namespace Kubika.Game
             //checks in every "direction"
             foreach (int index in indexesToCheck)
             {
-                touchingCube = ProximityChecker(index, CubeTypes.VictoryCube);
-                if (touchingCube) Debug.Log("Touching a Cube");
+                touchingVictory = ProximityChecker(index, CubeTypes.VictoryCube);
+                if (touchingVictory) Debug.Log("Touching a Cube");
             }
         }
     }

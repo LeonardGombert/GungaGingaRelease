@@ -92,7 +92,7 @@ namespace Kubika.CustomLevelEditor
         private void PlaceCube(RaycastHit hit)
         {
             //get the index of the cube you just hit
-            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<_StaticCube>().myIndex;
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);
@@ -113,7 +113,7 @@ namespace Kubika.CustomLevelEditor
 
         private void DeleteCube(RaycastHit hit)
         {
-            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<_StaticCube>().myIndex;
 
             moveWeight = 0;
 
@@ -152,9 +152,9 @@ namespace Kubika.CustomLevelEditor
             switch (currentCube)
             {
                 case CubeTypes.StaticCube:
-                    newCube.AddComponent(typeof(CubeBase));
+                    newCube.AddComponent(typeof(_StaticCube));
 
-                    CubeBase staticCube = newCube.GetComponent<CubeBase>();
+                    _StaticCube staticCube = newCube.GetComponent<_StaticCube>();
                     staticCube.myIndex = GetCubeIndex();
                     SetCubeType(staticCube.myIndex, CubeTypes.StaticCube);
                     staticCube.isStatic = true;

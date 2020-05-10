@@ -1,10 +1,10 @@
-﻿using Kubika.CustomLevelEditor;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kubika.Game
 {
-    public class _MoveableCube : CubeBase
+    public class CubeMove : CubeBase
     {
         //FALLING 
         int nbrCubeMouvableBelow;
@@ -23,9 +23,6 @@ namespace Kubika.Game
         public float moveTime = 0.25f;
         float time;
 
-        //LAYERS
-        public CubeLayers cubeLayers;
-
         // Start is called before the first frame update
         new void Start()
         {
@@ -33,7 +30,7 @@ namespace Kubika.Game
             myCubeType = CubeTypes.MoveableCube;
 
             isStatic = false;
-            
+
             _DataManager.instance.EndChecking.AddListener(FallMoveFunction);
 
             base.Start();
@@ -49,12 +46,11 @@ namespace Kubika.Game
             {
                 // Put Actual Node as Moveable
                 grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-                cubeLayers = grid.kuboGrid[myIndex - 1].cubeLayers;
+                myCubeLayer = grid.kuboGrid[myIndex - 1].cubeLayers;
             }
 
             TEMPORARY______SHIT();
         }
-
         public void CheckIfFalling()
         {
             /*
@@ -97,7 +93,7 @@ namespace Kubika.Game
                 Debug.Log("EmptyDetected --" + (myIndex - 1 + _DirectionCustom.down * nbrCubeBelowParam) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 thereIsEmpty = true;
                 nbrCubeEmptyBelow += 1;
-                Fall(nbrCubeBelowParam + 1); 
+                Fall(nbrCubeBelowParam + 1);
             }
             else if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeMoveable)
             {
@@ -107,7 +103,7 @@ namespace Kubika.Game
             }
             else if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeFull)
             {
-                Debug.Log("FULLDetected --" + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex -1));
+                Debug.Log("FULLDetected --" + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam) - 1) + " || myIndex " + myIndex + " || myIndexGrid " + (myIndex - 1));
                 nbrCubeBelow = nbrCubeBelowParam;
 
                 indexTargetNode = myIndex + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1));
@@ -123,7 +119,7 @@ namespace Kubika.Game
         public void FallMoveFunction()
         {
             Debug.Log("FallMoveFunction");
-            if ( thereIsEmpty == true)
+            if (thereIsEmpty == true)
                 StartCoroutine(FallMove(nextPosition, nbrCubeEmptyBelow, nbrCubeBelow));
         }
 
@@ -235,5 +231,6 @@ namespace Kubika.Game
                 }
             }
         }
+
     }
 }
