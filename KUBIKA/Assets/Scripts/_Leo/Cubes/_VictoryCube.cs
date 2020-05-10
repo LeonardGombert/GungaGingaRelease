@@ -8,9 +8,10 @@
             myCubeType = CubeTypes.VictoryCube;
             myCubeLayer = CubeLayers.cubeMoveable;
 
-            isStatic = false;
-
+            //call base.start AFTER assigning the cube's layers
             base.Start();
+
+            isStatic = false;
         }
 
         // Update is called once per frame

@@ -12,11 +12,10 @@ namespace Kubika.Game
             myCubeType = CubeTypes.DeliveryCube;
             myCubeLayer = CubeLayers.cubeFull;
 
-            forward = backward = left = right = up = down = true;
-
-            SetScanDirections();
-
+            //call base.start AFTER assigning the cube's layers
             base.Start();
+
+            isStatic = true;
         }
 
         // Update is called once per frame

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Kubika.LevelEditor;
+using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {

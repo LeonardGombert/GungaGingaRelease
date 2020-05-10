@@ -11,10 +11,11 @@ namespace Kubika.Game
         {
             myCubeType = CubeTypes.StaticCube;
             myCubeLayer = CubeLayers.cubeFull;
+            
+            //call base.start AFTER assigning the cube's layers
+            base.Start();
 
             isStatic = true;
-
-            base.Start();
         }
 
         // Update is called once per frame

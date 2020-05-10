@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Kubika.Game
 {
-    public class CubeScanner : _MoveableCube
+    public class CubeScanner : CubeMove
     {
         public int[] indexesToCheck = new int[6];
         public bool forward, backward, left, right, up, down;
@@ -12,8 +12,8 @@ namespace Kubika.Game
         // Start is called before the first frame update
         new void Start()
         {
-            SetScanDirections();
             base.Start();
+            SetScanDirections();
         }
 
         // Set "directions" to check in

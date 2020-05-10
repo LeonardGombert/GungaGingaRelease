@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Kubika.LevelEditor;
+using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
@@ -79,7 +79,7 @@ namespace Kubika.Game
 
             /////// DEMON SCRIPT TODO DEGEULASSE
 
-            LevelEditor.Grid.instance.ResetIndexGrid();
+            _Grid.instance.ResetIndexGrid();
 
             switch (rotationState)
             {
@@ -89,8 +89,8 @@ namespace Kubika.Game
                         {
 
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0;
-                            LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
-                            LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.layer;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
 
                         }
                     }
@@ -103,15 +103,15 @@ namespace Kubika.Game
                         {
 
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
-                            LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
-                            LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.layer;
-                            Debug.Log("-1- " + LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
+                            Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
 
                         }
                         /*for (int i = 0; i < baseCube.Length; i++)
                         {
 
-                            //Debug.Log("-2- GRID " + (baseCube[i].myIndex - 1) + " || LOCAL" + (baseCube[i].myIndex) + " || LE " + LevelEditor.Grid.instance.kuboGrid[baseCube[i].myIndex - 1].nodeIndex);
+                            //Debug.Log("-2- _Grid " + (baseCube[i].myIndex - 1) + " || LOCAL" + (baseCube[i].myIndex) + " || LE " + _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].nodeIndex);
                         }*/
                     }
                     break;
@@ -122,18 +122,18 @@ namespace Kubika.Game
                         foreach (CubeBase cBase in baseCube)
                         {
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
-                            LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
-                            LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.layer;
-                            Debug.Log("-2- " + LevelEditor.Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
+                            Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
 
 
                         }
 
                         /*for (int i = 0; i < baseCube.Length; i++)
                         {
-                            LevelEditor.Grid.instance.kuboGrid[baseCube[i].myIndex - 1].cubeOnPosition = baseCube[i].gameObject;
-                            LevelEditor.Grid.instance.kuboGrid[baseCube[i].myIndex - 1].cubeLayers = baseCube[i].layer;
-                            //Debug.Log("-2- GRID " + (baseCube[i].myIndex - 1) + " || LOCAL" + (baseCube[i].myIndex) + " || LE " + LevelEditor.Grid.instance.kuboGrid[baseCube[i].myIndex - 1].nodeIndex);
+                            _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].cubeOnPosition = baseCube[i].gameObject;
+                            _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].cubeLayers = baseCube[i].layer;
+                            //Debug.Log("-2- _Grid " + (baseCube[i].myIndex - 1) + " || LOCAL" + (baseCube[i].myIndex) + " || LE " + _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].nodeIndex);
                         }*/
                     }
                     break;

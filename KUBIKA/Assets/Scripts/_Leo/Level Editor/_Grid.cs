@@ -142,5 +142,14 @@ namespace Kubika.CustomLevelEditor
             ResetGrid();
             CreateGrid();
         }
+
+        public void ResetIndexGrid()
+        {
+            for (int i = 0; i < kuboGrid.Length; i++)
+            {
+                kuboGrid[i].cubeOnPosition = null;
+                kuboGrid[i].cubeLayers = CubeLayers.cubeEmpty;
+            }
+        }
     }
 }
