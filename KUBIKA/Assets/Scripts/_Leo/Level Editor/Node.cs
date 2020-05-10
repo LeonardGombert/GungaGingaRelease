@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Kubika.Game;
 
-namespace Kubika.LevelEditor
+namespace Kubika.CustomLevelEditor
 {
     [System.Serializable]
     public class Node

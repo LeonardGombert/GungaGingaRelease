@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kubika.LevelEditor
+namespace Kubika.CustomLevelEditor
 {
     [RequireComponent(typeof(Transform))]
     [RequireComponent(typeof(MeshRenderer))]

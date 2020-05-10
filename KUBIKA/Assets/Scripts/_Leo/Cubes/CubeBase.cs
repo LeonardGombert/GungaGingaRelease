@@ -9,12 +9,12 @@ namespace Kubika.Game
         public int myIndex; 
         public bool isStatic;
 
-        public LevelEditor._Grid grid;
+        public CustomLevelEditor._Grid grid;
 
         // Start is called before the first frame update
         public void Start()
         {
-            grid = LevelEditor._Grid.instance;
+            grid = CustomLevelEditor._Grid.instance;
             isStatic = true;
             grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeFull;
         }

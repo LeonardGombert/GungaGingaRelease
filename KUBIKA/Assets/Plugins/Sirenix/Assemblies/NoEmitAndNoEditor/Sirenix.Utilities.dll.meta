@@ -44,7 +44,7 @@ PluginImporter:
   - first:
       Android: Android
     second:
-      enabled: 0
+      enabled: 1
       settings: {}
   - first:
       Any: 
@@ -86,6 +86,11 @@ PluginImporter:
       settings: {}
   - first:
       PS4: PS4
+    second:
+      enabled: 1
+      settings: {}
+  - first:
+      Standalone: Win
     second:
       enabled: 1
       settings: {}

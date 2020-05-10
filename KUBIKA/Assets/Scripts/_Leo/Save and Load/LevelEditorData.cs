@@ -1,4 +1,4 @@
-﻿using Kubika.LevelEditor;
+﻿using Kubika.CustomLevelEditor;
 using System.Collections.Generic;
 
 namespace Kubika.Saving

@@ -23,7 +23,6 @@ namespace Kubika.LevelEditor
 
         public GameObject nodeVizPrefab;
         
-        public bool setupBaseLevel;
         public LevelSetup levelSetup;
 
         private void Awake()
@@ -67,7 +66,7 @@ namespace Kubika.LevelEditor
 
                         kuboGrid[index - 1] = currentNode;
 
-                        if(LevelEditor.isInEditor)
+                        if(LevelEditor.isDevScene)
                         {
                             switch (levelSetup)
                             {

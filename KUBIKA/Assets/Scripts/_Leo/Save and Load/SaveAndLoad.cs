@@ -1,5 +1,5 @@
 ﻿using Kubika.Game;
-using Kubika.LevelEditor;
+using Kubika.CustomLevelEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;

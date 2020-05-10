@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Kubika.LevelEditor
+namespace Kubika.CustomLevelEditor
 {
     public class LevelEditor : MonoBehaviour
     {
@@ -19,48 +19,50 @@ namespace Kubika.LevelEditor
         [SerializeField] CubeTypes currentCube;
         List<RaycastHit> hits = new List<RaycastHit>();
 
-        public static bool isInEditor;
-        public static bool isDevScene;
+        public static bool isLevelEditor = true;
+        public static bool isDevScene = false;
+
+        //PLACING CUBES
+        private bool placeMultiple = true;
 
         private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
 
-            if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isInEditor = true;
-            if (SceneManager.GetActiveScene().name.Contains("Dev")) isDevScene = true;
+            if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isLevelEditor = true;
+            if (SceneManager.GetActiveScene().name.Contains("DevScene")) isDevScene = true;
         }
 
         private void Start()
-        {
-            Initialization();
-        }
-
-        private void Initialization()
         {
             grid = _Grid.instance;
         }
 
         private void Update()
         {
-            PlacingCube();
-            SelectCube();
+            if(isDevScene || isLevelEditor)
+            {
+                PlaceAndDelete();
+                CubeSelection();
+            }
         }
 
         #region PLACE AND REMOVE CUBES
-        private void PlacingCube()
+        private void PlaceAndDelete()
         {
             //Drag and Release placement
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || placeMultiple)
             {
                 //add the cubes you hit to a list of RaycastHits
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) if (!hits.Contains(hit)) hits.Add(hit);
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hit)) 
+                        if (!hits.Contains(hit)) hits.Add(hit);
                 }
 
                 //when the user releases the mouse, place all the cubes at once
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
                     foreach (RaycastHit hit in hits) PlaceCube(hit);
                     hits.Clear();
@@ -78,9 +80,12 @@ namespace Kubika.LevelEditor
             }
 
             //single click and place
-            else if (Input.GetMouseButtonDown(0)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) PlaceCube(hit);
+            else if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) 
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hit)) PlaceCube(hit);
 
-            if (Input.GetMouseButtonDown(1)) if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) DeleteCube(hit);
+            //single click and delete
+            if (Input.GetMouseButtonDown(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Began) 
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(1).position), out hit)) DeleteCube(hit);
         }
 
         private void PlaceCube(RaycastHit hit)
@@ -103,6 +108,7 @@ namespace Kubika.LevelEditor
                 CubeType(newCube);
             }
         }
+
         private void DeleteCube(RaycastHit hit)
         {
             hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
@@ -119,7 +125,7 @@ namespace Kubika.LevelEditor
         #endregion
 
         #region CHANGE CUBE SELECTION
-        private void SelectCube()
+        private void CubeSelection()
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
@@ -133,7 +139,8 @@ namespace Kubika.LevelEditor
                 else currentCube++;
             }
         }
-        //use to place cubes in the editor
+
+        // Set all of the cube's information when it is placed
         private void CubeType(GameObject newCube)
         {
             switch (currentCube)

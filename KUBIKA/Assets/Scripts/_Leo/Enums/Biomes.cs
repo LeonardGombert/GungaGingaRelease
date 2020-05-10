@@ -1,5 +1,4 @@
-﻿
-public enum Biomes
+﻿public enum Biomes
 {
     Plains = 1,
     Mountains = 2,
