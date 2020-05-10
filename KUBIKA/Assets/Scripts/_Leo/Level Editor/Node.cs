@@ -7,6 +7,9 @@ namespace Kubika.CustomLevelEditor
     public class Node
     {
         public int nodeIndex;
+        public int nodeIndex0;
+        public int nodeIndex1;
+        public int nodeIndex2;
         public GameObject cubeOnPosition;
 
         //used for saving and loading levels
