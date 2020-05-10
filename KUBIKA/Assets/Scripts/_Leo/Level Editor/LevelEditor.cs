@@ -20,6 +20,7 @@ namespace Kubika.LevelEditor
         List<RaycastHit> hits = new List<RaycastHit>();
 
         public static bool isInEditor;
+        public static bool isDevScene;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace Kubika.LevelEditor
             else _instance = this;
 
             if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isInEditor = true;
+            if (SceneManager.GetActiveScene().name.Contains("Dev")) isDevScene = true;
         }
 
         private void Start()

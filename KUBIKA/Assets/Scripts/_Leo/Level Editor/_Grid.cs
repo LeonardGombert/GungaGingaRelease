@@ -12,6 +12,7 @@ namespace Kubika.LevelEditor
         Vector3Int gridSizeVector;
 
         public int gridSize; //the square root of the Matrix
+
         public int gridMargin;
         public int centerPosition;
         public LevelEditorStart startingPos;
@@ -21,7 +22,9 @@ namespace Kubika.LevelEditor
         public Node[] kuboGrid;
 
         public GameObject nodeVizPrefab;
+        
         public bool setupBaseLevel;
+        public LevelSetup levelSetup;
 
         private void Awake()
         {
@@ -44,11 +47,11 @@ namespace Kubika.LevelEditor
 
             kuboGrid = new Node[gridSize* gridSize* gridSize];
 
-            for (int i = 1, z = 0; z < gridSizeVector.z; z++)
+            for (int index = 1, z = 0; z < gridSizeVector.z; z++)
             {
                 for (int x = 0; x < gridSizeVector.x; x++)
                 {
-                    for (int y = 0; y < gridSizeVector.y; y++, i++)
+                    for (int y = 0; y < gridSizeVector.y; y++, index++)
                     {
                         Vector3 nodePosition = new Vector3(x * offset, y * offset, z * offset);
 
@@ -58,40 +61,44 @@ namespace Kubika.LevelEditor
                         currentNode.yCoord = y;
                         currentNode.zCoord = z;
 
-                        currentNode.nodeIndex = i;
+                        currentNode.nodeIndex = index;
                         currentNode.worldPosition = nodePosition;
                         currentNode.cubeLayers = CubeLayers.cubeEmpty;
 
-                        kuboGrid[i - 1] = currentNode;
+                        kuboGrid[index - 1] = currentNode;
 
-                        if(LevelEditor.instance != null && LevelEditor.isInEditor)
+                        if(LevelEditor.isInEditor)
                         {
-                            // if the index is at the bottom left corner of the cube, spawn a starter cube
-                            if (i == 1 && startingPos == LevelEditorStart.bottomCorner) SpawnStarterCube(i);
-
-                            // if the index is at the center of the cube, spawn a starter cube
-                            if (i == centerPosition && startingPos == LevelEditorStart.centerOfKubo) SpawnStarterCube(i);
-
-                            //if you want to load the level editor with a base level
-                            if (setupBaseLevel)
+                            switch (levelSetup)
                             {
-                                if (x == 0 || y == 0 || z == 0)
-                                {
-                                    GameObject baseLevelCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                                    baseLevelCube.AddComponent(typeof(CubeBase));
-                                    baseLevelCube.transform.parent = gameObject.transform;
+                                case LevelSetup.none:
+                                    // if the index is at the bottom left corner of the cube, spawn a starter cube
+                                    if (index == 1 && startingPos == LevelEditorStart.bottomCorner)
+                                        SpawnBaseGrid(index, nodePosition, currentNode);
 
-                                    CubeBase cubeObj = baseLevelCube.GetComponent<CubeBase>();
-                                    cubeObj.transform.position = nodePosition;
-                                    cubeObj.isStatic = true;
+                                    // if the index is at the center of the cube, spawn a starter cube
+                                    if (index == centerPosition && startingPos == LevelEditorStart.centerOfKubo)
+                                        SpawnBaseGrid(index, nodePosition, currentNode);
+                                    break;
 
-                                    currentNode.cubeType = CubeTypes.StaticCube;
-                                    currentNode.cubeLayers = CubeLayers.cubeFull;
+                                case LevelSetup.baseGrid:
+                                    if (x == 0 || y == 0 || z == 0) SpawnBaseGrid(index, nodePosition, currentNode);
+                                    break;
 
-                                    currentNode.cubeOnPosition = baseLevelCube;
+                                case LevelSetup.plane:
+                                    if (y == 0) SpawnBaseGrid(index, nodePosition, currentNode);
+                                    break;
 
-                                    cubeObj.myIndex = i;
-                                }
+                                case LevelSetup.rightDoublePlane:
+                                    if (x == 0 || y == 0) SpawnBaseGrid(index, nodePosition, currentNode);
+                                    break;
+
+                                case LevelSetup.leftDoublePlane:
+                                    if (z == 0 || y == 0) SpawnBaseGrid(index, nodePosition, currentNode);
+                                    break;
+
+                                default:
+                                    break;
                             }
                         }
                     }
@@ -99,15 +106,19 @@ namespace Kubika.LevelEditor
             }
         }
 
-        private void SpawnStarterCube(int index)
+        private void SpawnBaseGrid(int index, Vector3 position = default, Node node = default)
         {
-            GameObject firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            firstCube.AddComponent(typeof(CubeBase));
+            GameObject baseLevelCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            baseLevelCube.AddComponent(typeof(CubeBase));
+            baseLevelCube.transform.parent = gameObject.transform;
 
-            CubeBase cubeObj = firstCube.GetComponent<CubeBase>();
+            CubeBase cubeObj = baseLevelCube.GetComponent<CubeBase>();
+            cubeObj.transform.position = position;
+            node.cubeOnPosition = baseLevelCube;
 
-            cubeObj.transform.position = kuboGrid[index - 1].worldPosition;
-            kuboGrid[index - 1].cubeOnPosition = firstCube;
+            cubeObj.isStatic = true;
+            node.cubeType = CubeTypes.StaticCube;
+            node.cubeLayers = CubeLayers.cubeFull;
 
             cubeObj.myIndex = index;
         }
@@ -120,6 +131,12 @@ namespace Kubika.LevelEditor
                 node.cubeLayers = CubeLayers.cubeEmpty;
                 Destroy(node.cubeOnPosition);
             }
+        }
+
+        public void RefreshGrid()
+        {
+            ResetGrid();
+            CreateGrid();
         }
     }
 }

@@ -12,9 +12,9 @@ public class GridEditor : OdinEditor
 
         _Grid grid = (_Grid)target;
 
-        if (GUILayout.Button("Clear Level"))
-        {
-            grid.ResetGrid();
-        }
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Redraw Grid")) grid.RefreshGrid();
+        if (GUILayout.Button("Clear Level")) grid.ResetGrid();
+        EditorGUILayout.EndHorizontal();
     }
 }

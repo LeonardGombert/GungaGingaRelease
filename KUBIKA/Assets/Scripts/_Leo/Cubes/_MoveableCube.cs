@@ -25,6 +25,8 @@ namespace Kubika.Game
         //LAYERS
         public CubeLayers cubeLayers;
 
+        public CubeTypes thisCubeType;
+
         // Start is called before the first frame update
         new void Start()
         {
@@ -128,7 +130,7 @@ namespace Kubika.Game
             isFalling = true;
             grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
             grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
 
             basePos = transform.position;
             currentTime = 0;
@@ -150,6 +152,7 @@ namespace Kubika.Game
             grid.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
             grid.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+            grid.kuboGrid[indexTargetNode - 1].cubeType = thisCubeType;
         }
 
         public IEnumerator Move(Vector3 nextPosition)
