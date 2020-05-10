@@ -43,11 +43,7 @@ namespace Kubika.Game
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                foreach (_MoveableCube cubes in moveCube)
-                {
-                    cubes.CheckIfFalling();
-                }
-                StartCoroutine(CheckIfCubeAreChecking());
+                MakeFall();
             }
 
             if (Input.GetKeyDown(KeyCode.C))
@@ -55,6 +51,17 @@ namespace Kubika.Game
                 _DirectionCustom.rotationState = actualRotation;
             }
         }
+
+        #region MAKE FALL
+        public void MakeFall()
+        {
+            foreach (_MoveableCube cubes in moveCube)
+            {
+                cubes.CheckIfFalling();
+            }
+            StartCoroutine(CheckIfCubeAreChecking());
+        }
+        #endregion
 
         #region TIMED EVENT
         public IEnumerator CheckIfCubeAreChecking()

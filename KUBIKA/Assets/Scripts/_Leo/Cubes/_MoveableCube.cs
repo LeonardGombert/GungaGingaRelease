@@ -18,6 +18,7 @@ namespace Kubika.Game
         public bool isChecking;
         public bool isFalling;
         public bool isMoving;
+        public bool isOutside;
 
         //FALL MOVE
         Vector3 currentPos;
@@ -26,7 +27,16 @@ namespace Kubika.Game
         public float moveTime = 0.5f;
         float time;
 
+        //FALL OUTSIDE
+        [Space]
+        [Header("OUTSIDE")]
+        public int nbrDeCubeFallOutside = 10;
+        Vector3 moveOutsideTarget;
+        Vector3 fallOutsideTarget;
+
         // COORD SYSTEM
+        [Space]
+        [Header("COORD SYSTEM")]
         public int xCoordLocal;
         public int yCoordLocal;
         public int zCoordLocal;
@@ -127,8 +137,10 @@ namespace Kubika.Game
         public void FallMoveFunction()
         {
             Debug.Log("FallMoveFunction");
-            if ( thereIsEmpty == true)
+            if (thereIsEmpty == true && isOutside == false)
                 StartCoroutine(FallMove(nextPosition, nbrCubeEmptyBelow, nbrCubeBelow));
+            else if (isOutside == true)
+                StartCoroutine(FallFromMap(fallOutsideTarget, nbrDeCubeFallOutside));
         }
 
         public IEnumerator FallMove(Vector3 fallPosition, int nbrCub, int nbrCubeBelowParam)
@@ -168,7 +180,7 @@ namespace Kubika.Game
 
         public IEnumerator Move(Vector3 nextPosition)
         {
-            isMoving = false;
+            isMoving = true;
 
             gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
             gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
@@ -196,15 +208,16 @@ namespace Kubika.Game
             yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
             zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
 
-            isMoving = true;
+            isMoving = false;
 
         }
 
         public IEnumerator MoveFromMap(Vector3 nextPosition)
         {
-            isMoving = false;
+            isMoving = true;
+            isOutside = true;
 
-            Vector3 degeulasseAUSSI = new Vector3(nextPosition.x * gridRef.offset, nextPosition.y * gridRef.offset, nextPosition.z * gridRef.offset);
+            moveOutsideTarget = new Vector3(nextPosition.x * gridRef.offset, nextPosition.y * gridRef.offset, nextPosition.z * gridRef.offset);
 
             gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
             gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
@@ -217,30 +230,31 @@ namespace Kubika.Game
                 currentTime += Time.deltaTime;
                 currentTime = (currentTime / moveTime);
 
-                currentPos = Vector3.Lerp(basePos, degeulasseAUSSI, currentTime);
+                currentPos = Vector3.Lerp(basePos, moveOutsideTarget, currentTime);
 
                 transform.position = currentPos;
                 yield return transform.position;
             }
 
             myIndex = indexTargetNode;
-            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
-            //set updated index to cubeMoveable
-            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
 
-            xCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].xCoord;
-            yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
-            zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
+            xCoordLocal = Mathf.RoundToInt(moveOutsideTarget.x / gridRef.offset);
+            yCoordLocal = Mathf.RoundToInt(moveOutsideTarget.y / gridRef.offset);
+            zCoordLocal = Mathf.RoundToInt(moveOutsideTarget.z / gridRef.offset);
 
-            isMoving = true;
+            isMoving = false;
+
+
+            fallOutsideTarget = moveOutsideTarget;
+            fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+
+            _DataManager.instance.EndChecking.Invoke();
 
         }
 
         public IEnumerator FallFromMap(Vector3 fallFromMapPosition, int nbrCaseBelow)
         {
             isFalling = true;
-            gridRef.kuboGrid[myIndex - 1].cubeOnPosition = null;
-            gridRef.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
 
 
             basePos = transform.position;
@@ -258,14 +272,9 @@ namespace Kubika.Game
             }
 
 
-            myIndex = indexTargetNode;
-            gridRef.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
-            //set updated index to cubeMoveable
-            gridRef.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
-
-            xCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].xCoord;
-            yCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].yCoord;
-            zCoordLocal = gridRef.kuboGrid[indexTargetNode - 1].zCoord;
+            xCoordLocal = Mathf.RoundToInt(fallFromMapPosition.x / gridRef.offset);
+            yCoordLocal = Mathf.RoundToInt(fallFromMapPosition.y / gridRef.offset);
+            zCoordLocal = Mathf.RoundToInt(fallFromMapPosition.z / gridRef.offset);
 
 
             isFalling = false;
@@ -273,7 +282,106 @@ namespace Kubika.Game
 
         #endregion
 
+        #region INPUT
+        /*
+        public void NextDirection()
+        {
+            //check if this gameObject is a mirror cube
+            if (gameObject.GetComponent<_MirrorCube>() != null) mirrorMove = true;
 
+            if (!isStatic)
+            {
+                // Calcul the swip angle
+                currentSwipePos = DataManager.instance.inputPosition;
+
+                distanceTouch = Vector3.Distance(baseSwipePos, currentSwipePos);
+
+                angleDirection = Mathf.Abs(Mathf.Atan2(currentSwipePos.y - baseSwipePos.y, baseSwipePos.x - currentSwipePos.x) * 180 / Mathf.PI - 180);
+
+
+                KUBNord = Camera_ZoomScroll.KUBNordScreenAngle;
+                KUBWest = Camera_ZoomScroll.KUBWestScreenAngle;
+                KUBSud = Camera_ZoomScroll.KUBSudScreenAngle;
+                KUBEst = Camera_ZoomScroll.KUBEstScreenAngle;
+
+                // Check in which direction the player swiped 
+
+                if (angleDirection < KUBNord && angleDirection > KUBEst)
+                {
+                    enumSwipe = swipeDirection.Front;
+                }
+                else if (angleDirection < KUBWest && angleDirection > KUBNord)
+                {
+                    enumSwipe = swipeDirection.Left;
+                }
+                else if (angleDirection < KUBSud && angleDirection > KUBWest)
+                {
+                    enumSwipe = swipeDirection.Back;
+                }
+                else if (angleDirection < KUBEst && angleDirection > KUBSud)
+                {
+                    enumSwipe = swipeDirection.Right;
+                }
+
+                else
+                {
+
+                    if (angleDirection > 180)
+                        inverseAngleDirection = angleDirection - 180;
+                    else
+                        inverseAngleDirection = angleDirection + 180;
+
+
+                    if (inverseAngleDirection < KUBNord && inverseAngleDirection > KUBEst)
+                    {
+                        enumSwipe = swipeDirection.Back;
+                    }
+                    else if (inverseAngleDirection < KUBWest && inverseAngleDirection > KUBNord)
+                    {
+                        enumSwipe = swipeDirection.Right;
+                    }
+                    else if (inverseAngleDirection < KUBSud && inverseAngleDirection > KUBWest)
+                    {
+                        enumSwipe = swipeDirection.Front;
+                    }
+                    else if (inverseAngleDirection < KUBEst && inverseAngleDirection > KUBSud)
+                    {
+                        enumSwipe = swipeDirection.Left;
+                    }
+                }
+
+                if (distanceTouch > DataManager.instance.swipeMinimalDistance)
+                    CheckDirection(enumSwipe);
+            }
+        }
+
+        public void GetBasePoint()
+        {
+            //Reset Base Touch position
+            baseSwipePos = DataManager.instance.inputPosition;
+        }
+
+        public void CheckDirection(swipeDirection swipeDir)
+        {
+            // Check dans quel direction le joueur swipe
+            switch (swipeDir)
+            {
+                case swipeDirection.Front:
+                    CheckRaycast(Vector3Custom.forward);
+                    break;
+                case swipeDirection.Right:
+                    CheckRaycast(Vector3Custom.right);
+                    break;
+                case swipeDirection.Left:
+                    CheckRaycast(Vector3Custom.left);
+                    break;
+                case swipeDirection.Back:
+                    CheckRaycast(Vector3Custom.back);
+                    break;
+            }
+        }
+        */
+        #endregion
         void TEMPORARY______SHIT()
         {
             // X Axis
