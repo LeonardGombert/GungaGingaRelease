@@ -8,9 +8,10 @@ namespace Kubika.Game
     {
         public override void Start()
         {
-            base.Start();
             myCubeLayer = CubeLayers.cubeMoveable;
             myCubeType = CubeTypes.MoveableCube;
+
+            base.Start();
 
             isStatic = false;
             //call base.start AFTER assigning the cube's layers

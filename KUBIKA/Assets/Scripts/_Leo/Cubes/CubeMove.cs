@@ -22,6 +22,7 @@ namespace Kubika.Game
         public bool isFalling;
         public bool isMoving;
         public bool isOutside;
+        public bool isReadyToMove;
 
         //FALL MOVE
         Vector3 currentPos;
@@ -50,6 +51,10 @@ namespace Kubika.Game
         public Node soloMoveTarget;
         public Node soloPileTarget;
         public Vector3 outsideMoveTarget;
+
+        //PUSH
+        public bool TEST_DEBUG_PLAYER = false;
+        CubeMove pushNextNodeCubeMove;
 
         // Start is called before the first frame update
         public override void Start()
@@ -275,15 +280,123 @@ namespace Kubika.Game
 
         }
 
-        /*public bool CheckSoloMove(int index)
+        public void MoveToTarget()
         {
-            if(grid.kuboGrid[indexTargetNode - 1].cubeLayers ==)
+            Debug.Log("MOVING");
+            StartCoroutine(Move(soloMoveTarget));
         }
 
-        public bool CheckPileMove()
+        void CheckingMove(int index, int nodeDirection)
         {
+            Debug.Log("CheckingMove");
+            isChecking = true;
+            isReadyToMove = false;
+            _DataManager.instance.EndMoveChecking.AddListener(MoveToTarget);
+            CheckSoloMove(index, nodeDirection);
+        }
 
-        }*/
+        bool MatrixLimitCalcul(int index, int nodeDirection)
+        {
+            // X
+            if (nodeDirection == _DirectionCustom.left)
+            {
+                if (((index - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (index / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
+                    return true;
+                else return false;
+            }
+            // -X
+            else if (nodeDirection == _DirectionCustom.right)
+            {
+                if ((index + grid.gridSize) / ((grid.gridSize * grid.gridSize) * (index / (grid.gridSize * grid.gridSize) + 1)) != 1)
+                    return true;
+                else return false;
+            }
+            // Z
+            else if (nodeDirection == _DirectionCustom.forward)
+            {
+                if ((index + (grid.gridSize * grid.gridSize)) / ((grid.gridSize * grid.gridSize * grid.gridSize)) != 1)
+                    return true;
+                else return false;
+            }
+            // -Z
+            else if (nodeDirection == _DirectionCustom.backward)
+            {
+                if (index - (grid.gridSize * grid.gridSize) >= 0)
+                    return true;
+                else return false;
+            }
+            // Y
+            else if (nodeDirection == _DirectionCustom.up)
+            {
+                if (index % grid.gridSize != 0)
+                    return true;
+                else return false;
+            }
+            // -Y
+            else if (nodeDirection == _DirectionCustom.backward)
+            {
+                if ((index - 1) % grid.gridSize != 0)
+                    return true;
+                else return false;
+            }
+            else return false;
+        }
+
+        public void CheckSoloMove(int index, int nodeDirection)
+        {
+            if (MatrixLimitCalcul(index, nodeDirection))
+            {
+                indexTargetNode = index + nodeDirection;
+
+                switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                {
+                    case CubeLayers.cubeFull:
+                        {
+                            Debug.Log("STUCK");
+                            isChecking = false;
+                        }
+                        break;
+                    case CubeLayers.cubeEmpty:
+                        {
+                            Debug.Log("EMPTY");
+                            if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers == CubeLayers.cubeMoveable || grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers == CubeLayers.cubeFull)
+                            {
+                                isReadyToMove = true;
+                                soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                                Debug.Log("EMPTY-1 + soloMoveTarget " + soloMoveTarget.nodeIndex + " || myIndex " + (myIndex - 1));
+                            }
+                            else
+                            {
+                                isReadyToMove = true;
+                                Debug.Log("EMPTY-2");
+                                soloMoveTarget = grid.kuboGrid[myIndex - 1];
+                            }
+                            isChecking = false;
+
+                        }
+                        break;
+                    case CubeLayers.cubeMoveable:
+                        {
+                            Debug.Log("MOVE");
+                            pushNextNodeCubeMove = grid.kuboGrid[indexTargetNode - 1].cubeOnPosition.GetComponent<CubeMove>();
+                            if (pushNextNodeCubeMove.isReadyToMove == false)
+                            {
+                                grid.kuboGrid[indexTargetNode - 1].cubeOnPosition.GetComponent<CubeMove>().CheckingMove(indexTargetNode, nodeDirection);
+                            }
+                            CheckSoloMove(indexTargetNode, nodeDirection);
+                        }
+                        break;
+                }
+
+            }
+
+
+        }
+
+        /* public bool CheckPileMove()
+         {
+
+         }*/
 
 
         #endregion
@@ -391,234 +504,96 @@ namespace Kubika.Game
 
         void TEMPORARY______SHIT()
         {
-            // X Axis
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (TEST_DEBUG_PLAYER == true)
             {
-                if (((myIndex - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
+                // X Axis
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    indexTargetNode = myIndex + _DirectionCustom.left;
-
-                    switch(grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    if (isMoving == false)
                     {
-                        case CubeLayers.cubeFull:
-                            {
-                                Debug.Log("STUCK");
-                            }
-                            break;
-                        case CubeLayers.cubeEmpty:
-                            {
-                                Debug.Log("EMPTY");
-                                if(grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
-                                {
-                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
-                                    StartCoroutine(Move(soloMoveTarget));
-                                }
-                            }
-                            break;
-                        case CubeLayers.cubeMoveable:
-                            {
-                                Debug.Log("MOVE");
-                            }
-                            break;
-                    }
-
-
-                    //StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                }
-                else
-                {
-                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    outsideMoveTarget += _DirectionCustom.vectorLeft;
-                    StartCoroutine(MoveFromMap(outsideMoveTarget));
-                    Debug.LogError("Z AU BORD");
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                // -X Axis
-                if ((myIndex + grid.gridSize) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize) + 1)) != 1)
-                {
-                    indexTargetNode = myIndex + _DirectionCustom.right;
-                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
-                    {
-                        case CubeLayers.cubeFull:
-                            {
-                                Debug.Log("STUCK");
-                            }
-                            break;
-                        case CubeLayers.cubeEmpty:
-                            {
-                                Debug.Log("EMPTY");
-                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
-                                {
-                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
-                                    StartCoroutine(Move(soloMoveTarget));
-                                }
-                            }
-                            break;
-                        case CubeLayers.cubeMoveable:
-                            {
-                                Debug.Log("MOVE");
-                            }
-                            break;
+                        CheckingMove(myIndex, _DirectionCustom.left);
+                        StartCoroutine(_DataManager.instance.CheckIfCubeAreMoveChecking());
+                        /*else
+                        {
+                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                            outsideMoveTarget += _DirectionCustom.vectorLeft;
+                            StartCoroutine(MoveFromMap(outsideMoveTarget));
+                            Debug.LogError("Z AU BORD");
+                        }*/
                     }
                 }
-                else
+                else if (Input.GetKeyDown(KeyCode.S))
                 {
-                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    outsideMoveTarget += _DirectionCustom.vectorRight;
-                    StartCoroutine(MoveFromMap(outsideMoveTarget));
-                    Debug.LogError("S AU BORD");
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.Q))
-            {
-                // -Z Axis
-                if (myIndex - (grid.gridSize * grid.gridSize) >= 0)
-                {
-                    indexTargetNode = myIndex + _DirectionCustom.backward;
-                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    if (isMoving == false)
                     {
-                        case CubeLayers.cubeFull:
-                            {
-                                Debug.Log("STUCK");
-                            }
-                            break;
-                        case CubeLayers.cubeEmpty:
-                            {
-                                Debug.Log("EMPTY");
-                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
-                                {
-                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
-                                    StartCoroutine(Move(soloMoveTarget));
-                                }
-                            }
-                            break;
-                        case CubeLayers.cubeMoveable:
-                            {
-                                Debug.Log("MOVE");
-                            }
-                            break;
+                        // -X Axis
+                        CheckingMove(myIndex, _DirectionCustom.right);
+                        StartCoroutine(_DataManager.instance.CheckIfCubeAreMoveChecking());
+                        /*
+                        else
+                        {
+                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                            outsideMoveTarget += _DirectionCustom.vectorRight;
+                            StartCoroutine(MoveFromMap(outsideMoveTarget));
+                            Debug.LogError("S AU BORD");
+                        }*/
                     }
                 }
-                else
+                else if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    outsideMoveTarget += _DirectionCustom.vectorBack;
-                    StartCoroutine(MoveFromMap(outsideMoveTarget));
-                    Debug.LogError("Q AU BORD");
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                // Z Axis
-                Debug.Log("-1-");
-                if ((myIndex + (grid.gridSize * grid.gridSize)) / ((grid.gridSize * grid.gridSize * grid.gridSize)) != 1)
-                {
-                    Debug.Log("-2-");
-                    indexTargetNode = myIndex + _DirectionCustom.forward;
-                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    if (isMoving == false)
                     {
-                        case CubeLayers.cubeFull:
-                            {
-                                Debug.Log("STUCK");
-                            }
-                            break;
-                        case CubeLayers.cubeEmpty:
-                            {
-                                Debug.Log("EMPTY");
-                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
-                                {
-                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
-                                    StartCoroutine(Move(soloMoveTarget));
-                                }
-                            }
-                            break;
-                        case CubeLayers.cubeMoveable:
-                            {
-                                Debug.Log("MOVE");
-                            }
-                            break;
+                        // -Z Axis
+                        CheckingMove(myIndex, _DirectionCustom.backward);
+                        StartCoroutine(_DataManager.instance.CheckIfCubeAreMoveChecking());
+                        /*
+                        else
+                        {
+                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                            outsideMoveTarget += _DirectionCustom.vectorBack;
+                            StartCoroutine(MoveFromMap(outsideMoveTarget));
+                            Debug.LogError("Q AU BORD");
+                        }*/
                     }
                 }
-                else
+                else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    outsideMoveTarget += _DirectionCustom.vectorForward;
-                    StartCoroutine(MoveFromMap(outsideMoveTarget));
-                    Debug.LogError("D AU BORD");
+                    CheckingMove(myIndex, _DirectionCustom.forward);
+                    StartCoroutine(_DataManager.instance.CheckIfCubeAreMoveChecking());
+                    /*
+                         else
+                         {
+                             outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                             outsideMoveTarget += _DirectionCustom.vectorForward;
+                             StartCoroutine(MoveFromMap(outsideMoveTarget));
+                             Debug.LogError("D AU BORD");
+                         }*/
                 }
             }
             else if (Input.GetKeyDown(KeyCode.R))
             {
                 // Y Axis
-                if (myIndex % grid.gridSize != 0)
-                {
-                    indexTargetNode = myIndex + _DirectionCustom.up;
-                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
-                    {
-                        case CubeLayers.cubeFull:
-                            {
-                                Debug.Log("STUCK");
-                            }
-                            break;
-                        case CubeLayers.cubeEmpty:
-                            {
-                                Debug.Log("EMPTY");
-                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
-                                {
-                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
-                                    StartCoroutine(Move(soloMoveTarget));
-                                }
-                            }
-                            break;
-                        case CubeLayers.cubeMoveable:
-                            {
-                                Debug.Log("MOVE");
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    Debug.LogError("R AU BORD");
-                }
+                CheckingMove(myIndex, _DirectionCustom.up);
+                StartCoroutine(_DataManager.instance.CheckIfCubeAreMoveChecking());
+                /*
+                 else
+                 {
+                     Debug.LogError("R AU BORD");
+                 }*/
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
                 // -Y Axis
-                if ((myIndex - 1) % grid.gridSize != 0)
-                {
-                    indexTargetNode = myIndex + _DirectionCustom.down;
-                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
-                    {
-                        case CubeLayers.cubeFull:
-                            {
-                                Debug.Log("STUCK");
-                            }
-                            break;
-                        case CubeLayers.cubeEmpty:
-                            {
-                                Debug.Log("EMPTY");
-                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
-                                {
-                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
-                                    StartCoroutine(Move(soloMoveTarget));
-                                }
-                            }
-                            break;
-                        case CubeLayers.cubeMoveable:
-                            {
-                                Debug.Log("MOVE");
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    Debug.LogError("F AU BORD");
-                }
+                CheckingMove(myIndex, _DirectionCustom.down);
+                StartCoroutine(_DataManager.instance.CheckIfCubeAreMoveChecking());
+                /*
+                 else
+                 {
+                     Debug.LogError("F AU BORD");
+                 }*/
             }
+
+
         }
     }
 }
