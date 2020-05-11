@@ -1,5 +1,6 @@
 ﻿using Kubika.Game;
 using Sirenix.OdinInspector.Editor;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,11 +13,16 @@ public class CubeMoveEditor : OdinEditor
 
         CubeMove cubeScript = (CubeMove)target;
 
-        _MoveableCube moveableCube = cubeScript.gameObject.GetComponent<_MoveableCube>();
+        _VictoryCube timerCube = cubeScript.gameObject.GetComponent<_VictoryCube>();
 
-        if(moveableCube != null)
+        if(timerCube != null)
         {
-
+            HideAllValues();
         }
+    }
+
+    private void HideAllValues()
+    {
+        throw new NotImplementedException();
     }
 }

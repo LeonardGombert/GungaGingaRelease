@@ -23,7 +23,6 @@ namespace Kubika.Game
 
             isStatic = true;
 
-            forward = backward = left = right = up = down = true;
             SetScanDirections();
         }
 
@@ -81,7 +80,7 @@ namespace Kubika.Game
 
             }
 
-            else Destroy(gameObject);
+            else DisableCube();
         }
 
     }

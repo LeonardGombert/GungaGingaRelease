@@ -9,7 +9,7 @@ namespace Kubika.Game
     {
         //FALLING 
         int nbrCubeMouvableBelow;
-        int nbrCubeEmptyBelow;
+        public int nbrCubeEmptyBelow;
         int nbrCubeBelow;
         int indexTargetNode;
         public bool thereIsEmpty = false;
