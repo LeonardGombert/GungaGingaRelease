@@ -23,6 +23,8 @@ namespace Kubika.Game
 
             isStatic = true;
 
+            forward = backward = left = right = up = down = true;
+
             SetScanDirections();
         }
 
@@ -57,7 +59,7 @@ namespace Kubika.Game
                 }
             }
 
-            if(timerValue >= 0)
+            if (timerValue >= 0)
             {
                 // forget the cubes you've already registered (in case only 1 moves)
                 touchingCubeIndex.Clear();

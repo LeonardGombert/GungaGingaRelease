@@ -70,6 +70,6 @@ namespace Kubika.Game
             }
 
             else return false;
-        }
+        }        
     }
 }
