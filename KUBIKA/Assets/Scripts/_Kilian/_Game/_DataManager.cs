@@ -77,9 +77,7 @@ namespace Kubika.Game
         {
             Debug.LogError("RotSte " + rotationState);
 
-            /////// DEMON SCRIPT TODO DEGEULASSE
-
-            _Grid.instance.ResetIndexGrid();
+            /////// DEMON SCRIPT TODO DEGEULASS
 
             switch (rotationState)
             {
@@ -87,7 +85,8 @@ namespace Kubika.Game
                     {
                         foreach (CubeBase cBase in baseCube)
                         {
-
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
@@ -102,6 +101,8 @@ namespace Kubika.Game
                         foreach (CubeBase cBase in baseCube)
                         {
 
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
@@ -121,6 +122,8 @@ namespace Kubika.Game
 
                         foreach (CubeBase cBase in baseCube)
                         {
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;

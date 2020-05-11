@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
@@ -11,10 +12,12 @@ namespace Kubika.Game
         int nbrCubeEmptyBelow;
         int nbrCubeBelow;
         int indexTargetNode;
-        bool thereIsEmpty = false;
+        public bool thereIsEmpty = false;
         Vector3 nextPosition;
 
         // BOOL ACTION
+        [Space]
+        [Header("BOOL ACTION")]
         public bool isChecking;
         public bool isFalling;
         public bool isMoving;
@@ -41,17 +44,23 @@ namespace Kubika.Game
         public int yCoordLocal;
         public int zCoordLocal;
 
+        // MOVE
+        [Space]
+        [Header("MOVE")]
+        public Node soloMoveTarget;
+        public Node soloPileTarget;
+        public Vector3 outsideMoveTarget;
+
         // Start is called before the first frame update
         new void Start()
         {
-            base.Start();
             _DataManager.instance.EndChecking.AddListener(FallMoveFunction);
+            base.Start();
         }
 
         // Update is called once per frame
         new void Update()
         {
-            base.Update();
             //CheckIfFalling();//grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
 
             if (Input.GetKeyDown(KeyCode.W))
@@ -59,32 +68,19 @@ namespace Kubika.Game
                 // Put Actual Node as Moveable
                 myCubeLayer = CubeLayers.cubeMoveable;
                 grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
+                Debug.Log("W PRESSED");
             }
 
             TEMPORARY______SHIT();
+            base.Update();
         }
+
+
+        #region FALL
+
 
         public void CheckIfFalling()
         {
-            /*
-            if (grid.kuboGrid[myIndex +_DirectionCustom.down -1].cubeLayers == CubeLayers.cubeEmpty)
-            {
-                //"garbage collection"
-                //-1 because you're looking at the curretn NODE
-                grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
-                grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-
-                //falling     
-
-                //set the new index
-                myIndex = grid.kuboGrid[myIndex +_DirectionCustom.down - 1].nodeIndex;
-                
-                //move to updated index
-                transform.position = grid.kuboGrid[myIndex + _DirectionCustom.down].worldPosition;
-                //set updated index to cubeMoveable
-                grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-            }*/
-
             isChecking = true;
             thereIsEmpty = false;
             nbrCubeMouvableBelow = 0;
@@ -127,8 +123,6 @@ namespace Kubika.Game
             }
         }
 
-        #region MOVE
-
         public void FallMoveFunction()
         {
             Debug.Log("FallMoveFunction");
@@ -140,6 +134,8 @@ namespace Kubika.Game
 
         public IEnumerator FallMove(Vector3 fallPosition, int nbrCub, int nbrCubeBelowParam)
         {
+            Debug.Log("FallMove");
+
             isFalling = true;
             grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
             grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
@@ -173,7 +169,40 @@ namespace Kubika.Game
             isFalling = false;
         }
 
-        public IEnumerator Move(Vector3 nextPosition)
+
+        public IEnumerator FallFromMap(Vector3 fallFromMapPosition, int nbrCaseBelow)
+        {
+            isFalling = true;
+
+
+            basePos = transform.position;
+            currentTime = 0;
+
+            while (currentTime <= 1)
+            {
+                currentTime += Time.deltaTime / nbrCaseBelow;
+                currentTime = (currentTime / moveTime);
+
+                currentPos = Vector3.Lerp(basePos, fallFromMapPosition, currentTime);
+
+                transform.position = currentPos;
+                yield return transform.position;
+            }
+
+
+            xCoordLocal = Mathf.RoundToInt(fallFromMapPosition.x / grid.offset);
+            yCoordLocal = Mathf.RoundToInt(fallFromMapPosition.y / grid.offset);
+            zCoordLocal = Mathf.RoundToInt(fallFromMapPosition.z / grid.offset);
+
+
+            isFalling = false;
+        }
+
+        #endregion
+
+        #region MOVE
+
+        public IEnumerator Move(Node nextNode)
         {
             isMoving = true;
 
@@ -188,20 +217,20 @@ namespace Kubika.Game
                 currentTime += Time.deltaTime;
                 currentTime = (currentTime / moveTime);
 
-                currentPos = Vector3.Lerp(basePos, nextPosition, currentTime);
+                currentPos = Vector3.Lerp(basePos, nextNode.worldPosition, currentTime);
 
                 transform.position = currentPos;
                 yield return transform.position;
             }
 
-            myIndex = indexTargetNode;
-            grid.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
+            myIndex = nextNode.nodeIndex;
+            nextNode.cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
-            grid.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+            nextNode.cubeLayers = CubeLayers.cubeMoveable;
 
-            xCoordLocal = grid.kuboGrid[indexTargetNode - 1].xCoord;
-            yCoordLocal = grid.kuboGrid[indexTargetNode - 1].yCoord;
-            zCoordLocal = grid.kuboGrid[indexTargetNode - 1].zCoord;
+            xCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].xCoord;
+            yCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].yCoord;
+            zCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].zCoord;
 
             isMoving = false;
 
@@ -247,33 +276,16 @@ namespace Kubika.Game
 
         }
 
-        public IEnumerator FallFromMap(Vector3 fallFromMapPosition, int nbrCaseBelow)
+        /*public bool CheckSoloMove(int index)
         {
-            isFalling = true;
-
-
-            basePos = transform.position;
-            currentTime = 0;
-
-            while (currentTime <= 1)
-            {
-                currentTime += Time.deltaTime / nbrCaseBelow;
-                currentTime = (currentTime / moveTime);
-
-                currentPos = Vector3.Lerp(basePos, fallFromMapPosition, currentTime);
-
-                transform.position = currentPos;
-                yield return transform.position;
-            }
-
-
-            xCoordLocal = Mathf.RoundToInt(fallFromMapPosition.x / grid.offset);
-            yCoordLocal = Mathf.RoundToInt(fallFromMapPosition.y / grid.offset);
-            zCoordLocal = Mathf.RoundToInt(fallFromMapPosition.z / grid.offset);
-
-
-            isFalling = false;
+            if(grid.kuboGrid[indexTargetNode - 1].cubeLayers ==)
         }
+
+        public bool CheckPileMove()
+        {
+
+        }*/
+
 
         #endregion
 
@@ -377,22 +389,50 @@ namespace Kubika.Game
         }
         */
         #endregion
+
         void TEMPORARY______SHIT()
         {
             // X Axis
+            Debug.Log("SHIT");
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (((myIndex - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
                 {
                     indexTargetNode = myIndex + _DirectionCustom.left;
-                    StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                    myIndex = myIndex - grid.gridSize;
+
+                    switch(grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    {
+                        case CubeLayers.cubeFull:
+                            {
+                                Debug.Log("STUCK");
+                            }
+                            break;
+                        case CubeLayers.cubeEmpty:
+                            {
+                                Debug.Log("EMPTY");
+                                if(grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
+                                {
+                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
+                                    StartCoroutine(Move(soloMoveTarget));
+                                }
+                            }
+                            break;
+                        case CubeLayers.cubeMoveable:
+                            {
+                                Debug.Log("MOVE");
+                            }
+                            break;
+                    }
+
+
+                    //StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
                 }
                 else
                 {
-                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    degeulasseTODO += _DirectionCustom.vectorLeft;
-                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    outsideMoveTarget += _DirectionCustom.vectorLeft;
+                    StartCoroutine(MoveFromMap(outsideMoveTarget));
                     Debug.LogError("Z AU BORD");
                 }
             }
@@ -402,14 +442,35 @@ namespace Kubika.Game
                 if ((myIndex + grid.gridSize) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize) + 1)) != 1)
                 {
                     indexTargetNode = myIndex + _DirectionCustom.right;
-                    StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                    myIndex = myIndex + grid.gridSize;
+                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    {
+                        case CubeLayers.cubeFull:
+                            {
+                                Debug.Log("STUCK");
+                            }
+                            break;
+                        case CubeLayers.cubeEmpty:
+                            {
+                                Debug.Log("EMPTY");
+                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
+                                {
+                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
+                                    StartCoroutine(Move(soloMoveTarget));
+                                }
+                            }
+                            break;
+                        case CubeLayers.cubeMoveable:
+                            {
+                                Debug.Log("MOVE");
+                            }
+                            break;
+                    }
                 }
                 else
                 {
-                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    degeulasseTODO += _DirectionCustom.vectorRight;
-                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    outsideMoveTarget += _DirectionCustom.vectorRight;
+                    StartCoroutine(MoveFromMap(outsideMoveTarget));
                     Debug.LogError("S AU BORD");
                 }
             }
@@ -419,31 +480,75 @@ namespace Kubika.Game
                 if (myIndex - (grid.gridSize * grid.gridSize) >= 0)
                 {
                     indexTargetNode = myIndex + _DirectionCustom.backward;
-                    StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                    myIndex = myIndex - (grid.gridSize * grid.gridSize);
+                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    {
+                        case CubeLayers.cubeFull:
+                            {
+                                Debug.Log("STUCK");
+                            }
+                            break;
+                        case CubeLayers.cubeEmpty:
+                            {
+                                Debug.Log("EMPTY");
+                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
+                                {
+                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
+                                    StartCoroutine(Move(soloMoveTarget));
+                                }
+                            }
+                            break;
+                        case CubeLayers.cubeMoveable:
+                            {
+                                Debug.Log("MOVE");
+                            }
+                            break;
+                    }
                 }
                 else
                 {
-                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    degeulasseTODO += _DirectionCustom.vectorBack;
-                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    outsideMoveTarget += _DirectionCustom.vectorBack;
+                    StartCoroutine(MoveFromMap(outsideMoveTarget));
                     Debug.LogError("Q AU BORD");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 // Z Axis
+                Debug.Log("-1-");
                 if ((myIndex + (grid.gridSize * grid.gridSize)) / ((grid.gridSize * grid.gridSize * grid.gridSize)) != 1)
                 {
+                    Debug.Log("-2-");
                     indexTargetNode = myIndex + _DirectionCustom.forward;
-                    StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                    myIndex = myIndex + (grid.gridSize * grid.gridSize);
+                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    {
+                        case CubeLayers.cubeFull:
+                            {
+                                Debug.Log("STUCK");
+                            }
+                            break;
+                        case CubeLayers.cubeEmpty:
+                            {
+                                Debug.Log("EMPTY");
+                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
+                                {
+                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
+                                    StartCoroutine(Move(soloMoveTarget));
+                                }
+                            }
+                            break;
+                        case CubeLayers.cubeMoveable:
+                            {
+                                Debug.Log("MOVE");
+                            }
+                            break;
+                    }
                 }
                 else
                 {
-                    Vector3 degeulasseTODO = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                    degeulasseTODO += _DirectionCustom.vectorForward;
-                    StartCoroutine(MoveFromMap(degeulasseTODO));
+                    outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                    outsideMoveTarget += _DirectionCustom.vectorForward;
+                    StartCoroutine(MoveFromMap(outsideMoveTarget));
                     Debug.LogError("D AU BORD");
                 }
             }
@@ -453,8 +558,29 @@ namespace Kubika.Game
                 if (myIndex % grid.gridSize != 0)
                 {
                     indexTargetNode = myIndex + _DirectionCustom.up;
-                    StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                    myIndex = myIndex + 1;
+                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    {
+                        case CubeLayers.cubeFull:
+                            {
+                                Debug.Log("STUCK");
+                            }
+                            break;
+                        case CubeLayers.cubeEmpty:
+                            {
+                                Debug.Log("EMPTY");
+                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
+                                {
+                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
+                                    StartCoroutine(Move(soloMoveTarget));
+                                }
+                            }
+                            break;
+                        case CubeLayers.cubeMoveable:
+                            {
+                                Debug.Log("MOVE");
+                            }
+                            break;
+                    }
                 }
                 else
                 {
@@ -467,8 +593,29 @@ namespace Kubika.Game
                 if ((myIndex - 1) % grid.gridSize != 0)
                 {
                     indexTargetNode = myIndex + _DirectionCustom.down;
-                    StartCoroutine(Move(grid.kuboGrid[indexTargetNode - 1].worldPosition));
-                    myIndex = myIndex - 1;
+                    switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                    {
+                        case CubeLayers.cubeFull:
+                            {
+                                Debug.Log("STUCK");
+                            }
+                            break;
+                        case CubeLayers.cubeEmpty:
+                            {
+                                Debug.Log("EMPTY");
+                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers != CubeLayers.cubeEmpty)
+                                {
+                                    soloMoveTarget = grid.kuboGrid[indexTargetNode - 1];
+                                    StartCoroutine(Move(soloMoveTarget));
+                                }
+                            }
+                            break;
+                        case CubeLayers.cubeMoveable:
+                            {
+                                Debug.Log("MOVE");
+                            }
+                            break;
+                    }
                 }
                 else
                 {
