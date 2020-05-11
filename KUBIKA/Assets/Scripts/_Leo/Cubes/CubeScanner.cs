@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Kubika.Game
 {
-    public class CubeScanner : CubeMove
+    public class CubeScanner : CubeBase
     {
         public int[] indexesToCheck = new int[6];
         public bool forward, backward, left, right, up, down;
@@ -19,22 +19,22 @@ namespace Kubika.Game
         // Set "directions" to check in
         public void SetScanDirections()
         {
-            if (up) indexesToCheck[0] = 1; //+ 1
+            if (up) indexesToCheck[0] = _DirectionCustom.up; //+ 1
             else indexesToCheck[0] = 0;
 
-            if (down) indexesToCheck[1] = -1; //- 1
+            if (down) indexesToCheck[1] = _DirectionCustom.down; //- 1
             else indexesToCheck[1] = 0;
 
-            if (right) indexesToCheck[2] = grid.gridSize; //+ the grid size
+            if (right) indexesToCheck[2] = _DirectionCustom.right; //+ the grid size
             else indexesToCheck[2] = 0;
 
-            if (left) indexesToCheck[3] = -grid.gridSize; //- the grid size
+            if (left) indexesToCheck[3] = _DirectionCustom.left; //- the grid size
             else indexesToCheck[3] = 0;
 
-            if (forward) indexesToCheck[4] = grid.gridSize * grid.gridSize; //+ the grid size squared
+            if (forward) indexesToCheck[4] = _DirectionCustom.forward; //+ the grid size squared
             else indexesToCheck[4] = 0;
 
-            if (backward) indexesToCheck[5] = -(grid.gridSize * grid.gridSize); //- the grid size squared
+            if (backward) indexesToCheck[5] = _DirectionCustom.backward;//- the grid size squared
             else indexesToCheck[5] = 0;
         }
 

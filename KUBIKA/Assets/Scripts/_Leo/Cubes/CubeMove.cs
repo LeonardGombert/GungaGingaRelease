@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Kubika.Game
 {
-    public class CubeMove : CubeBase
+    public class CubeMove : CubeScanner
     {
         //FALLING 
         int nbrCubeMouvableBelow;

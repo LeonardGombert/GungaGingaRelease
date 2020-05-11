@@ -250,6 +250,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   actualRotation: 0
+  indexBankScriptable: {fileID: 0}
+  baseCube: []
 --- !u!4 &368073838
 Transform:
   m_ObjectHideFlags: 0
@@ -300,6 +302,7 @@ MonoBehaviour:
   startingPos: 0
   offset: 1.05
   kuboGrid: []
+  placedObjects: []
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
   levelSetup: 0
@@ -326,7 +329,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1294025900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe0c401d0157a3b4e9a3fe7d129cfd92, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bcf834ac9829e045ab514492aef34ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentCube: 0

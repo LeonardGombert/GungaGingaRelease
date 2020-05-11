@@ -6,12 +6,12 @@
         new void Start()
         {
             myCubeType = CubeTypes.TimerCube;
-            myCubeLayer = CubeLayers.cubeMoveable;
+            myCubeLayer = CubeLayers.cubeFull;
 
             //call base.start AFTER assigning the cube's layers
             base.Start();
 
-            isStatic = false;
+            isStatic = true;
         }
 
         // Update is called once per frame
