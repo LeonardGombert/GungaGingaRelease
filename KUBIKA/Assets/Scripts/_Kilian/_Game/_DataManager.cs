@@ -13,10 +13,12 @@ namespace Kubika.Game
         public static _DataManager instance { get { return _instance; } }
 
         // MOVEABLE CUBE
-        public _MoveableCube[] moveCube;
+        public CubeMove[] moveCube;
 
         //UNITY EVENT
         public UnityEvent EndChecking;
+        public UnityEvent EndMoveChecking;
+        public UnityEvent EndMoving;
         public UnityEvent EndFalling;
 
         // _DIRECTION_CUSTOM
@@ -35,9 +37,11 @@ namespace Kubika.Game
         }
 
         // Start is called before the first frame update
-        void Start()
-        {
 
+        public void GameSet()
+        {
+            moveCube = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
+            baseCube = FindObjectsOfType<CubeBase>();
         }
 
         // Update is called once per frame
@@ -45,8 +49,7 @@ namespace Kubika.Game
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                moveCube = FindObjectsOfType<_MoveableCube>(); // TODO : DEGEULASSE
-                baseCube = FindObjectsOfType<CubeBase>();
+                GameSet();
             }
 
             if (Input.GetKeyDown(KeyCode.X))
@@ -63,7 +66,7 @@ namespace Kubika.Game
         #region MAKE FALL
         public void MakeFall()
         {
-            foreach (_MoveableCube cubes in moveCube)
+            foreach (CubeMove cubes in moveCube)
             {
                 cubes.CheckIfFalling();
             }
@@ -151,15 +154,25 @@ namespace Kubika.Game
         {
             while (EveryCubeAreChecking(moveCube) == false)
             {
-                Debug.LogError("CheckError");
                 yield return null;
             }
 
-            Debug.LogError("GOOD");
             EndChecking.Invoke();
         }
 
-        public bool EveryCubeAreChecking(_MoveableCube[] allMouvable)
+        public IEnumerator CheckIfCubeAreMoveChecking()
+        {
+            while (EveryCubeAreChecking(moveCube) == false)
+            {
+                Debug.Log("DATA_CHECK");
+                yield return null;
+            }
+
+            EndMoveChecking.Invoke();
+            StartCoroutine(CheckIfCubeAreStopped());
+        }
+
+        public bool EveryCubeAreChecking(CubeMove[] allMouvable)
         {
 
             for (int i = 0; i < allMouvable.Length; ++i)
@@ -175,6 +188,31 @@ namespace Kubika.Game
             return false;
         }
 
+        public IEnumerator CheckIfCubeAreStopped()
+        {
+            while (EveryCubeAreChecking(moveCube) == false)
+            {
+                yield return null;
+            }
+
+            EndMoving.Invoke();
+            EndMoveChecking.RemoveAllListeners();
+        }
+
+        public bool EveryCubeAreStopping(CubeMove[] allMouvable)
+        {
+
+            for (int i = 0; i < allMouvable.Length; ++i)
+            {
+                if (allMouvable[i].isMoving == false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public IEnumerator CheckIfCubeAreFalling()
         {
             while (EveryCubeAreChecking(moveCube) == false)
@@ -184,7 +222,7 @@ namespace Kubika.Game
             EndFalling.Invoke();
         }
 
-        public bool EveryCubeAreFalling(_MoveableCube[] allMouvable)
+        public bool EveryCubeAreFalling(CubeMove[] allMouvable)
         {
 
             for (int i = 0; i < allMouvable.Length; ++i)

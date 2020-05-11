@@ -484,6 +484,12 @@ MonoBehaviour:
   EndChecking:
     m_PersistentCalls:
       m_Calls: []
+  EndMoveChecking:
+    m_PersistentCalls:
+      m_Calls: []
+  EndMoving:
+    m_PersistentCalls:
+      m_Calls: []
   EndFalling:
     m_PersistentCalls:
       m_Calls: []
@@ -566,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcf834ac9829e045ab514492aef34ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCube: 0
+  currentCube: 1
 --- !u!114 &2017944100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,7 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d20617c838cea14096f712e52c4c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 4
+  gridSize: 12
   gridMargin: 5
   centerPosition: 0
   startingPos: 0
@@ -588,7 +594,7 @@ MonoBehaviour:
   placedObjects: []
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
-  levelSetup: 1
+  levelSetup: 0
 --- !u!4 &2017944101
 Transform:
   m_ObjectHideFlags: 0
