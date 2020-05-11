@@ -56,6 +56,9 @@ namespace Kubika.Game
         public bool TEST_DEBUG_PLAYER = false;
         public CubeMove pushNextNodeCubeMove;
 
+        //PILE
+        public CubeMove pileNodeCubeMove;
+
         // Start is called before the first frame update
         public override void Start()
         {
@@ -209,6 +212,7 @@ namespace Kubika.Game
 
         public IEnumerator Move(Node nextNode)
         {
+            Debug.Log("IS MOVING " + nextNode.nodeIndex);
             isMoving = true;
 
             grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
@@ -291,9 +295,14 @@ namespace Kubika.Game
             StartCoroutine(Move(soloMoveTarget));
         }
 
+        public void MoveToTargetPile()
+        {
+            Debug.Log("MOVING-PILE");
+            StartCoroutine(Move(soloPileTarget));
+        }
+
         public void ResetReadyToMove()
         {
-            Debug.Log("ResetMove");
             isReadyToMove = false;
         }
 
@@ -301,9 +310,15 @@ namespace Kubika.Game
         {
             Debug.Log("CheckingMove");
             isChecking = true;
-            isReadyToMove = false;
             _DataManager.instance.EndMoveChecking.AddListener(MoveToTarget);
             CheckSoloMove(index, nodeDirection);
+        }
+        void CheckingPile(int index, int nodeDirection)
+        {
+            Debug.Log("CheckingPike");
+            isChecking = true;
+            _DataManager.instance.EndMoveChecking.AddListener(MoveToTargetPile);
+            CheckPileMove(index, nodeDirection);
         }
 
         bool MatrixLimitCalcul(int index, int nodeDirection)
@@ -375,6 +390,11 @@ namespace Kubika.Game
                             {
                                 isReadyToMove = true;
                                 soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                                if(grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable)
+                                {
+                                    pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<CubeMove>();
+                                    pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
+                                }
                                 Debug.Log("EMPTY-1 + soloMoveTarget " + soloMoveTarget.nodeIndex + " || myIndex " + (myIndex - 1));
                             }
                             else
@@ -407,10 +427,48 @@ namespace Kubika.Game
 
         }
 
-        /* public bool CheckPileMove()
+         public void CheckPileMove(int index, int nodeDirection)
          {
+            if (MatrixLimitCalcul(index, nodeDirection))
+            {
+                indexTargetNode = index + nodeDirection;
+                Debug.Log("---indexTargetNode--- " + indexTargetNode + " || " + index + " | " + nodeDirection);
 
-         }*/
+                switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                {
+                    case CubeLayers.cubeFull:
+                        {
+                            Debug.Log("STUCK " + (indexTargetNode - 1));
+                            isChecking = false;
+                        }
+                        break;
+                    case CubeLayers.cubeEmpty:
+                        {
+                            Debug.Log("EMPTY " + (indexTargetNode - 1));
+
+                            isReadyToMove = true;
+                            soloPileTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                            Debug.Log("EMPTY-1 + soloPileTarget " + soloPileTarget.nodeIndex + " || myIndex " + (myIndex - 1));
+
+                            if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable)
+                            {
+                                pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<CubeMove>();
+                                pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
+                            }
+
+                            isChecking = false;
+
+                        }
+                        break;
+                    case CubeLayers.cubeMoveable:
+                        {
+                            CheckPileMove(indexTargetNode, nodeDirection);
+                        }
+                        break;
+                }
+
+            }
+        }
 
 
         #endregion
@@ -518,7 +576,7 @@ namespace Kubika.Game
 
         void TEMPORARY______SHIT()
         {
-            if (TEST_DEBUG_PLAYER == true)
+            if (TEST_DEBUG_PLAYER == true && isMoving == false)
             {
                 // X Axis
                 if (Input.GetKeyDown(KeyCode.Z))

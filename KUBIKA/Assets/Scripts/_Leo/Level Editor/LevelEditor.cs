@@ -115,7 +115,7 @@ namespace Kubika.CustomLevelEditor
         private void PlaceCube(RaycastHit hit)
         {
             //get the index of the cube you just hit
-            hitIndex = hit.collider.gameObject.GetComponent<_StaticCube>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);

@@ -42,6 +42,7 @@ namespace Kubika.Game
         {
             moveCube = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
             baseCube = FindObjectsOfType<CubeBase>();
+            EndMoving.AddListener(MakeFall);
         }
 
         // Update is called once per frame
@@ -190,7 +191,7 @@ namespace Kubika.Game
 
         public IEnumerator CheckIfCubeAreStopped()
         {
-            while (EveryCubeAreChecking(moveCube) == false)
+            while (EveryCubeAreStopping(moveCube) == false)
             {
                 yield return null;
             }
