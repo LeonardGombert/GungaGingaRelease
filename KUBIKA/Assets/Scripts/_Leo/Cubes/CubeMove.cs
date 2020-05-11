@@ -61,6 +61,7 @@ namespace Kubika.Game
         {
             base.Start();
             _DataManager.instance.EndChecking.AddListener(FallMoveFunction);
+            _DataManager.instance.EndMoving.AddListener(ResetReadyToMove);
         }
 
         // Update is called once per frame
@@ -288,6 +289,12 @@ namespace Kubika.Game
         {
             Debug.Log("MOVING");
             StartCoroutine(Move(soloMoveTarget));
+        }
+
+        public void ResetReadyToMove()
+        {
+            Debug.Log("ResetMove");
+            isReadyToMove = false;
         }
 
         void CheckingMove(int index, int nodeDirection)
