@@ -11,17 +11,17 @@ namespace Kubika.Game
         public bool forward, backward, left, right, up, down;
 
         // Start is called before the first frame update
-        new void Start()
+        public override void Start()
         {
             base.Start();
         }
 
-        private void OnEnable()
+        public override void Update()
         {
-            SetScanDirections();
+            base.Update();
         }
 
-        // Set "directions" to check in
+
         public void SetScanDirections()
         {
             if (up) indexesToCheck[0] = _DirectionCustom.up; //+ 1
@@ -61,9 +61,9 @@ namespace Kubika.Game
                         && grid.kuboGrid[myIndex - 1 + index].cubeLayers == checkForLayer) return true;
 
                     //check for specific type of cube
-                    else if (checkForType != CubeTypes.None && 
+                    else if (checkForType != CubeTypes.None &&
                         grid.kuboGrid[myIndex - 1 + index].cubeType == checkForType) return true;
-                    
+
                     else return false;
                 }
                 else return false;

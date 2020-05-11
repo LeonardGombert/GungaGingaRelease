@@ -52,27 +52,26 @@ namespace Kubika.Game
         public Vector3 outsideMoveTarget;
 
         // Start is called before the first frame update
-        new void Start()
+        public override void Start()
         {
-            _DataManager.instance.EndChecking.AddListener(FallMoveFunction);
             base.Start();
+            _DataManager.instance.EndChecking.AddListener(FallMoveFunction);
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
             //CheckIfFalling();//grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+            base.Update();
 
             if (Input.GetKeyDown(KeyCode.W))
             {
                 // Put Actual Node as Moveable
                 myCubeLayer = CubeLayers.cubeMoveable;
                 grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
-                Debug.Log("W PRESSED");
             }
 
             TEMPORARY______SHIT();
-            base.Update();
         }
 
 
@@ -393,8 +392,6 @@ namespace Kubika.Game
         void TEMPORARY______SHIT()
         {
             // X Axis
-            Debug.Log("SHIT");
-
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (((myIndex - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (myIndex / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
