@@ -18,13 +18,15 @@ namespace Kubika.CustomLevelEditor
         _Grid grid;
 
         [SerializeField] CubeTypes currentCube;
-        List<RaycastHit> hits = new List<RaycastHit>();
+        List<RaycastHit> placeHits = new List<RaycastHit>();
+        List<RaycastHit> deleteHits = new List<RaycastHit>();
 
         public static bool isLevelEditor = true;
         public static bool isDevScene = false;
 
         //PLACING CUBES
         private bool placeMultiple = true;
+        Vector3 userInputPosition;
 
         private void Awake()
         {
@@ -52,41 +54,62 @@ namespace Kubika.CustomLevelEditor
         #region PLACE AND REMOVE CUBES
         private void PlaceAndDelete()
         {
+
             //Drag and Release placement
             if (Input.GetKeyDown(KeyCode.LeftShift) || placeMultiple)
             {
                 //add the cubes you hit to a list of RaycastHits
                 if (Input.GetMouseButton(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hit)) 
-                        if (!hits.Contains(hit)) hits.Add(hit);
+                    CheckUserPlatform();
+
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) 
+                        if (!placeHits.Contains(hit)) placeHits.Add(hit);
                 }
 
                 //when the user releases the mouse, place all the cubes at once
                 if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    foreach (RaycastHit hit in hits) PlaceCube(hit);
-                    hits.Clear();
+                    foreach (RaycastHit hit in placeHits) PlaceCube(hit);
+                    placeHits.Clear();
                 }
 
                 //add the cubes you hit to a list of RaycastHits
                 if (Input.GetMouseButton(1))
                 {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                        if (!hits.Contains(hit)) hits.Add(hit);
+                    CheckUserPlatform();
 
-                    foreach (RaycastHit hit in hits) DeleteCube(hit);
-                    hits.Clear();
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                        if (!deleteHits.Contains(hit)) deleteHits.Add(hit);
+
+                    foreach (RaycastHit hit in deleteHits) DeleteCube(hit);
+                    deleteHits.Clear();
                 }
             }
 
             //single click and place
-            else if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) 
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hit)) PlaceCube(hit);
+            else if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                CheckUserPlatform();
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) PlaceCube(hit);
+            }
 
             //single click and delete
-            if (Input.GetMouseButtonDown(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Began) 
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(1).position), out hit)) DeleteCube(hit);
+            if (Input.GetMouseButtonDown(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Began)
+            {
+                CheckUserPlatform();
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) DeleteCube(hit);
+            }
+        }
+
+        Vector3 CheckUserPlatform()
+        {
+            if (Input.GetMouseButton(0)) userInputPosition = Input.mousePosition;
+            else if (Input.GetMouseButton(1)) userInputPosition = Input.mousePosition;
+            if (Input.touchCount > 1) userInputPosition = Input.GetTouch(1).position;
+            else if (Input.touchCount > 0) userInputPosition = Input.GetTouch(0).position;
+
+            return userInputPosition;
         }
 
         private void PlaceCube(RaycastHit hit)
