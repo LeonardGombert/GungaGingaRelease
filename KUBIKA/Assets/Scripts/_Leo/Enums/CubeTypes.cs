@@ -1,5 +1,6 @@
 ﻿public enum CubeTypes
 {
+    None = 0,
     StaticCube,
     MoveableCube,
     VictoryCube,
@@ -11,5 +12,4 @@
     SwitchCube,
     MirrorCube,
     ChaosBall,
-    None
 }

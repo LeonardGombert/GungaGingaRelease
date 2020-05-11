@@ -305,7 +305,7 @@ MonoBehaviour:
   placedObjects: []
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
-  levelSetup: 0
+  levelSetup: 1
 --- !u!4 &1294025902
 Transform:
   m_ObjectHideFlags: 0

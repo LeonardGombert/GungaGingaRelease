@@ -13,6 +13,10 @@ namespace Kubika.Game
         new void Start()
         {
             base.Start();
+        }
+
+        private void OnEnable()
+        {
             SetScanDirections();
         }
 
@@ -39,11 +43,28 @@ namespace Kubika.Game
         }
 
         // Checks if the targeted index has a specific cube OfType on it
-        public bool ProximityChecker(int index, CubeTypes checkFor)
+        public bool ProximityChecker(int index, CubeTypes checkForType = CubeTypes.None, CubeLayers checkForLayer = CubeLayers.None)
         {
             if (grid.kuboGrid[myIndex - 1 + index] != null)
             {
-                if (grid.kuboGrid[myIndex - 1 + index].cubeOnPosition != null && grid.kuboGrid[myIndex - 1 + index].cubeType == checkFor) return true;
+                if (grid.kuboGrid[myIndex - 1 + index].cubeOnPosition != null)
+                {
+                    //check for a cube type on a cube layer
+                    if (checkForLayer != CubeLayers.None && checkForType != CubeTypes.None)
+                        if (grid.kuboGrid[myIndex - 1 + index].cubeType == checkForType
+                            && grid.kuboGrid[myIndex - 1 + index].cubeLayers == checkForLayer) return true;
+                        else return false;
+
+                    //check for cubes on a layer
+                    else if (checkForLayer != CubeLayers.None
+                        && grid.kuboGrid[myIndex - 1 + index].cubeLayers == checkForLayer) return true;
+
+                    //check for specific type of cube
+                    else if (checkForType != CubeTypes.None && 
+                        grid.kuboGrid[myIndex - 1 + index].cubeType == checkForType) return true;
+                    
+                    else return false;
+                }
                 else return false;
             }
 

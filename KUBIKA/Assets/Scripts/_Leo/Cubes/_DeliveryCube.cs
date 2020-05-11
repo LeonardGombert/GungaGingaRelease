@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kubika.Game
 {
@@ -20,6 +21,11 @@ namespace Kubika.Game
 
         // Update is called once per frame
         new void Update()
+        {
+            CheckForVictory();
+        }
+
+        private void CheckForVictory()
         {
             //checks in every "direction"
             foreach (int index in indexesToCheck)

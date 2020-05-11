@@ -1,4 +1,6 @@
-﻿namespace Kubika.Game
+﻿using UnityEngine;
+
+namespace Kubika.Game
 {
     public class _TimerCube : CubeScanner
     {
@@ -17,7 +19,17 @@
         // Update is called once per frame
         new void Update()
         {
+            CheckForCube();
+        }
 
+        private void CheckForCube()
+        {
+            //checks in every "direction"
+            foreach (int index in indexesToCheck)
+            {
+                /*touchingVictory = ProximityChecker(index, CubeTypes.None, CubeLayers.cubeMoveable);
+                if (touchingVictory) Debug.Log("Touching a Cube");*/
+            }
         }
     }
 }
