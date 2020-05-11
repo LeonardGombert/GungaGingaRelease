@@ -6,17 +6,17 @@ namespace Kubika.Game
 {
     public class _MoveableCube : CubeMove
     {
-        new void Start()
+        public override void Start()
         {
+            base.Start();
             myCubeLayer = CubeLayers.cubeMoveable;
             myCubeType = CubeTypes.MoveableCube;
 
             isStatic = false;
             //call base.start AFTER assigning the cube's layers
-            base.Start();
         }
 
-        new void Update()
+        public override void Update()
         {
             base.Update();
         }

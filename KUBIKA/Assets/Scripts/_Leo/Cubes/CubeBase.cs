@@ -17,17 +17,16 @@ namespace Kubika.Game
         public _Grid grid;
 
         // Start is called before the first frame update
-        public void Start()
+        public virtual void Start()
         {
             grid = _Grid.instance;
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            Debug.Log("stilll here");
-            
+
         }
 
         public GameObject DestroyCubeProcedure(GameObject cube)
