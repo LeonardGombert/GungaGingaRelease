@@ -26,7 +26,19 @@ namespace Kubika.Game
 
         public void Update()
         {
+            Debug.Log("stilll here");
             
+        }
+
+        public GameObject DestroyCubeProcedure(GameObject cube)
+        {
+            CubeBase myCube = cube.GetComponent<CubeBase>();
+
+            grid.kuboGrid[myCube.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myCube.myIndex - 1].cubeType = CubeTypes.None;
+            grid.kuboGrid[myCube.myIndex - 1].cubeOnPosition = null;
+
+            return cube;
         }
 
         #region EXAMPLE

@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kubika.Game
 {
     public class _TimerCube : CubeScanner
     {
+        public int timerValue;
+        bool cubePassed;
+
         // Start is called before the first frame update
         new void Start()
         {
@@ -14,22 +18,39 @@ namespace Kubika.Game
             base.Start();
 
             isStatic = true;
+
+            forward = backward = left = right = up = down = true;
+            SetScanDirections();
         }
 
         // Update is called once per frame
         new void Update()
         {
-            CheckForCube();
+            if (Input.GetKeyDown(KeyCode.Space)) CheckForCube();
         }
 
         private void CheckForCube()
         {
-            //checks in every "direction"
-            foreach (int index in indexesToCheck)
+            if (timerValue > 0)
             {
-                /*touchingVictory = ProximityChecker(index, CubeTypes.None, CubeLayers.cubeMoveable);
-                if (touchingVictory) Debug.Log("Touching a Cube");*/
+                //checks in every "direction"
+                foreach (int index in indexesToCheck)
+                {
+                    cubePassed = ProximityChecker(index, CubeTypes.None, CubeLayers.cubeMoveable);
+                    if (cubePassed) break; DecrementTimer();
+                }
             }
+
+            else
+            {
+                Destroy(DestroyCubeProcedure(gameObject));
+            }
+        }
+
+        private void DecrementTimer()
+        {
+            cubePassed = false;
+            timerValue--;
         }
     }
 }

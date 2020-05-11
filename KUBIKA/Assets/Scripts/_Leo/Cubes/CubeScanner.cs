@@ -16,9 +16,9 @@ namespace Kubika.Game
             base.Start();
         }
 
-        private void OnEnable()
+        new void Update()
         {
-            SetScanDirections();
+            base.Update();
         }
 
         // Set "directions" to check in
