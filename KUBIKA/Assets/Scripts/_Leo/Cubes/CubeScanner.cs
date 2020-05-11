@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Kubika.Game
 {
     public class CubeScanner : CubeBase
@@ -12,8 +13,8 @@ namespace Kubika.Game
         // Start is called before the first frame update
         new void Start()
         {
-            base.Start();
             SetScanDirections();
+            base.Start();
         }
 
         // Set "directions" to check in
