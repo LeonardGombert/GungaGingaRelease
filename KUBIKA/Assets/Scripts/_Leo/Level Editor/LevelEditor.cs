@@ -259,12 +259,12 @@ namespace Kubika.CustomLevelEditor
         #region GET OFFSET AND CHECK INDEX STATE
         void CubeOffset(Vector3 cubeNormal)
         {
-            if (cubeNormal == Vector3.up) moveWeight = 1; //+ 1
-            if (cubeNormal == Vector3.down) moveWeight = -1; //- 1
-            if (cubeNormal == Vector3.right) moveWeight = grid.gridSize; //+ the grid size
-            if (cubeNormal == Vector3.left) moveWeight = -grid.gridSize; //- the grid size
-            if (cubeNormal == Vector3.forward) moveWeight = grid.gridSize * grid.gridSize; //+ the grid size squared
-            if (cubeNormal == Vector3.back) moveWeight = -(grid.gridSize * grid.gridSize); //- the grid size squared
+            if (cubeNormal == Vector3.up) moveWeight = _DirectionCustom.up;  //+ 1
+            if (cubeNormal == Vector3.down) moveWeight = _DirectionCustom.down;  //- 1
+            if (cubeNormal == Vector3.right) moveWeight = _DirectionCustom.right; //+ the grid size
+            if (cubeNormal == Vector3.left) moveWeight = _DirectionCustom.left; //- the grid size
+            if (cubeNormal == Vector3.forward) moveWeight = _DirectionCustom.forward; //+ the grid size squared
+            if (cubeNormal == Vector3.back) moveWeight = _DirectionCustom.backward; //- the grid size squared
         }
 
         void SetCubeType(int cubeIndex, CubeTypes cubeType)

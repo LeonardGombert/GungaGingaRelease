@@ -1,6 +1,6 @@
 ﻿namespace Kubika.Game
 {
-    public class _MineCube : CubeScanner
+    public class _MineCube : CubeMove
     {
         // Start is called before the first frame update
         new void Start()
@@ -12,7 +12,7 @@
             base.Start();
 
             //starts as a static cube
-            isStatic = true;
+            isStatic = false;
         }
 
         // Update is called once per frame

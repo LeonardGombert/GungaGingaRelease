@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace Kubika.Game
 {
-
     public static class _DirectionCustom 
     {
-        public static int rotationState { get; set; }
-        public static int matrixLengthDirection { get; set; }
+        public static int rotationState;// { get; set; }
 
-        public static int forward = (matrixLengthDirection * matrixLengthDirection);
+        public static int matrixLengthDirection;
 
+        public static int forward => (matrixLengthDirection * matrixLengthDirection);
+        
         public static int backward => -forward;
 
-        public static int up = 1;
+        public static int up => 1;
         public static int down => -up;
 
-        public static int right = matrixLengthDirection;
+        public static int right => matrixLengthDirection;
         public static int left => -right;
 
 
