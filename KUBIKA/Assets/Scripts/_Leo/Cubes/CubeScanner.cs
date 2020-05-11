@@ -13,7 +13,6 @@ namespace Kubika.Game
         // Start is called before the first frame update
         new void Start()
         {
-            SetScanDirections();
             base.Start();
         }
 
