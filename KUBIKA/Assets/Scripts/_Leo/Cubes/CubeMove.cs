@@ -295,7 +295,7 @@ namespace Kubika.Game
             CheckSoloMove(index, nodeDirection);
         }
 
-        bool MatrixLimitCalcul(int index, int nodeDirection)
+        public bool MatrixLimitCalcul(int index, int nodeDirection)
         {
             // X
             if (nodeDirection == _DirectionCustom.left)
@@ -333,7 +333,7 @@ namespace Kubika.Game
                 else return false;
             }
             // -Y
-            else if (nodeDirection == _DirectionCustom.backward)
+            else if (nodeDirection == _DirectionCustom.down)
             {
                 if ((index - 1) % grid.gridSize != 0)
                     return true;

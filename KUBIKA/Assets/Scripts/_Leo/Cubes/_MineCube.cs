@@ -37,18 +37,30 @@ namespace Kubika.Game
 
         void BlowUp()
         {
-            for (int currentCube = 0; currentCube < myIndex + grid.gridSize; currentCube++)
+            //shoot up
+            for (int position = myIndex; position < grid.gridSize * grid.gridSize * grid.gridSize; position++)
             {
-                //if i != the cube at the top of the row
-                if (currentCube % grid.gridSize != 0)
+                grid.kuboGrid[position - 1].cubeOnPosition.GetComponent<CubeBase>().DisableCube();
+                Debug.Log("Disabling" + grid.kuboGrid[position].nodeIndex);
+
+                if (!MatrixLimitCalcul(position, _DirectionCustom.up))
                 {
-                    grid.kuboGrid[myIndex - 1 + currentCube].cubeOnPosition.GetComponent<CubeBase>().DisableCube();
+                    break;
                 }
             }
 
-            //DisableCube();
-            
-            Debug.Log("Mon principal but est de explose");
+            //shoot down
+            for (int position = myIndex - 1; position > 0; position--)
+            {
+                grid.kuboGrid[position - 1].cubeOnPosition.GetComponent<CubeBase>().DisableCube();
+                Debug.Log("Disabling" + grid.kuboGrid[position].nodeIndex);
+
+                if (!MatrixLimitCalcul(position, _DirectionCustom.down))
+                {
+                    break;
+                }
+            }
+
         }
     }
 }
