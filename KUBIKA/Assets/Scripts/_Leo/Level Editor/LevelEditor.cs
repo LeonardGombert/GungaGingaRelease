@@ -17,7 +17,7 @@ namespace Kubika.CustomLevelEditor
         int moveWeight;
         _Grid grid;
 
-        [SerializeField] CubeTypes currentCube;
+        [SerializeField] CubeTypes currentCube = CubeTypes.StaticCube;
         List<RaycastHit> placeHits = new List<RaycastHit>();
         List<RaycastHit> deleteHits = new List<RaycastHit>();
 
@@ -54,7 +54,6 @@ namespace Kubika.CustomLevelEditor
         #region PLACE AND REMOVE CUBES
         private void PlaceAndDelete()
         {
-
             //Drag and Release placement
             if (Input.GetKeyDown(KeyCode.LeftShift) || placeMultiple)
             {
@@ -115,7 +114,7 @@ namespace Kubika.CustomLevelEditor
         private void PlaceCube(RaycastHit hit)
         {
             //get the index of the cube you just hit
-            hitIndex = hit.collider.gameObject.GetComponent<_StaticCube>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);
@@ -136,7 +135,7 @@ namespace Kubika.CustomLevelEditor
 
         private void DeleteCube(RaycastHit hit)
         {
-            hitIndex = hit.collider.gameObject.GetComponent<_StaticCube>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
 
             moveWeight = 0;
 
@@ -271,9 +270,6 @@ namespace Kubika.CustomLevelEditor
                     chaosBall.myIndex = GetCubeIndex();
                     SetCubeType(chaosBall.myIndex, CubeTypes.ChaosBall);
                     chaosBall.isStatic = true;
-                    break;
-
-                default:
                     break;
             }
         }

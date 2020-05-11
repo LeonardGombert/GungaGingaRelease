@@ -29,15 +29,16 @@ namespace Kubika.Game
 
         }
 
-        public GameObject DestroyCubeProcedure(GameObject cube)
+        private void OnDestroy()
         {
-            CubeBase myCube = cube.GetComponent<CubeBase>();
+            DestroyCubeProcedure();
+        }
 
-            grid.kuboGrid[myCube.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-            grid.kuboGrid[myCube.myIndex - 1].cubeType = CubeTypes.None;
-            grid.kuboGrid[myCube.myIndex - 1].cubeOnPosition = null;
-
-            return cube;
+        public void DestroyCubeProcedure()
+        {
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
         }
 
         #region EXAMPLE

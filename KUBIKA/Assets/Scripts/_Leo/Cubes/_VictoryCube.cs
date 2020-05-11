@@ -3,7 +3,7 @@
     public class _VictoryCube : _MoveableCube
     {
         // Start is called before the first frame update
-        new void Start()
+        public override void Start()
         {
             myCubeType = CubeTypes.VictoryCube;
             myCubeLayer = CubeLayers.cubeMoveable;
@@ -15,7 +15,7 @@
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
             base.Update();
         }

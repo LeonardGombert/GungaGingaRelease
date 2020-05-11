@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kubika.Game
 {
     public class _TimerCube : CubeScanner
     {
-        public int timerValue;
-        bool cubePassed;
+        public int timerValue = 2;
+        bool touchedCube;
+
+        public List<int> touchingCubeIndex = new List<int>();
+        private bool hasCubes;
 
         // Start is called before the first frame update
-        new void Start()
+        public override void Start()
         {
             myCubeType = CubeTypes.TimerCube;
             myCubeLayer = CubeLayers.cubeFull;
@@ -24,33 +28,61 @@ namespace Kubika.Game
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) CheckForCube();
+            //ccall this when a cube is moved
+            if (Input.GetKeyDown(KeyCode.Space)) CubeListener();
         }
 
-        private void CheckForCube()
+        private void CubeListener()
         {
-            if (timerValue > 0)
+            //if the timer already has cubes it is following
+            if (hasCubes)
             {
-                //checks in every "direction"
-                foreach (int index in indexesToCheck)
+                Debug.Log("looking out for my cubes");
+
+                // check each registered index to make sure the cube is still there
+                foreach (int index in touchingCubeIndex)
                 {
-                    cubePassed = ProximityChecker(index, CubeTypes.None, CubeLayers.cubeMoveable);
-                    if (cubePassed) break; DecrementTimer();
+                    // if one or more of the cubes have moved, reset the bools
+                    if (grid.kuboGrid[index - 1].cubeOnPosition == null)
+                    {
+                        //reset find cube variables
+                        touchedCube = false;
+                        hasCubes = false;
+
+                        //decrement the value by 1 for the next pass
+                        Debug.Log("Man down !");
+                        timerValue--;
+                    }
                 }
             }
 
-            else
+            if(timerValue >= 0)
             {
-                Destroy(DestroyCubeProcedure(gameObject));
+                // forget the cubes you've already registered (in case only 1 moves)
+                touchingCubeIndex.Clear();
+
+                // check in every "direction"
+                foreach (int index in indexesToCheck)
+                {
+                    touchedCube = ProximityChecker(index, CubeTypes.None, CubeLayers.cubeMoveable);
+
+                    // if you touch a cube
+                    if (touchedCube)
+                    {
+                        // save that cube to the list of "registered" cubes
+                        touchingCubeIndex.Add(myIndex + index);
+
+                        // set your state to "has registered cubes"
+                        hasCubes = true;
+                    }
+                }
+
             }
+
+            else Destroy(gameObject);
         }
 
-        private void DecrementTimer()
-        {
-            cubePassed = false;
-            timerValue--;
-        }
     }
 }

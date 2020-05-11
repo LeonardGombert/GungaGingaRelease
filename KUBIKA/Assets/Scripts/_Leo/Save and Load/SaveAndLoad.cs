@@ -105,8 +105,8 @@ namespace Kubika.Saving
                 switch (recoveredNode.cubeType)
                 {
                     case CubeTypes.StaticCube:
-                        newCube.AddComponent(typeof(CubeBase));
-                        CubeBase staticCube = newCube.GetComponent<CubeBase>();
+                        newCube.AddComponent(typeof(_StaticCube));
+                        _StaticCube staticCube = newCube.GetComponent<_StaticCube>();
 
                         //set the cube's index so that you can assign its other variables (position, leyer, type, etc.)
                         staticCube.myIndex = recoveredNode.nodeIndex;

@@ -7,7 +7,7 @@ namespace Kubika.Game
     public class _ElevatorCube : CubeScanner
     {
         // Start is called before the first frame update
-        new void Start()
+        public override  void Start()
         {
             myCubeType = CubeTypes.ElevatorCube;
             myCubeLayer = CubeLayers.cubeMoveable;
@@ -20,9 +20,9 @@ namespace Kubika.Game
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
-
+            base.Update();
         }
     }
 }
