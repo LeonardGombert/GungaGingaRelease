@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Kubika.Game
 {
@@ -27,12 +28,10 @@ namespace Kubika.Game
 
             if(Input.GetKeyDown(KeyCode.F1)) BlowUp();
 
-            if (nbrCubeEmptyBelow > 1) //&&hasFallen)
-            {
-                BlowUp();
-            }
+            if (nbrCubeEmptyBelow > 1) /*&&hasFallen)*/ BlowUp();
 
             // if a chaos ball hits the mine cube
+            BlowAcross();
         }
 
         void BlowUp()
@@ -40,27 +39,29 @@ namespace Kubika.Game
             //shoot up
             for (int position = myIndex; position < grid.gridSize * grid.gridSize * grid.gridSize; position++)
             {
-                grid.kuboGrid[position - 1].cubeOnPosition.GetComponent<CubeBase>().DisableCube();
-                Debug.Log("Disabling" + grid.kuboGrid[position].nodeIndex);
-
-                if (!MatrixLimitCalcul(position, _DirectionCustom.up))
-                {
-                    break;
-                }
+                RemoveCube(position);
+                if (!MatrixLimitCalcul(position, _DirectionCustom.up)) break;
             }
 
             //shoot down
             for (int position = myIndex - 1; position > 0; position--)
             {
-                grid.kuboGrid[position - 1].cubeOnPosition.GetComponent<CubeBase>().DisableCube();
-                Debug.Log("Disabling" + grid.kuboGrid[position].nodeIndex);
-
-                if (!MatrixLimitCalcul(position, _DirectionCustom.down))
-                {
-                    break;
-                }
+                RemoveCube(position);
+                if (!MatrixLimitCalcul(position, _DirectionCustom.down)) break;
             }
+        }
 
+        private void BlowAcross()
+        {
+
+        }
+
+
+        void RemoveCube(int position)
+        {
+            if (grid.kuboGrid[position - 1].cubeOnPosition != null)
+                grid.kuboGrid[position - 1].cubeOnPosition.GetComponent<CubeBase>().DisableCube();
+            else return;
         }
     }
 }
