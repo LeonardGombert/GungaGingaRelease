@@ -254,8 +254,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.MirrorCube:
-                    newCube.AddComponent(typeof(_MirrorCube));
-                    _MirrorCube mirrorCube = newCube.GetComponent<_MirrorCube>();
+                    newCube.AddComponent(typeof(_RotateLocker));
+                    _RotateLocker mirrorCube = newCube.GetComponent<_RotateLocker>();
 
                     mirrorCube.myIndex = GetCubeIndex();
                     SetCubeType(mirrorCube.myIndex, CubeTypes.MirrorCube);

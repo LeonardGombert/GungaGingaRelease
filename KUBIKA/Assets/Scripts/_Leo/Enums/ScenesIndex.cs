@@ -6,5 +6,6 @@
     WIN = 3,
     LEVEL_EDITOR = 4,
     CUSTOM_LEVELS = 5,
-    CREDITS = 6
+    CREDITS = 6,
+    USER_INTERFACE = 7,
 }
