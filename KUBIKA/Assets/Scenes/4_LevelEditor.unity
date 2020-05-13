@@ -259,13 +259,13 @@ MonoBehaviour:
   gridSize: 4
   gridMargin: 5
   centerPosition: 0
-  startingPos: 1
+  startingPos: 0
   offset: 1.05
   kuboGrid: []
   placedObjects: []
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
-  levelSetup: 0
+  levelSetup: 3
   prefabLevels:
   - {fileID: 4900000, guid: ef2c1edda9238ac4191522c1175526dc, type: 3}
   - {fileID: 4900000, guid: fed04970757bbf246b7c823a366d8797, type: 3}

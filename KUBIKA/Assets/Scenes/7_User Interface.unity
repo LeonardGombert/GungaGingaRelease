@@ -201,7 +201,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 19941447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GAME_Undo
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &19941447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +329,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 43435713}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GAME_RotateRight
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &43435713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,7 +457,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 90717445}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BURGER_Close
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &90717445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,7 +972,7 @@ GameObject:
   - component: {fileID: 463023948}
   - component: {fileID: 463023947}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1234,7 +1267,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 571602459}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GAME_RotateLeft
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &571602459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,7 +1543,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 653113889}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MAIN_MENU
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &653113889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1616,7 +1671,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 661466912}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WORLDMAP_Play
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &661466912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,7 +1834,7 @@ GameObject:
   - component: {fileID: 746700326}
   - component: {fileID: 746700325}
   m_Layer: 5
-  m_Name: Right Rotate
+  m_Name: Turn Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1910,7 +1976,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 855314671}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BURGER_Sound
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &855314671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,6 +2098,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891191650}
   m_CullTransparentMesh: 0
+--- !u!1 &894686157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894686159}
+  - component: {fileID: 894686158}
+  m_Layer: 0
+  m_Name: Button Caller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &894686158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894686157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a74debbfbd213c4ea12d86cbdd1fe44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &894686159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894686157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 509.868, y: 1237.3936, z: -10.791382}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &944704073
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,7 +2350,7 @@ GameObject:
   - component: {fileID: 974214345}
   - component: {fileID: 974214344}
   m_Layer: 5
-  m_Name: Left Rotate
+  m_Name: 'Turn Left '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2305,7 +2425,7 @@ GameObject:
   - component: {fileID: 1004495351}
   - component: {fileID: 1004495350}
   m_Layer: 5
-  m_Name: Right Rotate Button
+  m_Name: Turn Left Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2372,7 +2492,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1004495351}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WORLDMAP_TurnLeft
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1004495351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2717,7 +2848,7 @@ GameObject:
   - component: {fileID: 1880699369}
   - component: {fileID: 1880699368}
   m_Layer: 5
-  m_Name: Right Rotate Button
+  m_Name: Turn Right Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2784,7 +2915,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1880699369}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WORLDMAP_TurnRight
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1880699369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2900,7 +3042,7 @@ GameObject:
   - component: {fileID: 1964250780}
   - component: {fileID: 1964250779}
   m_Layer: 5
-  m_Name: Main Menu Button
+  m_Name: Hamburger Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2967,7 +3109,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1964250780}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GAME_BurgerMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1964250780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3084,7 +3237,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1974273362}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BURGER_Music
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1974273362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3201,7 +3365,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2020625045}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 894686158}
+        m_MethodName: ButtonCallback
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MAIN_MENU
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2020625045
 MonoBehaviour:
   m_ObjectHideFlags: 0

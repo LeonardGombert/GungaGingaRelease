@@ -27,7 +27,7 @@ namespace Kubika.Game
 
         }
 
-        void CheckButton(ButtonCalls buttonCalls)
+        public void CheckButton(ButtonCalls buttonCalls)
         {
             switch (buttonCalls)
             {
@@ -43,13 +43,28 @@ namespace Kubika.Game
                 case ButtonCalls.Undo:
                     break;
 
-                case ButtonCalls.ReturnToMenu:
+                case ButtonCalls.BurgerMenu:
                     break;
 
                 case ButtonCalls.SoundOnOff:
                     break;
 
                 case ButtonCalls.MusicOnOff:
+                    break;
+
+                case ButtonCalls.CloseMenu:
+                    break;
+
+                case ButtonCalls.TurnRight:
+                    break;
+
+                case ButtonCalls.TurnLeft:
+                    break;
+
+                case ButtonCalls.Play:
+                    break;
+
+                case ButtonCalls.MainMenu:
                     break;
 
                 default:
