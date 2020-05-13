@@ -217,9 +217,6 @@ namespace Kubika.Game
             isMoving = true;
             Debug.Log("IS MOVING " + nextNode.nodeIndex + " || isMoving = " + isMoving);
 
-            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
-            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-
             basePos = transform.position;
             currentTime = 0;
 
@@ -235,6 +232,10 @@ namespace Kubika.Game
             }
 
             Debug.Log(" nextNode.nodeIndex-1 = " + nextNode.nodeIndex + " ||nextNode.cubeLayers " + nextNode.cubeLayers);
+
+
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
 
             myIndex = nextNode.nodeIndex;
             nextNode.cubeOnPosition = gameObject;
