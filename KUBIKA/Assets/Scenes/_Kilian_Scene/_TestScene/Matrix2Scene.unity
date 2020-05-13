@@ -490,11 +490,14 @@ MonoBehaviour:
   EndMoving:
     m_PersistentCalls:
       m_Calls: []
+  StartFalling:
+    m_PersistentCalls:
+      m_Calls: []
   EndFalling:
     m_PersistentCalls:
       m_Calls: []
   actualRotation: 0
-  indexBankScriptable: {fileID: 11400000, guid: d359a46e83d75aa4bb3f6cdc3aaa501c,
+  indexBankScriptable: {fileID: 11400000, guid: 20292aa4ca457024eb45bc26bf6fc21e,
     type: 2}
   baseCube: []
 --- !u!4 &1808604063
@@ -585,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d20617c838cea14096f712e52c4c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 8
+  gridSize: 12
   gridMargin: 5
   centerPosition: 0
   startingPos: 0
