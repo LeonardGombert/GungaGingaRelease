@@ -159,10 +159,10 @@ namespace Kubika.Game
             {
                 yield return null;
             }
-            EndFalling.RemoveAllListeners();
+            Debug.LogError("DATA- CHECK-END");
+            //EndFalling.RemoveAllListeners();
             StartMoving.Invoke();
             StartCoroutine(CubesAreEndingToMove());
-
         }
 
 
@@ -172,6 +172,7 @@ namespace Kubika.Game
             {
                 yield return null;
             }
+            Debug.LogError("DATA- MOVE-END");
             StartMoving.RemoveAllListeners();
             EndMoving.Invoke();
             MakeFall();
@@ -183,10 +184,10 @@ namespace Kubika.Game
             {
                 yield return null;
             }
-            EndMoving.RemoveAllListeners();
+            Debug.LogError("DATA- FALLCHECK-END");
+            //EndMoving.RemoveAllListeners();
             StartFalling.Invoke();
             StartCoroutine(CubesAreEndingToFall());
-
         }
 
         public IEnumerator CubesAreEndingToFall()
@@ -195,7 +196,8 @@ namespace Kubika.Game
             {
                 yield return null;
             }
-            StartFalling.RemoveAllListeners();
+            Debug.LogError("DATA- FALLING-END");
+            //StartFalling.RemoveAllListeners();
             EndFalling.Invoke();
         }
 
@@ -206,40 +208,45 @@ namespace Kubika.Game
         {
             for (int i = 0; i < cubeMove.Length; i++)
             {
-                if (cubeMove[i].isCheckingMove == false)
+                if (cubeMove[i].isCheckingMove == true)
                 {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         public bool AreCubesCheckingFall(CubeMove[] cubeMove)
         {
             for (int i = 0; i < cubeMove.Length; i++)
             {
-                if (cubeMove[i].isCheckingFall == false)
+                if (cubeMove[i].isCheckingFall == true)
                 {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
 
         public bool AreCubesEndingToMove(CubeMove[] cubeMove)
         {
+            Debug.LogError("CUBE-MOVE-LENGTH  = " + cubeMove.Length);
+
             for (int i = 0; i < cubeMove.Length; i++)
             {
-                if (cubeMove[i].isMoving == false)
+                Debug.LogError("WHO IS MOVING IN LIST" + i);
+
+                if (cubeMove[i].isMoving == true)
                 {
-                    return true;
+                    Debug.LogError("WHO IS MOVING + cubeMove-NAME = " + cubeMove[i].gameObject.name + " || isMoving = " + cubeMove[i].isMoving);
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
 
@@ -247,13 +254,13 @@ namespace Kubika.Game
         {
             for (int i = 0; i < cubeMove.Length; i++)
             {
-                if (cubeMove[i].isFalling == false)
+                if (cubeMove[i].isFalling == true)
                 {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
         #endregion
 

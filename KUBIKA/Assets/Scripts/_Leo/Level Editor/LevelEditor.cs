@@ -136,7 +136,7 @@ namespace Kubika.CustomLevelEditor
 
         private void DeleteCube(RaycastHit hit)
         {
-            hitIndex = hit.collider.gameObject.GetComponent<_StaticCube>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
 
             moveWeight = 0;
 
