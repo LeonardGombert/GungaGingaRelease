@@ -1,10 +1,11 @@
 ﻿public enum ScenesIndex
 {
-    MANAGER = 0,
-    WORLD_MAP = 1,
-    GAME = 2,
-    WIN = 3,
-    LEVEL_EDITOR = 4,
-    CUSTOM_LEVELS = 5,
-    CREDITS = 6
+    MANAGER,
+    USER_INTERFACE,
+    TITLE_WORLD_MAP,
+    GAME_SCENE,
+    WIN,
+    LEVEL_EDITOR,
+    CUSTOM_LEVELS,
+    CREDITS,
 }

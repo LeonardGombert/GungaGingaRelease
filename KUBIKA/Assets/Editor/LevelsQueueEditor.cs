@@ -5,14 +5,14 @@ using UnityEditor;
 using Kubika.Game;
 using Sirenix.OdinInspector.Editor;
 
-[CustomEditor(typeof(LevelsQueue))]
+[CustomEditor(typeof(LevelsManager))]
 public class LevelsQueueEditor : OdinEditor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        LevelsQueue levelsQueue = (LevelsQueue)target;
+        LevelsManager levelsQueue = (LevelsManager)target;
 
         if (GUILayout.Button("Load Next Level"))
         {

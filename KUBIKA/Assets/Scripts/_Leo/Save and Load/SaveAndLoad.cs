@@ -13,7 +13,7 @@ namespace Kubika.Saving
         private static SaveAndLoad _instance;
         public static SaveAndLoad instance { get { return _instance; } }
 
-        _Grid grid;
+        public  _Grid grid;
 
         //a list of the nodes in grid node that have cubes on them
         List<Node> activeNodes = new List<Node>();
@@ -29,8 +29,8 @@ namespace Kubika.Saving
         // Start is called before the first frame update
         void Start()
         {
-            grid = _Grid.instance;
             CreateEditorData();
+            grid = _Grid.instance;
         }
 
         private LevelEditorData CreateEditorData()
@@ -105,8 +105,8 @@ namespace Kubika.Saving
                 switch (recoveredNode.cubeType)
                 {
                     case CubeTypes.StaticCube:
-                        newCube.AddComponent(typeof(CubeBase));
-                        CubeBase staticCube = newCube.GetComponent<CubeBase>();
+                        newCube.AddComponent(typeof(_StaticCube));
+                        _StaticCube staticCube = newCube.GetComponent<_StaticCube>();
 
                         //set the cube's index so that you can assign its other variables (position, leyer, type, etc.)
                         staticCube.myIndex = recoveredNode.nodeIndex;

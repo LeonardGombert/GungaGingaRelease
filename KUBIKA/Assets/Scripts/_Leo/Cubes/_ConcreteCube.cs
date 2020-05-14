@@ -3,7 +3,7 @@
     public class _ConcreteCube : CubeMove
     {
         // Start is called before the first frame update
-        new void Start()
+        public override void Start()
         {
             myCubeType = CubeTypes.ConcreteCube;
             myCubeLayer = CubeLayers.cubeMoveable;
@@ -16,9 +16,9 @@
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
-
+            base.Update();
         }
     }
 }

@@ -29,15 +29,31 @@ namespace Kubika.Game
 
         }
 
-        public GameObject DestroyCubeProcedure(GameObject cube)
+        public void DisableCube()
         {
-            CubeBase myCube = cube.GetComponent<CubeBase>();
+            gameObject.SetActive(false);
+            HideCubeProcedure();
+        }
 
-            grid.kuboGrid[myCube.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-            grid.kuboGrid[myCube.myIndex - 1].cubeType = CubeTypes.None;
-            grid.kuboGrid[myCube.myIndex - 1].cubeOnPosition = null;
+        public void EnableCube()
+        {
+            ReviveCubeProcedure();
+        }
 
-            return cube;
+        //gets called when you "hide"/"destroy a cube
+        void HideCubeProcedure()
+        {
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+        }
+
+        // call when "reactivating" cubes
+        void ReviveCubeProcedure()
+        {
+            grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
+            grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
         }
 
         #region EXAMPLE

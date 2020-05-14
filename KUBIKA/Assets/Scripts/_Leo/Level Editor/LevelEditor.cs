@@ -35,6 +35,8 @@ namespace Kubika.CustomLevelEditor
 
             if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isLevelEditor = true;
             if (SceneManager.GetActiveScene().name.Contains("DevScene")) isDevScene = true;
+
+            currentCube = CubeTypes.StaticCube;
         }
 
         private void Start()
@@ -54,7 +56,6 @@ namespace Kubika.CustomLevelEditor
         #region PLACE AND REMOVE CUBES
         private void PlaceAndDelete()
         {
-
             //Drag and Release placement
             if (Input.GetKeyDown(KeyCode.LeftShift) || placeMultiple)
             {
@@ -79,9 +80,13 @@ namespace Kubika.CustomLevelEditor
                 {
                     CheckUserPlatform();
 
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit))
                         if (!deleteHits.Contains(hit)) deleteHits.Add(hit);
+                }
 
+                //when the user releases the mouse, delete alll cubes at once
+                if (Input.GetMouseButtonUp(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Ended)
+                {
                     foreach (RaycastHit hit in deleteHits) DeleteCube(hit);
                     deleteHits.Clear();
                 }
@@ -102,16 +107,6 @@ namespace Kubika.CustomLevelEditor
             }
         }
 
-        Vector3 CheckUserPlatform()
-        {
-            if (Input.GetMouseButton(0)) userInputPosition = Input.mousePosition;
-            else if (Input.GetMouseButton(1)) userInputPosition = Input.mousePosition;
-            if (Input.touchCount > 1) userInputPosition = Input.GetTouch(1).position;
-            else if (Input.touchCount > 0) userInputPosition = Input.GetTouch(0).position;
-
-            return userInputPosition;
-        }
-
         private void PlaceCube(RaycastHit hit)
         {
             //get the index of the cube you just hit
@@ -121,7 +116,7 @@ namespace Kubika.CustomLevelEditor
             CubeOffset(hit.normal);
 
             //if the current node doesn't have a cube on it, place a new cube
-            if (IndexIsEmpty())
+            if (currentCube != CubeTypes.None && IndexIsEmpty())
             {
                 //create a new Cube and add the CubeObject component to store its index
                 GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -174,6 +169,9 @@ namespace Kubika.CustomLevelEditor
         {
             switch (currentCube)
             {
+                case CubeTypes.None:
+                    break;
+
                 case CubeTypes.StaticCube:
                     newCube.AddComponent(typeof(_StaticCube));
 
@@ -256,8 +254,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.MirrorCube:
-                    newCube.AddComponent(typeof(_MirrorCube));
-                    _MirrorCube mirrorCube = newCube.GetComponent<_MirrorCube>();
+                    newCube.AddComponent(typeof(_RotateLocker));
+                    _RotateLocker mirrorCube = newCube.GetComponent<_RotateLocker>();
 
                     mirrorCube.myIndex = GetCubeIndex();
                     SetCubeType(mirrorCube.myIndex, CubeTypes.MirrorCube);
@@ -316,6 +314,17 @@ namespace Kubika.CustomLevelEditor
         {
             return grid.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
         }
+
+        Vector3 CheckUserPlatform()
+        {
+            if (Input.GetMouseButton(0)) userInputPosition = Input.mousePosition;
+            else if (Input.GetMouseButton(1)) userInputPosition = Input.mousePosition;
+            if (Input.touchCount > 1) userInputPosition = Input.GetTouch(1).position;
+            else if (Input.touchCount > 0) userInputPosition = Input.GetTouch(0).position;
+
+            return userInputPosition;
+        }
+
         #endregion
     }
 }

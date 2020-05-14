@@ -1,6 +1,9 @@
-﻿using Kubika.Game;
+using Kubika.Game;
+using Kubika.Saving;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kubika.CustomLevelEditor
 {
@@ -11,25 +14,30 @@ namespace Kubika.CustomLevelEditor
 
         Vector3Int gridSizeVector;
 
-        public int gridSize; //the square root of the Matrix
+        [HideInInspector] public int gridSize = 12; //the square root of the Matrix
 
-        public int gridMargin;
-        public int centerPosition;
+        [HideInInspector] public int gridMargin = 4;
+        [HideInInspector] public int centerPosition;
         public LevelEditorStart startingPos;
 
-        [Range(0.5f, 5)] public float offset;
+        [Range(0.5f, 2)] public float offset;
 
         public Node[] kuboGrid;
         public List<GameObject> placedObjects = new List<GameObject>();
 
         public GameObject nodeVizPrefab;
-        
+
+        //Level Editor
         public LevelSetup levelSetup;
+        public List<TextAsset> prefabLevels = new List<TextAsset>();
 
         private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
+
+            gridSize = 12;
+            gridMargin = 4;
         }
 
         // Start is called before the first frame update
@@ -39,13 +47,18 @@ namespace Kubika.CustomLevelEditor
             _DirectionCustom.matrixLengthDirection = gridSize;
         }
 
+        void OnEnable()
+        {
+            if(Input.GetKeyDown(KeyCode.LeftShift)) GenerateBaseGrid();
+        }
+
         private void CreateGrid()
         {
             gridSizeVector = new Vector3Int(gridSize, gridSize, gridSize);
 
             centerPosition = gridSize * gridSize * gridMargin + gridSize * gridMargin + gridMargin;
 
-            kuboGrid = new Node[gridSize* gridSize* gridSize];
+            kuboGrid = new Node[gridSize * gridSize * gridSize];
 
             for (int index = 1, z = 0; z < gridSizeVector.z; z++)
             {
@@ -56,7 +69,7 @@ namespace Kubika.CustomLevelEditor
                         Vector3 nodePosition = new Vector3(x * offset, y * offset, z * offset);
 
                         Node currentNode = new Node();
-                        
+
                         currentNode.xCoord = x;
                         currentNode.yCoord = y;
                         currentNode.zCoord = z;
@@ -104,6 +117,52 @@ namespace Kubika.CustomLevelEditor
                         }
                     }
                 }
+            }
+        }
+
+        public void GenerateBaseGrid()
+        {
+            switch (levelSetup)
+            {
+                case LevelSetup.none:
+                    // if the index is at the bottom left corner of the cube, spawn a starter cube
+                    if (startingPos == LevelEditorStart.bottomCorner)
+                    {
+                    }
+
+                    // if the index is at the center of the cube, spawn a starter cube
+                    else if (startingPos == LevelEditorStart.centerOfKubo)
+                    {
+
+                    }
+                    break;
+
+                case LevelSetup.baseGrid:
+                    string baseGridJson = prefabLevels.Find(item => item.name.Contains("Base")).ToString();
+                    LevelEditorData baseGrid = JsonUtility.FromJson<LevelEditorData>(baseGridJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(baseGrid);
+                    break;
+
+                case LevelSetup.plane:
+                    string planeJson = prefabLevels.Find(item => item.name.Contains("Plane")).ToString();
+                    LevelEditorData planeData = JsonUtility.FromJson<LevelEditorData>(planeJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(planeData);
+                    break;
+
+                case LevelSetup.rightDoublePlane:
+                    string rightJson = prefabLevels.Find(item => item.name.Contains("Right")).ToString();
+                    LevelEditorData rightData = JsonUtility.FromJson<LevelEditorData>(rightJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(rightData);
+                    break;
+
+                case LevelSetup.leftDoublePlane:
+                    string leftJson = prefabLevels.Find(item => item.name.Contains("Left")).ToString();
+                    LevelEditorData leftData = JsonUtility.FromJson<LevelEditorData>(leftJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(leftData);
+                    break;
+
+                default:
+                    break;
             }
         }
 

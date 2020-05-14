@@ -10,7 +10,7 @@ namespace Kubika.Game
     {
         //FALLING 
         int nbrCubeMouvableBelow;
-        int nbrCubeEmptyBelow;
+        public int nbrCubeEmptyBelow;
         int nbrCubeBelow;
         int indexTargetNode;
         public bool thereIsEmpty = false;
@@ -337,7 +337,7 @@ namespace Kubika.Game
             CheckPileMove(index, nodeDirection);
         }
 
-        bool MatrixLimitCalcul(int index, int nodeDirection)
+        public bool MatrixLimitCalcul(int index, int nodeDirection)
         {
             // X
             if (nodeDirection == _DirectionCustom.left)
