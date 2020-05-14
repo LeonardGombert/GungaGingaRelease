@@ -66,6 +66,8 @@ namespace Kubika.Game
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
+
+            RefreshActiveScene();
         }
 
         public void RefreshActiveScene()
@@ -149,8 +151,7 @@ namespace Kubika.Game
             ResetCanvasSortOrder();
             gameCanvas.enabled = true;
 
-            if (hamburgerMenuCanvas != null) 
-                hamburgerMenuCanvas.enabled = true;
+            if (hamburgerMenuCanvas != null) hamburgerMenuCanvas.enabled = true;
 
             hiddenMenuButtons.SetActive(false);
             gameCanvas.sortingOrder = 1000;
@@ -158,7 +159,6 @@ namespace Kubika.Game
             //Checking if the current level has ROtation enabled
             /*if (!_LoaderQueuer.instance._hasRotate) foreach (Button item in RotateButtons) item.gameObject.SetActive(false);
             else if (_LoaderQueuer.instance._hasRotate) foreach (Button item in RotateButtons) item.gameObject.SetActive(true);*/
-
         }
 
         private void WinScreenSettings()
@@ -207,10 +207,12 @@ namespace Kubika.Game
 
                 #region //BURGER MENU
                 case "BURGER_Sound":
+                    soundIsOn = !soundIsOn;
                     SwitchButtonSprite();
                     break;
 
                 case "BURGER_Music":
+                    musicIsOn = !musicIsOn;
                     SwitchButtonSprite();
                     break;
 
@@ -230,18 +232,17 @@ namespace Kubika.Game
 
         void SwitchButtonSprite()
         {
-            soundIsOn = !soundIsOn;
-            musicIsOn = !musicIsOn;
-
             if (musicIsOn == true) music.image.sprite = musicOn;
-            else if (musicIsOn == false) music.image.sprite = musicOff;
+            if (musicIsOn == false) music.image.sprite = musicOff;
 
             if (soundIsOn == true) sound.image.sprite = soundOn;
-            else if (soundIsOn == false) sound.image.sprite = soundOff;
+            if (soundIsOn == false) sound.image.sprite = soundOff;
         }
 
         IEnumerator DimGame()
         {
+            ResetCanvasSortOrder();
+
             if (gameDimmed == false)
             {
                 fadeImage.enabled = true;
@@ -251,7 +252,10 @@ namespace Kubika.Game
                 timePassed = 0f;
                 startAlphaValue = 0f;
                 targetAlphaValue = .5f;
+                
                 StartCoroutine(FadeTransition(startAlphaValue, targetAlphaValue, transitionDuration, timePassed));
+                
+                hamburgerMenuCanvas.sortingOrder = 1000;
                 gameDimmed = true;
             }
 
@@ -264,14 +268,18 @@ namespace Kubika.Game
                 gameDimmed = false;
 
                 yield return new WaitForSeconds(transitionDuration);
+                
                 hiddenMenuButtons.SetActive(false);
                 openBurgerMenuButton.SetActive(true);
                 fadeImage.enabled = false;
+                
+                GameCanvasPriority();
             }
         }
 
         IEnumerator FadeTransition(float startValue, float targetValue, float transitionDuration, float timePassed)
         {
+            transitionCanvas.sortingOrder = 999;
             float valueChange = targetValue - startValue;
             Color alphaColor = new Color();
 

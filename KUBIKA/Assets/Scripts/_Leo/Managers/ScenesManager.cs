@@ -27,6 +27,7 @@ namespace Kubika.Game
             SceneManager.LoadSceneAsync((int)ScenesIndex.USER_INTERFACE, LoadSceneMode.Additive);
             loadingSceneOp = SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
             currentActiveScene = loadToScene;
+
         }
 
         // Update is called once per frame
@@ -37,7 +38,7 @@ namespace Kubika.Game
         
         public void _LoadScene(ScenesIndex targetScene)
         {
-
+            StartCoroutine(LoadScene(targetScene));
         }
 
         IEnumerator LoadScene(ScenesIndex targetScene)

@@ -20,7 +20,7 @@ namespace Kubika.CustomLevelEditor
         [HideInInspector] public int centerPosition;
         public LevelEditorStart startingPos;
 
-        [Range(0.5f, 2)] public float offset;
+        [Range(0f, 2f)] public float offset;
 
         public Node[] kuboGrid;
         public List<GameObject> placedObjects = new List<GameObject>();
