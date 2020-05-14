@@ -16,8 +16,8 @@ namespace Kubika.Game
         public CubeMove[] moveCube;
 
         //UNITY EVENT
-        public UnityEvent EndChecking;
-        public UnityEvent EndMoveChecking;
+        public UnityEvent StartChecking;
+        public UnityEvent StartMoving;
         public UnityEvent EndMoving;
         public UnityEvent StartFalling;
         public UnityEvent EndFalling;
@@ -43,7 +43,6 @@ namespace Kubika.Game
         {
             moveCube = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
             baseCube = FindObjectsOfType<CubeBase>();
-            StartFalling.AddListener(MakeFall);
         }
 
         // Update is called once per frame
@@ -74,7 +73,7 @@ namespace Kubika.Game
             {
                 cubes.CheckIfFalling();
             }
-            StartCoroutine(CheckIfCubeAreChecking());
+            StartCoroutine(CubesAreCheckingFall());
         }
         #endregion
 
@@ -154,114 +153,101 @@ namespace Kubika.Game
         #endregion
 
         #region TIMED EVENT
-        public IEnumerator CheckIfCubeAreChecking()
+        public IEnumerator CubesAreCheckingMove()
         {
-            while (EveryCubeAreChecking(moveCube) == false)
+            while (AreCubesCheckingMove(moveCube) == false)
             {
                 yield return null;
             }
-
             EndFalling.RemoveAllListeners();
-            EndChecking.Invoke();
+            StartMoving.Invoke();
+            StartCoroutine(CubesAreEndingToMove());
+
         }
 
-        public IEnumerator CheckIfCubeAreMoveChecking()
+
+        public IEnumerator CubesAreEndingToMove()
         {
-            while (EveryCubeAreChecking(moveCube) == false)
-            {
-                Debug.Log("DATA_CHECK");
-                yield return null;
-            }
-
-            EndChecking.RemoveAllListeners();
-            EndMoveChecking.Invoke();
-            StartCoroutine(CheckIfCubeAreStopped());
-        }
-
-        public bool EveryCubeAreChecking(CubeMove[] allMouvable)
-        {
-
-            for (int i = 0; i < allMouvable.Length; i++)
-            {
-                if (allMouvable[i].isChecking == false)
-                {
-                    Debug.LogError("TRUE");
-                    return true;
-                }
-                Debug.LogError("FALSE");
-            }
-            Debug.LogError("MEGA FALSE");
-            return false;
-        }
-
-        public IEnumerator CheckIfCubeAreStopped()
-        {
-            while (EveryCubeAreStopping(moveCube) == false)
+            while (AreCubesEndingToMove(moveCube) == false)
             {
                 yield return null;
             }
-
-            Debug.Log("DATA-STOP-CHECK ");
-            EndMoveChecking.RemoveAllListeners();
+            StartMoving.RemoveAllListeners();
             EndMoving.Invoke();
-            StartCoroutine(CheckIfCubeAreStartingFalling());
+            MakeFall();
         }
 
-        public bool EveryCubeAreStopping(CubeMove[] allMouvable)
+        public IEnumerator CubesAreCheckingFall()
         {
-            for (int i = 0; i < allMouvable.Length ; i++)
-            {
-                //Debug.Log("DATA-STOP-CHECK---1 " + allMouvable.Length + " || " + allMouvable[i].gameObject.name);
-                if (allMouvable[i].isMoving == false)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public IEnumerator CheckIfCubeAreFalling()
-        {
-            while (EveryCubeAreStopping(moveCube) == false)
-            {
-                yield return null;
-            }
-            //StartFalling.RemoveAllListeners();
-            EndFalling.Invoke();
-        }
-
-        public bool EveryCubeAreFalling(CubeMove[] allMouvable)
-        {
-
-            for (int i = 0; i < allMouvable.Length; i++)
-            {
-                if (allMouvable[i].isFalling == false)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public IEnumerator CheckIfCubeAreStartingFalling()
-        {
-            while (EveryCubeAreStartingFalling(moveCube) == false)
+            while (AreCubesCheckingFall(moveCube) == false)
             {
                 yield return null;
             }
             EndMoving.RemoveAllListeners();
             StartFalling.Invoke();
-            StartCoroutine(CheckIfCubeAreFalling());
+            StartCoroutine(CubesAreEndingToFall());
+
         }
 
-        public bool EveryCubeAreStartingFalling(CubeMove[] allMouvable)
+        public IEnumerator CubesAreEndingToFall()
         {
-
-            for (int i = 0; i < allMouvable.Length; i++)
+            while (AreCubesEndingToFall(moveCube) == false)
             {
-                if (allMouvable[i].isMoving == false)
+                yield return null;
+            }
+            StartFalling.RemoveAllListeners();
+            EndFalling.Invoke();
+        }
+
+
+        //////////////////////
+
+        public bool AreCubesCheckingMove(CubeMove[] cubeMove)
+        {
+            for (int i = 0; i < cubeMove.Length; i++)
+            {
+                if (cubeMove[i].isCheckingMove == false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool AreCubesCheckingFall(CubeMove[] cubeMove)
+        {
+            for (int i = 0; i < cubeMove.Length; i++)
+            {
+                if (cubeMove[i].isCheckingFall == false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        public bool AreCubesEndingToMove(CubeMove[] cubeMove)
+        {
+            for (int i = 0; i < cubeMove.Length; i++)
+            {
+                if (cubeMove[i].isMoving == false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        public bool AreCubesEndingToFall(CubeMove[] cubeMove)
+        {
+            for (int i = 0; i < cubeMove.Length; i++)
+            {
+                if (cubeMove[i].isFalling == false)
                 {
                     return true;
                 }
