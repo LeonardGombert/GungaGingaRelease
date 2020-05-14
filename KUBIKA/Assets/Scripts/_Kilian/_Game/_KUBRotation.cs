@@ -75,7 +75,7 @@ namespace Kubika.Game
 
         public IEnumerator Rotate(bool rightSide)
         {
-            if (_DataManager.instance.EveryCubeAreFalling(_DataManager.instance.moveCube) == true)
+            if (_DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube) == true)
             {
 
                 isTurning = true;
