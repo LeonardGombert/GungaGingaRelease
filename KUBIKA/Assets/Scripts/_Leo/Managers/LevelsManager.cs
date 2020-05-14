@@ -86,6 +86,11 @@ namespace Kubika.Game
 
             saveAndLoad.ExtractAndRebuildLevel(levelData);
         }
+        public void RestartLevel()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
 

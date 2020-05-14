@@ -24,13 +24,18 @@ namespace Kubika.Game
         // Start is called before the first frame update
         void Start()
         {
-            currentActiveScene = loadToScene;
-            loadingSceneOp = SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
             SceneManager.LoadSceneAsync((int)ScenesIndex.USER_INTERFACE, LoadSceneMode.Additive);
+            loadingSceneOp = SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
+            currentActiveScene = loadToScene;
         }
 
         // Update is called once per frame
         void Update()
+        {
+
+        }
+        
+        public void _LoadScene(ScenesIndex targetScene)
         {
 
         }
