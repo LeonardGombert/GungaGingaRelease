@@ -13,7 +13,8 @@ namespace Kubika.Game
         public static _DataManager instance { get { return _instance; } }
 
         // MOVEABLE CUBE
-        public CubeMove[] moveCube;
+        public  CubeMove[] moveCubeArray;
+        public List<CubeMove> moveCube = new List<CubeMove>();
 
         //UNITY EVENT
         public UnityEvent StartChecking;
@@ -29,7 +30,8 @@ namespace Kubika.Game
         [Space]
         [Header("INDEX BANK")]
         public _DataMatrixScriptable indexBankScriptable;
-        public CubeBase[] baseCube;
+        public CubeBase[] baseCubeArray;
+        public List<CubeBase> baseCube = new List<CubeBase>();
 
         private void Awake()
         {
@@ -41,8 +43,18 @@ namespace Kubika.Game
 
         public void GameSet()
         {
-            moveCube = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
-            baseCube = FindObjectsOfType<CubeBase>();
+            moveCubeArray = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
+            baseCubeArray = FindObjectsOfType<CubeBase>();
+
+            foreach(CubeMove cube in moveCubeArray)
+            {
+                moveCube.Add(cube);
+            }
+
+            foreach (CubeBase cube in baseCubeArray)
+            {
+                baseCube.Add(cube);
+            }
         }
 
         // Update is called once per frame
@@ -62,7 +74,6 @@ namespace Kubika.Game
             {
                 _DirectionCustom.rotationState = actualRotation;
             }
-
         }
 
 
@@ -157,7 +168,7 @@ namespace Kubika.Game
         #region TIMED EVENT
         public IEnumerator CubesAreCheckingMove()
         {
-            while (AreCubesCheckingMove(moveCube) == false)
+            while (AreCubesCheckingMove(moveCube.ToArray()) == false)
             {
                 yield return null;
             }
@@ -170,7 +181,7 @@ namespace Kubika.Game
 
         public IEnumerator CubesAreEndingToMove()
         {
-            while (AreCubesEndingToMove(moveCube) == false)
+            while (AreCubesEndingToMove(moveCube.ToArray()) == false)
             {
                 yield return null;
             }
@@ -182,7 +193,7 @@ namespace Kubika.Game
 
         public IEnumerator CubesAreCheckingFall()
         {
-            while (AreCubesCheckingFall(moveCube) == false)
+            while (AreCubesCheckingFall(moveCube.ToArray()) == false)
             {
                 yield return null;
             }
@@ -194,7 +205,7 @@ namespace Kubika.Game
 
         public IEnumerator CubesAreEndingToFall()
         {
-            while (AreCubesEndingToFall(moveCube) == false)
+            while (AreCubesEndingToFall(moveCube.ToArray()) == false)
             {
                 yield return null;
             }

@@ -127,7 +127,7 @@ namespace Kubika.Game
                                                      grid.kuboGrid[myIndex - 1].yCoord * grid.offset - ((nbrCubeEmptyBelow + nbrCubeMouvableBelow) * grid.offset),
                                                      grid.kuboGrid[myIndex - 1].zCoord * grid.offset);
 
-                    fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+                    fallOutsideTarget += (Vector3.down * nbrDeCubeFallOutside);
                     isOutside = true;
                     isCheckingFall = false;
                 }
@@ -147,7 +147,7 @@ namespace Kubika.Game
                                                      grid.kuboGrid[myIndex - 1].yCoord * grid.offset - ((nbrCubeEmptyBelow + nbrCubeMouvableBelow) * grid.offset),
                                                      grid.kuboGrid[myIndex - 1].zCoord * grid.offset);
 
-                    fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+                    fallOutsideTarget += (Vector3.down * nbrDeCubeFallOutside);
                     isOutside = true;
                     isCheckingFall = false;
                 }
@@ -172,7 +172,7 @@ namespace Kubika.Game
                                                      grid.kuboGrid[myIndex - 1].yCoord * grid.offset - ((nbrCubeEmptyBelow + nbrCubeMouvableBelow) * grid.offset),
                                                      grid.kuboGrid[myIndex - 1].zCoord * grid.offset);
 
-                    fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+                    fallOutsideTarget += (Vector3.down * nbrDeCubeFallOutside);
                     isOutside = true;
                     isCheckingFall = false;
                 }
@@ -259,6 +259,9 @@ namespace Kubika.Game
             yCoordLocal = Mathf.RoundToInt(fallFromMapPosition.y / grid.offset);
             zCoordLocal = Mathf.RoundToInt(fallFromMapPosition.z / grid.offset);
 
+            _DataManager.instance.moveCube.Remove(this);
+            _DataManager.instance.baseCube.Remove(this);
+
 
             isFalling = false;
         }
@@ -338,11 +341,11 @@ namespace Kubika.Game
             yCoordLocal = Mathf.RoundToInt(moveOutsideTarget.y / grid.offset);
             zCoordLocal = Mathf.RoundToInt(moveOutsideTarget.z / grid.offset);
 
-            isMoving = false;
-
 
             fallOutsideTarget = moveOutsideTarget;
-            fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+            fallOutsideTarget += (Vector3.down * nbrDeCubeFallOutside);
+
+            isMoving = false;
 
             //_DataManager.instance.EndChecking.Invoke();
 
@@ -485,6 +488,12 @@ namespace Kubika.Game
                 }
 
             }
+            else
+            {
+                Debug.Log("MATRIX LIMIT SOLO");
+                soloMoveTarget = grid.kuboGrid[myIndex - 1];
+                isCheckingMove = false;
+            }
 
 
         }
@@ -531,6 +540,12 @@ namespace Kubika.Game
                         break;
                 }
 
+            }
+            else
+            {
+                Debug.Log("MATRIX LIMIT PILE");
+                soloPileTarget = grid.kuboGrid[myIndex - 1];
+                isCheckingMove = false;
             }
         }
 
@@ -640,7 +655,7 @@ namespace Kubika.Game
 
         void TEMPORARY______SHIT()
         {
-            if (TEST_DEBUG_PLAYER == true && _DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube) == true)
+            if (TEST_DEBUG_PLAYER == true && _DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube.ToArray()) == true)
             {
                 // X Axis
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -694,16 +709,19 @@ namespace Kubika.Game
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    CheckingMove(myIndex, _DirectionCustom.forward);
-                    StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                    /*
-                         else
-                         {
-                             outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                             outsideMoveTarget += _DirectionCustom.vectorForward;
-                             StartCoroutine(MoveFromMap(outsideMoveTarget));
-                             Debug.LogError("D AU BORD");
-                         }*/
+                    if (isMoving == false)
+                    {
+                        CheckingMove(myIndex, _DirectionCustom.forward);
+                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                        /*
+                             else
+                             {
+                                 outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                                 outsideMoveTarget += _DirectionCustom.vectorForward;
+                                 StartCoroutine(MoveFromMap(outsideMoveTarget));
+                                 Debug.LogError("D AU BORD");
+                             }*/
+                    }
                 }
             }
             else if (Input.GetKeyDown(KeyCode.R))
