@@ -108,30 +108,78 @@ namespace Kubika.Game
             //Debug.Log("Index 3==" + (myIndex + (_DirectionCustom.down) - 1));
             //Debug.Log("Index 4==" + (myIndex + (_DirectionCustom.down)));
 
+            Debug.Log("NUMBERS OF KUBE -- " + (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].nodeIndex));
+
+
             if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeEmpty)
             {
-                Debug.Log("EmptyDetected --");
-                thereIsEmpty = true;
-                nbrCubeEmptyBelow += 1;
-                Fall(nbrCubeBelowParam + 1);
+                if (MatrixLimitCalcul((myIndex + (_DirectionCustom.down * nbrCubeBelowParam)), _DirectionCustom.down))
+                {
+                    Debug.Log("EmptyDetected --");
+                    thereIsEmpty = true;
+                    nbrCubeEmptyBelow += 1;
+                    Fall(nbrCubeBelowParam + 1);
+                }
+                else
+                {
+                    Debug.Log(" FALL OUTSIDE Pos = " + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam)));
+                    fallOutsideTarget = new Vector3(grid.kuboGrid[myIndex - 1].xCoord * grid.offset,
+                                                     grid.kuboGrid[myIndex - 1].yCoord * grid.offset - ((nbrCubeEmptyBelow + nbrCubeMouvableBelow) * grid.offset),
+                                                     grid.kuboGrid[myIndex - 1].zCoord * grid.offset);
+
+                    fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+                    isOutside = true;
+                    isCheckingFall = false;
+                }
             }
             else if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeMoveable)
             {
-                Debug.Log("MoveDetected --" );
-                nbrCubeMouvableBelow += 1;
-                Fall(nbrCubeBelowParam + 1);
+                if (MatrixLimitCalcul((myIndex + (_DirectionCustom.down * nbrCubeBelowParam)), _DirectionCustom.down))
+                {
+                    Debug.Log("MoveDetected --");
+                    nbrCubeMouvableBelow += 1;
+                    Fall(nbrCubeBelowParam + 1);
+                }
+                else
+                {
+                    Debug.Log(" FALL OUTSIDE Pos = " + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam)));
+                    fallOutsideTarget = new Vector3(grid.kuboGrid[myIndex - 1].xCoord * grid.offset,
+                                                     grid.kuboGrid[myIndex - 1].yCoord * grid.offset - ((nbrCubeEmptyBelow + nbrCubeMouvableBelow) * grid.offset),
+                                                     grid.kuboGrid[myIndex - 1].zCoord * grid.offset);
+
+                    fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+                    isOutside = true;
+                    isCheckingFall = false;
+                }
             }
             else if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.down * nbrCubeBelowParam)].cubeLayers == CubeLayers.cubeFull)
             {
-                Debug.Log("FULLDetected --");
-                nbrCubeBelow = nbrCubeBelowParam;
+                if (MatrixLimitCalcul(myIndex, _DirectionCustom.down))
+                {
+                    Debug.Log("FULLDetected --");
+                    nbrCubeBelow = nbrCubeBelowParam;
 
-                indexTargetNode = myIndex + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1));
-                nextPosition = grid.kuboGrid[indexTargetNode - 1].worldPosition;
+                    indexTargetNode = myIndex + (_DirectionCustom.down * nbrCubeBelow) + (_DirectionCustom.up * (nbrCubeMouvableBelow + 1));
+                    nextPosition = grid.kuboGrid[indexTargetNode - 1].worldPosition;
 
-                Debug.Log("FULLDetected -- Final Destination ");
-                isCheckingFall = false;
+                    Debug.Log("FULLDetected -- Final Destination ");
+                    isCheckingFall = false;
+                }
+                else
+                {
+                    Debug.Log(" FALL OUTSIDE Pos = " + (myIndex + (_DirectionCustom.down * nbrCubeBelowParam)));
+                    fallOutsideTarget = new Vector3(grid.kuboGrid[myIndex - 1].xCoord * grid.offset,
+                                                     grid.kuboGrid[myIndex - 1].yCoord * grid.offset - ((nbrCubeEmptyBelow + nbrCubeMouvableBelow) * grid.offset),
+                                                     grid.kuboGrid[myIndex - 1].zCoord * grid.offset);
+
+                    fallOutsideTarget += (_DirectionCustom.vectorDown * nbrDeCubeFallOutside);
+                    isOutside = true;
+                    isCheckingFall = false;
+                }
+
             }
+
+
         }
 
         public void FallMoveFunction()

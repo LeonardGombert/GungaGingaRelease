@@ -83,6 +83,13 @@ namespace Kubika.Game
         {
             Debug.LogError("RotSte " + rotationState);
 
+            foreach (CubeBase cBase in baseCube)
+            {
+                _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
+                _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                //Debug.Log("DEELTE ALL = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers + " || Index = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex);
+            }
+
             /////// DEMON SCRIPT TODO DEGEULASS
 
             switch (rotationState)
@@ -91,8 +98,6 @@ namespace Kubika.Game
                     {
                         foreach (CubeBase cBase in baseCube)
                         {
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
@@ -106,13 +111,11 @@ namespace Kubika.Game
 
                         foreach (CubeBase cBase in baseCube)
                         {
-
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                            //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node1 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
-                            Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
+                            //Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
 
                         }
                         /*for (int i = 0; i < baseCube.Length; i++)
@@ -128,12 +131,11 @@ namespace Kubika.Game
 
                         foreach (CubeBase cBase in baseCube)
                         {
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                            //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node2 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
-                            Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
+                            //Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
 
 
                         }

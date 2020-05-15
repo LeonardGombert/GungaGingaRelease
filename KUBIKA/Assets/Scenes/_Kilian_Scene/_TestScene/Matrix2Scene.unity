@@ -497,7 +497,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   actualRotation: 0
-  indexBankScriptable: {fileID: 11400000, guid: d359a46e83d75aa4bb3f6cdc3aaa501c,
+  indexBankScriptable: {fileID: 11400000, guid: 20292aa4ca457024eb45bc26bf6fc21e,
     type: 2}
   baseCube: []
 --- !u!4 &1808604063
@@ -597,7 +597,8 @@ MonoBehaviour:
   placedObjects: []
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
-  levelSetup: 1
+  levelSetup: 0
+  prefabLevels: []
 --- !u!4 &2017944101
 Transform:
   m_ObjectHideFlags: 0
