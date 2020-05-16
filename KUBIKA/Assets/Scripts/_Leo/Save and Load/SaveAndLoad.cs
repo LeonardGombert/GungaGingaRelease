@@ -1,7 +1,5 @@
 ﻿using Kubika.Game;
 using Kubika.CustomLevelEditor;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -39,7 +37,7 @@ namespace Kubika.Saving
             return levelData;
         }
 
-        public void SaveLevelFull(string levelName, int minimumMoves)
+        public void SaveLevelFull(string levelName, bool userSaved = false, int minimumMoves = 0)
         {
             for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
@@ -51,9 +49,12 @@ namespace Kubika.Saving
             levelData.minimumMoves = minimumMoves;
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
 
-
             string json = JsonUtility.ToJson(levelData);
-            string folder = Application.dataPath + "/Scenes/Levels";
+            string folder;
+
+            if (!userSaved) folder = Application.dataPath + "/Scenes/Levels";
+            else folder = Application.dataPath + "/Resources/PlayerLevels";
+
             string levelFile = "";
 
             if (levelName != "") levelFile = levelName + ".json";
@@ -70,14 +71,17 @@ namespace Kubika.Saving
             levelData.nodesToSave.Clear();
             activeNodes.Clear();
 
-            Debug.Log("Level Fully Saved !");
+            Debug.Log("Level Fully Saved at " + path);
         }
 
-        public void LoadLevel(string levelName)
+        public void LoadLevel(string levelName, bool userSaved = false)
         {
             Debug.Log("Level Loading !");
+            string folder;
 
-            string folder = Application.dataPath + "/Scenes/Levels";
+            if (!userSaved) folder = Application.dataPath + "/Scenes/Levels";
+            else folder = Application.dataPath + "/Resources/PlayerLevels";
+
             string levelFile = levelName + ".json";
 
             string path = Path.Combine(folder, levelFile);

@@ -64,6 +64,7 @@ namespace Kubika.Game
         //Level Editor
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelEditorCanvas;
         public Dropdown playerLevelsDropdown;
+        public InputField saveLevelName;
 
         void Awake()
         {
