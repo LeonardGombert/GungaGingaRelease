@@ -11,26 +11,32 @@ namespace Kubika.Game
     {
         [Header("Empty")]
         public Texture _EmptyTex;
+        public Texture _EmptyTex2;
         public Mesh _EmptyMesh;
 
         [Header("Full")]
         public Texture _FullTex;
+        public Texture _FullTex2;
         public Mesh _FullMesh;
 
         [Header("Top")]
         public Texture _TopTex;
+        public Texture _TopTex2;
         public Mesh _TopMesh;
 
         [Header("Corner")]
         public Texture _CornerTex;
+        public Texture _CornerTex2;
         public Mesh _CornerMesh;
 
         [Header("Triple")]
         public Texture _TripleTex;
+        public Texture _TripleTex2;
         public Mesh _TripleMesh;
 
         [Header("Quad")]
         public Texture _QuadTex;
+        public Texture _QuadTex2;
         public Mesh _QuadMesh;
 
         [Header("Color Parameters")]

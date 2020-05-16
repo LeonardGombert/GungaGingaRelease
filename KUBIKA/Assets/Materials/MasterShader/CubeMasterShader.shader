@@ -10,15 +10,15 @@ Shader "KILIAN/CUBE/CubeMasterShader"
         [PerRendererData] _MainTex("Texture", 2D) = "white" {}
         [PerRendererData]_MainColor("_MainColor", Color) = (1,1,1,1)
 
-            //TEX2
-        [PerRendererData]_TexTwo("_TexTwo", 2D) = "white" {}
-        [PerRendererData]_ColorTwo("_ColorTwo", Color) = (1,1,1,1)
-        [PerRendererData]_TexTwoStrength("_TexTwoStrength", Range(0,1)) = 0
+            //_EdgeTex
+        [PerRendererData]_EdgeTex("_EdgeTex", 2D) = "white" {}
+        [PerRendererData]_EdgeColor("_EdgeColor", Color) = (1,1,1,1)
+        [PerRendererData]_EdgeTexStrength("_EdgeTexStrength", Range(0,1)) = 0
 
-            //TEX3
-        [PerRendererData]_Tex("_Tex", 2D) = "white" {}
-        [PerRendererData]_ColorTex("_ColorTex", Color) = (1,1,1,1)
-        [PerRendererData]_TexStrength("_TexStrength", Range(0,1)) = 0
+            //_InsideTex
+        [PerRendererData]_InsideTex("_InsideTex", 2D) = "white" {}
+        [PerRendererData]_InsideColor("_InsideColor", Color) = (1,1,1,1)
+        [PerRendererData]_InsideTexStrength("_InsideTexStrength", Range(0,1)) = 0
 
             //CENTER STARTS
         _GradientPoint("_GradientPoint", Vector) = (1,1,1,1)
@@ -55,8 +55,8 @@ Shader "KILIAN/CUBE/CubeMasterShader"
             //-X : _OffsetPastilleX =  0.5
             // Y : _OffsetPastilleY =  0.25
             //-Y : _OffsetPastilleY = -0.25
-        [PerRendererData]_Pastille("_Pastille", 2D) = "white" {}
-        [PerRendererData]_PastilleStrength("_PastilleStrength", Range(0,1)) = 0
+        [PerRendererData]_Emote("_Emote", 2D) = "white" {}
+        [PerRendererData]_EmoteStrength("_EmoteStrength", Range(0,1)) = 0
         [PerRendererData]_OffsetPastilleX("_OffsetPastilleX", Range(-1,1)) = 1
         [PerRendererData]_OffsetPastilleY("_OffsetPastilleY", Range(-1,1)) = 1
 
@@ -98,19 +98,22 @@ Shader "KILIAN/CUBE/CubeMasterShader"
 
 
                 sampler2D _MainTex;
-                sampler2D _Tex;
-                sampler2D _TexTwo;
-                sampler2D _Pastille;
                 float4 _MainTex_ST;
-                float4 _Tex_ST;
-                float4 _TexTwo_ST;
-                float4 _Pastille_ST;
                 fixed4 _MainColor;
-                fixed4 _ColorTwo;
-                fixed4 _ColorTex;
-                half _TexStrength;
-                half _TexTwoStrength;
-                half _PastilleStrength;
+
+                sampler2D _InsideTex;
+                float4 _InsideTex_ST;
+                fixed4 _InsideColor;
+                half _InsideTexStrength;
+
+                sampler2D _EdgeTex;
+                float4 _EdgeTex_ST;
+                fixed4 _EdgeColor;
+                half _EdgeTexStrength;
+
+                sampler2D _Emote;
+                float4 _Emote_ST;
+                half _EmoteStrength;
 
                 float4 _GradientPoint;
                 half _GradientRadius;
@@ -126,6 +129,7 @@ Shader "KILIAN/CUBE/CubeMasterShader"
                 float _Brightness;
                 float _Contrast;
                 float _Saturation;
+
                 half _DEBUG;
                 half _DEBUG2;
 
@@ -150,7 +154,7 @@ Shader "KILIAN/CUBE/CubeMasterShader"
                     float2 uv2 : TEXCOORD3;
                     float2 uv3 : TEXCOORD4;
                     half3 worldNormal : NORMAL;
-                    float2 uv_Pastille : TEXCOORD5;
+                    float2 uv_Emote : TEXCOORD5;
                 };
 
                 struct v2f
@@ -161,7 +165,7 @@ Shader "KILIAN/CUBE/CubeMasterShader"
                     half3 worldNormal : TEXCOORD2;
                     float2 uv2 : TEXCOORD3;
                     float2 uv3 : TEXCOORD4;
-                    float2 uv_Pastille : TEXCOORD5;
+                    float2 uv_Emote : TEXCOORD5;
                 };
 
 
@@ -198,9 +202,9 @@ Shader "KILIAN/CUBE/CubeMasterShader"
                     o.worldPos = mul(unity_ObjectToWorld, v.vertex);
 
                     o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                    o.uv2 = TRANSFORM_TEX(v.uv2, _Tex);
+                    o.uv2 = TRANSFORM_TEX(v.uv2, _InsideTex);
                     //o.uv3 = v.uv3 * _TexTwo_ST.xy + ((_TexTwo_ST.z + _OffsetPastilleX) + (_TexTwo_ST.w + _OffsetPastilleY));
-                    o.uv3 = v.uv_Pastille + float2(_OffsetPastilleX, _OffsetPastilleY);
+                    o.uv3 = v.uv_Emote + float2(_OffsetPastilleX, _OffsetPastilleY);
 
                     half d = distance(_GradientPoint, o.worldPos);
                     o.uv2.x += o.worldPos.x * _DEBUG * o.worldPos.y * _DEBUG;
@@ -214,11 +218,12 @@ Shader "KILIAN/CUBE/CubeMasterShader"
 
                     // sample the texture
                     fixed4 col = tex2D(_MainTex, i.uv) * _MainColor;
-                    fixed4 tex = tex2D(_Tex, i.uv2) * _ColorTex;
-                    fixed4 texTwo = tex2D(_TexTwo, i.uv) * _ColorTwo * _TexTwoStrength;
-                    texTwo.rgb *= (texTwo.a);
-                    fixed4 pastille = tex2D(_Pastille, i.uv3) * _PastilleStrength;
-                    pastille.rgb *= (pastille.a);
+                    fixed4 insideTex = tex2D(_InsideTex, i.uv2) * _InsideColor * _InsideTexStrength;
+                    insideTex.rgb *= (insideTex.a);
+                    fixed4 edgeTex = tex2D(_EdgeTex, i.uv) * _EdgeColor * _EdgeTexStrength;
+                    edgeTex.rgb *= (edgeTex.a);
+                    fixed4 emote = tex2D(_Emote, i.uv3) * _EmoteStrength;
+                    emote.rgb *= (emote.a);
                     //fixed4 uvBASE = lerp(_GradientExterior, _GradientCenter, (i.uv.y * _GradientMUL + _GradientOffset));
                     //fixed4 worldBASE = lerp(_GradientExterior, _GradientCenter, (((i.worldPos.y + i.worldPos.z) * 0.5)* _GradientMUL + _GradientOffset));
                     fixed4 pointBASE = lerp(_GradientExterior, _GradientCenter, sum);
@@ -241,11 +246,11 @@ Shader "KILIAN/CUBE/CubeMasterShader"
                     // scale down to 0-1 values
                     finalColor = saturate(finalColor);
 
-                    col = applyHSBEffect(lerp(col, tex , _TexStrength));
+                    col = applyHSBEffect(col);
 
-                    fixed4 result = (col * float4(finalColor, 1)) - texTwo.a - pastille.a;
+                    fixed4 result = (col * float4(finalColor, 1)) - edgeTex.a - insideTex.a - emote.a;
 
-                    return result + (texTwo * 2) + (pastille * 2);
+                    return result + (edgeTex * 2) + (insideTex * 2) + (emote * 2);
                 }
                 ENDCG
             }

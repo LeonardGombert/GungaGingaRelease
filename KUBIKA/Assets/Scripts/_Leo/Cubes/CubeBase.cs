@@ -35,6 +35,14 @@ namespace Kubika.Game
         public Texture _EmoteTex;
         public float _EmoteStrength;
 
+        public Texture _InsideTex;
+        public Color _InsideColor;
+        public float _InsideStrength;
+
+        public Texture _EdgeTex;
+        public Color _EdgeColor;
+        public float _EdgeStrength;
+
         MeshRenderer meshRenderer;
         MeshFilter meshFilter;
         MaterialPropertyBlock MatProp; // To change Mat Properties
@@ -93,17 +101,17 @@ namespace Kubika.Game
             meshFilter.mesh = _MainMesh;
 
             MatProp.SetTexture("_MainTex", _MainTex);
-            MatProp.SetTexture("_TexTwo", _MaterialCentral.instance.actualPack._VoidTex);
-            MatProp.SetTexture("_Tex", _MaterialCentral.instance.actualPack._VoidTex);
-            MatProp.SetTexture("_Pastille", _EmoteTex);
+            MatProp.SetTexture("_InsideTex", _MaterialCentral.instance.actualPack._VoidTex);
+            MatProp.SetTexture("_EdgeTex", _MaterialCentral.instance.actualPack._VoidTex);
+            MatProp.SetTexture("_Emote", _EmoteTex);
 
             MatProp.SetColor("_MainColor", _MainColor);
             //MatProp.SetColor("_ColorTwo", _ColorTwo);
             //MatProp.SetColor("_ColorTex", _ColorTex);
 
-            MatProp.SetFloat("_TexStrength", 0);
-            MatProp.SetFloat("_TexTwoStrength", 0);
-            MatProp.SetFloat("_PastilleStrength", _EmoteStrength);
+            MatProp.SetFloat("_InsideTexStrength", 0);
+            MatProp.SetFloat("_EdgeTexStrength", 0);
+            MatProp.SetFloat("_EmoteStrength", _EmoteStrength);
 
             MatProp.SetFloat("_Hue", _Hue);
             MatProp.SetFloat("_Contrast", _Contrast);
@@ -151,7 +159,7 @@ namespace Kubika.Game
                         break;
                     case DynamicEnums.Counter:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._CounterTex;
+                            _MainTex = _MaterialCentral.instance.actualPack._CounterTex0;
                             _MainMesh = _MaterialCentral.instance.actualPack._CounterMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._CounterColor;
 
@@ -211,7 +219,7 @@ namespace Kubika.Game
                         break;
                     case DynamicEnums.Switch:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._SwitchTex;
+                            _MainTex = _MaterialCentral.instance.actualPack._SwitchTexOn;
                             _MainMesh = _MaterialCentral.instance.actualPack._SwitchMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._SwitchColor;
 
@@ -226,7 +234,7 @@ namespace Kubika.Game
                         break;
                     case DynamicEnums.Rotators:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._RotatorsTex;
+                            _MainTex = _MaterialCentral.instance.actualPack._RotatorsTexLeft;
                             _MainMesh = _MaterialCentral.instance.actualPack._RotatorsMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._RotatorsColor;
 
