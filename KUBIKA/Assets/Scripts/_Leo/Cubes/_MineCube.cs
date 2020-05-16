@@ -12,6 +12,7 @@ namespace Kubika.Game
         {
             myCubeType = CubeTypes.MineCube;
             myCubeLayer = CubeLayers.cubeMoveable;
+            dynamicEnum = DynamicEnums.Bomb;
 
             //call base.start AFTER assigning the cube's layers
             base.Start();

@@ -7,6 +7,7 @@
         {
             myCubeType = CubeTypes.SwitchCube;
             myCubeLayer = CubeLayers.cubeMoveable;
+            dynamicEnum = DynamicEnums.Switch;
 
             //call base.start AFTER assigning the cube's layers
             base.Start();

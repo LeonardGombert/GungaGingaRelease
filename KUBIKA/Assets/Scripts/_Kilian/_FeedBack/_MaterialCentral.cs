@@ -396,6 +396,7 @@ namespace Kubika.Game
 
         public void ChangeUniverseRight()
         {
+            allCube = FindObjectsOfType<CubeBase>(); // TODO DEGEU
             Debug.Log("RIGHT UNIVERS");
             if(staticIndex < staticPack.Length)
             {
@@ -411,6 +412,7 @@ namespace Kubika.Game
 
         public void ChangeUniverseLeft()
         {
+            allCube = FindObjectsOfType<CubeBase>();
             Debug.Log("LEFT UNIVERS");
             if (staticIndex > 0)
             {
