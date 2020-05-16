@@ -22,7 +22,7 @@ public class SaveAndLoadEditor : OdinEditor
 
         if (GUILayout.Button("Save Level"))
         {
-            saveAndLoader.SaveLevelFull(levelName, miminumMoves);
+            saveAndLoader.SaveLevelFull(levelName, false, miminumMoves);
         }
 
         if (GUILayout.Button("Load Level"))

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Kubika.CustomLevelEditor;
+using Sirenix.OdinInspector;
 
 namespace Kubika.Game
 {
@@ -15,24 +16,25 @@ namespace Kubika.Game
         public ScenesIndex currentActiveScene;
         AsyncOperation loadingSceneOp;
 
-        public static bool isLevelEditor = true;
-        public static bool isDevScene = false;
+        [ShowInInspector] public static bool isLevelEditor = true;
+        [ShowInInspector] public static bool isDevScene = false;
 
         void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
-        }
 
-        // Start is called before the first frame update
-        void Start()
-        {
             if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isLevelEditor = true;
             if (SceneManager.GetActiveScene().name.Contains("DevScene")) isDevScene = true;
 
             SceneManager.LoadSceneAsync((int)ScenesIndex.USER_INTERFACE, LoadSceneMode.Additive);
             loadingSceneOp = SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
             currentActiveScene = loadToScene;
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
 
         }
 

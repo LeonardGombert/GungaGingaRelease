@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kubika.Game
 {
@@ -16,22 +17,21 @@ namespace Kubika.Game
         [FoldoutGroup("Biomes")] public List<LevelFileInfo> masterList = new List<LevelFileInfo>();
         [FoldoutGroup("Biomes")] public Queue<LevelFileInfo> levels = new Queue<LevelFileInfo>();
 
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome1 = new List<LevelFileInfo>();
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome2 = new List<LevelFileInfo>();
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome3 = new List<LevelFileInfo>();
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome4 = new List<LevelFileInfo>();
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome5 = new List<LevelFileInfo>();
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome6 = new List<LevelFileInfo>();
-        [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome7 = new List<LevelFileInfo>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome1 = new List<TextAsset>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome2 = new List<TextAsset>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome3 = new List<TextAsset>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome4 = new List<TextAsset>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome5 = new List<TextAsset>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome6 = new List<TextAsset>();
+        [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome7 = new List<TextAsset>();
+
+        List<List<TextAsset>> listOfLists = new List<List<TextAsset>>();
         #endregion
 
         #region LEVEL EDITOR
-        public UnityEngine.Object[] levelObjects;
-        public List<LevelFileInfo> playerLevelsInfo = new List<LevelFileInfo>();
+        [FoldoutGroup("Level Editor ")] public UnityEngine.Object[] levelObjects;
+        [FoldoutGroup("Level Editor ")] public List<LevelFileInfo> playerLevelsInfo = new List<LevelFileInfo>();
         #endregion
-
-        //keep a reference to the save/load instance to quickly extract levels from files
-        SaveAndLoad saveAndLoad;
 
         string _levelName;
         int _minimumMoves;
@@ -45,48 +45,45 @@ namespace Kubika.Game
 
         // Start is called before the first frame update
         void Start()
-        {
+        {            
+            listOfLists.Add(biome1);
+            listOfLists.Add(biome2);
+            listOfLists.Add(biome3);
+            listOfLists.Add(biome4);
+            listOfLists.Add(biome5);
+            listOfLists.Add(biome6);
+            listOfLists.Add(biome7);
+
             InitializeLists();
+            if (ScenesManager.isLevelEditor) InitializePlayerLevels();
         }
 
         // Copy all of the individual lists to the master list
         private void InitializeLists()
         {
-            // copy lists into the master list
-            foreach (LevelFileInfo level in biome1) masterList.Add(level);
-            foreach (LevelFileInfo level in biome2) masterList.Add(level);
-            foreach (LevelFileInfo level in biome3) masterList.Add(level);
-            foreach (LevelFileInfo level in biome4) masterList.Add(level);
-            foreach (LevelFileInfo level in biome5) masterList.Add(level);
-            foreach (LevelFileInfo level in biome6) masterList.Add(level);
-            foreach (LevelFileInfo level in biome7) masterList.Add(level);
-
-            ResetQueue();
-
-            if (ScenesManager.isLevelEditor) InitializePlayerLevels();
-        }
-
-        private void InitializePlayerLevels()
-        {
-            levelObjects = Resources.LoadAll("/PlayerLevels", typeof(TextAsset));
-
-            foreach (TextAsset item in levelObjects)
+            foreach (List<TextAsset> levelFileList in listOfLists)
             {
-                LevelFileInfo levelInfo = new LevelFileInfo();
-
-                LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(item.ToString());
-
-                levelInfo.levelFile = item;
-                levelInfo.levelName = levelData.levelName;
-                levelInfo.minimumMoves = levelData.minimumMoves;
-
-                playerLevelsInfo.Add(levelInfo);
+                foreach (TextAsset level in levelFileList)
+                {
+                    LevelFileInfo levelInfo = ConvertToLevelInfo(level);
+                    masterList.Add(levelInfo);
+                }
             }
 
-            /*foreach (LevelFileInfo level in playerLevelsInfo)
-            {
-                UIManager.instance.playerLevelsDropdown.captionText.text = level.levelName;
-            }*/
+            ResetQueue();
+        }
+
+        // use this function to extra information from text file asset
+        private LevelFileInfo ConvertToLevelInfo(TextAsset levelFile)
+        {
+            LevelFileInfo levelInfo = new LevelFileInfo();
+            LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(levelFile.ToString());
+
+            levelInfo.levelFile = levelFile;
+            levelInfo.levelName = levelData.levelName;
+            levelInfo.minimumMoves = levelData.minimumMoves;
+
+            return levelInfo;
         }
 
         // Reset the queue to its base state
@@ -107,6 +104,30 @@ namespace Kubika.Game
             levels.Dequeue();
         }
 
+        private void InitializePlayerLevels()
+        {
+            levelObjects = Resources.LoadAll("PlayerLevels", typeof(TextAsset));
+
+            foreach (TextAsset item in levelObjects)
+            {
+                LevelFileInfo levelInfo = ConvertToLevelInfo(item);
+
+                playerLevelsInfo.Add(levelInfo);
+            }
+            
+            while (UIManager.instance == null) return;
+            UIManager.instance.playerLevelsDropdown.ClearOptions();
+
+            Debug.Log("Cleared");
+
+            foreach (LevelFileInfo level in playerLevelsInfo)
+            {
+                UIManager.instance.playerLevelsDropdown.options.Add(new Dropdown.OptionData(level.levelName));
+            }
+
+            UIManager.instance.playerLevelsDropdown.RefreshShownValue();
+        }
+
         // Load the next level (extract the file)
         public void LoadLevel()
         {
@@ -116,6 +137,7 @@ namespace Kubika.Game
 
             SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
         }
+
         public void RestartLevel()
         {
             throw new NotImplementedException();
