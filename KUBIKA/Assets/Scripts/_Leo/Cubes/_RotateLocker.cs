@@ -10,6 +10,7 @@ namespace Kubika.Game
         {
             myCubeType = CubeTypes.MirrorCube;
             myCubeLayer = CubeLayers.cubeMoveable;
+            dynamicEnum = DynamicEnums.Rotators;
 
             //call base.start AFTER assigning the cube's layers
             base.Start();

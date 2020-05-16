@@ -17,6 +17,7 @@ namespace Kubika.Game
         {
             myCubeType = CubeTypes.TimerCube;
             myCubeLayer = CubeLayers.cubeFull;
+            dynamicEnum = DynamicEnums.Counter;
 
             //call base.start AFTER assigning the cube's layers
             base.Start();

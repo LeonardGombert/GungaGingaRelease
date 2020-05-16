@@ -50,10 +50,10 @@ namespace Kubika.Game
         // Start is called before the first frame update
         public virtual void Start()
         {
-
             grid = _Grid.instance;
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
+            SetScriptablePreset();
         }
 
         public virtual void Update()
