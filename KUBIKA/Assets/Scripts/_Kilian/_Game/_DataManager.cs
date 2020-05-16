@@ -13,7 +13,8 @@ namespace Kubika.Game
         public static _DataManager instance { get { return _instance; } }
 
         // MOVEABLE CUBE
-        public CubeMove[] moveCube;
+        public  CubeMove[] moveCubeArray;
+        public List<CubeMove> moveCube = new List<CubeMove>();
 
         //UNITY EVENT
         public UnityEvent StartChecking;
@@ -29,7 +30,8 @@ namespace Kubika.Game
         [Space]
         [Header("INDEX BANK")]
         public _DataMatrixScriptable indexBankScriptable;
-        public CubeBase[] baseCube;
+        public CubeBase[] baseCubeArray;
+        public List<CubeBase> baseCube = new List<CubeBase>();
 
         private void Awake()
         {
@@ -41,8 +43,18 @@ namespace Kubika.Game
 
         public void GameSet()
         {
-            moveCube = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
-            baseCube = FindObjectsOfType<CubeBase>();
+            moveCubeArray = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
+            baseCubeArray = FindObjectsOfType<CubeBase>();
+
+            foreach(CubeMove cube in moveCubeArray)
+            {
+                moveCube.Add(cube);
+            }
+
+            foreach (CubeBase cube in baseCubeArray)
+            {
+                baseCube.Add(cube);
+            }
         }
 
         // Update is called once per frame
@@ -62,7 +74,6 @@ namespace Kubika.Game
             {
                 _DirectionCustom.rotationState = actualRotation;
             }
-
         }
 
 
@@ -83,6 +94,13 @@ namespace Kubika.Game
         {
             Debug.LogError("RotSte " + rotationState);
 
+            foreach (CubeBase cBase in baseCube)
+            {
+                _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
+                _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                //Debug.Log("DEELTE ALL = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers + " || Index = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex);
+            }
+
             /////// DEMON SCRIPT TODO DEGEULASS
 
             switch (rotationState)
@@ -91,8 +109,6 @@ namespace Kubika.Game
                     {
                         foreach (CubeBase cBase in baseCube)
                         {
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
@@ -106,13 +122,11 @@ namespace Kubika.Game
 
                         foreach (CubeBase cBase in baseCube)
                         {
-
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                            //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node1 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
-                            Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
+                            //Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
 
                         }
                         /*for (int i = 0; i < baseCube.Length; i++)
@@ -128,12 +142,11 @@ namespace Kubika.Game
 
                         foreach (CubeBase cBase in baseCube)
                         {
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                            //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node2 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
-                            Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || " + (cBase.myIndex - 1));
+                            //Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
 
 
                         }
@@ -155,7 +168,7 @@ namespace Kubika.Game
         #region TIMED EVENT
         public IEnumerator CubesAreCheckingMove()
         {
-            while (AreCubesCheckingMove(moveCube) == false)
+            while (AreCubesCheckingMove(moveCube.ToArray()) == false)
             {
                 yield return null;
             }
@@ -168,7 +181,7 @@ namespace Kubika.Game
 
         public IEnumerator CubesAreEndingToMove()
         {
-            while (AreCubesEndingToMove(moveCube) == false)
+            while (AreCubesEndingToMove(moveCube.ToArray()) == false)
             {
                 yield return null;
             }
@@ -180,7 +193,7 @@ namespace Kubika.Game
 
         public IEnumerator CubesAreCheckingFall()
         {
-            while (AreCubesCheckingFall(moveCube) == false)
+            while (AreCubesCheckingFall(moveCube.ToArray()) == false)
             {
                 yield return null;
             }
@@ -192,7 +205,7 @@ namespace Kubika.Game
 
         public IEnumerator CubesAreEndingToFall()
         {
-            while (AreCubesEndingToFall(moveCube) == false)
+            while (AreCubesEndingToFall(moveCube.ToArray()) == false)
             {
                 yield return null;
             }

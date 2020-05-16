@@ -481,10 +481,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: []
-  EndChecking:
+  StartChecking:
     m_PersistentCalls:
       m_Calls: []
-  EndMoveChecking:
+  StartMoving:
     m_PersistentCalls:
       m_Calls: []
   EndMoving:
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d20617c838cea14096f712e52c4c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 12
+  gridSize: 4
   gridMargin: 5
   centerPosition: 0
   startingPos: 0
@@ -598,6 +598,7 @@ MonoBehaviour:
   nodeVizPrefab: {fileID: 415372726904812596, guid: e6dbb9834257eff44b62276775d40f67,
     type: 3}
   levelSetup: 0
+  prefabLevels: []
 --- !u!4 &2017944101
 Transform:
   m_ObjectHideFlags: 0

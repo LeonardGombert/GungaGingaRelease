@@ -325,10 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020a43d5f49fb4c4985d42b74f41313b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indexBankScriptable: {fileID: 11400000, guid: d359a46e83d75aa4bb3f6cdc3aaa501c,
+  indexBankScriptable: {fileID: 11400000, guid: 20292aa4ca457024eb45bc26bf6fc21e,
     type: 2}
   gridSizeVector: {x: 0, y: 0, z: 0}
-  gridSize: 4
+  gridSize: 12
   offset: 1.05
   grid0: []
   grid1: []

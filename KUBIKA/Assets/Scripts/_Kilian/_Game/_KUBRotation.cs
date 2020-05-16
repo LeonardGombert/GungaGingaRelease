@@ -75,7 +75,7 @@ namespace Kubika.Game
 
         public IEnumerator Rotate(bool rightSide)
         {
-            if (_DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube) == true)
+            if (_DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube.ToArray()) == true && _DataManager.instance.AreCubesEndingToMove(_DataManager.instance.moveCube.ToArray()) == true)
             {
 
                 isTurning = true;
@@ -126,6 +126,11 @@ namespace Kubika.Game
 
                 Debug.LogError("(int)moveRot.z " + (int)moveRot.z + " ||  " + Mathf.RoundToInt((int)moveRot.z));
                 currentRot.z = Mathf.RoundToInt((int)moveRot.z);
+
+                currentRot.z = currentRot.z >= 118 && currentRot.z <= 122 ? 120 :
+                                        (currentRot.z >= -122 && currentRot.z <= -118 ? -120 :
+                                        currentRot.z >= 238 && currentRot.z <= 242 ? 240 : 0);
+
                 transform.eulerAngles = currentRot;
 
                 //=============// //
@@ -134,10 +139,11 @@ namespace Kubika.Game
 
                 Debug.LogError("transform.eulerAngles.z " + (int)transform.eulerAngles.z + " ||  " + (int)transform.eulerAngles.z % 360);
 
-
                 _DirectionCustom.rotationState = (int)transform.eulerAngles.z % 360 == 0 ? 0 :
-                                            ((int)transform.eulerAngles.z % 360 == 121 ? 1 :
-                                            ((int)transform.eulerAngles.z % 360 == 239 ? 2 : 0));  /// TODO : MAGIK NUMBERS !!!!!!!!!!!!!!!!!!!!
+                                            ((int)transform.eulerAngles.z % 360 == 120 ? 1 :
+                                            ((int)transform.eulerAngles.z % 360 == 240 ? 2 : 0)); 
+
+                Debug.LogError("ROTATION-STATE " + _DirectionCustom.rotationState);
 
                 _DataManager.instance.MakeFall();
                 isTurning = false;
