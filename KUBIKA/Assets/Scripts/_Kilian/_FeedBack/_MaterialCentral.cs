@@ -10,10 +10,19 @@ namespace Kubika.Game
         private static _MaterialCentral _instance;
         public static _MaterialCentral instance { get { return _instance; } }
 
-        public _StaticPack staticPack;
-        public _DynamicPack dynamicPack;
-        public _EmotePack emotePack;
-        public _FXPack fxPack;
+        [Space]
+        [Header("ALL CUBES")]
+        CubeBase[] allCube;
+
+        [Space]
+        public _StaticPack[] staticPack;
+        public int staticIndex;
+        public _DynamicPack[] dynamicPack;
+        public int dynamicIndex;
+        public _EmotePack[] emotePack;
+        public int emoteIndex;
+        public _FXPack[] fxPack;
+        public int fxIndex;
         [Space]
         public _ActualAllPack actualPack;
 
@@ -181,154 +190,191 @@ namespace Kubika.Game
         // Start is called before the first frame update
         void Start()
         {
-            ResetDynamicPacks();
-            ResetStaticPacks();
-            ResetEmotePacks();
-            ResetFxPacks();
+            allCube = FindObjectsOfType<CubeBase>();
+            
+            ResetDynamicPacks(dynamicIndex);
+            ResetStaticPacks(staticIndex);
+            ResetEmotePacks(emoteIndex);
+            ResetFxPacks(fxIndex);
+
+            foreach(CubeBase cube in allCube)
+            {
+                cube.SetScriptablePreset();
+            }
         }
 
 
-        public void ResetDynamicPacks()
+        public void ResetDynamicPacks(int index)
         {
 
             #region DYNAMIC SETTINGS
-            actualPack._BaseTex = dynamicPack._BaseTex;
-            actualPack._BaseMesh = dynamicPack._BaseMesh;
-            actualPack._BaseColor = dynamicPack._BaseColor;
-            actualPack.Base_Hue = dynamicPack.Base_Hue;
-            actualPack.Base_Contrast = dynamicPack.Base_Contrast;
-            actualPack.Base_Saturation = dynamicPack.Base_Saturation;
-            actualPack.Base_Brightness = dynamicPack.Base_Brightness;
+            actualPack._BaseTex = dynamicPack[index]._BaseTex;
+            actualPack._BaseMesh = dynamicPack[index]._BaseMesh;
+            actualPack._BaseColor = dynamicPack[index]._BaseColor;
+            actualPack.Base_Hue = dynamicPack[index].Base_Hue;
+            actualPack.Base_Contrast = dynamicPack[index].Base_Contrast;
+            actualPack.Base_Saturation = dynamicPack[index].Base_Saturation;
+            actualPack.Base_Brightness = dynamicPack[index].Base_Brightness;
 
-            actualPack._BetonTex = dynamicPack._BetonTex;
-            actualPack._BetonMesh = dynamicPack._BetonMesh;
-            actualPack._BetonColor = dynamicPack._BetonColor;
-            actualPack.Beton_Hue = dynamicPack.Beton_Hue;
-            actualPack.Beton_Contrast = dynamicPack.Beton_Contrast;
-            actualPack.Beton_Saturation = dynamicPack.Beton_Saturation;
-            actualPack.Beton_Brightness = dynamicPack.Beton_Brightness;
+            actualPack._BetonTex = dynamicPack[index]._BetonTex;
+            actualPack._BetonMesh = dynamicPack[index]._BetonMesh;
+            actualPack._BetonColor = dynamicPack[index]._BetonColor;
+            actualPack.Beton_Hue = dynamicPack[index].Beton_Hue;
+            actualPack.Beton_Contrast = dynamicPack[index].Beton_Contrast;
+            actualPack.Beton_Saturation = dynamicPack[index].Beton_Saturation;
+            actualPack.Beton_Brightness = dynamicPack[index].Beton_Brightness;
 
-            actualPack._ElevatorTex = dynamicPack._ElevatorTex;
-            actualPack._ElevatorMesh = dynamicPack._ElevatorMesh;
-            actualPack._ElevatorColor = dynamicPack._ElevatorColor;
-            actualPack.Elevator_Hue = dynamicPack.Elevator_Hue;
-            actualPack.Elevator_Contrast = dynamicPack.Elevator_Contrast;
-            actualPack.Elevator_Saturation = dynamicPack.Elevator_Saturation;
-            actualPack.Elevator_Brightness = dynamicPack.Elevator_Brightness;
+            actualPack._ElevatorTex = dynamicPack[index]._ElevatorTex;
+            actualPack._ElevatorMesh = dynamicPack[index]._ElevatorMesh;
+            actualPack._ElevatorColor = dynamicPack[index]._ElevatorColor;
+            actualPack.Elevator_Hue = dynamicPack[index].Elevator_Hue;
+            actualPack.Elevator_Contrast = dynamicPack[index].Elevator_Contrast;
+            actualPack.Elevator_Saturation = dynamicPack[index].Elevator_Saturation;
+            actualPack.Elevator_Brightness = dynamicPack[index].Elevator_Brightness;
 
-            actualPack._CounterTex = dynamicPack._CounterTex;
-            actualPack._CounterMesh = dynamicPack._CounterMesh;
-            actualPack._CounterColor = dynamicPack._CounterColor;
-            actualPack.Counter_Hue = dynamicPack.Counter_Hue;
-            actualPack.Counter_Contrast = dynamicPack.Counter_Contrast;
-            actualPack.Counter_Saturation = dynamicPack.Counter_Saturation;
-            actualPack.Counter_Brightness = dynamicPack.Counter_Brightness;
+            actualPack._CounterTex = dynamicPack[index]._CounterTex;
+            actualPack._CounterMesh = dynamicPack[index]._CounterMesh;
+            actualPack._CounterColor = dynamicPack[index]._CounterColor;
+            actualPack.Counter_Hue = dynamicPack[index].Counter_Hue;
+            actualPack.Counter_Contrast = dynamicPack[index].Counter_Contrast;
+            actualPack.Counter_Saturation = dynamicPack[index].Counter_Saturation;
+            actualPack.Counter_Brightness = dynamicPack[index].Counter_Brightness;
 
-            actualPack._RotatorsTex = dynamicPack._RotatorsTex;
-            actualPack._RotatorsMesh = dynamicPack._RotatorsMesh;
-            actualPack._RotatorsColor = dynamicPack._RotatorsColor;
-            actualPack.Rotators_Hue = dynamicPack.Rotators_Hue;
-            actualPack.Rotators_Contrast = dynamicPack.Rotators_Contrast;
-            actualPack.Rotators_Saturation = dynamicPack.Rotators_Saturation;
-            actualPack.Rotators_Brightness = dynamicPack.Rotators_Brightness;
+            actualPack._RotatorsTex = dynamicPack[index]._RotatorsTex;
+            actualPack._RotatorsMesh = dynamicPack[index]._RotatorsMesh;
+            actualPack._RotatorsColor = dynamicPack[index]._RotatorsColor;
+            actualPack.Rotators_Hue = dynamicPack[index].Rotators_Hue;
+            actualPack.Rotators_Contrast = dynamicPack[index].Rotators_Contrast;
+            actualPack.Rotators_Saturation = dynamicPack[index].Rotators_Saturation;
+            actualPack.Rotators_Brightness = dynamicPack[index].Rotators_Brightness;
 
-            actualPack._BombTex = dynamicPack._BombTex;
-            actualPack._BombMesh = dynamicPack._BombMesh;
-            actualPack._BombColor = dynamicPack._BombColor;
-            actualPack.Bomb_Hue = dynamicPack.Bomb_Hue;
-            actualPack.Bomb_Contrast = dynamicPack.Bomb_Contrast;
-            actualPack.Bomb_Saturation = dynamicPack.Bomb_Saturation;
-            actualPack.Bomb_Brightness = dynamicPack.Bomb_Brightness;
+            actualPack._BombTex = dynamicPack[index]._BombTex;
+            actualPack._BombMesh = dynamicPack[index]._BombMesh;
+            actualPack._BombColor = dynamicPack[index]._BombColor;
+            actualPack.Bomb_Hue = dynamicPack[index].Bomb_Hue;
+            actualPack.Bomb_Contrast = dynamicPack[index].Bomb_Contrast;
+            actualPack.Bomb_Saturation = dynamicPack[index].Bomb_Saturation;
+            actualPack.Bomb_Brightness = dynamicPack[index].Bomb_Brightness;
 
-            actualPack._SwitchTex = dynamicPack._SwitchTex;
-            actualPack._SwitchMesh = dynamicPack._SwitchMesh;
-            actualPack._SwitchColor = dynamicPack._SwitchColor;
-            actualPack.Switch_Hue = dynamicPack.Switch_Hue;
-            actualPack.Switch_Contrast = dynamicPack.Switch_Contrast;
-            actualPack.Switch_Saturation = dynamicPack.Switch_Saturation;
-            actualPack.Switch_Brightness = dynamicPack.Switch_Brightness;
+            actualPack._SwitchTex = dynamicPack[index]._SwitchTex;
+            actualPack._SwitchMesh = dynamicPack[index]._SwitchMesh;
+            actualPack._SwitchColor = dynamicPack[index]._SwitchColor;
+            actualPack.Switch_Hue = dynamicPack[index].Switch_Hue;
+            actualPack.Switch_Contrast = dynamicPack[index].Switch_Contrast;
+            actualPack.Switch_Saturation = dynamicPack[index].Switch_Saturation;
+            actualPack.Switch_Brightness = dynamicPack[index].Switch_Brightness;
 
-            actualPack._BallTex = dynamicPack._BallTex;
-            actualPack._BallMesh = dynamicPack._BallMesh;
-            actualPack._BallColor = dynamicPack._BallColor;
-            actualPack.Ball_Hue = dynamicPack.Ball_Hue;
-            actualPack.Ball_Contrast = dynamicPack.Ball_Contrast;
-            actualPack.Ball_Saturation = dynamicPack.Ball_Saturation;
-            actualPack.Ball_Brightness = dynamicPack.Ball_Brightness;
+            actualPack._BallTex = dynamicPack[index]._BallTex;
+            actualPack._BallMesh = dynamicPack[index]._BallMesh;
+            actualPack._BallColor = dynamicPack[index]._BallColor;
+            actualPack.Ball_Hue = dynamicPack[index].Ball_Hue;
+            actualPack.Ball_Contrast = dynamicPack[index].Ball_Contrast;
+            actualPack.Ball_Saturation = dynamicPack[index].Ball_Saturation;
+            actualPack.Ball_Brightness = dynamicPack[index].Ball_Brightness;
 
-            actualPack._PastilleTex = dynamicPack._PastilleTex;
-            actualPack._PastilleMesh = dynamicPack._PastilleMesh;
-            actualPack._PastilleColor = dynamicPack._PastilleColor;
-            actualPack.Pastille_Hue = dynamicPack.Pastille_Hue;
-            actualPack.Pastille_Contrast = dynamicPack.Pastille_Contrast;
-            actualPack.Pastille_Saturation = dynamicPack.Pastille_Saturation;
-            actualPack.Pastille_Brightness = dynamicPack.Pastille_Brightness;
+            actualPack._PastilleTex = dynamicPack[index]._PastilleTex;
+            actualPack._PastilleMesh = dynamicPack[index]._PastilleMesh;
+            actualPack._PastilleColor = dynamicPack[index]._PastilleColor;
+            actualPack.Pastille_Hue = dynamicPack[index].Pastille_Hue;
+            actualPack.Pastille_Contrast = dynamicPack[index].Pastille_Contrast;
+            actualPack.Pastille_Saturation = dynamicPack[index].Pastille_Saturation;
+            actualPack.Pastille_Brightness = dynamicPack[index].Pastille_Brightness;
             #endregion
 
         }
 
-        public void ResetStaticPacks()
+        public void ResetStaticPacks(int index)
         {
 
             #region STATIC SETTINGS
-            actualPack._EmptyTex = staticPack._EmptyTex;
-            actualPack._EmptyMesh = staticPack._EmptyMesh;
+            actualPack._EmptyTex = staticPack[index]._EmptyTex;
+            actualPack._EmptyMesh = staticPack[index]._EmptyMesh;
 
-            actualPack._FullTex = staticPack._FullTex;
-            actualPack._FullMesh = staticPack._FullMesh;
+            actualPack._FullTex = staticPack[index]._FullTex;
+            actualPack._FullMesh = staticPack[index]._FullMesh;
 
-            actualPack._TopTex = staticPack._TopTex;
-            actualPack._TopMesh = staticPack._TopMesh;
+            actualPack._TopTex = staticPack[index]._TopTex;
+            actualPack._TopMesh = staticPack[index]._TopMesh;
 
-            actualPack._CornerTex = staticPack._CornerTex;
-            actualPack._CornerMesh = staticPack._CornerMesh;
+            actualPack._CornerTex = staticPack[index]._CornerTex;
+            actualPack._CornerMesh = staticPack[index]._CornerMesh;
 
-            actualPack._TripleTex = staticPack._TripleTex;
-            actualPack._TripleMesh = staticPack._TripleMesh;
+            actualPack._TripleTex = staticPack[index]._TripleTex;
+            actualPack._TripleMesh = staticPack[index]._TripleMesh;
 
-            actualPack._QuadTex = staticPack._QuadTex;
-            actualPack._QuadMesh = staticPack._QuadMesh;
+            actualPack._QuadTex = staticPack[index]._QuadTex;
+            actualPack._QuadMesh = staticPack[index]._QuadMesh;
 
-            actualPack._TextureColor = staticPack._TextureColor;
-            actualPack._Hue = staticPack._Hue;
-            actualPack._Contrast = staticPack._Contrast;
-            actualPack._Saturation = staticPack._Saturation;
-            actualPack._Brightness = staticPack._Brightness;
+            actualPack._TextureColor = staticPack[index]._TextureColor;
+            actualPack._Hue = staticPack[index]._Hue;
+            actualPack._Contrast = staticPack[index]._Contrast;
+            actualPack._Saturation = staticPack[index]._Saturation;
+            actualPack._Brightness = staticPack[index]._Brightness;
             #endregion
 
         }
 
-        public void ResetEmotePacks()
+        public void ResetEmotePacks(int index)
         {
 
             #region EMOTE SETTINGS
-            actualPack._BaseEmoteTex = emotePack._BaseEmoteTex;
+            actualPack._BaseEmoteTex = emotePack[index]._BaseEmoteTex;
 
-            actualPack._BetonEmoteTex = emotePack._BetonEmoteTex;
+            actualPack._BetonEmoteTex = emotePack[index]._BetonEmoteTex;
 
-            actualPack._ElevatorEmoteTex = emotePack._ElevatorEmoteTex;
+            actualPack._ElevatorEmoteTex = emotePack[index]._ElevatorEmoteTex;
 
-            actualPack._CounterEmoteTex = emotePack._CounterEmoteTex;
+            actualPack._CounterEmoteTex = emotePack[index]._CounterEmoteTex;
 
-            actualPack._RotatorsEmoteTex = emotePack._RotatorsEmoteTex;
+            actualPack._RotatorsEmoteTex = emotePack[index]._RotatorsEmoteTex;
 
-            actualPack._BombEmoteTex = emotePack._BombEmoteTex;
+            actualPack._BombEmoteTex = emotePack[index]._BombEmoteTex;
 
-            actualPack._SwitchEmoteTex = emotePack._SwitchEmoteTex;
+            actualPack._SwitchEmoteTex = emotePack[index]._SwitchEmoteTex;
 
-            actualPack._BallEmoteTex = emotePack._BallEmoteTex;
+            actualPack._BallEmoteTex = emotePack[index]._BallEmoteTex;
 
-            actualPack._PastilleEmoteTex = emotePack._PastilleEmoteTex;
+            actualPack._PastilleEmoteTex = emotePack[index]._PastilleEmoteTex;
             #endregion
 
         }
 
-        public void ResetFxPacks()
+        public void ResetFxPacks(int index)
         {
 
             #region FX SETTINGS
             #endregion
 
+        }
+
+        public void ChangeUniverseRight()
+        {
+            Debug.Log("RIGHT UNIVERS");
+            if(staticIndex < staticPack.Length)
+            {
+                Debug.Log("Index = " + staticIndex);
+                staticIndex += 1;
+                ResetStaticPacks(staticIndex);
+                foreach (CubeBase cube in allCube)
+                {
+                    cube.SetScriptablePreset();
+                }
+            }
+        }
+
+        public void ChangeUniverseLeft()
+        {
+            Debug.Log("LEFT UNIVERS");
+            if (staticIndex > 0)
+            {
+                Debug.Log("Index = " + staticIndex);
+                staticIndex -= 1;
+                ResetStaticPacks(staticIndex);
+                foreach (CubeBase cube in allCube)
+                {
+                    cube.SetScriptablePreset();
+                }
+            }
         }
 
         // Update is called once per frame
