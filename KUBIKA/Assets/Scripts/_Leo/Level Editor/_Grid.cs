@@ -74,7 +74,7 @@ namespace Kubika.CustomLevelEditor
                 }
             }
 
-            if (LevelEditor.isDevScene || LevelEditor.isLevelEditor) LevelEditor.instance.GenerateBaseGrid();
+            if (LevelEditor.isDevScene || LevelEditor.isLevelEditor && LevelEditor.instance != null) LevelEditor.instance.GenerateBaseGrid();
         }
 
         public void ResetGrid()

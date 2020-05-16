@@ -19,6 +19,18 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _EdgeTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emote:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InsideTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,7 +58,9 @@ Material:
     - _Contrast: 1.15
     - _DEBUG: 0
     - _DEBUG2: 0
+    - _EdgeTexStrength: 0
     - _EmissiveStrengh: 5.27
+    - _EmoteStrength: 0
     - _GradientImpact: 1
     - _GradientMUL: 0.37
     - _GradientOffset: -0.34
@@ -54,6 +68,7 @@ Material:
     - _GradientSoftness: 14.5
     - _GradientStrength: 2.19
     - _Hue: 0
+    - _InsideTexStrength: 0
     - _OffsetPastilleX: 0
     - _OffsetPastilleY: 0
     - _Outline: 0
@@ -88,11 +103,13 @@ Material:
     - _ColorYMinus: {r: 0, g: 0, b: 0, a: 1}
     - _ColorZ: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
     - _ColorZMinus: {r: 0, g: 0, b: 0, a: 1}
+    - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     - _GradientA: {r: 1, g: 1, b: 1, a: 1}
     - _GradientB: {r: 1, g: 1, b: 1, a: 1}
     - _GradientCenter: {r: 1, g: 1, b: 1, a: 1}
-    - _GradientExterior: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+    - _GradientExterior: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
     - _GradientPoint: {r: 1, g: 1, b: 1, a: 1}
+    - _InsideColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _PlayerGradientCenter: {r: 1, g: 1, b: 1, a: 1}
     - _PlayerGradientExterior: {r: 1, g: 1, b: 1, a: 1}

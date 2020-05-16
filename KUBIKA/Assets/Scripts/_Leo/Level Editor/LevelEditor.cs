@@ -20,6 +20,8 @@ namespace Kubika.CustomLevelEditor
         _Grid grid;
 
         public CubeTypes currentCube;
+        public StaticEnums staticViz;
+
         List<RaycastHit> placeHits = new List<RaycastHit>();
         List<RaycastHit> deleteHits = new List<RaycastHit>();
 
@@ -32,6 +34,8 @@ namespace Kubika.CustomLevelEditor
 
         public LevelSetup levelSetup;
         public List<TextAsset> prefabLevels = new List<TextAsset>();
+
+        public GameObject cubePrefab;
 
         private void Awake()
         {
@@ -130,7 +134,7 @@ namespace Kubika.CustomLevelEditor
             if (currentCube != CubeTypes.None && IndexIsEmpty())
             {
                 //create a new Cube and add the CubeObject component to store its index
-                GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                GameObject newCube = Instantiate(cubePrefab);
 
                 newCube.transform.position = GetCubePosition(newCube);
                 newCube.transform.parent = grid.transform;
@@ -232,6 +236,7 @@ namespace Kubika.CustomLevelEditor
                     staticCube.myIndex = GetCubeIndex();
                     SetCubeType(staticCube.myIndex, CubeTypes.StaticCube);
                     staticCube.isStatic = true;
+                    staticCube.staticEnum = staticViz;
                     break;
 
                 case CubeTypes.MoveableCube:

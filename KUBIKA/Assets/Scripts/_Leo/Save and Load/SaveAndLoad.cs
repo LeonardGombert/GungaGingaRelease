@@ -96,7 +96,7 @@ namespace Kubika.Saving
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
-                GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                GameObject newCube = Instantiate(LevelEditor.instance.cubePrefab);
 
                 _Grid.instance.placedObjects.Add(newCube);
 
@@ -117,6 +117,8 @@ namespace Kubika.Saving
                         grid.kuboGrid[staticCube.myIndex - 1].cubeOnPosition = newCube;
                         grid.kuboGrid[staticCube.myIndex - 1].cubeLayers = CubeLayers.cubeFull;
                         grid.kuboGrid[staticCube.myIndex - 1].cubeType = CubeTypes.StaticCube;
+
+                        staticCube.staticEnum = StaticEnums.Empty;
                         break;
 
                     case CubeTypes.MoveableCube:
