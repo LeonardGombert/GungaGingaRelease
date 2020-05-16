@@ -25,8 +25,6 @@ namespace Kubika.CustomLevelEditor
         List<RaycastHit> placeHits = new List<RaycastHit>();
         List<RaycastHit> deleteHits = new List<RaycastHit>();
 
-        public static bool isLevelEditor = true;
-        public static bool isDevScene = false;
 
         //PLACING CUBES
         private bool placeMultiple = true;
@@ -35,15 +33,10 @@ namespace Kubika.CustomLevelEditor
         public LevelSetup levelSetup;
         public List<TextAsset> prefabLevels = new List<TextAsset>();
 
-        public GameObject cubePrefab;
-
         private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
-
-            if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isLevelEditor = true;
-            if (SceneManager.GetActiveScene().name.Contains("DevScene")) isDevScene = true;
 
             currentCube = CubeTypes.StaticCube;
         }
@@ -59,7 +52,7 @@ namespace Kubika.CustomLevelEditor
             if (!EventSystem.current.IsPointerOverGameObject()
                 || !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
-                if (isDevScene || isLevelEditor)
+                if (ScenesManager.isDevScene || ScenesManager.isLevelEditor)
                 {
                     PlaceAndDelete();
                     CubeSelection();
@@ -134,7 +127,7 @@ namespace Kubika.CustomLevelEditor
             if (currentCube != CubeTypes.None && IndexIsEmpty())
             {
                 //create a new Cube and add the CubeObject component to store its index
-                GameObject newCube = Instantiate(cubePrefab);
+                GameObject newCube = Instantiate(SaveAndLoad.instance.cubePrefab);
 
                 newCube.transform.position = GetCubePosition(newCube);
                 newCube.transform.parent = grid.transform;
@@ -226,9 +219,6 @@ namespace Kubika.CustomLevelEditor
         {
             switch (currentCube)
             {
-                case CubeTypes.None:
-                    break;
-
                 case CubeTypes.StaticCube:
                     newCube.AddComponent(typeof(_StaticCube));
 
@@ -236,7 +226,8 @@ namespace Kubika.CustomLevelEditor
                     staticCube.myIndex = GetCubeIndex();
                     SetCubeType(staticCube.myIndex, CubeTypes.StaticCube);
                     staticCube.isStatic = true;
-                    staticCube.staticEnum = staticViz;
+
+                    staticCube.staticEnum = StaticEnums.Empty;
                     break;
 
                 case CubeTypes.MoveableCube:

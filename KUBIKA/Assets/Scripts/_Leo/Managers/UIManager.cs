@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using System;
+using UnityEngine.UIElements;
 
 namespace Kubika.Game
 {
@@ -31,19 +30,19 @@ namespace Kubika.Game
 
         //Burger Menu
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas hamburgerMenuCanvas;
-        [SerializeField] Button music;
+        [SerializeField] UnityEngine.UI.Button music;
         [SerializeField] Sprite musicOn;
         [SerializeField] Sprite musicOff;
         private bool musicIsOn = true;
 
-        [SerializeField] Button sound;
+        [SerializeField] UnityEngine.UI.Button sound;
         [SerializeField] Sprite soundOn;
         [SerializeField] Sprite soundOff;
         private bool soundIsOn = true;
 
         //Transition Canvas
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas transitionCanvas;
-        [SerializeField] Image fadeImage;
+        [SerializeField] UnityEngine.UI.Image fadeImage;
 
         [SerializeField] TransitionType transitionType;
         [SerializeField] GameObject hiddenMenuButtons;
@@ -64,6 +63,7 @@ namespace Kubika.Game
 
         //Level Editor
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelEditorCanvas;
+        public Dropdown playerLevelsDropdown;
 
         void Awake()
         {

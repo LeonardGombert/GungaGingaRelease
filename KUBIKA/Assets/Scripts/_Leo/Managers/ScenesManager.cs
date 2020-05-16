@@ -15,6 +15,9 @@ namespace Kubika.Game
         public ScenesIndex currentActiveScene;
         AsyncOperation loadingSceneOp;
 
+        public static bool isLevelEditor = true;
+        public static bool isDevScene = false;
+
         void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
@@ -24,6 +27,9 @@ namespace Kubika.Game
         // Start is called before the first frame update
         void Start()
         {
+            if (SceneManager.GetActiveScene().buildIndex == (int)ScenesIndex.LEVEL_EDITOR) isLevelEditor = true;
+            if (SceneManager.GetActiveScene().name.Contains("DevScene")) isDevScene = true;
+
             SceneManager.LoadSceneAsync((int)ScenesIndex.USER_INTERFACE, LoadSceneMode.Additive);
             loadingSceneOp = SceneManager.LoadSceneAsync((int)loadToScene, LoadSceneMode.Additive);
             currentActiveScene = loadToScene;

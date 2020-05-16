@@ -7,6 +7,7 @@ using Sirenix.OdinInspector.Editor;
 public class SaveAndLoadEditor : OdinEditor
 {
     public static string levelName;
+    public static int miminumMoves;
 
     public override void OnInspectorGUI()
     {
@@ -15,12 +16,13 @@ public class SaveAndLoadEditor : OdinEditor
         SaveAndLoad saveAndLoader = (SaveAndLoad)target;
 
         levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);
+        miminumMoves = EditorGUILayout.IntField("Minimum Moves to Beat", miminumMoves);
 
         EditorGUILayout.Space();
 
         if (GUILayout.Button("Save Level"))
         {
-            saveAndLoader.SaveLevel(levelName);
+            saveAndLoader.SaveLevelFull(levelName, miminumMoves);
         }
 
         if (GUILayout.Button("Load Level"))
