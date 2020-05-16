@@ -96,7 +96,10 @@ namespace Kubika.Saving
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
                 GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                
+
+                _Grid.instance.placedObjects.Clear();
+                _Grid.instance.placedObjects.Add(newCube);
+
                 Debug.Log(recoveredNode.cubeType);
 
                 newCube.transform.position = recoveredNode.worldPosition;

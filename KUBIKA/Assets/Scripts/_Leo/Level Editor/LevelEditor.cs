@@ -1,8 +1,10 @@
 ﻿using Kubika.Game;
+using Kubika.Saving;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace Kubika.CustomLevelEditor
@@ -17,7 +19,7 @@ namespace Kubika.CustomLevelEditor
         int moveWeight;
         _Grid grid;
 
-        [SerializeField] CubeTypes currentCube;
+        public CubeTypes currentCube;
         List<RaycastHit> placeHits = new List<RaycastHit>();
         List<RaycastHit> deleteHits = new List<RaycastHit>();
 
@@ -27,6 +29,9 @@ namespace Kubika.CustomLevelEditor
         //PLACING CUBES
         private bool placeMultiple = true;
         Vector3 userInputPosition;
+
+        public LevelSetup levelSetup;
+        public List<TextAsset> prefabLevels = new List<TextAsset>();
 
         private void Awake()
         {
@@ -46,11 +51,17 @@ namespace Kubika.CustomLevelEditor
 
         private void Update()
         {
-            if(isDevScene || isLevelEditor)
+            //make sure the user isn't interacting with a UI element
+            if (!EventSystem.current.IsPointerOverGameObject()
+                || !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
-                PlaceAndDelete();
-                CubeSelection();
+                if (isDevScene || isLevelEditor)
+                {
+                    PlaceAndDelete();
+                    CubeSelection();
+                }
             }
+            else return;
         }
 
         #region PLACE AND REMOVE CUBES
@@ -64,7 +75,7 @@ namespace Kubika.CustomLevelEditor
                 {
                     CheckUserPlatform();
 
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) 
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit))
                         if (!placeHits.Contains(hit)) placeHits.Add(hit);
                 }
 
@@ -75,7 +86,7 @@ namespace Kubika.CustomLevelEditor
                     placeHits.Clear();
                 }
 
-                //add the cubes you hit to a list of RaycastHits
+                /*//add the cubes you hit to a list of RaycastHits
                 if (Input.GetMouseButton(1))
                 {
                     CheckUserPlatform();
@@ -89,7 +100,7 @@ namespace Kubika.CustomLevelEditor
                 {
                     foreach (RaycastHit hit in deleteHits) DeleteCube(hit);
                     deleteHits.Clear();
-                }
+                }*/
             }
 
             //single click and place
@@ -138,7 +149,7 @@ namespace Kubika.CustomLevelEditor
             //if there is a cube
             if (!IndexIsEmpty())
             {
-                Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);                
+                Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);
                 grid.kuboGrid[hitIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
             }
 
@@ -146,6 +157,48 @@ namespace Kubika.CustomLevelEditor
 
             if (!grid.placedObjects.Any()) grid.RefreshGrid();
         }
+        #endregion
+
+        #region // GENERATE BASE GRID
+        public void GenerateBaseGrid()
+        {
+            switch (levelSetup)
+            {
+                case LevelSetup.none:
+                    string emptyGridJson = prefabLevels.Find(item => item.name.Contains("Empty")).ToString();
+                    LevelEditorData emptyGrid = JsonUtility.FromJson<LevelEditorData>(emptyGridJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(emptyGrid);
+                    break;
+
+                case LevelSetup.baseGrid:
+                    string baseGridJson = prefabLevels.Find(item => item.name.Contains("Base")).ToString();
+                    LevelEditorData baseGrid = JsonUtility.FromJson<LevelEditorData>(baseGridJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(baseGrid);
+                    break;
+
+                case LevelSetup.plane:
+                    string planeJson = prefabLevels.Find(item => item.name.Contains("Plane")).ToString();
+                    LevelEditorData planeData = JsonUtility.FromJson<LevelEditorData>(planeJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(planeData);
+                    break;
+
+                case LevelSetup.rightDoublePlane:
+                    string rightJson = prefabLevels.Find(item => item.name.Contains("Right")).ToString();
+                    LevelEditorData rightData = JsonUtility.FromJson<LevelEditorData>(rightJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(rightData);
+                    break;
+
+                case LevelSetup.leftDoublePlane:
+                    string leftJson = prefabLevels.Find(item => item.name.Contains("Left")).ToString();
+                    LevelEditorData leftData = JsonUtility.FromJson<LevelEditorData>(leftJson);
+                    SaveAndLoad.instance.ExtractAndRebuildLevel(leftData);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         #endregion
 
         #region CHANGE CUBE SELECTION

@@ -27,10 +27,10 @@ namespace Kubika.Game
         [SerializeField] Button closeMenu;*/
 
         //Game Canvas
-        [SerializeField] Canvas gameCanvas;
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas gameCanvas;
 
         //Burger Menu
-        [SerializeField] Canvas hamburgerMenuCanvas;
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas hamburgerMenuCanvas;
         [SerializeField] Button music;
         [SerializeField] Sprite musicOn;
         [SerializeField] Sprite musicOff;
@@ -42,7 +42,7 @@ namespace Kubika.Game
         private bool soundIsOn = true;
 
         //Transition Canvas
-        [SerializeField] Canvas transitionCanvas;
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas transitionCanvas;
         [SerializeField] Image fadeImage;
 
         [SerializeField] TransitionType transitionType;
@@ -57,10 +57,13 @@ namespace Kubika.Game
         bool gameDimmed = false;
 
         //Win Canvas
-        [SerializeField] Canvas winCanvas;
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas winCanvas;
 
         //World Map Canvas
-        [SerializeField] Canvas worldMapCanvas;
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas worldMapCanvas;
+
+        //Level Editor
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelEditorCanvas;
 
         void Awake()
         {
@@ -146,6 +149,13 @@ namespace Kubika.Game
             worldMapCanvas.sortingOrder = 1000;
         }
 
+        private void LevelEditorPriority()
+        {
+            ResetCanvasSortOrder();
+            if (levelEditorCanvas != null) levelEditorCanvas.enabled = true;
+            levelEditorCanvas.sortingOrder = 1000;
+        }
+
         private void GameCanvasPriority()
         {
             ResetCanvasSortOrder();
@@ -176,9 +186,11 @@ namespace Kubika.Game
             {
                 #region //GAME INPUTS
                 case "GAME_RotateRight":
+                    _KUBRotation.instance.RightTurn();
                     break;
 
                 case "GAME_RotateLeft":
+                    _KUBRotation.instance.LeftTurn();
                     break;
 
                 case "GAME_Restart":
