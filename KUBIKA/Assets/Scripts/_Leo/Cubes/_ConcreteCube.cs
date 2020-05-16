@@ -9,6 +9,8 @@
             myCubeLayer = CubeLayers.cubeMoveable;
             dynamicEnum = DynamicEnums.Beton;
 
+            isSelectable = false;
+
             //call base.start AFTER assigning the cube's layers
             base.Start();
 

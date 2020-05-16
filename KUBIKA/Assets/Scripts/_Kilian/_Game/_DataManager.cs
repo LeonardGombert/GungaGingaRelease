@@ -6,6 +6,7 @@ using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
+    public enum Platform { PC, Mobile };
     public class _DataManager : MonoBehaviour
     {
         // INSTANCE
@@ -33,10 +34,35 @@ namespace Kubika.Game
         public CubeBase[] baseCubeArray;
         public List<CubeBase> baseCube = new List<CubeBase>();
 
+        ///////////////INPUT
+        Platform platform;
+        public RaycastHit aimingHit;
+        CubeMove cubeMove;
+
+        //TOUCH INPUT
+        [HideInInspector] public Touch touch;
+        [HideInInspector] public Vector3 inputPosition;
+        Ray rayTouch;
+        public int swipeMinimalDistance = 100;
+
+        //PC INPUT
+        Ray rayPC;
+
+
         private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
+
+            // CAP LE FPS A 60 FPS
+            if (Application.isMobilePlatform == true)
+            {
+                Application.targetFrameRate = 60;
+                QualitySettings.vSyncCount = 0;
+                platform = Platform.Mobile;
+            }
+            else
+            { platform = Platform.PC; }
         }
 
         // Start is called before the first frame update
@@ -60,6 +86,11 @@ namespace Kubika.Game
         // Update is called once per frame
         void Update()
         {
+            if (platform == Platform.Mobile)
+                PhoneInput();
+            else
+                PCInput();
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 GameSet();
@@ -75,6 +106,99 @@ namespace Kubika.Game
                 _DirectionCustom.rotationState = actualRotation;
             }
         }
+
+        #region INPUT
+
+        void PhoneInput()
+        {
+            if (Input.touchCount == 1)
+            {
+                touch = Input.GetTouch(0);
+                inputPosition = touch.position;
+
+                rayTouch = _InGameCamera.instance.cam.ScreenPointToRay(touch.position);
+                // Handle finger movements based on TouchPhase
+                switch (touch.phase)
+                {
+                    //When a touch has first been detected, change the message and record the starting position
+                    case TouchPhase.Began:
+
+                        if (Physics.Raycast(rayTouch, out aimingHit))
+                        {
+                            if(aimingHit.collider.gameObject.GetComponent<CubeMove>() == true)
+                            {
+                                if (cubeMove.isSelectable == true)
+                                {
+                                    cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
+                                    cubeMove.GetBasePoint();
+                                    //cubeMove.AddOutline();
+                                }
+                            }
+                        }
+
+
+
+                        break;
+
+                    case TouchPhase.Moved:
+                        //EMouv.Invoke();
+                        inputPosition = touch.position;
+                        if (cubeMove != null && cubeMove.isSelectable == true)
+                        {
+                            cubeMove.NextDirection();
+                        }
+
+                        break;
+
+                    case TouchPhase.Ended:
+                        cubeMove = null;
+                        break;
+                }
+
+
+            }
+
+        }
+        //__
+        void PCInput()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                rayPC = _InGameCamera.instance.cam.ScreenPointToRay(Input.mousePosition);
+
+                inputPosition = Input.mousePosition;
+
+                if (Physics.Raycast(rayPC, out aimingHit))
+                {
+                    if (aimingHit.collider.gameObject.GetComponent<CubeMove>() == true)
+                    {
+                        if (cubeMove.isSelectable == true)
+                        {
+                            cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
+                            cubeMove.GetBasePoint();
+                            //cubeMove.AddOutline();
+                        }
+                    }
+                }
+
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                inputPosition = Input.mousePosition;
+                if (cubeMove != null && cubeMove.isSelectable == true)
+                {
+                    cubeMove.NextDirection();
+                }
+
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                cubeMove = null;
+            }
+
+        }
+
+        #endregion
 
 
         #region MAKE FALL

@@ -6,6 +6,8 @@ using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
+    public enum swipeDirection { Front, Right, Left, Back };
+
     public class CubeMove : CubeScanner
     {
         //FALLING 
@@ -56,11 +58,36 @@ namespace Kubika.Game
         public Vector3 outsideMoveTarget;
 
         //PUSH
-        public bool TEST_DEBUG_PLAYER = false;
         public CubeMove pushNextNodeCubeMove;
 
         //PILE
         public CubeMove pileNodeCubeMove;
+
+        //INPUT
+        public bool isSelectable = true;
+        swipeDirection enumSwipe;
+
+        [Space]
+        public static swipeDirection worldEnumSwipe;
+
+        // WORLD TO SCREEN
+        [HideInInspector] public Vector2 baseCube;
+        [HideInInspector] public Vector2 nextCube;
+
+        Vector2 baseSwipePos;
+        Vector2 currentSwipePos;
+
+        [HideInInspector] public float distanceBaseToNext;
+        [HideInInspector] public float distanceTouch;
+
+        float angleDirection;
+        float inverseAngleDirection;
+
+        // DIRECTION
+        public float KUBNord;
+        public float KUBWest;
+        public float KUBSud;
+        public float KUBEst;
 
         // Start is called before the first frame update
         public override void Start()
@@ -553,26 +580,24 @@ namespace Kubika.Game
         #endregion
 
         #region INPUT
-        /*
+        
         public void NextDirection()
         {
-            //check if this gameObject is a mirror cube
-            if (gameObject.GetComponent<_MirrorCube>() != null) mirrorMove = true;
 
             if (!isStatic)
             {
                 // Calcul the swip angle
-                currentSwipePos = DataManager.instance.inputPosition;
+                currentSwipePos = _DataManager.instance.inputPosition;
 
                 distanceTouch = Vector3.Distance(baseSwipePos, currentSwipePos);
 
                 angleDirection = Mathf.Abs(Mathf.Atan2(currentSwipePos.y - baseSwipePos.y, baseSwipePos.x - currentSwipePos.x) * 180 / Mathf.PI - 180);
 
 
-                KUBNord = Camera_ZoomScroll.KUBNordScreenAngle;
-                KUBWest = Camera_ZoomScroll.KUBWestScreenAngle;
-                KUBSud = Camera_ZoomScroll.KUBSudScreenAngle;
-                KUBEst = Camera_ZoomScroll.KUBEstScreenAngle;
+                KUBNord = _InGameCamera.KUBNordScreenAngle;
+                KUBWest = _InGameCamera.KUBWestScreenAngle;
+                KUBSud = _InGameCamera.KUBSudScreenAngle;
+                KUBEst = _InGameCamera.KUBEstScreenAngle;
 
                 // Check in which direction the player swiped 
 
@@ -620,7 +645,7 @@ namespace Kubika.Game
                     }
                 }
 
-                if (distanceTouch > DataManager.instance.swipeMinimalDistance)
+                if (distanceTouch > _DataManager.instance.swipeMinimalDistance)
                     CheckDirection(enumSwipe);
             }
         }
@@ -628,7 +653,7 @@ namespace Kubika.Game
         public void GetBasePoint()
         {
             //Reset Base Touch position
-            baseSwipePos = DataManager.instance.inputPosition;
+            baseSwipePos = _DataManager.instance.inputPosition;
         }
 
         public void CheckDirection(swipeDirection swipeDir)
@@ -637,25 +662,76 @@ namespace Kubika.Game
             switch (swipeDir)
             {
                 case swipeDirection.Front:
-                    CheckRaycast(Vector3Custom.forward);
+                    CheckWhenToMove(_DirectionCustom.forward);
                     break;
                 case swipeDirection.Right:
-                    CheckRaycast(Vector3Custom.right);
+                    CheckWhenToMove(_DirectionCustom.right);
                     break;
                 case swipeDirection.Left:
-                    CheckRaycast(Vector3Custom.left);
+                    CheckWhenToMove(_DirectionCustom.left);
                     break;
                 case swipeDirection.Back:
-                    CheckRaycast(Vector3Custom.back);
+                    CheckWhenToMove(_DirectionCustom.backward);
                     break;
             }
         }
-        */
+
+        void CheckWhenToMove(int direction)
+        {
+
+
+            if (MatrixLimitCalcul(myIndex, direction) == true)
+            {
+                baseCube = _InGameCamera.instance.cam.WorldToScreenPoint(grid.kuboGrid[myIndex - 1].worldPosition);
+                nextCube = _InGameCamera.instance.cam.WorldToScreenPoint(grid.kuboGrid[myIndex - 1 + direction].worldPosition);
+
+                distanceBaseToNext = Vector3.Distance(baseCube, nextCube);
+
+                if (distanceTouch > (distanceBaseToNext * 0.5f) && isMoving == false)
+                {
+                    CheckingMove(myIndex, _DirectionCustom.right);
+                    StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                }
+            }
+        }
+
+        #endregion
+
+        #region FEEDBACK
+        /*
+        public virtual void AddOutline()
+        {
+            OutlineActive(scriptObjSave, 1);
+            GetChildRecursive(transform);
+        }
+
+        public void GetChildRecursive(Transform obj)
+        {
+            if (null == obj)
+                return;
+
+            foreach (Transform child in obj)
+            {
+                if (null == child)
+                    continue;
+                //child.gameobject contains the current child you can do whatever you want like add it to an array
+                if (child.GetComponent<_MovableCube>() == true)
+                    child.GetComponent<_MovableCube>().OutlineActive(scriptObjSave, 1);
+                GetChildRecursive(child);
+            }
+        }
+
+
+        public virtual void ResetOutline()
+        {
+            OutlineActive(scriptObjSave, 2);
+        }*/
+
         #endregion
 
         void TEMPORARY______SHIT()
         {
-            if (TEST_DEBUG_PLAYER == true && _DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube.ToArray()) == true)
+            if (_DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube.ToArray()) == true)
             {
                 // X Axis
                 if (Input.GetKeyDown(KeyCode.Z))
