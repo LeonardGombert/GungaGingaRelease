@@ -16,8 +16,6 @@ namespace Kubika.Game
         public _FXPack fxPack;
         [Space]
         public _ActualAllPack actualPack;
-        [Space]
-        public Texture EmptyTex;
 
         [Header("ACTUAL GRAPH SETTINGS")]
         #region DYNAMIC SETTINGS

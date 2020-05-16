@@ -17,9 +17,12 @@ namespace Kubika.Game
         public _Grid grid;
 
         // MATERIAL / FEEDBACK PRESENT
+        [Space]
         public DynamicEnums dynamicEnum;
         public StaticEnums staticEnum;
 
+        [Space]
+        [Header("MATERIAL INFOS")]
         public Texture _MainTex;
         public Mesh _MainMesh;
         public Color _MainColor;
@@ -32,9 +35,16 @@ namespace Kubika.Game
         public Texture _EmoteTex;
         public float _EmoteStrength;
 
+        MeshRenderer meshRenderer;
+        MeshFilter meshFilter;
+        MaterialPropertyBlock MatProp; // To change Mat Properties
+
         // Start is called before the first frame update
         public virtual void Start()
         {
+            SetScriptablePreset();
+            SetMaterial();
+
             grid = _Grid.instance;
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
@@ -74,7 +84,38 @@ namespace Kubika.Game
 
         #region MATERIAL
 
-        void SetMaterialPreset()
+        public void SetMaterial()
+        {
+            MatProp = new MaterialPropertyBlock();
+            meshRenderer = GetComponentInChildren<MeshRenderer>();
+            meshFilter = GetComponentInChildren<MeshFilter>();
+
+            meshRenderer.GetPropertyBlock(MatProp);
+
+            meshFilter.mesh = _MainMesh;
+
+            MatProp.SetTexture("_MainTex", _MainTex);
+            MatProp.SetTexture("_TexTwo", _MaterialCentral.instance.actualPack._VoidTex);
+            MatProp.SetTexture("_Tex", _MaterialCentral.instance.actualPack._VoidTex);
+            MatProp.SetTexture("_Pastille", _EmoteTex);
+
+            MatProp.SetColor("_MainColor", _MainColor);
+            //MatProp.SetColor("_ColorTwo", _ColorTwo);
+            //MatProp.SetColor("_ColorTex", _ColorTex);
+
+            MatProp.SetFloat("_TexStrength", 0);
+            MatProp.SetFloat("_TexTwoStrength", 0);
+            MatProp.SetFloat("_PastilleStrength", _EmoteStrength);
+
+            MatProp.SetFloat("_Hue", _Hue);
+            MatProp.SetFloat("_Contrast", _Contrast);
+            MatProp.SetFloat("_Saturation", _Saturation);
+            MatProp.SetFloat("_Brightness", _Brightness);
+
+            meshRenderer.SetPropertyBlock(MatProp);
+        }
+
+        public void SetScriptablePreset()
         {
             if (dynamicEnum != DynamicEnums.Null && staticEnum == StaticEnums.Null)
             {
@@ -82,137 +123,137 @@ namespace Kubika.Game
                 {
                     case DynamicEnums.Base:
                         {
-                            _MainTex = _MaterialCentral.instance._BaseTex;
-                            _MainMesh = _MaterialCentral.instance._BaseMesh; 
-                            _MainColor = _MaterialCentral.instance._BaseColor; 
+                            _MainTex = _MaterialCentral.instance.actualPack._BaseTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._BaseMesh; 
+                            _MainColor = _MaterialCentral.instance.actualPack._BaseColor; 
 
-                            _Hue = _MaterialCentral.instance.Base_Hue; 
-                            _Contrast = _MaterialCentral.instance.Base_Contrast; 
-                            _Saturation = _MaterialCentral.instance.Base_Saturation; 
-                            _Brightness = _MaterialCentral.instance.Base_Brightness; 
+                            _Hue = _MaterialCentral.instance.actualPack.Base_Hue; 
+                            _Contrast = _MaterialCentral.instance.actualPack.Base_Contrast; 
+                            _Saturation = _MaterialCentral.instance.actualPack.Base_Saturation; 
+                            _Brightness = _MaterialCentral.instance.actualPack.Base_Brightness; 
 
-                            _EmoteTex = _MaterialCentral.instance._BaseEmoteTex; 
+                            _EmoteTex = _MaterialCentral.instance.actualPack._BaseEmoteTex; 
                             _EmoteStrength = 1; 
                         }
                         break;
                     case DynamicEnums.Beton:
                         {
-                            _MainTex = _MaterialCentral.instance._BetonTex;
-                            _MainMesh = _MaterialCentral.instance._BetonMesh;
-                            _MainColor = _MaterialCentral.instance._BetonColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._BetonTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._BetonMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._BetonColor;
 
-                            _Hue = _MaterialCentral.instance.Beton_Hue;
-                            _Contrast = _MaterialCentral.instance.Beton_Contrast;
-                            _Saturation = _MaterialCentral.instance.Beton_Saturation;
-                            _Brightness = _MaterialCentral.instance.Beton_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Beton_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Beton_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Beton_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Beton_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._BetonEmoteTex;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._BetonEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Counter:
                         {
-                            _MainTex = _MaterialCentral.instance._CounterTex;
-                            _MainMesh = _MaterialCentral.instance._CounterMesh;
-                            _MainColor = _MaterialCentral.instance._CounterColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._CounterTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._CounterMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._CounterColor;
 
-                            _Hue = _MaterialCentral.instance.Counter_Hue;
-                            _Contrast = _MaterialCentral.instance.Counter_Contrast;
-                            _Saturation = _MaterialCentral.instance.Counter_Saturation;
-                            _Brightness = _MaterialCentral.instance.Counter_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Counter_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Counter_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Counter_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Counter_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._CounterEmoteTex;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._CounterEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Bomb:
                         {
-                            _MainTex = _MaterialCentral.instance._BombTex;
-                            _MainMesh = _MaterialCentral.instance._BombMesh;
-                            _MainColor = _MaterialCentral.instance._BombColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._BombTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._BombMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._BombColor;
 
-                            _Hue = _MaterialCentral.instance.Bomb_Hue;
-                            _Contrast = _MaterialCentral.instance.Bomb_Contrast;
-                            _Saturation = _MaterialCentral.instance.Bomb_Saturation;
-                            _Brightness = _MaterialCentral.instance.Bomb_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Bomb_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Bomb_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Bomb_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Bomb_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._BombEmoteTex;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._BombEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Elevator:
                         {
-                            _MainTex = _MaterialCentral.instance._ElevatorTex;
-                            _MainMesh = _MaterialCentral.instance._ElevatorMesh;
-                            _MainColor = _MaterialCentral.instance._ElevatorColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._ElevatorTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._ElevatorMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._ElevatorColor;
 
-                            _Hue = _MaterialCentral.instance.Elevator_Hue;
-                            _Contrast = _MaterialCentral.instance.Elevator_Contrast;
-                            _Saturation = _MaterialCentral.instance.Elevator_Saturation;
-                            _Brightness = _MaterialCentral.instance.Elevator_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Elevator_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Elevator_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Elevator_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Elevator_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._ElevatorEmoteTex;
-                            _EmoteStrength = 1;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._ElevatorEmoteTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case DynamicEnums.Ball:
                         {
-                            _MainTex = _MaterialCentral.instance._BallTex;
-                            _MainMesh = _MaterialCentral.instance._BallMesh;
-                            _MainColor = _MaterialCentral.instance._BallColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._BallTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._BallMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._BallColor;
 
-                            _Hue = _MaterialCentral.instance.Ball_Hue;
-                            _Contrast = _MaterialCentral.instance.Ball_Contrast;
-                            _Saturation = _MaterialCentral.instance.Ball_Saturation;
-                            _Brightness = _MaterialCentral.instance.Ball_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Ball_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Ball_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Ball_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Ball_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._BallEmoteTex;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._BallEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Switch:
                         {
-                            _MainTex = _MaterialCentral.instance._SwitchTex;
-                            _MainMesh = _MaterialCentral.instance._SwitchMesh;
-                            _MainColor = _MaterialCentral.instance._SwitchColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._SwitchTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._SwitchMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._SwitchColor;
 
-                            _Hue = _MaterialCentral.instance.Switch_Hue;
-                            _Contrast = _MaterialCentral.instance.Switch_Contrast;
-                            _Saturation = _MaterialCentral.instance.Switch_Saturation;
-                            _Brightness = _MaterialCentral.instance.Switch_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Switch_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Switch_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Switch_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Switch_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._SwitchEmoteTex;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._SwitchEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Rotators:
                         {
-                            _MainTex = _MaterialCentral.instance._RotatorsTex;
-                            _MainMesh = _MaterialCentral.instance._RotatorsMesh;
-                            _MainColor = _MaterialCentral.instance._RotatorsColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._RotatorsTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._RotatorsMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._RotatorsColor;
 
-                            _Hue = _MaterialCentral.instance.Rotators_Hue;
-                            _Contrast = _MaterialCentral.instance.Rotators_Contrast;
-                            _Saturation = _MaterialCentral.instance.Rotators_Saturation;
-                            _Brightness = _MaterialCentral.instance.Rotators_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Rotators_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Rotators_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Rotators_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Rotators_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._RotatorsEmoteTex;
-                            _EmoteStrength = 1;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._RotatorsEmoteTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case DynamicEnums.Pastille:
                         {
-                            _MainTex = _MaterialCentral.instance._PastilleTex;
-                            _MainMesh = _MaterialCentral.instance._PastilleMesh;
-                            _MainColor = _MaterialCentral.instance._PastilleColor;
+                            _MainTex = _MaterialCentral.instance.actualPack._PastilleTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._PastilleMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._PastilleColor;
 
-                            _Hue = _MaterialCentral.instance.Pastille_Hue;
-                            _Contrast = _MaterialCentral.instance.Pastille_Contrast;
-                            _Saturation = _MaterialCentral.instance.Pastille_Saturation;
-                            _Brightness = _MaterialCentral.instance.Pastille_Brightness;
+                            _Hue = _MaterialCentral.instance.actualPack.Pastille_Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack.Pastille_Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack.Pastille_Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack.Pastille_Brightness;
 
-                            _EmoteTex = _MaterialCentral.instance._PastilleEmoteTex;
-                            _EmoteStrength = 1;
+                            _EmoteTex = _MaterialCentral.instance.actualPack._PastilleEmoteTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                 }
@@ -223,32 +264,92 @@ namespace Kubika.Game
                 {
                     case StaticEnums.Corner:
                         {
+                            _MainTex = _MaterialCentral.instance.actualPack._CornerTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._CornerMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._TextureColor;
 
+                            _Hue = _MaterialCentral.instance.actualPack._Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack._Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack._Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case StaticEnums.Empty:
                         {
+                            _MainTex = _MaterialCentral.instance.actualPack._EmptyTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._EmptyMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._TextureColor;
 
+                            _Hue = _MaterialCentral.instance.actualPack._Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack._Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack._Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case StaticEnums.Full:
                         {
+                            _MainTex = _MaterialCentral.instance.actualPack._FullTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._FullMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._TextureColor;
 
+                            _Hue = _MaterialCentral.instance.actualPack._Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack._Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack._Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case StaticEnums.Quad:
                         {
+                            _MainTex = _MaterialCentral.instance.actualPack._QuadTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._QuadMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._TextureColor;
 
+                            _Hue = _MaterialCentral.instance.actualPack._Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack._Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack._Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case StaticEnums.Top:
                         {
+                            _MainTex = _MaterialCentral.instance.actualPack._TopTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._TopMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._TextureColor;
 
+                            _Hue = _MaterialCentral.instance.actualPack._Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack._Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack._Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                     case StaticEnums.Triple:
                         {
+                            _MainTex = _MaterialCentral.instance.actualPack._TripleTex;
+                            _MainMesh = _MaterialCentral.instance.actualPack._TripleMesh;
+                            _MainColor = _MaterialCentral.instance.actualPack._TextureColor;
 
+                            _Hue = _MaterialCentral.instance.actualPack._Hue;
+                            _Contrast = _MaterialCentral.instance.actualPack._Contrast;
+                            _Saturation = _MaterialCentral.instance.actualPack._Saturation;
+                            _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _EmoteStrength = 0;
                         }
                         break;
                 }

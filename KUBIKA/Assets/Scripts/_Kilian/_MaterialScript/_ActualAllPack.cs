@@ -156,5 +156,7 @@ namespace Kubika.Game
 
         #region FX
         #endregion
+
+        public Texture _VoidTex;
     }
 }

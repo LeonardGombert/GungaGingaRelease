@@ -169,10 +169,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &17968937
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -268,10 +277,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &36143444
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -318,6 +336,114 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36143441}
+  m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+--- !u!1 &82589909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 82589910}
+  - component: {fileID: 82589913}
+  - component: {fileID: 82589912}
+  - component: {fileID: 82589911}
+  m_Layer: 0
+  m_Name: Cube4.001 (45)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &82589910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82589909}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.56, y: 5.94, z: -5.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2137998561}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82589911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82589909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2c3047ccba1c944aac94ae7d0993e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myIndex: 0
+  myCubeType: 0
+  myCubeLayer: 0
+  isStatic: 0
+  grid: {fileID: 0}
+  dynamicEnum: 2
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
+--- !u!23 &82589912
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82589909}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7a6cd84cc209f6142bc4923e82a6757d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &82589913
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82589909}
   m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
 --- !u!1 &293762861
 GameObject:
@@ -367,10 +493,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &293762864
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -497,7 +632,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322725315}
-  m_Mesh: {fileID: 333086872987389854, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!114 &322725319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,10 +648,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 0
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!1 &346354071
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,10 +709,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &346354074
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -664,10 +817,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &347835896
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -741,13 +903,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362467083}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.46, y: 1.9237256, z: -5.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &362467085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,10 +925,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &362467086
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -893,7 +1064,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387307313}
-  m_Mesh: {fileID: -4480207664399390125, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!114 &387307317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,10 +1080,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 0
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!1 &399597883
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,7 +1119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399597883}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.48, y: 1.9237256, z: -3.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -961,10 +1141,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &399597886
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1096,10 +1285,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &513659255
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1226,7 +1424,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518941119}
-  m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!114 &518941123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1242,10 +1440,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 0
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!1 &626560277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,13 +1479,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626560277}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -10.42, y: 7.89, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 24
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &626560279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,10 +1501,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &626560280
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1393,10 +1609,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &710064381
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1492,10 +1717,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &734929241
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1591,10 +1825,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &737193551
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1690,10 +1933,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &773247812
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1767,13 +2019,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834333586}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.46, y: 7.89, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 27
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &834333588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1789,10 +2041,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 4
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 4
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &834333589
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1888,10 +2149,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &905976560
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1987,10 +2257,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &913037470
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2086,10 +2365,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &982854429
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2137,6 +2425,114 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982854426}
   m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+--- !u!1 &1081022847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1081022848}
+  - component: {fileID: 1081022851}
+  - component: {fileID: 1081022850}
+  - component: {fileID: 1081022849}
+  m_Layer: 0
+  m_Name: Cube4.001 (44)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1081022848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081022847}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.56, y: 3.91, z: -5.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2137998561}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1081022849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081022847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2c3047ccba1c944aac94ae7d0993e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myIndex: 0
+  myCubeType: 0
+  myCubeLayer: 0
+  isStatic: 0
+  grid: {fileID: 0}
+  dynamicEnum: 1
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
+--- !u!23 &1081022850
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081022847}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7a6cd84cc209f6142bc4923e82a6757d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1081022851
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081022847}
+  m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
 --- !u!1 &1108040419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,7 +2559,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108040419}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.47, y: 1.9237256, z: -3.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2185,10 +2581,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1108040422
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2284,10 +2689,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1155308433
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2361,13 +2775,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169955201}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -6.48, y: 7.89, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 26
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &1169955203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2383,10 +2797,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1169955204
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2482,10 +2905,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1192505359
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2559,13 +2991,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205163823}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.46, y: 6.05, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 23
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1205163825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2581,10 +3013,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1205163826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2680,10 +3121,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1224927930
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2779,10 +3229,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1225619878
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2939,13 +3398,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363956311}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.46, y: 3.9, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1363956313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2961,10 +3420,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1363956314
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3060,10 +3528,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1381983980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3137,13 +3614,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530814348}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.46, y: 1.9237256, z: -7.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1530814350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3159,10 +3636,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1530814351
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3236,13 +3722,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535726121}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -4.46, y: 1.9237256, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1535726123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3258,10 +3744,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1535726124
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3388,7 +3883,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543684513}
-  m_Mesh: {fileID: -7504886390380080820, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!114 &1543684517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3404,10 +3899,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 0
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!1 &1544838767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3434,13 +3938,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544838767}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.4958539, y: 0.49613032, z: 0.506469, w: 0.5014706}
   m_LocalPosition: {x: -4.46, y: 1.9237256, z: -3.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.3, y: 89.08501, z: 90.273}
 --- !u!114 &1544838769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3456,10 +3960,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 4
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 4
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1544838770
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3555,10 +4068,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1597578356
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3654,10 +4176,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1661429252
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3731,13 +4262,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718643557}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -8.47, y: 7.89, z: -9.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 25
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &1718643559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3753,10 +4284,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1718643560
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3852,10 +4392,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 4
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 4
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1740584881
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3951,10 +4500,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1757536907
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4028,13 +4586,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825742966}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -10.42, y: 7.92, z: -5.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 35
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &1825742968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4050,10 +4608,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1825742969
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4100,6 +4667,114 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825742966}
+  m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+--- !u!1 &1889552659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889552660}
+  - component: {fileID: 1889552663}
+  - component: {fileID: 1889552662}
+  - component: {fileID: 1889552661}
+  m_Layer: 0
+  m_Name: Cube4.001 (46)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1889552660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889552659}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.56, y: 3.91, z: -7.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2137998561}
+  m_RootOrder: 39
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889552661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889552659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2c3047ccba1c944aac94ae7d0993e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myIndex: 0
+  myCubeType: 0
+  myCubeLayer: 0
+  isStatic: 0
+  grid: {fileID: 0}
+  dynamicEnum: 4
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
+--- !u!23 &1889552662
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889552659}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7a6cd84cc209f6142bc4923e82a6757d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1889552663
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889552659}
   m_Mesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
 --- !u!1 &1934872665
 GameObject:
@@ -4180,7 +4855,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934872665}
-  m_Mesh: {fileID: -593941665644290570, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!114 &1934872669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4196,10 +4871,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 0
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!1 &1937669064
 GameObject:
   m_ObjectHideFlags: 0
@@ -4248,10 +4932,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 2
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 2
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1937669067
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4417,13 +5110,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987218314}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -10.42, y: 7.92, z: -7.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2137998561}
   m_RootOrder: 36
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &1987218316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4439,10 +5132,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 3
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 3
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!23 &1987218317
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4706,7 +5408,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097166463}
-  m_Mesh: {fileID: -1157602956621901495, guid: 0ae77374bea2cff47809586cda7594c9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!114 &2097166467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4722,10 +5424,19 @@ MonoBehaviour:
   myIndex: 0
   myCubeType: 0
   myCubeLayer: 0
-  dynamicEnum: 0
-  staticEnums: 0
   isStatic: 0
   grid: {fileID: 0}
+  dynamicEnum: 0
+  staticEnum: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  _EmoteTex: {fileID: 0}
+  _EmoteStrength: 0
 --- !u!1 &2137998560
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,6 +5501,9 @@ Transform:
   - {fileID: 1740584879}
   - {fileID: 1825742967}
   - {fileID: 1987218315}
+  - {fileID: 1081022848}
+  - {fileID: 82589910}
+  - {fileID: 1889552660}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -25.644001, z: 0}

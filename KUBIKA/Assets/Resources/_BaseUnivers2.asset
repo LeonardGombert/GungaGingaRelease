@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1aeeafa403aa04d93f9242f243cf04, type: 3}
+  m_Name: _BaseUnivers2
+  m_EditorClassIdentifier: 
+  _EmptyTex: {fileID: 2800000, guid: fc8e7564bd678f34280a70a903c6cd4c, type: 3}
+  _EmptyMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _FullTex: {fileID: 2800000, guid: 3f2661d7d5ecc574d99935d26a9f2704, type: 3}
+  _FullMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _TopTex: {fileID: 2800000, guid: 0afee44f747a78d478d4ae54facf72ec, type: 3}
+  _TopMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _CornerTex: {fileID: 2800000, guid: 76c2ea153140b214ab7e0d18f815cbf0, type: 3}
+  _CornerMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _TripleTex: {fileID: 2800000, guid: 4b65a3c4dccf8fd4f9e0048574430608, type: 3}
+  _TripleMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _QuadTex: {fileID: 2800000, guid: b28dc9bc7b911de429f5bb7af281ea28, type: 3}
+  _QuadMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _TextureColor: {r: 1, g: 1, b: 1, a: 0}
+  _Hue: 9
+  _Contrast: 1.12
+  _Saturation: 1.35
+  _Brightness: 0.19
