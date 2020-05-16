@@ -13,6 +13,9 @@ namespace Kubika.Game
         public Texture _BaseTex;
         public Mesh _BaseMesh;
         public Color _BaseColor;
+        public Texture _BaseTexInside;
+        public float _BaseInsideStrength;
+        public Color _BaseColorInside;
         [Range(-360, 360)] public float Base_Hue;
         [Range(0, 2)] public float Base_Contrast;
         [Range(0, 2)] public float Base_Saturation;
@@ -22,6 +25,9 @@ namespace Kubika.Game
         public Texture _BetonTex;
         public Mesh _BetonMesh;
         public Color _BetonColor;
+        public Texture _BetonTexInside;
+        public float _BetonInsideStrength;
+        public Color _BetonColorInside;
         [Range(-360, 360)] public float Beton_Hue;
         [Range(0, 2)] public float Beton_Contrast;
         [Range(0, 2)] public float Beton_Saturation;
@@ -29,26 +35,48 @@ namespace Kubika.Game
 
         [Header("Elevator")]
         public Texture _ElevatorTex;
+        public Texture _ElevatorBackTex;
         public Mesh _ElevatorMesh;
         public Color _ElevatorColor;
+        public Texture _ElevatorTexInside;
+        public Texture _ElevatorBackTexInside;
+        public float _ElevatorInsideStrength;
+        public Color _ElevatorColorInside;
         [Range(-360, 360)] public float Elevator_Hue;
         [Range(0, 2)] public float Elevator_Contrast;
         [Range(0, 2)] public float Elevator_Saturation;
         [Range(-1, 1)] public float Elevator_Brightness;
 
         [Header("Counter")]
-        public Texture _CounterTex;
+        public Texture _CounterTex0;
+        public Texture _CounterTex1;
+        public Texture _CounterTex2;
+        public Texture _CounterTex3;
+        public Texture _CounterTex4;
+        public Texture _CounterTex5;
+        public Texture _CounterTex6;
+        public Texture _CounterTex7;
+        public Texture _CounterTex8;
+        public Texture _CounterTex9;
         public Mesh _CounterMesh;
         public Color _CounterColor;
+        public Texture _CounterTexInside;
+        public float _CounterInsideStrength;
+        public Color _CounterColorInside;
         [Range(-360, 360)] public float Counter_Hue;
         [Range(0, 2)] public float Counter_Contrast;
         [Range(0, 2)] public float Counter_Saturation;
         [Range(-1, 1)] public float Counter_Brightness;
 
         [Header("Rotators")]
-        public Texture _RotatorsTex;
+        public Texture _RotatorsTexLeft;
+        public Texture _RotatorsTexRight;
+        public Texture _RotatorsTexUI;
         public Mesh _RotatorsMesh;
         public Color _RotatorsColor;
+        public Texture _RotatorsTexInside;
+        public float _RotatorsInsideStrength;
+        public Color _RotatorsColorInside;
         [Range(-360, 360)] public float Rotators_Hue;
         [Range(0, 2)] public float Rotators_Contrast;
         [Range(0, 2)] public float Rotators_Saturation;
@@ -58,15 +86,22 @@ namespace Kubika.Game
         public Texture _BombTex;
         public Mesh _BombMesh;
         public Color _BombColor;
+        public Texture _BombTexInside;
+        public float _BombInsideStrength;
+        public Color _BombColorInside;
         [Range(-360, 360)] public float Bomb_Hue;
         [Range(0, 2)] public float Bomb_Contrast;
         [Range(0, 2)] public float Bomb_Saturation;
         [Range(-1, 1)] public float Bomb_Brightness;
 
         [Header("Switch")]
-        public Texture _SwitchTex;
+        public Texture _SwitchTexOn;
+        public Texture _SwitchTexOff;
+        public Texture _SwitchTexInside;
         public Mesh _SwitchMesh;
         public Color _SwitchColor;
+        public Color _SwitchColorInside;
+        public float _SwitchInsideStrength;
         [Range(-360, 360)] public float Switch_Hue;
         [Range(0, 2)] public float Switch_Contrast;
         [Range(0, 2)] public float Switch_Saturation;
@@ -76,6 +111,9 @@ namespace Kubika.Game
         public Texture _BallTex;
         public Mesh _BallMesh;
         public Color _BallColor;
+        public Texture _BallTexInside;
+        public float _BallInsideStrength;
+        public Color _BallColorInside;
         [Range(-360, 360)] public float Ball_Hue;
         [Range(0, 2)] public float Ball_Contrast;
         [Range(0, 2)] public float Ball_Saturation;
@@ -85,6 +123,9 @@ namespace Kubika.Game
         public Texture _PastilleTex;
         public Mesh _PastilleMesh;
         public Color _PastilleColor;
+        public Texture _PastilleTexInside;
+        public float _PastilleInsideStrength;
+        public Color _PastilleColorInside;
         [Range(-360, 360)] public float Pastille_Hue;
         [Range(0, 2)] public float Pastille_Contrast;
         [Range(0, 2)] public float Pastille_Saturation;

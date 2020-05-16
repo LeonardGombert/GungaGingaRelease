@@ -211,6 +211,9 @@ namespace Kubika.Game
             actualPack._BaseTex = dynamicPack[index]._BaseTex;
             actualPack._BaseMesh = dynamicPack[index]._BaseMesh;
             actualPack._BaseColor = dynamicPack[index]._BaseColor;
+            actualPack._BaseTexInside = dynamicPack[index]._BaseTexInside;
+            actualPack._BaseInsideStrength = dynamicPack[index]._BaseInsideStrength;
+            actualPack._BaseColorInside = dynamicPack[index]._BaseColorInside;
             actualPack.Base_Hue = dynamicPack[index].Base_Hue;
             actualPack.Base_Contrast = dynamicPack[index].Base_Contrast;
             actualPack.Base_Saturation = dynamicPack[index].Base_Saturation;
@@ -219,30 +222,55 @@ namespace Kubika.Game
             actualPack._BetonTex = dynamicPack[index]._BetonTex;
             actualPack._BetonMesh = dynamicPack[index]._BetonMesh;
             actualPack._BetonColor = dynamicPack[index]._BetonColor;
+            actualPack._BetonTexInside = dynamicPack[index]._BetonTexInside;
+            actualPack._BetonInsideStrength = dynamicPack[index]._BetonInsideStrength;
+            actualPack._BetonColorInside = dynamicPack[index]._BetonColorInside;
             actualPack.Beton_Hue = dynamicPack[index].Beton_Hue;
             actualPack.Beton_Contrast = dynamicPack[index].Beton_Contrast;
             actualPack.Beton_Saturation = dynamicPack[index].Beton_Saturation;
             actualPack.Beton_Brightness = dynamicPack[index].Beton_Brightness;
 
             actualPack._ElevatorTex = dynamicPack[index]._ElevatorTex;
+            actualPack._ElevatorBackTex = dynamicPack[index]._ElevatorBackTex;
             actualPack._ElevatorMesh = dynamicPack[index]._ElevatorMesh;
             actualPack._ElevatorColor = dynamicPack[index]._ElevatorColor;
+            actualPack._ElevatorBackTexInside = dynamicPack[index]._ElevatorBackTexInside;
+            actualPack._ElevatorTexInside = dynamicPack[index]._ElevatorTexInside;
+            actualPack._ElevatorColorInside = dynamicPack[index]._ElevatorColorInside;
+            actualPack._ElevatorInsideStrength = dynamicPack[index]._ElevatorInsideStrength;
             actualPack.Elevator_Hue = dynamicPack[index].Elevator_Hue;
             actualPack.Elevator_Contrast = dynamicPack[index].Elevator_Contrast;
             actualPack.Elevator_Saturation = dynamicPack[index].Elevator_Saturation;
             actualPack.Elevator_Brightness = dynamicPack[index].Elevator_Brightness;
 
-            actualPack._CounterTex = dynamicPack[index]._CounterTex;
+            actualPack._CounterTex0 = dynamicPack[index]._CounterTex0;
+            actualPack._CounterTex1 = dynamicPack[index]._CounterTex1;
+            actualPack._CounterTex2 = dynamicPack[index]._CounterTex2;
+            actualPack._CounterTex3 = dynamicPack[index]._CounterTex3;
+            actualPack._CounterTex4 = dynamicPack[index]._CounterTex4;
+            actualPack._CounterTex5 = dynamicPack[index]._CounterTex5;
+            actualPack._CounterTex6 = dynamicPack[index]._CounterTex6;
+            actualPack._CounterTex7 = dynamicPack[index]._CounterTex7;
+            actualPack._CounterTex8 = dynamicPack[index]._CounterTex8;
+            actualPack._CounterTex9 = dynamicPack[index]._CounterTex9;
             actualPack._CounterMesh = dynamicPack[index]._CounterMesh;
             actualPack._CounterColor = dynamicPack[index]._CounterColor;
+            actualPack._CounterTexInside = dynamicPack[index]._CounterTexInside;
+            actualPack._CounterInsideStrength = dynamicPack[index]._CounterInsideStrength;
+            actualPack._CounterColorInside = dynamicPack[index]._CounterColorInside;
             actualPack.Counter_Hue = dynamicPack[index].Counter_Hue;
             actualPack.Counter_Contrast = dynamicPack[index].Counter_Contrast;
             actualPack.Counter_Saturation = dynamicPack[index].Counter_Saturation;
             actualPack.Counter_Brightness = dynamicPack[index].Counter_Brightness;
 
-            actualPack._RotatorsTex = dynamicPack[index]._RotatorsTex;
+            actualPack._RotatorsTexLeft = dynamicPack[index]._RotatorsTexLeft;
+            actualPack._RotatorsTexRight = dynamicPack[index]._RotatorsTexRight;
+            actualPack._RotatorsTexUI = dynamicPack[index]._RotatorsTexUI;
             actualPack._RotatorsMesh = dynamicPack[index]._RotatorsMesh;
             actualPack._RotatorsColor = dynamicPack[index]._RotatorsColor;
+            actualPack._RotatorsTexInside = dynamicPack[index]._RotatorsTexInside;
+            actualPack._RotatorsInsideStrength = dynamicPack[index]._RotatorsInsideStrength;
+            actualPack._RotatorsColorInside = dynamicPack[index]._RotatorsColorInside;
             actualPack.Rotators_Hue = dynamicPack[index].Rotators_Hue;
             actualPack.Rotators_Contrast = dynamicPack[index].Rotators_Contrast;
             actualPack.Rotators_Saturation = dynamicPack[index].Rotators_Saturation;
@@ -251,14 +279,21 @@ namespace Kubika.Game
             actualPack._BombTex = dynamicPack[index]._BombTex;
             actualPack._BombMesh = dynamicPack[index]._BombMesh;
             actualPack._BombColor = dynamicPack[index]._BombColor;
+            actualPack._BombTexInside = dynamicPack[index]._BombTexInside;
+            actualPack._BombInsideStrength = dynamicPack[index]._BombInsideStrength;
+            actualPack._BombColorInside = dynamicPack[index]._BombColorInside;
             actualPack.Bomb_Hue = dynamicPack[index].Bomb_Hue;
             actualPack.Bomb_Contrast = dynamicPack[index].Bomb_Contrast;
             actualPack.Bomb_Saturation = dynamicPack[index].Bomb_Saturation;
             actualPack.Bomb_Brightness = dynamicPack[index].Bomb_Brightness;
 
-            actualPack._SwitchTex = dynamicPack[index]._SwitchTex;
+            actualPack._SwitchTexOn = dynamicPack[index]._SwitchTexOn;
+            actualPack._SwitchTexOff = dynamicPack[index]._SwitchTexOff;
             actualPack._SwitchMesh = dynamicPack[index]._SwitchMesh;
             actualPack._SwitchColor = dynamicPack[index]._SwitchColor;
+            actualPack._SwitchTexInside = dynamicPack[index]._SwitchTexInside;
+            actualPack._SwitchInsideStrength = dynamicPack[index]._SwitchInsideStrength;
+            actualPack._SwitchColorInside = dynamicPack[index]._SwitchColorInside;
             actualPack.Switch_Hue = dynamicPack[index].Switch_Hue;
             actualPack.Switch_Contrast = dynamicPack[index].Switch_Contrast;
             actualPack.Switch_Saturation = dynamicPack[index].Switch_Saturation;
@@ -267,6 +302,9 @@ namespace Kubika.Game
             actualPack._BallTex = dynamicPack[index]._BallTex;
             actualPack._BallMesh = dynamicPack[index]._BallMesh;
             actualPack._BallColor = dynamicPack[index]._BallColor;
+            actualPack._BallTexInside = dynamicPack[index]._BallTexInside;
+            actualPack._BallInsideStrength = dynamicPack[index]._BallInsideStrength;
+            actualPack._BallColorInside = dynamicPack[index]._BallColorInside;
             actualPack.Ball_Hue = dynamicPack[index].Ball_Hue;
             actualPack.Ball_Contrast = dynamicPack[index].Ball_Contrast;
             actualPack.Ball_Saturation = dynamicPack[index].Ball_Saturation;
@@ -275,6 +313,9 @@ namespace Kubika.Game
             actualPack._PastilleTex = dynamicPack[index]._PastilleTex;
             actualPack._PastilleMesh = dynamicPack[index]._PastilleMesh;
             actualPack._PastilleColor = dynamicPack[index]._PastilleColor;
+            actualPack._PastilleTexInside = dynamicPack[index]._PastilleTexInside;
+            actualPack._PastilleInsideStrength = dynamicPack[index]._PastilleInsideStrength;
+            actualPack._PastilleColorInside = dynamicPack[index]._PastilleColorInside;
             actualPack.Pastille_Hue = dynamicPack[index].Pastille_Hue;
             actualPack.Pastille_Contrast = dynamicPack[index].Pastille_Contrast;
             actualPack.Pastille_Saturation = dynamicPack[index].Pastille_Saturation;
@@ -288,21 +329,27 @@ namespace Kubika.Game
 
             #region STATIC SETTINGS
             actualPack._EmptyTex = staticPack[index]._EmptyTex;
+            actualPack._EmptyTex2 = staticPack[index]._EmptyTex2;
             actualPack._EmptyMesh = staticPack[index]._EmptyMesh;
 
             actualPack._FullTex = staticPack[index]._FullTex;
+            actualPack._FullTex2 = staticPack[index]._FullTex2;
             actualPack._FullMesh = staticPack[index]._FullMesh;
 
             actualPack._TopTex = staticPack[index]._TopTex;
+            actualPack._TopTex2 = staticPack[index]._TopTex2;
             actualPack._TopMesh = staticPack[index]._TopMesh;
 
             actualPack._CornerTex = staticPack[index]._CornerTex;
+            actualPack._CornerTex2 = staticPack[index]._CornerTex2;
             actualPack._CornerMesh = staticPack[index]._CornerMesh;
 
             actualPack._TripleTex = staticPack[index]._TripleTex;
+            actualPack._TripleTex2 = staticPack[index]._TripleTex2;
             actualPack._TripleMesh = staticPack[index]._TripleMesh;
 
             actualPack._QuadTex = staticPack[index]._QuadTex;
+            actualPack._QuadTex2 = staticPack[index]._QuadTex2;
             actualPack._QuadMesh = staticPack[index]._QuadMesh;
 
             actualPack._TextureColor = staticPack[index]._TextureColor;
