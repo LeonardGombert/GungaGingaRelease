@@ -48,7 +48,6 @@ namespace Kubika.Game
         [Range(-1, 1)] public float Elevator_Brightness;
 
         [Header("Counter")]
-        public Texture _CounterTex0;
         public Texture _CounterTex1;
         public Texture _CounterTex2;
         public Texture _CounterTex3;

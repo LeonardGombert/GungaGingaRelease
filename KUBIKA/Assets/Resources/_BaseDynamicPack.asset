@@ -16,6 +16,9 @@ MonoBehaviour:
   _BaseMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _BaseColor: {r: 1, g: 1, b: 1, a: 0}
+  _BaseTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _BaseInsideStrength: 0
+  _BaseColorInside: {r: 0, g: 0, b: 0, a: 0}
   Base_Hue: 0
   Base_Contrast: 1
   Base_Saturation: 1
@@ -24,30 +27,55 @@ MonoBehaviour:
   _BetonMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _BetonColor: {r: 1, g: 1, b: 1, a: 0}
+  _BetonTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _BetonInsideStrength: 0
+  _BetonColorInside: {r: 0, g: 0, b: 0, a: 0}
   Beton_Hue: 0
   Beton_Contrast: 1
   Beton_Saturation: 1
   Beton_Brightness: 0
   _ElevatorTex: {fileID: 2800000, guid: f8ae063f930218142972761badd62e0e, type: 3}
+  _ElevatorBackTex: {fileID: 2800000, guid: 631c92a581c5cfc468499cc747ea49f0, type: 3}
   _ElevatorMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _ElevatorColor: {r: 1, g: 1, b: 1, a: 0}
+  _ElevatorTexInside: {fileID: 2800000, guid: 73ffc0ac068be56419d3362dd3dae291, type: 3}
+  _ElevatorBackTexInside: {fileID: 2800000, guid: 62b71b00766dcbe4bbebd202ee01e160,
+    type: 3}
+  _ElevatorInsideStrength: 1
+  _ElevatorColorInside: {r: 1, g: 1, b: 1, a: 0}
   Elevator_Hue: 0
   Elevator_Contrast: 1
   Elevator_Saturation: 1
   Elevator_Brightness: 0
-  _CounterTex: {fileID: 2800000, guid: c39b021003f6c6f44a4c4da6c3d77f11, type: 3}
+  _CounterTex1: {fileID: 2800000, guid: c39b021003f6c6f44a4c4da6c3d77f11, type: 3}
+  _CounterTex2: {fileID: 2800000, guid: 8d02be7b252293943b7a9989732d9c63, type: 3}
+  _CounterTex3: {fileID: 2800000, guid: 04ddfb4ea395ff04d97a79494cd784bd, type: 3}
+  _CounterTex4: {fileID: 2800000, guid: 13c18a3259c38fc42b12c009ad78e277, type: 3}
+  _CounterTex5: {fileID: 2800000, guid: 6b5331cc64f70284f863880c7b85d803, type: 3}
+  _CounterTex6: {fileID: 2800000, guid: 4dce30a6809c24845962499078e4c0c2, type: 3}
+  _CounterTex7: {fileID: 2800000, guid: d3f11d9699182cd429d147055d64b80d, type: 3}
+  _CounterTex8: {fileID: 2800000, guid: 0555771f4b2ba464592651ff009e48e2, type: 3}
+  _CounterTex9: {fileID: 2800000, guid: c865c60527e53184da05dafe13750546, type: 3}
   _CounterMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _CounterColor: {r: 1, g: 1, b: 1, a: 0}
+  _CounterTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _CounterInsideStrength: 0
+  _CounterColorInside: {r: 0, g: 0, b: 0, a: 0}
   Counter_Hue: 0
   Counter_Contrast: 1
   Counter_Saturation: 1
   Counter_Brightness: 0
-  _RotatorsTex: {fileID: 0}
+  _RotatorsTexLeft: {fileID: 0}
+  _RotatorsTexRight: {fileID: 0}
+  _RotatorsTexUI: {fileID: 0}
   _RotatorsMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _RotatorsColor: {r: 1, g: 1, b: 1, a: 0}
+  _RotatorsTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _RotatorsInsideStrength: 0
+  _RotatorsColorInside: {r: 0, g: 0, b: 0, a: 0}
   Rotators_Hue: 0
   Rotators_Contrast: 1
   Rotators_Saturation: 1
@@ -56,14 +84,21 @@ MonoBehaviour:
   _BombMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _BombColor: {r: 1, g: 1, b: 1, a: 0}
+  _BombTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _BombInsideStrength: 0
+  _BombColorInside: {r: 0, g: 0, b: 0, a: 0}
   Bomb_Hue: 0
   Bomb_Contrast: 1
   Bomb_Saturation: 1
   Bomb_Brightness: 0
-  _SwitchTex: {fileID: 2800000, guid: ec63552be0baa5145b5564d3df1e0390, type: 3}
+  _SwitchTexOn: {fileID: 2800000, guid: 541becf32faaf1f4fa620ca848c6978f, type: 3}
+  _SwitchTexOff: {fileID: 2800000, guid: ec63552be0baa5145b5564d3df1e0390, type: 3}
+  _SwitchTexInside: {fileID: 2800000, guid: 128cf5204081f2a429f833ffd7d23d40, type: 3}
   _SwitchMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _SwitchColor: {r: 1, g: 1, b: 1, a: 0}
+  _SwitchColorInside: {r: 0.48380208, g: 0.6612688, b: 0.6792453, a: 0}
+  _SwitchInsideStrength: 1
   Switch_Hue: 0
   Switch_Contrast: 1
   Switch_Saturation: 1
@@ -72,6 +107,9 @@ MonoBehaviour:
   _BallMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _BallColor: {r: 1, g: 1, b: 1, a: 0}
+  _BallTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _BallInsideStrength: 0
+  _BallColorInside: {r: 0, g: 0, b: 0, a: 0}
   Ball_Hue: 0
   Ball_Contrast: 1
   Ball_Saturation: 1
@@ -80,6 +118,9 @@ MonoBehaviour:
   _PastilleMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _PastilleColor: {r: 1, g: 1, b: 1, a: 0}
+  _PastilleTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _PastilleInsideStrength: 0
+  _PastilleColorInside: {r: 0, g: 0, b: 0, a: 0}
   Pastille_Hue: 0
   Pastille_Contrast: 1
   Pastille_Saturation: 1

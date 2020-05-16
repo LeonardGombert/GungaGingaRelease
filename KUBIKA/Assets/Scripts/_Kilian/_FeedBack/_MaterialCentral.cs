@@ -25,8 +25,9 @@ namespace Kubika.Game
         public int fxIndex;
         [Space]
         public _ActualAllPack actualPack;
-
-        [Header("ACTUAL GRAPH SETTINGS")]
+        
+        //[Header("ACTUAL GRAPH SETTINGS")]
+        /*
         #region DYNAMIC SETTINGS
         [Space]
         [Header("DYNAMIC-----")]
@@ -177,7 +178,7 @@ namespace Kubika.Game
         [Header("Pastille")]
         public Texture _PastilleEmoteTex;
         #endregion
-
+        */
         #region FX SETTINGS
         #endregion
 
@@ -243,7 +244,6 @@ namespace Kubika.Game
             actualPack.Elevator_Saturation = dynamicPack[index].Elevator_Saturation;
             actualPack.Elevator_Brightness = dynamicPack[index].Elevator_Brightness;
 
-            actualPack._CounterTex0 = dynamicPack[index]._CounterTex0;
             actualPack._CounterTex1 = dynamicPack[index]._CounterTex1;
             actualPack._CounterTex2 = dynamicPack[index]._CounterTex2;
             actualPack._CounterTex3 = dynamicPack[index]._CounterTex3;
