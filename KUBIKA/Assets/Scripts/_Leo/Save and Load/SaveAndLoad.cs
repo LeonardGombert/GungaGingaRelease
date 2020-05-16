@@ -13,12 +13,12 @@ namespace Kubika.Saving
         private static SaveAndLoad _instance;
         public static SaveAndLoad instance { get { return _instance; } }
 
-        public  _Grid grid;
-
         //a list of the nodes in grid node that have cubes on them
         List<Node> activeNodes = new List<Node>();
 
         LevelEditorData levelData;
+
+        public GameObject cubePrefab;
 
         private void Awake()
         {
@@ -30,7 +30,6 @@ namespace Kubika.Saving
         void Start()
         {
             CreateEditorData();
-            grid = _Grid.instance;
         }
 
         private LevelEditorData CreateEditorData()
@@ -40,14 +39,18 @@ namespace Kubika.Saving
             return levelData;
         }
 
-        public void SaveLevel(string levelName)
+        public void SaveLevelFull(string levelName, int minimumMoves)
         {
-            for (int i = 0; i < grid.kuboGrid.Length; i++)
+            for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
-                if (grid.kuboGrid[i].cubeOnPosition != null) activeNodes.Add(grid.kuboGrid[i]);
+                if (_Grid.instance.kuboGrid[i].cubeOnPosition != null) activeNodes.Add(_Grid.instance.kuboGrid[i]);
             }
 
+            //storing data in levelDataFile
+            levelData.levelName = levelName;
+            levelData.minimumMoves = minimumMoves;
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
+
 
             string json = JsonUtility.ToJson(levelData);
             string folder = Application.dataPath + "/Scenes/Levels";
@@ -67,19 +70,19 @@ namespace Kubika.Saving
             levelData.nodesToSave.Clear();
             activeNodes.Clear();
 
-            Debug.Log("Level Saved !");
+            Debug.Log("Level Fully Saved !");
         }
 
         public void LoadLevel(string levelName)
         {
             Debug.Log("Level Loading !");
-                
+
             string folder = Application.dataPath + "/Scenes/Levels";
             string levelFile = levelName + ".json";
 
             string path = Path.Combine(folder, levelFile);
 
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
                 levelData = JsonUtility.FromJson<LevelEditorData>(json);
@@ -91,19 +94,19 @@ namespace Kubika.Saving
         public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
             // start by resetting the grid's nodes to their base states
-            grid.ResetGrid();
+            _Grid.instance.ResetGrid();
             _Grid.instance.placedObjects.Clear();
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
-                GameObject newCube = Instantiate(LevelEditor.instance.cubePrefab);
+                GameObject newCube = Instantiate(cubePrefab);
 
                 _Grid.instance.placedObjects.Add(newCube);
 
                 Debug.Log(recoveredNode.cubeType);
 
                 newCube.transform.position = recoveredNode.worldPosition;
-                newCube.transform.parent = grid.gameObject.transform;
+                newCube.transform.parent = _Grid.instance.gameObject.transform;
 
                 switch (recoveredNode.cubeType)
                 {
@@ -114,9 +117,9 @@ namespace Kubika.Saving
                         //set the cube's index so that you can assign its other variables (position, leyer, type, etc.)
                         staticCube.myIndex = recoveredNode.nodeIndex;
 
-                        grid.kuboGrid[staticCube.myIndex - 1].cubeOnPosition = newCube;
-                        grid.kuboGrid[staticCube.myIndex - 1].cubeLayers = CubeLayers.cubeFull;
-                        grid.kuboGrid[staticCube.myIndex - 1].cubeType = CubeTypes.StaticCube;
+                        _Grid.instance.kuboGrid[staticCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[staticCube.myIndex - 1].cubeLayers = CubeLayers.cubeFull;
+                        _Grid.instance.kuboGrid[staticCube.myIndex - 1].cubeType = CubeTypes.StaticCube;
 
                         staticCube.staticEnum = StaticEnums.Empty;
                         break;
@@ -127,9 +130,9 @@ namespace Kubika.Saving
 
                         moveableCube.myIndex = recoveredNode.nodeIndex;
 
-                        grid.kuboGrid[moveableCube.myIndex - 1].cubeOnPosition = newCube;
-                        grid.kuboGrid[moveableCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-                        grid.kuboGrid[moveableCube.myIndex - 1].cubeType = CubeTypes.MoveableCube;
+                        _Grid.instance.kuboGrid[moveableCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[moveableCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                        _Grid.instance.kuboGrid[moveableCube.myIndex - 1].cubeType = CubeTypes.MoveableCube;
                         break;
 
                     case CubeTypes.VictoryCube:
@@ -138,9 +141,9 @@ namespace Kubika.Saving
 
                         victoryCube.myIndex = recoveredNode.nodeIndex;
 
-                        grid.kuboGrid[victoryCube.myIndex - 1].cubeOnPosition = newCube;
-                        grid.kuboGrid[victoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-                        grid.kuboGrid[victoryCube.myIndex - 1].cubeType = CubeTypes.VictoryCube;
+                        _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                        _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeType = CubeTypes.VictoryCube;
                         break;
 
                     case CubeTypes.DeliveryCube:
@@ -149,9 +152,9 @@ namespace Kubika.Saving
 
                         deliveryCube.myIndex = recoveredNode.nodeIndex;
 
-                        grid.kuboGrid[deliveryCube.myIndex - 1].cubeOnPosition = newCube;
-                        grid.kuboGrid[deliveryCube.myIndex - 1].cubeLayers = CubeLayers.cubeFull;
-                        grid.kuboGrid[deliveryCube.myIndex - 1].cubeType = CubeTypes.DeliveryCube;
+                        _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].cubeLayers = CubeLayers.cubeFull;
+                        _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].cubeType = CubeTypes.DeliveryCube;
                         break;
 
                     case CubeTypes.ElevatorCube:
@@ -177,7 +180,7 @@ namespace Kubika.Saving
 
                     default:
                         //set epmty cubes as cubeEmpty
-                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                        _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                         break;
                 }
             }

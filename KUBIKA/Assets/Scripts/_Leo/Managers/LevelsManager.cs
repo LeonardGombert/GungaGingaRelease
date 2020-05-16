@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Kubika.Game
@@ -11,7 +12,7 @@ namespace Kubika.Game
         private static LevelsManager _instance;
         public static LevelsManager instance { get { return _instance; } }
 
-        #region LEVELS
+        #region MAIN LEVELS
         [FoldoutGroup("Biomes")] public List<LevelFileInfo> masterList = new List<LevelFileInfo>();
         [FoldoutGroup("Biomes")] public Queue<LevelFileInfo> levels = new Queue<LevelFileInfo>();
 
@@ -22,6 +23,11 @@ namespace Kubika.Game
         [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome5 = new List<LevelFileInfo>();
         [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome6 = new List<LevelFileInfo>();
         [FoldoutGroup("Full Biomes")][SerializeField] List<LevelFileInfo> biome7 = new List<LevelFileInfo>();
+        #endregion
+
+        #region LEVEL EDITOR
+        public UnityEngine.Object[] levelObjects;
+        public List<LevelFileInfo> playerLevelsInfo = new List<LevelFileInfo>();
         #endregion
 
         //keep a reference to the save/load instance to quickly extract levels from files
@@ -40,7 +46,6 @@ namespace Kubika.Game
         // Start is called before the first frame update
         void Start()
         {
-            saveAndLoad = SaveAndLoad.instance;
             InitializeLists();
         }
 
@@ -57,6 +62,31 @@ namespace Kubika.Game
             foreach (LevelFileInfo level in biome7) masterList.Add(level);
 
             ResetQueue();
+
+            if (ScenesManager.isLevelEditor) InitializePlayerLevels();
+        }
+
+        private void InitializePlayerLevels()
+        {
+            levelObjects = Resources.LoadAll("/PlayerLevels", typeof(TextAsset));
+
+            foreach (TextAsset item in levelObjects)
+            {
+                LevelFileInfo levelInfo = new LevelFileInfo();
+
+                LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(item.ToString());
+
+                levelInfo.levelFile = item;
+                levelInfo.levelName = levelData.levelName;
+                levelInfo.minimumMoves = levelData.minimumMoves;
+
+                playerLevelsInfo.Add(levelInfo);
+            }
+
+            /*foreach (LevelFileInfo level in playerLevelsInfo)
+            {
+                UIManager.instance.playerLevelsDropdown.captionText.text = level.levelName;
+            }*/
         }
 
         // Reset the queue to its base state
@@ -84,7 +114,7 @@ namespace Kubika.Game
 
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
 
-            saveAndLoad.ExtractAndRebuildLevel(levelData);
+            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
         }
         public void RestartLevel()
         {
