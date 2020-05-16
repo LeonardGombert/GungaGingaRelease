@@ -92,12 +92,12 @@ namespace Kubika.Saving
         {
             // start by resetting the grid's nodes to their base states
             grid.ResetGrid();
+            _Grid.instance.placedObjects.Clear();
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
                 GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                _Grid.instance.placedObjects.Clear();
                 _Grid.instance.placedObjects.Add(newCube);
 
                 Debug.Log(recoveredNode.cubeType);
