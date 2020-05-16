@@ -12,20 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1aeeafa403aa04d93f9242f243cf04, type: 3}
   m_Name: _BaseUnivers1
   m_EditorClassIdentifier: 
-  _EmptyTex: {fileID: 0}
-  _EmptyMesh: {fileID: 0}
-  _FullTex: {fileID: 0}
-  _FullMesh: {fileID: 0}
-  _TopTex: {fileID: 0}
-  _TopMesh: {fileID: 0}
-  _CornerTex: {fileID: 0}
-  _CornerMesh: {fileID: 0}
-  _TripleTex: {fileID: 0}
-  _TripleMesh: {fileID: 0}
-  _QuadTex: {fileID: 0}
-  _QuadMesh: {fileID: 0}
-  _TextureColor: {r: 0, g: 0, b: 0, a: 0}
+  _EmptyTex: {fileID: 2800000, guid: f9eba4342ddb93e4ebcde24784bdf556, type: 3}
+  _EmptyMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _FullTex: {fileID: 2800000, guid: 745028d8b4427a34aa75230be7162ac9, type: 3}
+  _FullMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _TopTex: {fileID: 2800000, guid: 5bbf292c6fa28d14485504176c1df930, type: 3}
+  _TopMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _CornerTex: {fileID: 2800000, guid: 8026d151fc0e43b41aa51408bd8e8c5a, type: 3}
+  _CornerMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _TripleTex: {fileID: 2800000, guid: 3dbe77a7be2bc304cb8e7230cfbdcbd3, type: 3}
+  _TripleMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _QuadTex: {fileID: 2800000, guid: 5aab6532290ef814ca8a06a7315cd0d2, type: 3}
+  _QuadMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
+    type: 3}
+  _TextureColor: {r: 1, g: 1, b: 1, a: 1}
   _Hue: 0
-  _Contrast: 0
-  _Saturation: 0
-  _Brightness: 0
+  _Contrast: 0.97
+  _Saturation: 0.75
+  _Brightness: 0.15

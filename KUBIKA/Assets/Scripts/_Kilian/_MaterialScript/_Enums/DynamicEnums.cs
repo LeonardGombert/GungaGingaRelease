@@ -1,5 +1,6 @@
 ﻿public enum DynamicEnums
 {
+    Null,
     Base,
     Beton,
     Counter,

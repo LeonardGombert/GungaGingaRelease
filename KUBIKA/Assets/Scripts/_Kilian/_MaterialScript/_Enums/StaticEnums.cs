@@ -1,5 +1,6 @@
-﻿public enum SaticEnums
+﻿public enum StaticEnums
 {
+    Null,
     Full,
     Empty,
     Top,
