@@ -11,46 +11,34 @@ namespace Kubika.Game
         private static UIManager _instance;
         public static UIManager instance { get { return _instance; } }
 
-        /*[SerializeField] Button turnRight;
-        [SerializeField] Button turnLeft;
-
-        [SerializeField] Button play;
-        [SerializeField] Button mainMenu;
-
-        [SerializeField] Button rotateRight;
-        [SerializeField] Button rotateLeft;
-        [SerializeField] Button restart;
-        [SerializeField] Button undo;
-
-        [SerializeField] Button burgerMenu;
-        [SerializeField] Button closeMenu;*/
-
         //Game Canvas
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas gameCanvas;
 
         //Burger Menu
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas hamburgerMenuCanvas;
-        [SerializeField] UnityEngine.UI.Button music;
-        [SerializeField] Sprite musicOn;
-        [SerializeField] Sprite musicOff;
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas hamburgerMenuCanvas2;
+
+        [FoldoutGroup("Burger Menu")] [SerializeField] UnityEngine.UI.Button music;
+        [FoldoutGroup("Burger Menu")] [SerializeField] Sprite musicOn;
+        [FoldoutGroup("Burger Menu")] [SerializeField] Sprite musicOff;
         private bool musicIsOn = true;
 
-        [SerializeField] UnityEngine.UI.Button sound;
-        [SerializeField] Sprite soundOn;
-        [SerializeField] Sprite soundOff;
+        [FoldoutGroup("Burger Menu")] [SerializeField] UnityEngine.UI.Button sound;
+        [FoldoutGroup("Burger Menu")] [SerializeField] Sprite soundOn;
+        [FoldoutGroup("Burger Menu")] [SerializeField] Sprite soundOff;
         private bool soundIsOn = true;
 
         //Transition Canvas
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas transitionCanvas;
-        [SerializeField] UnityEngine.UI.Image fadeImage;
+        [FoldoutGroup("Fade Transition")] [SerializeField] UnityEngine.UI.Image fadeImage;
 
-        [SerializeField] TransitionType transitionType;
-        [SerializeField] GameObject hiddenMenuButtons;
-        [SerializeField] GameObject openBurgerMenuButton;
+        [FoldoutGroup("Fade Transition")] [SerializeField] TransitionType transitionType;
+        [FoldoutGroup("Burger Menu")] [SerializeField] GameObject hiddenMenuButtons;
+        [FoldoutGroup("Burger Menu")] [SerializeField] GameObject openBurgerMenuButton;
 
         //Transition Tween
-        [SerializeField] float transitionDuration;
-        [SerializeField] float timePassed;
+        [FoldoutGroup("Fade Transition")] [SerializeField] float transitionDuration;
+        [FoldoutGroup("Fade Transition")] [SerializeField] float timePassed;
         float startAlphaValue;
         float targetAlphaValue;
         bool gameDimmed = false;
@@ -92,6 +80,7 @@ namespace Kubika.Game
 
                 case ScenesIndex.GAME_SCENE:
                     GameCanvasPriority();
+                    LevelsManager.instance._LoadNextLevel();
                     break;
 
                 case ScenesIndex.WIN:
@@ -99,6 +88,7 @@ namespace Kubika.Game
                     break;
 
                 case ScenesIndex.LEVEL_EDITOR:
+                    LevelEditorPriority();
                     break;
 
                 case ScenesIndex.CUSTOM_LEVELS:
@@ -131,6 +121,7 @@ namespace Kubika.Game
             transitionCanvas.sortingOrder = 0;
             gameCanvas.sortingOrder = 0;
             winCanvas.sortingOrder = 0;
+            levelEditorCanvas.sortingOrder = 0;
         }
 
         void TurnOffAllCanvases()
@@ -140,7 +131,9 @@ namespace Kubika.Game
             fadeImage.enabled = false;
             gameCanvas.enabled = false;
             winCanvas.enabled = false;
+            levelEditorCanvas.enabled = false;
             hamburgerMenuCanvas.enabled = false;
+            hamburgerMenuCanvas2.enabled = false;
         }
 
         private void WorldMapPriority()
@@ -153,7 +146,12 @@ namespace Kubika.Game
         private void LevelEditorPriority()
         {
             ResetCanvasSortOrder();
-            if (levelEditorCanvas != null) levelEditorCanvas.enabled = true;
+            levelEditorCanvas.enabled = true;
+
+            if (hamburgerMenuCanvas != null) hamburgerMenuCanvas.enabled = true;
+            if (hamburgerMenuCanvas2 != null) hamburgerMenuCanvas2.enabled = true;
+
+            hiddenMenuButtons.SetActive(false);
             levelEditorCanvas.sortingOrder = 1000;
         }
 
@@ -163,6 +161,7 @@ namespace Kubika.Game
             gameCanvas.enabled = true;
 
             if (hamburgerMenuCanvas != null) hamburgerMenuCanvas.enabled = true;
+            if (hamburgerMenuCanvas2 != null) hamburgerMenuCanvas2.enabled = true;
 
             hiddenMenuButtons.SetActive(false);
             gameCanvas.sortingOrder = 1000;
@@ -211,6 +210,10 @@ namespace Kubika.Game
                     ScenesManager.instance._LoadScene(ScenesIndex.GAME_SCENE);
                     break;
 
+                case "WORLDMAP_LevelEditor":
+                    ScenesManager.instance._LoadScene(ScenesIndex.LEVEL_EDITOR);
+                    break;
+
                 case "WORLDMAP_TurnRight":
                     break;
 
@@ -235,6 +238,7 @@ namespace Kubika.Game
                 #endregion
 
                 case "MAIN_MENU":
+                    StartCoroutine(DimGame());
                     ScenesManager.instance._LoadScene(ScenesIndex.TITLE_WORLD_MAP);
                     break;
 
@@ -269,6 +273,7 @@ namespace Kubika.Game
                 StartCoroutine(FadeTransition(startAlphaValue, targetAlphaValue, transitionDuration, timePassed));
                 
                 hamburgerMenuCanvas.sortingOrder = 1000;
+                hamburgerMenuCanvas2.sortingOrder = 1000;
                 gameDimmed = true;
             }
 
@@ -285,8 +290,8 @@ namespace Kubika.Game
                 hiddenMenuButtons.SetActive(false);
                 openBurgerMenuButton.SetActive(true);
                 fadeImage.enabled = false;
-                
-                GameCanvasPriority();
+
+                RefreshActiveScene();
             }
         }
 

@@ -59,6 +59,8 @@ namespace Kubika.Game
 
             currentActiveScene = targetScene;
 
+            UIManager.instance.RefreshActiveScene();
+
             yield return null;
         }
     }

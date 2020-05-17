@@ -19,12 +19,12 @@ namespace Kubika.Game
 
         public void UserSavedLevel()
         {
-            SaveAndLoad.instance.SaveLevelFull(UIManager.instance.saveLevelName.text, true);
+            SaveAndLoad.instance.UserSavingLevel(UIManager.instance.saveLevelName.text);
         }
 
         public void UserLoadLevel()
         {
-            SaveAndLoad.instance.LoadLevel(UIManager.instance.playerLevelsDropdown.captionText.text, true);
+            SaveAndLoad.instance.UserLoadLevel(UIManager.instance.playerLevelsDropdown.captionText.text);
         }
     }
 }

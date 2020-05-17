@@ -16,7 +16,7 @@ public class LevelsQueueEditor : OdinEditor
 
         if (GUILayout.Button("Load Next Level"))
         {
-            levelsQueue.LoadLevel();
+            levelsQueue._LoadNextLevel();
         }
     }
 }

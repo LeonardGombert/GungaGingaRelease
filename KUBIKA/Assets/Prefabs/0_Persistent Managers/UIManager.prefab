@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameCanvas: {fileID: 0}
   hamburgerMenuCanvas: {fileID: 0}
+  hamburgerMenuCanvas2: {fileID: 0}
   music: {fileID: 0}
   musicOn: {fileID: 21300000, guid: ec504b12341d7a448bed5019e2a7cd8f, type: 3}
   musicOff: {fileID: 21300000, guid: 0b2ea486ea9420b459d0ed90bc88d618, type: 3}
@@ -60,3 +61,6 @@ MonoBehaviour:
   timePassed: 0
   winCanvas: {fileID: 0}
   worldMapCanvas: {fileID: 0}
+  levelEditorCanvas: {fileID: 0}
+  playerLevelsDropdown: {fileID: 0}
+  saveLevelName: {fileID: 0}
