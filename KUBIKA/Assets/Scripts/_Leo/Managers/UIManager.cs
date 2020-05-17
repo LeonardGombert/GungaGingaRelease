@@ -80,6 +80,7 @@ namespace Kubika.Game
 
                 case ScenesIndex.GAME_SCENE:
                     GameCanvasPriority();
+                    LevelsManager.instance._LoadNextLevel();
                     break;
 
                 case ScenesIndex.WIN:

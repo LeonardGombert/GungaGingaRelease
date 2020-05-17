@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace Kubika.Game
@@ -16,8 +17,10 @@ namespace Kubika.Game
         public static LevelsManager instance { get { return _instance; } }
 
         #region MAIN LEVELS
-        [FoldoutGroup("Biomes")] public List<LevelFileInfo> masterList = new List<LevelFileInfo>();
-        [FoldoutGroup("Biomes")] public Queue<LevelFileInfo> levels = new Queue<LevelFileInfo>();
+        [FoldoutGroup("Biomes")] public List<LevelFile> masterList = new List<LevelFile>();
+        [FoldoutGroup("Biomes")] [ShowInInspector] Queue<LevelFile> levelQueue = new Queue<LevelFile>();  
+
+        List<List<TextAsset>> listOfLists = new List<List<TextAsset>>();
 
         [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome1 = new List<TextAsset>();
         [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome2 = new List<TextAsset>();
@@ -26,29 +29,34 @@ namespace Kubika.Game
         [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome5 = new List<TextAsset>();
         [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome6 = new List<TextAsset>();
         [FoldoutGroup("Full Biomes")] [SerializeField] List<TextAsset> biome7 = new List<TextAsset>();
-
-        List<List<TextAsset>> listOfLists = new List<List<TextAsset>>();
         #endregion
 
         #region LEVEL EDITOR
         [FoldoutGroup("Level Editor ")] public List<string> levelNames = new List<string>();
-        [FoldoutGroup("Level Editor ")] public List<LevelFileInfo> playerLevelsInfo = new List<LevelFileInfo>();
+        [FoldoutGroup("Level Editor ")] public List<LevelFile> playerLevelsInfo = new List<LevelFile>();
         #endregion
 
-        string _levelName;
-        int _minimumMoves;
-        TextAsset _levelFile;
+        public string _levelName;
+        public int _minimumMoves;
+        public TextAsset _levelFile;
 
         void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
+
+            StartCoroutine(InitializeLevelsList());
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            /*listOfLists.Add(biome1);
+            if (ScenesManager.isLevelEditor) RefreshUserLevels();
+        }
+
+        IEnumerator InitializeLevelsList()
+        {
+            listOfLists.Add(biome1);
             listOfLists.Add(biome2);
             listOfLists.Add(biome3);
             listOfLists.Add(biome4);
@@ -56,42 +64,33 @@ namespace Kubika.Game
             listOfLists.Add(biome6);
             listOfLists.Add(biome7);
 
-            InitializeLists();*/
-            if (ScenesManager.isLevelEditor) RefreshUserLevels();
+            InitializeLists();
+            CopyToQueue();
+
+            yield return null;
         }
 
         // Copy all of the individual lists to the master list
         private void InitializeLists()
         {
+            masterList.Clear();
+
             foreach (List<TextAsset> levelFileList in listOfLists)
             {
                 foreach (TextAsset level in levelFileList)
                 {
-                    LevelFileInfo levelInfo = LevelFiles.ConvertToLevelInfo(level);
+                    LevelFile levelInfo = LevelFiles.ConvertToLevelInfo(level);
                     masterList.Add(levelInfo);
                 }
             }
-
-            ResetQueue();
         }
-
 
         // Reset the queue to its base state
-        private void ResetQueue()
+        private void CopyToQueue()
         {
-            // copy the master list into the queue
-            foreach (LevelFileInfo level in masterList) levels.Enqueue(level);
-            DequeueNextLevel();
-        }
+            levelQueue.Clear();
 
-        // Get the next level's information and remove it from the queue
-        void DequeueNextLevel()
-        {
-            _levelName = levels.Peek().levelName;
-            _levelFile = levels.Peek().levelFile;
-            _minimumMoves = levels.Peek().minimumMoves;
-
-            levels.Dequeue();
+            foreach (LevelFile level in masterList) levelQueue.Enqueue(level);
         }
 
         public void RefreshUserLevels()
@@ -111,14 +110,36 @@ namespace Kubika.Game
             UIManager.instance.playerLevelsDropdown.RefreshShownValue();
         }
 
-        // Load the next level (extract the file)
-        public void LoadLevel()
+        // Get the next level's information and remove it from the queue
+        void GetNextLevelInfo()
         {
+            _levelName = levelQueue.Peek().levelName;
+            _levelFile = levelQueue.Peek().levelFile;
+            _minimumMoves = levelQueue.Peek().minimumMoves;
+        }
+
+        public void _LoadNextLevel()
+        {
+            GetNextLevelInfo();
+            StartCoroutine(LoadLevel());
+            DequeueLevel();
+        }
+
+        // Load the next level (extract the file)
+        IEnumerator LoadLevel()
+        {
+            Debug.Log("1, 2, 3, 4");
+
             string json = _levelFile.ToString();
-
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
-
             SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
+
+            yield return null;
+        }
+
+        private void DequeueLevel()
+        {
+            levelQueue.Dequeue();
         }
 
         public void RestartLevel()
@@ -132,7 +153,7 @@ namespace Kubika.Game
 namespace Kubika.Saving
 {
     [Serializable]
-    public class LevelFileInfo
+    public struct LevelFile
     {
         public string levelName;
         public TextAsset levelFile;

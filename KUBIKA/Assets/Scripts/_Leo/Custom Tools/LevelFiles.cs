@@ -8,9 +8,9 @@ namespace Kubika.Saving
     public class LevelFiles : MonoBehaviour
     {
         // use this function to extract information from text file asset
-        public static LevelFileInfo ConvertToLevelInfo(TextAsset levelFile)
+        public static LevelFile ConvertToLevelInfo(TextAsset levelFile)
         {
-            LevelFileInfo levelInfo = new LevelFileInfo();
+            LevelFile levelInfo = new LevelFile();
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(levelFile.ToString());
 
             levelInfo.levelFile = levelFile;
