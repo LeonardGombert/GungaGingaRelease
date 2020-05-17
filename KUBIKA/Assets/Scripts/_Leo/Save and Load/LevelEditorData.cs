@@ -10,4 +10,11 @@ namespace Kubika.Saving
         public int minimumMoves;
         public List<Node> nodesToSave;
     }
+
+    [System.Serializable]
+    public class UserLevels
+    {
+        public int numberOfUserLevels;
+        public List<string> levelNames  = new List<string>();
+    }
 }

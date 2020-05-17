@@ -1,0 +1,86 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+namespace Kubika.Saving
+{
+    public class LevelFiles : MonoBehaviour
+    {
+        // use this function to extract information from text file asset
+        public static LevelFileInfo ConvertToLevelInfo(TextAsset levelFile)
+        {
+            LevelFileInfo levelInfo = new LevelFileInfo();
+            LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(levelFile.ToString());
+
+            levelInfo.levelFile = levelFile;
+            levelInfo.levelName = levelData.levelName;
+            levelInfo.minimumMoves = levelData.minimumMoves;
+
+            return levelInfo;
+        }
+
+        //use to initialize or refhresh an existing user info file
+        public static void InitializeUserLevelInfo(UserLevels newUserLevels = default)
+        {
+            if(newUserLevels == default) newUserLevels = new UserLevels();
+
+            string json = JsonUtility.ToJson(newUserLevels);
+            string folder = Application.persistentDataPath + "/UserLevels";
+            string levelFile = "_UserLevelInfo.json";
+
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+
+            string path = Path.Combine(folder, levelFile);
+
+            if (File.Exists(path)) File.Delete(path);
+            File.WriteAllText(path, json);
+        }
+
+        public static void AddNewUserLevel(string levelName)
+        {
+            string folder = Application.persistentDataPath + "/UserLevels";
+            string file = "_UserLevelInfo.json";
+            string path = Path.Combine(folder, file);
+
+            if (!File.Exists(path)) InitializeUserLevelInfo();
+
+            string json = File.ReadAllText(path);
+            UserLevels userLevels = JsonUtility.FromJson<UserLevels>(json);
+
+            userLevels.numberOfUserLevels++;
+            userLevels.levelNames.Add(levelName);
+
+            InitializeUserLevelInfo(userLevels);
+        }
+
+        public static void DeleteUserLevel(string levelName)
+        {
+            string folder = Application.persistentDataPath + "/UserLevels";
+            string levelsInfo = Application.persistentDataPath + "/UserLevels/UserLevelInfo";
+            UserLevels userLevels = JsonUtility.FromJson<UserLevels>(levelsInfo);
+
+            userLevels.levelNames.Remove(levelName);
+            userLevels.numberOfUserLevels--;
+
+            InitializeUserLevelInfo(userLevels);
+        }
+
+        //use to get all the level names in the file
+        public static List<string> GetUserLevelNames()
+        {
+            string folder = Application.persistentDataPath + "/UserLevels";
+            string file = "_UserLevelInfo.json";
+            string path = Path.Combine(folder, file);
+
+            List<string> levelsToLoad = new List<string>();
+
+            string json = File.ReadAllText(path);
+
+            UserLevels userLevels = JsonUtility.FromJson<UserLevels>(json);
+            levelsToLoad = userLevels.levelNames;
+
+            return levelsToLoad;
+        }
+    }
+}
