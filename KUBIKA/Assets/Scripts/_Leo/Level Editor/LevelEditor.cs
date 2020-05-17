@@ -64,44 +64,41 @@ namespace Kubika.CustomLevelEditor
         #region PLACE AND REMOVE CUBES
         private void PlaceAndDelete()
         {
-            //Drag and Release placement
-            if (Input.GetKeyDown(KeyCode.LeftShift) || placeMultiple)
+            /*
+            //add the cubes you hit to a list of RaycastHits
+            if (Input.GetMouseButton(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary)
             {
-                //add the cubes you hit to a list of RaycastHits
-                if (Input.GetMouseButton(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    CheckUserPlatform();
+                CheckUserPlatform();
 
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit))
-                        if (!placeHits.Contains(hit)) placeHits.Add(hit);
-                }
-
-                //when the user releases the mouse, place all the cubes at once
-                if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-                {
-                    foreach (RaycastHit hit in placeHits) PlaceCube(hit);
-                    placeHits.Clear();
-                }
-
-                /*//add the cubes you hit to a list of RaycastHits
-                if (Input.GetMouseButton(1))
-                {
-                    CheckUserPlatform();
-
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit))
-                        if (!deleteHits.Contains(hit)) deleteHits.Add(hit);
-                }
-
-                //when the user releases the mouse, delete alll cubes at once
-                if (Input.GetMouseButtonUp(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Ended)
-                {
-                    foreach (RaycastHit hit in deleteHits) DeleteCube(hit);
-                    deleteHits.Clear();
-                }*/
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit))
+                    if (!placeHits.Contains(hit)) placeHits.Add(hit);
             }
 
+            //when the user releases the mouse, place all the cubes at once
+            if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                foreach (RaycastHit hit in placeHits) PlaceCube(hit);
+                placeHits.Clear();
+            }
+
+            //add the cubes you hit to a list of RaycastHits
+            if (Input.GetMouseButton(1))
+            {
+                CheckUserPlatform();
+
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit))
+                    if (!deleteHits.Contains(hit)) deleteHits.Add(hit);
+            }
+
+            //when the user releases the mouse, delete alll cubes at once
+            if (Input.GetMouseButtonUp(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Ended)
+            {
+                foreach (RaycastHit hit in deleteHits) DeleteCube(hit);
+                deleteHits.Clear();
+            }*/
+
             //single click and place
-            else if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 CheckUserPlatform();
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) PlaceCube(hit);
@@ -368,8 +365,9 @@ namespace Kubika.CustomLevelEditor
         {
             if (Input.GetMouseButton(0)) userInputPosition = Input.mousePosition;
             else if (Input.GetMouseButton(1)) userInputPosition = Input.mousePosition;
-            if (Input.touchCount > 1) userInputPosition = Input.GetTouch(1).position;
-            else if (Input.touchCount > 0) userInputPosition = Input.GetTouch(0).position;
+            if (Input.touchCount == 1) userInputPosition = Input.GetTouch(0).position;
+            else if (Input.touchCount == 2) userInputPosition = Input.GetTouch(1).position;
+            else userInputPosition = Vector3.zero;
 
             return userInputPosition;
         }

@@ -23,15 +23,15 @@ namespace Kubika.Saving
         //use to initialize or refhresh an existing user info file
         public static void InitializeUserLevelInfo(UserLevels newUserLevels = default)
         {
-            if(newUserLevels == default) newUserLevels = new UserLevels();
+            if (newUserLevels == default) newUserLevels = new UserLevels();
 
             string json = JsonUtility.ToJson(newUserLevels);
             string folder = Application.persistentDataPath + "/UserLevels";
             string levelFile = "_UserLevelInfo.json";
 
-            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-
             string path = Path.Combine(folder, levelFile);
+
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
 
             if (File.Exists(path)) File.Delete(path);
             File.WriteAllText(path, json);
@@ -69,16 +69,22 @@ namespace Kubika.Saving
         //use to get all the level names in the file
         public static List<string> GetUserLevelNames()
         {
+            UserLevels userLevels;
+            List<string> levelsToLoad = new List<string>();
+
             string folder = Application.persistentDataPath + "/UserLevels";
             string file = "_UserLevelInfo.json";
             string path = Path.Combine(folder, file);
 
-            List<string> levelsToLoad = new List<string>();
-
+            if (!File.Exists(path)) InitializeUserLevelInfo();
+            string defaultMessage = "You haven't built any levels yet !";
+            
             string json = File.ReadAllText(path);
 
-            UserLevels userLevels = JsonUtility.FromJson<UserLevels>(json);
-            levelsToLoad = userLevels.levelNames;
+            userLevels = JsonUtility.FromJson<UserLevels>(json);
+
+            if (userLevels.numberOfUserLevels <= 0) levelsToLoad.Add(defaultMessage);
+            else levelsToLoad = userLevels.levelNames;
 
             return levelsToLoad;
         }
