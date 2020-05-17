@@ -127,9 +127,10 @@ namespace Kubika.Game
                         {
                             if(aimingHit.collider.gameObject.GetComponent<CubeMove>() == true)
                             {
+                                cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
+
                                 if (cubeMove.isSelectable == true)
                                 {
-                                    cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
                                     cubeMove.GetBasePoint();
                                     //cubeMove.AddOutline();
                                 }
@@ -172,9 +173,10 @@ namespace Kubika.Game
                 {
                     if (aimingHit.collider.gameObject.GetComponent<CubeMove>() == true)
                     {
+                        cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
+
                         if (cubeMove.isSelectable == true)
                         {
-                            cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
                             cubeMove.GetBasePoint();
                             //cubeMove.AddOutline();
                         }
