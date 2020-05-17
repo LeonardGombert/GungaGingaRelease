@@ -166,4 +166,4 @@ MonoBehaviour:
   _VoidTex: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
   _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
   _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-  _EdgeTexStrength: 0.56
+  _EdgeTexStrength: 0.55

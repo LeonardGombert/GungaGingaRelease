@@ -65,7 +65,8 @@ namespace Kubika.Game
 
         //INPUT
         public bool isSelectable = true;
-        swipeDirection enumSwipe;
+        public bool isSeletedNow = false;
+        public swipeDirection enumSwipe;
 
         [Space]
         public static swipeDirection worldEnumSwipe;
@@ -80,7 +81,7 @@ namespace Kubika.Game
         [HideInInspector] public float distanceBaseToNext;
         [HideInInspector] public float distanceTouch;
 
-        float angleDirection;
+        public float angleDirection;
         float inverseAngleDirection;
 
         // DIRECTION
@@ -95,6 +96,7 @@ namespace Kubika.Game
             base.Start();
             _DataManager.instance.EndMoving.AddListener(ResetReadyToMove);
             _DataManager.instance.StartFalling.AddListener(FallMoveFunction);
+            _DataManager.instance.EndSwipe.AddListener(ResetOutline);
         }
 
         // Update is called once per frame
@@ -334,6 +336,9 @@ namespace Kubika.Game
             zCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].zCoord;
 
             isMoving = false;
+
+            if(isSeletedNow) GetBasePoint(); // RESET SWIPE POS
+
             Debug.Log("END MOVING ");
 
         }
@@ -662,16 +667,16 @@ namespace Kubika.Game
             switch (swipeDir)
             {
                 case swipeDirection.Front:
-                    CheckWhenToMove(_DirectionCustom.forward);
-                    break;
-                case swipeDirection.Right:
-                    CheckWhenToMove(_DirectionCustom.right);
-                    break;
-                case swipeDirection.Left:
                     CheckWhenToMove(_DirectionCustom.left);
                     break;
-                case swipeDirection.Back:
+                case swipeDirection.Right:
+                    CheckWhenToMove(_DirectionCustom.forward);
+                    break;
+                case swipeDirection.Left:
                     CheckWhenToMove(_DirectionCustom.backward);
+                    break;
+                case swipeDirection.Back:
+                    CheckWhenToMove(_DirectionCustom.right);
                     break;
             }
         }
@@ -689,7 +694,7 @@ namespace Kubika.Game
 
                 if (distanceTouch > (distanceBaseToNext * 0.5f) && isMoving == false)
                 {
-                    CheckingMove(myIndex, _DirectionCustom.right);
+                    CheckingMove(myIndex, direction);
                     StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
                 }
             }
@@ -698,34 +703,40 @@ namespace Kubika.Game
         #endregion
 
         #region FEEDBACK
-        /*
-        public virtual void AddOutline()
+
+        public virtual void OutlineActive(int isActive)
         {
-            OutlineActive(scriptObjSave, 1);
-            GetChildRecursive(transform);
+            meshRenderer.GetPropertyBlock(MatProp);
+
+            if (isActive == 1)
+                MatProp.SetFloat("_Outline", 0.1f);
+            else if (isActive == 2)
+                MatProp.SetFloat("_Outline", 0);
+
+            meshRenderer.SetPropertyBlock(MatProp);
         }
 
-        public void GetChildRecursive(Transform obj)
+        public virtual void AddOutline()
         {
-            if (null == obj)
-                return;
+            OutlineActive(1);
+            GetChildRecursive(myIndex) ;
+        }
 
-            foreach (Transform child in obj)
+        public void GetChildRecursive(int index)
+        {
+
+            if (grid.kuboGrid[index - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(index, _DirectionCustom.up))
             {
-                if (null == child)
-                    continue;
-                //child.gameobject contains the current child you can do whatever you want like add it to an array
-                if (child.GetComponent<_MovableCube>() == true)
-                    child.GetComponent<_MovableCube>().OutlineActive(scriptObjSave, 1);
-                GetChildRecursive(child);
+                grid.kuboGrid[index - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<CubeMove>().OutlineActive(1);
+                GetChildRecursive(grid.kuboGrid[index + _DirectionCustom.up].nodeIndex - 1);
             }
         }
 
 
         public virtual void ResetOutline()
         {
-            OutlineActive(scriptObjSave, 2);
-        }*/
+            OutlineActive(2);
+        }
 
         #endregion
 

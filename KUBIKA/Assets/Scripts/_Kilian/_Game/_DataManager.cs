@@ -24,6 +24,9 @@ namespace Kubika.Game
         public UnityEvent StartFalling;
         public UnityEvent EndFalling;
 
+        public UnityEvent StartSwipe;
+        public UnityEvent EndSwipe;
+
         // _DIRECTION_CUSTOM
         public int actualRotation;
 
@@ -131,8 +134,9 @@ namespace Kubika.Game
 
                                 if (cubeMove.isSelectable == true)
                                 {
+                                    cubeMove.isSeletedNow = true;
                                     cubeMove.GetBasePoint();
-                                    //cubeMove.AddOutline();
+                                    cubeMove.AddOutline();
                                 }
                             }
                         }
@@ -152,7 +156,11 @@ namespace Kubika.Game
                         break;
 
                     case TouchPhase.Ended:
-                        cubeMove = null;
+                        {
+                            EndSwipe.Invoke();
+                            cubeMove.isSeletedNow = false;
+                            cubeMove = null;
+                        }
                         break;
                 }
 
@@ -177,8 +185,9 @@ namespace Kubika.Game
 
                         if (cubeMove.isSelectable == true)
                         {
+                            cubeMove.isSeletedNow = true;
                             cubeMove.GetBasePoint();
-                            //cubeMove.AddOutline();
+                            cubeMove.AddOutline();
                         }
                     }
                 }
@@ -195,6 +204,8 @@ namespace Kubika.Game
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                EndSwipe.Invoke();
+                cubeMove.isSeletedNow = false;
                 cubeMove = null;
             }
 

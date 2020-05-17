@@ -43,9 +43,9 @@ namespace Kubika.Game
         public Color _EdgeColor;
         public float _EdgeStrength;
 
-        MeshRenderer meshRenderer;
-        MeshFilter meshFilter;
-        MaterialPropertyBlock MatProp; // To change Mat Properties
+        [HideInInspector] public MeshRenderer meshRenderer;
+        [HideInInspector] public MeshFilter meshFilter;
+        [HideInInspector] public MaterialPropertyBlock MatProp; // To change Mat Properties
 
         // Start is called before the first frame update
         public virtual void Start()
@@ -93,8 +93,8 @@ namespace Kubika.Game
         public void SetMaterial()
         {
             MatProp = new MaterialPropertyBlock();
-            meshRenderer = GetComponentInChildren<MeshRenderer>();
-            meshFilter = GetComponentInChildren<MeshFilter>();
+            meshRenderer = GetComponent<MeshRenderer>();
+            meshFilter = GetComponent<MeshFilter>();
 
             meshRenderer.GetPropertyBlock(MatProp);
 
