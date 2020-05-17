@@ -210,6 +210,10 @@ namespace Kubika.Game
                     ScenesManager.instance._LoadScene(ScenesIndex.GAME_SCENE);
                     break;
 
+                case "WORLDMAP_LevelEditor":
+                    ScenesManager.instance._LoadScene(ScenesIndex.LEVEL_EDITOR);
+                    break;
+
                 case "WORLDMAP_TurnRight":
                     break;
 
