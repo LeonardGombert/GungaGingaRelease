@@ -400,12 +400,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42757338}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -9.78, y: -1.63, z: -8.37}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: -0.048, y: -3.3, z: 0.065}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 8
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &42757340
 MonoBehaviour:
@@ -416,9 +416,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 42757338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &42757341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -622,7 +646,7 @@ Transform:
   m_Children:
   - {fileID: 8724673591036615881}
   m_Father: {fileID: 974585165}
-  m_RootOrder: 14
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: -225}
 --- !u!65 &66400848
 BoxCollider:
@@ -1265,12 +1289,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134164717}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -15.21, y: -10.38, z: -2.94}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: -0.355, y: -3.3, z: 0.415}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 13
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &134164719
 MonoBehaviour:
@@ -1281,9 +1305,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 134164717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &134164720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2892,12 +2940,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355071471}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -5.54, y: 1.79, z: -12.61}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.192, y: -3.3, z: -0.072}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 5
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &355071473
 MonoBehaviour:
@@ -2908,9 +2956,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 355071471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &355071474
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3435,12 +3507,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438758670}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -11.03, y: -4.62, z: -7.12}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: -0.119, y: -3.3, z: 0.185}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 10
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &438758672
 MonoBehaviour:
@@ -3451,9 +3523,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 438758670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &438758673
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5412,7 +5508,20 @@ Transform:
   m_LocalRotation: {x: 0.6532815, y: 0.27059805, z: -0.27059805, w: 0.6532815}
   m_LocalPosition: {x: -8.5, y: 0, z: -8.8}
   m_LocalScale: {x: 25, y: 0.21391754, z: 25}
-  m_Children: []
+  m_Children:
+  - {fileID: 1182089000}
+  - {fileID: 2094667134}
+  - {fileID: 1222647424}
+  - {fileID: 772459548}
+  - {fileID: 355071472}
+  - {fileID: 1103421711}
+  - {fileID: 1923554588}
+  - {fileID: 42757339}
+  - {fileID: 1439500217}
+  - {fileID: 438758671}
+  - {fileID: 1506867559}
+  - {fileID: 2057403035}
+  - {fileID: 134164718}
   m_Father: {fileID: 974585165}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 45, z: 0}
@@ -5503,12 +5612,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772459547}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -5.35, y: 5.25, z: -12.8}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.203, y: -3.3, z: -0.21}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 4
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &772459549
 MonoBehaviour:
@@ -5519,9 +5628,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 772459547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &772459550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6523,19 +6656,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 771268502}
-  - {fileID: 1182089000}
-  - {fileID: 2094667134}
-  - {fileID: 1222647424}
-  - {fileID: 772459548}
-  - {fileID: 355071472}
-  - {fileID: 1103421711}
-  - {fileID: 1923554588}
-  - {fileID: 42757339}
-  - {fileID: 1439500217}
-  - {fileID: 438758671}
-  - {fileID: 1506867559}
-  - {fileID: 2057403035}
-  - {fileID: 134164718}
   - {fileID: 66400847}
   - {fileID: 1482287375}
   m_Father: {fileID: 9035905}
@@ -6983,12 +7103,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103421710}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -7.47, y: 2.23, z: -10.68}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.083, y: -3.3, z: -0.089}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 6
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &1103421712
 MonoBehaviour:
@@ -6999,9 +7119,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1103421710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &1103421713
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7558,12 +7702,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182088999}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -1.1, y: 10.72, z: -17.05}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.443, y: -3.3, z: -0.429}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 1
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &1182089001
 MonoBehaviour:
@@ -7574,9 +7718,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1182088999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &1182089002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7770,12 +7938,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222647423}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -2.99, y: 5.88, z: -15.16}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.336, y: -3.3, z: -0.235}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 3
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &1222647425
 MonoBehaviour:
@@ -7786,9 +7954,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1222647423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &1222647426
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8515,12 +8707,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439500216}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -9.25, y: -4.31, z: -8.9}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: -0.018, y: -3.3, z: 0.172}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 9
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &1439500218
 MonoBehaviour:
@@ -8531,9 +8723,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1439500216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &1439500219
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8743,7 +8959,7 @@ Transform:
   m_Children:
   - {fileID: 1176221593}
   m_Father: {fileID: 974585165}
-  m_RootOrder: 15
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 38.703003, y: -4.7730002, z: 117.26301}
 --- !u!114 &1482287376
 MonoBehaviour:
@@ -8946,12 +9162,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506867558}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -11.44, y: -7.49, z: -6.71}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: -0.142, y: -3.3, z: 0.299}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 11
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &1506867560
 MonoBehaviour:
@@ -8962,9 +9178,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1506867558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &1506867561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11182,12 +11422,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923554587}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -7.96, y: -0.28, z: -10.19}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.055, y: -3.3, z: 0.011}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 7
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &1923554589
 MonoBehaviour:
@@ -11198,9 +11438,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1923554587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &1923554590
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11397,7 +11661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planeteTrans: {fileID: 1105950491}
-  rotationSpeed: 25
+  rotationSpeed: 1
   facesSpeed: 0
   planeteSpeed: 0
   raycastFaces:
@@ -11768,12 +12032,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057403034}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -13.5, y: -7.76, z: -4.65}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: -0.258, y: -3.3, z: 0.31}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 12
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &2057403036
 MonoBehaviour:
@@ -11784,9 +12048,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 2057403034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &2057403037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12090,12 +12378,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094667133}
-  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -3.32, y: 9.03, z: -14.83}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.5, w: 0.50000006}
+  m_LocalPosition: {x: 0.317, y: -3.3, z: -0.361}
+  m_LocalScale: {x: 2.337349, y: 0.019999996, z: 0.019999996}
   m_Children: []
-  m_Father: {fileID: 974585165}
-  m_RootOrder: 2
+  m_Father: {fileID: 771268502}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
 --- !u!114 &2094667135
 MonoBehaviour:
@@ -12106,9 +12394,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 2094667133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d8783327b63c241a48cdfea8e638b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c0289acefc9ee64796f78b7d8a3612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staticPack: {fileID: 11400000, guid: 608f82d4f57732d48b057cff1d2991ff, type: 2}
+  outlineGold: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  constrast: -0.9
+  distanceInGround: 3.3
+  moveSpeed: 1
+  currentTime: 0
+  isMoving: 0
+  isLocked: 0
+  isUnlocked: 0
+  isPlayed: 0
+  isGold: 0
+  _MainTex: {fileID: 0}
+  _MainMesh: {fileID: 0}
+  _MainColor: {r: 0, g: 0, b: 0, a: 0}
+  _Hue: 0
+  _Contrast: 0
+  _Saturation: 0
+  _Brightness: 0
+  boolDoneOnce1: 0
+  boolDoneOnce2: 0
+  boolDoneOnce3: 0
+  _EdgeTex: {fileID: 2800000, guid: 0be32c24cae912145ab8df8103cccaee, type: 3}
+  _EdgeStrength: 0.57
+  _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &2094667136
 BoxCollider:
   m_ObjectHideFlags: 0
