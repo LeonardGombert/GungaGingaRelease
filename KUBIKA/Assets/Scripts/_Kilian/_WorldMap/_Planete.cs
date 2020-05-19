@@ -113,6 +113,7 @@ namespace Kubika.Game
                     {
                         if (planeteView == true)
                         {
+                            nextFace.isActive = true;
                             nextFace.ActivatePSFB();
                             foreach (_PlaneteCamera faces in raycastFaces)
                             {
@@ -144,6 +145,7 @@ namespace Kubika.Game
                     {
                         if (planeteView == true)
                         {
+                            nextFace.isActive = true;
                             nextFace.ActivatePSFB();
                             foreach (_PlaneteCamera faces in raycastFaces)
                             {
@@ -186,6 +188,7 @@ namespace Kubika.Game
                 foreach (_PlaneteCamera faces in raycastFaces)
                 {
                     faces.gameObject.GetComponent<Collider>().enabled = true;
+                    faces.isActive = false;
                 }
 
                 rotationSpeed = planeteSpeed;

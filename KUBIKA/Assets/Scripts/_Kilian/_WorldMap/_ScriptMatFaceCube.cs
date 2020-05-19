@@ -13,10 +13,10 @@ namespace Kubika.Game
 
         [Space]
         public Color outlineGold = Color.yellow;
-        public float constrast;
-        float DECONTRASTE_BASE_VALUE;
-        float DECONTRASTE_TARGET_VALUE;
-        float DECONTRASTE_CURRENT_VALUE;
+        public float saturation;
+        float DESATURATION_BASE_VALUE;
+        float DESATURATION_TARGET_VALUE;
+        float DESATURATION_CURRENT_VALUE;
 
         [Space]
         public float distanceInGround;
@@ -91,6 +91,11 @@ namespace Kubika.Game
                 HasBeenGold();
                 boolDoneOnce3 = true;
             }
+
+            if(isLocked == true)
+            {
+                DebugConstrast();
+            }
         }      
         public IEnumerator Unlocking()
         {
@@ -106,19 +111,27 @@ namespace Kubika.Game
                 currentTime += Time.deltaTime;
                 currentTime = (currentTime / moveSpeed);
 
-                DECONTRASTE_CURRENT_VALUE = Mathf.Lerp(DECONTRASTE_BASE_VALUE, DECONTRASTE_TARGET_VALUE, currentTime);
+                DESATURATION_CURRENT_VALUE = Mathf.Lerp(DESATURATION_BASE_VALUE, DESATURATION_TARGET_VALUE, currentTime);
                 currentPosition = Vector3.Lerp(basePosition, nextPosition, currentTime);
 
                 transform.localPosition = currentPosition;
 
-                MatProp.SetFloat("_Contrast", DECONTRASTE_CURRENT_VALUE);
+                MatProp.SetFloat("_Saturation", DESATURATION_CURRENT_VALUE);
                 meshRenderer.SetPropertyBlock(MatProp);
 
                 yield return transform.localPosition;
-                yield return DECONTRASTE_CURRENT_VALUE;
+                yield return DESATURATION_CURRENT_VALUE;
             }
 
             MatProp.SetFloat("_Outline", 0.1f);
+            meshRenderer.SetPropertyBlock(MatProp);
+        }
+
+        void DebugConstrast()
+        {
+            meshRenderer.GetPropertyBlock(MatProp);
+
+            MatProp.SetFloat("_Saturation", _Saturation);
             meshRenderer.SetPropertyBlock(MatProp);
         }
 
@@ -126,10 +139,10 @@ namespace Kubika.Game
         {
             meshRenderer.GetPropertyBlock(MatProp);
 
-            DECONTRASTE_TARGET_VALUE = _Contrast;
-            DECONTRASTE_BASE_VALUE = _Contrast + constrast;
+            DESATURATION_TARGET_VALUE = _Saturation;
+            DESATURATION_BASE_VALUE = saturation;
 
-            MatProp.SetFloat("_Contrast", DECONTRASTE_BASE_VALUE);
+            MatProp.SetFloat("_Saturation", DESATURATION_BASE_VALUE);
             meshRenderer.SetPropertyBlock(MatProp);
         }
 
