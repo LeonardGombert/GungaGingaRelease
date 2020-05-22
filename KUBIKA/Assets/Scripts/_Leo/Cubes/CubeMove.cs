@@ -6,6 +6,8 @@ using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
+    public enum swipeDirection { Front, Right, Left, Back };
+
     public class CubeMove : CubeScanner
     {
         //FALLING 
@@ -56,11 +58,37 @@ namespace Kubika.Game
         public Vector3 outsideMoveTarget;
 
         //PUSH
-        public bool TEST_DEBUG_PLAYER = false;
         public CubeMove pushNextNodeCubeMove;
 
         //PILE
         public CubeMove pileNodeCubeMove;
+
+        //INPUT
+        public bool isSelectable = true;
+        public bool isSeletedNow = false;
+        public swipeDirection enumSwipe;
+
+        [Space]
+        public static swipeDirection worldEnumSwipe;
+
+        // WORLD TO SCREEN
+        [HideInInspector] public Vector2 baseCube;
+        [HideInInspector] public Vector2 nextCube;
+
+        Vector2 baseSwipePos;
+        Vector2 currentSwipePos;
+
+        [HideInInspector] public float distanceBaseToNext;
+        [HideInInspector] public float distanceTouch;
+
+        public float angleDirection;
+        float inverseAngleDirection;
+
+        // DIRECTION
+        public float KUBNord;
+        public float KUBWest;
+        public float KUBSud;
+        public float KUBEst;
 
         // Start is called before the first frame update
         public override void Start()
@@ -68,6 +96,7 @@ namespace Kubika.Game
             base.Start();
             _DataManager.instance.EndMoving.AddListener(ResetReadyToMove);
             _DataManager.instance.StartFalling.AddListener(FallMoveFunction);
+            _DataManager.instance.EndSwipe.AddListener(ResetOutline);
         }
 
         // Update is called once per frame
@@ -305,6 +334,9 @@ namespace Kubika.Game
             zCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].zCoord;
 
             isMoving = false;
+
+            if(isSeletedNow) GetBasePoint(); // RESET SWIPE POS
+
             Debug.Log("END MOVING ");
 
         }
@@ -551,26 +583,24 @@ namespace Kubika.Game
         #endregion
 
         #region INPUT
-        /*
+        
         public void NextDirection()
         {
-            //check if this gameObject is a mirror cube
-            if (gameObject.GetComponent<_MirrorCube>() != null) mirrorMove = true;
 
             if (!isStatic)
             {
                 // Calcul the swip angle
-                currentSwipePos = DataManager.instance.inputPosition;
+                currentSwipePos = _DataManager.instance.inputPosition;
 
                 distanceTouch = Vector3.Distance(baseSwipePos, currentSwipePos);
 
                 angleDirection = Mathf.Abs(Mathf.Atan2(currentSwipePos.y - baseSwipePos.y, baseSwipePos.x - currentSwipePos.x) * 180 / Mathf.PI - 180);
 
 
-                KUBNord = Camera_ZoomScroll.KUBNordScreenAngle;
-                KUBWest = Camera_ZoomScroll.KUBWestScreenAngle;
-                KUBSud = Camera_ZoomScroll.KUBSudScreenAngle;
-                KUBEst = Camera_ZoomScroll.KUBEstScreenAngle;
+                KUBNord = _InGameCamera.KUBNordScreenAngle;
+                KUBWest = _InGameCamera.KUBWestScreenAngle;
+                KUBSud = _InGameCamera.KUBSudScreenAngle;
+                KUBEst = _InGameCamera.KUBEstScreenAngle;
 
                 // Check in which direction the player swiped 
 
@@ -618,7 +648,7 @@ namespace Kubika.Game
                     }
                 }
 
-                if (distanceTouch > DataManager.instance.swipeMinimalDistance)
+                if (distanceTouch > _DataManager.instance.swipeMinimalDistance)
                     CheckDirection(enumSwipe);
             }
         }
@@ -626,7 +656,7 @@ namespace Kubika.Game
         public void GetBasePoint()
         {
             //Reset Base Touch position
-            baseSwipePos = DataManager.instance.inputPosition;
+            baseSwipePos = _DataManager.instance.inputPosition;
         }
 
         public void CheckDirection(swipeDirection swipeDir)
@@ -635,21 +665,174 @@ namespace Kubika.Game
             switch (swipeDir)
             {
                 case swipeDirection.Front:
-                    CheckRaycast(Vector3Custom.forward);
+                    CheckWhenToMove(_DirectionCustom.left);
                     break;
                 case swipeDirection.Right:
-                    CheckRaycast(Vector3Custom.right);
+                    CheckWhenToMove(_DirectionCustom.forward);
                     break;
                 case swipeDirection.Left:
-                    CheckRaycast(Vector3Custom.left);
+                    CheckWhenToMove(_DirectionCustom.backward);
                     break;
                 case swipeDirection.Back:
-                    CheckRaycast(Vector3Custom.back);
+                    CheckWhenToMove(_DirectionCustom.right);
                     break;
             }
         }
-        */
+
+        void CheckWhenToMove(int direction)
+        {
+
+
+            if (MatrixLimitCalcul(myIndex, direction) == true)
+            {
+                baseCube = _InGameCamera.instance.cam.WorldToScreenPoint(grid.kuboGrid[myIndex - 1].worldPosition);
+                nextCube = _InGameCamera.instance.cam.WorldToScreenPoint(grid.kuboGrid[myIndex - 1 + direction].worldPosition);
+
+                distanceBaseToNext = Vector3.Distance(baseCube, nextCube);
+
+                if (distanceTouch > (distanceBaseToNext * 0.5f) && isMoving == false)
+                {
+                    CheckingMove(myIndex, direction);
+                    StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                }
+            }
+        }
+
         #endregion
 
+        #region FEEDBACK
+
+        public virtual void OutlineActive(int isActive)
+        {
+            meshRenderer.GetPropertyBlock(MatProp);
+
+            if (isActive == 1)
+                MatProp.SetFloat("_Outline", 0.1f);
+            else if (isActive == 2)
+                MatProp.SetFloat("_Outline", 0);
+
+            meshRenderer.SetPropertyBlock(MatProp);
+        }
+
+        public virtual void AddOutline()
+        {
+            OutlineActive(1);
+            GetChildRecursive(myIndex) ;
+        }
+
+        public void GetChildRecursive(int index)
+        {
+
+            if (grid.kuboGrid[index - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(index, _DirectionCustom.up))
+            {
+                grid.kuboGrid[index - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<CubeMove>().OutlineActive(1);
+                GetChildRecursive(grid.kuboGrid[index + _DirectionCustom.up].nodeIndex - 1);
+            }
+        }
+
+
+        public virtual void ResetOutline()
+        {
+            OutlineActive(2);
+        }
+
+        #endregion
+
+        void TEMPORARY______SHIT()
+        {
+            if (_DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube.ToArray()) == true)
+            {
+                // X Axis
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (isMoving == false)
+                    {
+                        CheckingMove(myIndex, _DirectionCustom.left);
+                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                        /*else
+                        {
+                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                            outsideMoveTarget += _DirectionCustom.vectorLeft;
+                            StartCoroutine(MoveFromMap(outsideMoveTarget));
+                            Debug.LogError("Z AU BORD");
+                        }*/
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    if (isMoving == false)
+                    {
+                        // -X Axis
+                        CheckingMove(myIndex, _DirectionCustom.right);
+                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                        /*
+                        else
+                        {
+                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                            outsideMoveTarget += _DirectionCustom.vectorRight;
+                            StartCoroutine(MoveFromMap(outsideMoveTarget));
+                            Debug.LogError("S AU BORD");
+                        }*/
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (isMoving == false)
+                    {
+                        // -Z Axis
+                        CheckingMove(myIndex, _DirectionCustom.backward);
+                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                        /*
+                        else
+                        {
+                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                            outsideMoveTarget += _DirectionCustom.vectorBack;
+                            StartCoroutine(MoveFromMap(outsideMoveTarget));
+                            Debug.LogError("Q AU BORD");
+                        }*/
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    if (isMoving == false)
+                    {
+                        CheckingMove(myIndex, _DirectionCustom.forward);
+                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                        /*
+                             else
+                             {
+                                 outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
+                                 outsideMoveTarget += _DirectionCustom.vectorForward;
+                                 StartCoroutine(MoveFromMap(outsideMoveTarget));
+                                 Debug.LogError("D AU BORD");
+                             }*/
+                    }
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                // Y Axis
+                CheckingMove(myIndex, _DirectionCustom.up);
+                StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                /*
+                 else
+                 {
+                     Debug.LogError("R AU BORD");
+                 }*/
+            }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                // -Y Axis
+                CheckingMove(myIndex, _DirectionCustom.down);
+                StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
+                /*
+                 else
+                 {
+                     Debug.LogError("F AU BORD");
+                 }*/
+            }
+
+
+        }
     }
 }

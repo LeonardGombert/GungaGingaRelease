@@ -42,9 +42,9 @@ namespace Kubika.Game
         public Color _EdgeColor;
         public float _EdgeStrength;
 
-        MeshRenderer meshRenderer;
-        MeshFilter meshFilter;
-        MaterialPropertyBlock MatProp; // To change Mat Properties
+        [HideInInspector] public MeshRenderer meshRenderer;
+        [HideInInspector] public MeshFilter meshFilter;
+        [HideInInspector] public MaterialPropertyBlock MatProp; // To change Mat Properties
 
         // Start is called before the first frame update
         public virtual void Start()
@@ -57,7 +57,7 @@ namespace Kubika.Game
 
         public virtual void Update()
         {
-
+            SetScriptablePreset();
         }
 
         public void SetCubeInfo()
@@ -99,24 +99,24 @@ namespace Kubika.Game
         public void SetMaterial()
         {
             MatProp = new MaterialPropertyBlock();
-            meshRenderer = GetComponentInChildren<MeshRenderer>();
-            meshFilter = GetComponentInChildren<MeshFilter>();
+            meshRenderer = GetComponent<MeshRenderer>();
+            meshFilter = GetComponent<MeshFilter>();
 
             meshRenderer.GetPropertyBlock(MatProp);
 
             meshFilter.mesh = _MainMesh;
 
             MatProp.SetTexture("_MainTex", _MainTex);
-            MatProp.SetTexture("_InsideTex", _MaterialCentral.instance.actualPack._VoidTex);
-            MatProp.SetTexture("_EdgeTex", _MaterialCentral.instance.actualPack._VoidTex);
+            MatProp.SetTexture("_InsideTex",_InsideTex);
+            MatProp.SetTexture("_EdgeTex", _EdgeTex);
             MatProp.SetTexture("_Emote", _EmoteTex);
 
             MatProp.SetColor("_MainColor", _MainColor);
-            //MatProp.SetColor("_ColorTwo", _ColorTwo);
-            //MatProp.SetColor("_ColorTex", _ColorTex);
+            MatProp.SetColor("_InsideColor", _InsideColor);
+            MatProp.SetColor("_EdgeColor", _EdgeColor);
 
-            MatProp.SetFloat("_InsideTexStrength", 0);
-            MatProp.SetFloat("_EdgeTexStrength", 0);
+            MatProp.SetFloat("_InsideTexStrength", _InsideStrength);
+            MatProp.SetFloat("_EdgeTexStrength", _EdgeStrength);
             MatProp.SetFloat("_EmoteStrength", _EmoteStrength);
 
             MatProp.SetFloat("_Hue", _Hue);
@@ -142,7 +142,15 @@ namespace Kubika.Game
                             _Hue = _MaterialCentral.instance.actualPack.Base_Hue; 
                             _Contrast = _MaterialCentral.instance.actualPack.Base_Contrast; 
                             _Saturation = _MaterialCentral.instance.actualPack.Base_Saturation; 
-                            _Brightness = _MaterialCentral.instance.actualPack.Base_Brightness; 
+                            _Brightness = _MaterialCentral.instance.actualPack.Base_Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._BaseTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._BaseColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._BaseInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._BaseEmoteTex; 
                             _EmoteStrength = 1; 
@@ -159,13 +167,21 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack.Beton_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Beton_Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._BetonTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._BetonColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._BetonInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._BetonEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Counter:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._CounterTex0;
+                            _MainTex = _MaterialCentral.instance.actualPack._CounterTex9; /////
                             _MainMesh = _MaterialCentral.instance.actualPack._CounterMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._CounterColor;
 
@@ -173,6 +189,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack.Counter_Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack.Counter_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Counter_Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._CounterTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._CounterColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._CounterInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._CounterEmoteTex;
                             _EmoteStrength = 1;
@@ -189,6 +213,14 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack.Bomb_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Bomb_Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._BombTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._BombColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._BombInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._BombEmoteTex;
                             _EmoteStrength = 1;
                         }
@@ -203,6 +235,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack.Elevator_Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack.Elevator_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Elevator_Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._ElevatorTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._ElevatorColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._ElevatorInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._ElevatorEmoteTex;
                             _EmoteStrength = 0;
@@ -219,13 +259,21 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack.Ball_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Ball_Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._BallTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._BallColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._BallInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._BallEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Switch:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._SwitchTexOn;
+                            _MainTex = _MaterialCentral.instance.actualPack._SwitchTexOn; ///////
                             _MainMesh = _MaterialCentral.instance.actualPack._SwitchMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._SwitchColor;
 
@@ -234,13 +282,21 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack.Switch_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Switch_Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._SwitchTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._SwitchColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._SwitchInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._SwitchEmoteTex;
                             _EmoteStrength = 1;
                         }
                         break;
                     case DynamicEnums.Rotators:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._RotatorsTexLeft;
+                            _MainTex = _MaterialCentral.instance.actualPack._RotatorsTexLeft; ////////
                             _MainMesh = _MaterialCentral.instance.actualPack._RotatorsMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._RotatorsColor;
 
@@ -248,6 +304,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack.Rotators_Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack.Rotators_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Rotators_Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._RotatorsTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._RotatorsColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._RotatorsInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._RotatorsEmoteTex;
                             _EmoteStrength = 0;
@@ -263,6 +327,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack.Pastille_Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack.Pastille_Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack.Pastille_Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._PastilleTexInside;
+                            _InsideColor = _MaterialCentral.instance.actualPack._PastilleColorInside;
+                            _InsideStrength = _MaterialCentral.instance.actualPack._PastilleInsideStrength;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._PastilleEmoteTex;
                             _EmoteStrength = 0;
@@ -285,6 +357,14 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack._Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack._Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _InsideColor = Color.white;
+                            _InsideStrength = 0;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
                             _EmoteStrength = 0;
                         }
@@ -299,6 +379,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack._Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack._Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _InsideColor = Color.white;
+                            _InsideStrength = 0;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
                             _EmoteStrength = 0;
@@ -315,6 +403,14 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack._Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack._Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _InsideColor = Color.white;
+                            _InsideStrength = 0;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
                             _EmoteStrength = 0;
                         }
@@ -329,6 +425,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack._Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack._Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _InsideColor = Color.white;
+                            _InsideStrength = 0;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
                             _EmoteStrength = 0;
@@ -345,6 +449,14 @@ namespace Kubika.Game
                             _Saturation = _MaterialCentral.instance.actualPack._Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack._Brightness;
 
+                            _InsideTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _InsideColor = Color.white;
+                            _InsideStrength = 0;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
                             _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
                             _EmoteStrength = 0;
                         }
@@ -359,6 +471,14 @@ namespace Kubika.Game
                             _Contrast = _MaterialCentral.instance.actualPack._Contrast;
                             _Saturation = _MaterialCentral.instance.actualPack._Saturation;
                             _Brightness = _MaterialCentral.instance.actualPack._Brightness;
+
+                            _InsideTex = _MaterialCentral.instance.actualPack._VoidTex;
+                            _InsideColor = Color.white;
+                            _InsideStrength = 0;
+
+                            _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                            _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                            _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
 
                             _EmoteTex = _MaterialCentral.instance.actualPack._VoidTex;
                             _EmoteStrength = 0;
