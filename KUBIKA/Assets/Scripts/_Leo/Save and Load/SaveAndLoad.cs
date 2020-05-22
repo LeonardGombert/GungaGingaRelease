@@ -20,8 +20,9 @@ namespace Kubika.Saving
 
         public GameObject cubePrefab;
 
-        string currentOpenLevelName;
-        int currentMinimumMoves;
+        public string currentOpenLevelName;
+        public bool currentLevelLockRotate;
+        public int currentMinimumMoves;
 
         private void Awake()
         {
@@ -42,7 +43,7 @@ namespace Kubika.Saving
             return levelData;
         }
 
-        public void DevSavingLevel(string levelName, int minimumMoves = 0)
+        public void DevSavingLevel(string levelName, bool rotateLock, int minimumMoves = 0)
         {
             for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
@@ -51,9 +52,11 @@ namespace Kubika.Saving
 
             //storing data in levelDataFile
             levelData.levelName = levelName;
+            levelData.lockRotate = rotateLock;
             levelData.minimumMoves = minimumMoves;
-            
+
             currentOpenLevelName = levelName;
+            currentLevelLockRotate = rotateLock;
             currentMinimumMoves = minimumMoves;
 
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
@@ -83,8 +86,10 @@ namespace Kubika.Saving
         public void DevSavingCurrentLevel()
         {
             levelData.levelName = currentOpenLevelName;
+            levelData.lockRotate = currentLevelLockRotate;
             levelData.minimumMoves = currentMinimumMoves;
-            DevSavingLevel(currentOpenLevelName, currentMinimumMoves);
+            
+            DevSavingLevel(currentOpenLevelName, currentLevelLockRotate, currentMinimumMoves);
         }
 
         public void DevLoadLevel(string levelName)
@@ -105,6 +110,7 @@ namespace Kubika.Saving
             }
 
             currentOpenLevelName = levelData.levelName;
+            currentLevelLockRotate = levelData.lockRotate;
             currentMinimumMoves = levelData.minimumMoves;
 
             levelData.nodesToSave.Clear();
@@ -138,7 +144,7 @@ namespace Kubika.Saving
 
             File.WriteAllText(path, json);
 
-            LevelFiles.AddNewUserLevel(levelName);
+            UserLevelFiles.AddNewUserLevel(levelName);
             LevelsManager.instance.RefreshUserLevels();
 
             levelData.nodesToSave.Clear();
@@ -178,7 +184,7 @@ namespace Kubika.Saving
 
         public void UserDeleteLevel(string levelName)
         {
-            LevelFiles.DeleteUserLevel(levelName);
+            UserLevelFiles.DeleteUserLevel(levelName);
             LevelsManager.instance.RefreshUserLevels();
         }
 

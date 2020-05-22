@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Kubika.Saving
 {
-    public class LevelFiles : MonoBehaviour
+    public class UserLevelFiles : MonoBehaviour
     {
         // use this function to extract information from text file asset
         public static LevelFile ConvertToLevelInfo(TextAsset levelFile)
@@ -16,6 +16,7 @@ namespace Kubika.Saving
             levelInfo.levelFile = levelFile;
             levelInfo.levelName = levelData.levelName;
             levelInfo.minimumMoves = levelData.minimumMoves;
+            levelInfo.lockRotate = levelData.lockRotate;
 
             return levelInfo;
         }

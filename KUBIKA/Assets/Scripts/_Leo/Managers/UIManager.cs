@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using UnityEngine.UIElements;
 
 namespace Kubika.Game
 {
@@ -13,24 +12,28 @@ namespace Kubika.Game
 
         //Game Canvas
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas gameCanvas;
+        [FoldoutGroup("In Game")] [SerializeField] Image rightRotate, leftRotate;
+        [FoldoutGroup("In Game")] [SerializeField] Sprite rightRotateOn, rightRotateOff;
+        [FoldoutGroup("In Game")] [SerializeField] Sprite leftRotateOn, leftRotateOff;
 
         //Burger Menu
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas hamburgerMenuCanvas;
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas hamburgerMenuCanvas2;
 
-        [FoldoutGroup("Burger Menu")] [SerializeField] UnityEngine.UI.Button music;
+        [FoldoutGroup("Burger Menu")] [SerializeField] Button music;
         [FoldoutGroup("Burger Menu")] [SerializeField] Sprite musicOn;
         [FoldoutGroup("Burger Menu")] [SerializeField] Sprite musicOff;
         private bool musicIsOn = true;
 
-        [FoldoutGroup("Burger Menu")] [SerializeField] UnityEngine.UI.Button sound;
+        [FoldoutGroup("Burger Menu")] [SerializeField] Button sound;
+
         [FoldoutGroup("Burger Menu")] [SerializeField] Sprite soundOn;
         [FoldoutGroup("Burger Menu")] [SerializeField] Sprite soundOff;
         private bool soundIsOn = true;
 
         //Transition Canvas
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas transitionCanvas;
-        [FoldoutGroup("Fade Transition")] [SerializeField] UnityEngine.UI.Image fadeImage;
+        [FoldoutGroup("Fade Transition")] [SerializeField] Image fadeImage;
 
         [FoldoutGroup("Fade Transition")] [SerializeField] TransitionType transitionType;
         [FoldoutGroup("Burger Menu")] [SerializeField] GameObject hiddenMenuButtons;
@@ -51,6 +54,7 @@ namespace Kubika.Game
 
         //Level Editor
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelEditorCanvas;
+
         public Dropdown playerLevelsDropdown;
         public InputField saveLevelName;
 
@@ -254,6 +258,19 @@ namespace Kubika.Game
 
             if (soundIsOn == true) sound.image.sprite = soundOn;
             if (soundIsOn == false) sound.image.sprite = soundOff;
+        }
+
+        // called by rotator unlock
+        public void TurnOnRotate()
+        {
+            rightRotate.sprite = rightRotateOn;
+            leftRotate.sprite = leftRotateOn;
+        }
+
+        public void TurnOffRotate()
+        {
+            rightRotate.sprite = rightRotateOff;
+            leftRotate.sprite = leftRotateOff;
         }
 
         IEnumerator DimGame()

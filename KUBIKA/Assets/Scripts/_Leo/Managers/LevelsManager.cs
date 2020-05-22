@@ -36,9 +36,10 @@ namespace Kubika.Game
         [FoldoutGroup("Level Editor ")] public List<LevelFile> playerLevelsInfo = new List<LevelFile>();
         #endregion
 
+        public TextAsset _levelFile;
         public string _levelName;
         public int _minimumMoves;
-        public TextAsset _levelFile;
+        public bool _lockRotate;
 
         void Awake()
         {
@@ -79,7 +80,7 @@ namespace Kubika.Game
             {
                 foreach (TextAsset level in levelFileList)
                 {
-                    LevelFile levelInfo = LevelFiles.ConvertToLevelInfo(level);
+                    LevelFile levelInfo = UserLevelFiles.ConvertToLevelInfo(level);
                     masterList.Add(levelInfo);
                 }
             }
@@ -95,7 +96,7 @@ namespace Kubika.Game
 
         public void RefreshUserLevels()
         {
-            levelNames = LevelFiles.GetUserLevelNames();
+            levelNames = UserLevelFiles.GetUserLevelNames();
 
             while (UIManager.instance == null) return;
             UIManager.instance.playerLevelsDropdown.ClearOptions();
@@ -116,6 +117,7 @@ namespace Kubika.Game
             _levelName = levelQueue.Peek().levelName;
             _levelFile = levelQueue.Peek().levelFile;
             _minimumMoves = levelQueue.Peek().minimumMoves;
+            _lockRotate = levelQueue.Peek().lockRotate;
         }
 
         public void _LoadNextLevel()
@@ -129,6 +131,9 @@ namespace Kubika.Game
         IEnumerator LoadLevel()
         {
             Debug.Log("1, 2, 3, 4");
+
+            if (_lockRotate) UIManager.instance.TurnOffRotate();
+            else UIManager.instance.TurnOnRotate();
 
             string json = _levelFile.ToString();
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
@@ -146,7 +151,6 @@ namespace Kubika.Game
         {
             throw new NotImplementedException();
         }
-
     }
 }
 
@@ -158,5 +162,6 @@ namespace Kubika.Saving
         public string levelName;
         public TextAsset levelFile;
         public int minimumMoves;
+        public bool lockRotate;
     }
 }

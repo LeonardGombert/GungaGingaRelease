@@ -17,6 +17,7 @@ public class LevelEditorWindow : EditorWindow
     int levelIndex = 0;
     int cubeTypeIndex = 0;
     private string levelName;
+    private bool lockRotate;
     private int miminumMoves;
 
     string[] cubeTypes;
@@ -81,28 +82,42 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Space(70);
 
         if (GUILayout.Button("Load Level !"))
+        {
             SaveAndLoad.instance.DevLoadLevel(levels[levelIndex]);
+            levelName = SaveAndLoad.instance.currentOpenLevelName;
+            lockRotate = SaveAndLoad.instance.currentLevelLockRotate;
+            miminumMoves = SaveAndLoad.instance.currentMinimumMoves;
+        }
     }
 
     private void SaveLevel()
     {
-        levelName = EditorGUILayout.TextField("Save Level Name", levelName);
-        miminumMoves = EditorGUILayout.IntField("Minimum Moves", miminumMoves);
+        levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);
+        lockRotate = EditorGUILayout.Toggle("Lock Rotation ?", lockRotate);
+        miminumMoves = EditorGUILayout.IntField("Minimum Moves to Beat", miminumMoves);
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, miminumMoves);
+        if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, lockRotate, miminumMoves);
     }
 
     private void SaveCurrentLevel()
     {
-        if (GUILayout.Button("Save Current Level")) SaveAndLoad.instance.DevSavingCurrentLevel();
+        if (GUILayout.Button("Save Current Level"))
+        {
+            SaveAndLoad.instance.currentOpenLevelName = levelName;
+            SaveAndLoad.instance.currentLevelLockRotate = lockRotate;
+            SaveAndLoad.instance.currentMinimumMoves = miminumMoves;
+
+            SaveAndLoad.instance.DevSavingCurrentLevel();
+        }
     }
 
     private void SelectCubeType()
     {
-        cubeTypes = new string[(int)CubeTypes.RotatorCube];
-        for (int i = 1; i < (int)CubeTypes.RotatorCube; i++)
+        cubeTypes = new string[(int)CubeTypes.RotatorCube + 1];
+
+        for (int i = 1; i <= (int)CubeTypes.RotatorCube; i++)
         {
             cubeTypes2 = (CubeTypes)i;
             cubeTypes[i] = cubeTypes2.ToString();

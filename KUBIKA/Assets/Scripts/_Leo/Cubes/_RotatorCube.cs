@@ -32,8 +32,7 @@ namespace Kubika.Game
         //allow the player to access the UI buttons
         private void UnlockRotation()
         {
-
+            UIManager.instance.TurnOnRotate();
         }
-
     }
 }

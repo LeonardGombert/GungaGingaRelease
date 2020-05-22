@@ -8,6 +8,7 @@ namespace Kubika.Saving
     {
         public string levelName;
         public int minimumMoves;
+        public bool lockRotate;
         public List<Node> nodesToSave;
     }
 

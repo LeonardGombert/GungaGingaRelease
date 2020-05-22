@@ -6579,6 +6579,40 @@ PrefabInstance:
       propertyPath: saveLevelName
       value: 
       objectReference: {fileID: 2043776959}
+    - target: {fileID: 4163245710713187495, guid: f8fa7c61955974e4b868ffadae7cb1d3,
+        type: 3}
+      propertyPath: leftRotate
+      value: 
+      objectReference: {fileID: 588333117}
+    - target: {fileID: 4163245710713187495, guid: f8fa7c61955974e4b868ffadae7cb1d3,
+        type: 3}
+      propertyPath: rightRotate
+      value: 
+      objectReference: {fileID: 944704075}
+    - target: {fileID: 4163245710713187495, guid: f8fa7c61955974e4b868ffadae7cb1d3,
+        type: 3}
+      propertyPath: leftRotateOn
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ee0334f4e1c5384bbf1fc813e5ee1ea,
+        type: 3}
+    - target: {fileID: 4163245710713187495, guid: f8fa7c61955974e4b868ffadae7cb1d3,
+        type: 3}
+      propertyPath: rightRotateOn
+      value: 
+      objectReference: {fileID: 21300000, guid: 1d1a9d8ee6b148e4ea0f024f9d0ee2bb,
+        type: 3}
+    - target: {fileID: 4163245710713187495, guid: f8fa7c61955974e4b868ffadae7cb1d3,
+        type: 3}
+      propertyPath: rightRotateOff
+      value: 
+      objectReference: {fileID: 21300000, guid: 76b32501b8b53974ca76fee7f2addecf,
+        type: 3}
+    - target: {fileID: 4163245710713187495, guid: f8fa7c61955974e4b868ffadae7cb1d3,
+        type: 3}
+      propertyPath: leftRotateOff
+      value: 
+      objectReference: {fileID: 21300000, guid: 76b32501b8b53974ca76fee7f2addecf,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8fa7c61955974e4b868ffadae7cb1d3, type: 3}
 --- !u!114 &4163245710987387166 stripped
