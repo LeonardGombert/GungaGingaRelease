@@ -21,13 +21,18 @@ namespace Kubika.Game
         [Space]
         public bool isActive = false;
         public float ScrollPower = 0.1f;
-        public float DEBUG_ACTUAL_SCROOL;
 
         // TOUCH
         Touch touch;
         Ray ray;
         RaycastHit hit;
         bool hasTouchedLevel = false;
+
+        //SCROLL
+        public float distance;
+        protected Plane Plane;
+        protected Vector3 BaseScroll;
+        protected Vector3 CurrentScroll;
 
         public void ActivatePSFB()
         {
@@ -54,6 +59,10 @@ namespace Kubika.Game
                                 Debug.Log("ClickedOnLevel");
                                 hasTouchedLevel = true;
                             }
+                            else
+                            {
+                                BaseScroll = hit.point;
+                            }
                         }
                         break;
                     case TouchPhase.Moved:
@@ -63,17 +72,44 @@ namespace Kubika.Game
                         }
                         break;
                     case TouchPhase.Ended:
+                        hasTouchedLevel = false;
                         break;
                 }
             }
         }
 
-        void ScrollingSimple(float YPosition)
+        void ScrollingSimple(float FingerPosition)
         {
-            currentPivotPosition = pivotVCam.transform.localPosition;
-            DEBUG_ACTUAL_SCROOL = (YPosition * 0.01f) * ScrollPower;
-            currentPivotPosition = Vector3.Lerp(LimitStart.localPosition, LimitEnd.localPosition, DEBUG_ACTUAL_SCROOL);
-            pivotVCam.transform.localPosition = currentPivotPosition;
+            if (Physics.Raycast(ray, out hit))
+            {
+                CurrentScroll = hit.point;
+
+                currentPivotPosition = pivotVCam.transform.position;
+
+                distance = Vector3.Distance(LimitStart.position, LimitEnd.position);
+                Debug.Log("Vector3.Distance(LimitStart.localPosition, hit.point) " + Vector3.Distance(LimitStart.position, hit.point) + " || T " + Vector3.Distance(LimitStart.position, hit.point) / distance);
+
+                currentPivotPosition = Vector3.Lerp(LimitStart.position, LimitEnd.position, Vector3.Distance(LimitStart.position, hit.point) / distance);
+                pivotVCam.transform.position = currentPivotPosition;
+            }
+
+
+        }
+
+        protected Vector3 PlanePositionDelta(Touch touch)
+        {
+            //not moved
+            if (touch.phase != TouchPhase.Moved)
+                return Vector3.zero;
+
+            //delta
+            var rayBefore = _Planete.instance.MainCam.ScreenPointToRay(touch.position - touch.deltaPosition);
+            var rayNow = _Planete.instance.MainCam.ScreenPointToRay(touch.position);
+            if (Plane.Raycast(rayBefore, out var enterBefore) && Plane.Raycast(rayNow, out var enterNow))
+                return rayBefore.GetPoint(enterBefore) - rayNow.GetPoint(enterNow);
+
+            //not on plane
+            return Vector3.zero;
         }
     }
 }
