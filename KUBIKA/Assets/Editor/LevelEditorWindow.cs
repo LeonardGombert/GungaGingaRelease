@@ -1,10 +1,12 @@
 ﻿using Kubika.CustomLevelEditor;
+using Kubika.Game;
 using Kubika.Saving;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [InitializeOnLoad]
 [CanEditMultipleObjects]
@@ -31,6 +33,8 @@ public class LevelEditorWindow : EditorWindow
     void OnGUI()
     {
         LoadLevel();
+        SelectCubeType();
+
         PlaceCubes();
         DeleteCubes();
         RotateCubes();
@@ -38,7 +42,9 @@ public class LevelEditorWindow : EditorWindow
         SaveLevel();
         SaveCurrentLevel();
 
-        SelectCubeType();
+        GUILayout.Space(70);
+
+        LaunchGame();
     }
 
     private void PlaceCubes()
@@ -78,6 +84,21 @@ public class LevelEditorWindow : EditorWindow
             SaveAndLoad.instance.DevLoadLevel(levels[levelIndex]);
     }
 
+    private void SaveLevel()
+    {
+        levelName = EditorGUILayout.TextField("Save Level Name", levelName);
+        miminumMoves = EditorGUILayout.IntField("Minimum Moves", miminumMoves);
+
+        EditorGUILayout.Space();
+
+        if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, miminumMoves);
+    }
+
+    private void SaveCurrentLevel()
+    {
+        if (GUILayout.Button("Save Current Level")) SaveAndLoad.instance.DevSavingCurrentLevel();
+    }
+
     private void SelectCubeType()
     {
         cubeTypes = new string[(int)CubeTypes.RotatorCube];
@@ -92,18 +113,12 @@ public class LevelEditorWindow : EditorWindow
         LevelEditor.instance.currentCube = (CubeTypes)cubeTypeIndex;
     }
 
-    private void SaveLevel()
+    private void LaunchGame()
     {
-        levelName = EditorGUILayout.TextField("Save Level Name", levelName);
-        miminumMoves = EditorGUILayout.IntField("Minimum Moves", miminumMoves);
-
-        EditorGUILayout.Space();
-
-        if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, miminumMoves);
-    }
-
-    private void SaveCurrentLevel()
-    {
-        if (GUILayout.Button("Save Current Level")) SaveAndLoad.instance.DevSavingCurrentLevel();
+        if (GUI.Button(new Rect(0, 300, position.width, 45), "Launch Game"))
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            SceneManager.LoadSceneAsync((int)ScenesIndex.MANAGER, LoadSceneMode.Additive);
+        }
     }
 }
