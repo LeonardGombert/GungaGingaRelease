@@ -430,13 +430,31 @@ namespace Kubika.CustomLevelEditor
                     switchButton.isStatic = true;
                     break;
 
-                case CubeTypes.RotatorCube:
-                    newCube.AddComponent(typeof(_RotatorCube));
-                    _RotatorCube mirrorCube = newCube.GetComponent<_RotatorCube>();
+                case CubeTypes.RotatorLeftTurner:
+                    newCube.AddComponent(typeof(_RotateLeftCube));
+                    _RotateLeftCube rotateLeftCube = newCube.GetComponent<_RotateLeftCube>();
 
-                    mirrorCube.myIndex = GetCubeIndex();
-                    SetCubeType(mirrorCube.myIndex, CubeTypes.RotatorCube);
-                    mirrorCube.isStatic = true;
+                    rotateLeftCube.myIndex = GetCubeIndex();
+                    SetCubeType(rotateLeftCube.myIndex, CubeTypes.RotatorLeftTurner);
+                    rotateLeftCube.isStatic = true;
+                    break;
+
+                case CubeTypes.RotatorRightTurner:
+                    newCube.AddComponent(typeof(_RotateRightCube));
+                    _RotateRightCube rotateRightCube = newCube.GetComponent<_RotateRightCube>();
+
+                    rotateRightCube.myIndex = GetCubeIndex();
+                    SetCubeType(rotateRightCube.myIndex, CubeTypes.RotatorRightTurner);
+                    rotateRightCube.isStatic = true;
+                    break;
+
+                case CubeTypes.RotatorLocker:
+                    newCube.AddComponent(typeof(_RotatorLocker));
+                    _RotatorLocker rotatorLocker = newCube.GetComponent<_RotatorLocker>();
+
+                    rotatorLocker.myIndex = GetCubeIndex();
+                    SetCubeType(rotatorLocker.myIndex, CubeTypes.RotatorLocker);
+                    rotatorLocker.isStatic = true;
                     break;
 
                 case CubeTypes.ChaosBall:

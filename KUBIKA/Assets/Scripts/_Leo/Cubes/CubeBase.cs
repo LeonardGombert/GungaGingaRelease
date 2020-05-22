@@ -60,7 +60,8 @@ namespace Kubika.Game
             //SetScriptablePreset();
         }
 
-        public void SetCubeInfoInMMatrix()
+        //Use to update Cube Info in Matrix
+        public void SetCubeInfoInMatrix()
         {
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;

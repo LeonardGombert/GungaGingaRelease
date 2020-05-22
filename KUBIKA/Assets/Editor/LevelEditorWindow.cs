@@ -115,9 +115,9 @@ public class LevelEditorWindow : EditorWindow
 
     private void SelectCubeType()
     {
-        cubeTypes = new string[(int)CubeTypes.RotatorCube + 1];
+        cubeTypes = new string[(int)CubeTypes.RotatorLeftTurner + 1];
 
-        for (int i = 1; i <= (int)CubeTypes.RotatorCube; i++)
+        for (int i = 1; i <= (int)CubeTypes.RotatorLeftTurner; i++)
         {
             cubeTypes2 = (CubeTypes)i;
             cubeTypes[i] = cubeTypes2.ToString();

@@ -88,7 +88,7 @@ namespace Kubika.Saving
             levelData.levelName = currentOpenLevelName;
             levelData.lockRotate = currentLevelLockRotate;
             levelData.minimumMoves = currentMinimumMoves;
-            
+
             DevSavingLevel(currentOpenLevelName, currentLevelLockRotate, currentMinimumMoves);
         }
 
@@ -268,10 +268,19 @@ namespace Kubika.Saving
                     case CubeTypes.TimerCube:
                         break;
 
+                    case CubeTypes.SwitchButton:
+                        break;
+
                     case CubeTypes.SwitchCube:
                         break;
 
-                    case CubeTypes.RotatorCube:
+                    case CubeTypes.RotatorRightTurner:
+                        break;
+
+                    case CubeTypes.RotatorLeftTurner:
+                        break;
+
+                    case CubeTypes.RotatorLocker:
                         break;
 
                     case CubeTypes.ChaosBall:
