@@ -75,6 +75,30 @@ namespace Kubika.CustomLevelEditor
         }
 
         #region PLACE AND REMOVE CUBES
+        public void SwitchAction(string received)
+        {
+            isPlacing = false;
+            isDeleting = false;
+            isRotating = false;
+
+            switch (received)
+            {
+                case "isPlacing" :
+                    isPlacing = true;
+                    break;
+
+                case "isDeleting":
+                    isDeleting = true;
+                    break;
+
+                case "isRotating":
+                    isRotating = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
         private void DetectInputs()
         {
             /*

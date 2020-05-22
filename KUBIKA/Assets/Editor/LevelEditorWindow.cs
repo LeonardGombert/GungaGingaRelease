@@ -44,17 +44,19 @@ public class LevelEditorWindow : EditorWindow
     private void PlaceCubes()
     {
         if (GUILayout.Button("Place Cubes"))
-            LevelEditor.instance.isPlacing = !LevelEditor.instance.isPlacing;
+            LevelEditor.instance.SwitchAction("isPlacing");
     }
+
     private void DeleteCubes()
     {
         if (GUILayout.Button("Delete Cubes"))
-            LevelEditor.instance.isDeleting = !LevelEditor.instance.isDeleting;
+            LevelEditor.instance.SwitchAction("isDeleting");
     }
+
     private void RotateCubes()
     {
         if (GUILayout.Button("Rotate Cubes"))
-            LevelEditor.instance.isRotating = !LevelEditor.instance.isRotating;
+            LevelEditor.instance.SwitchAction("isRotating");
     }
 
     private void LoadLevel()
@@ -92,8 +94,8 @@ public class LevelEditorWindow : EditorWindow
 
     private void SaveLevel()
     {
-        levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);
-        miminumMoves = EditorGUILayout.IntField("Minimum Moves to Beat", miminumMoves);
+        levelName = EditorGUILayout.TextField("Save Level Name", levelName);
+        miminumMoves = EditorGUILayout.IntField("Minimum Moves", miminumMoves);
 
         EditorGUILayout.Space();
 
