@@ -90,6 +90,7 @@ namespace Kubika.Game
         public float KUBSud;
         public float KUBEst;
 
+
         // Start is called before the first frame update
         public override void Start()
         {
@@ -119,13 +120,16 @@ namespace Kubika.Game
 
         public void CheckIfFalling()
         {
-            isCheckingFall = true;
-            thereIsEmpty = false;
-            nbrCubeMouvableBelow = 0;
-            nbrCubeEmptyBelow = 0;
-            indexTargetNode = 0;
+            if (!isStatic)
+            {
+                isCheckingFall = true;
+                thereIsEmpty = false;
+                nbrCubeMouvableBelow = 0;
+                nbrCubeEmptyBelow = 0;
+                indexTargetNode = 0;
 
-            Fall(1);
+                Fall(1);
+            }
         }
 
         public void Fall(int nbrCubeBelowParam)
