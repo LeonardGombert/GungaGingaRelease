@@ -11,6 +11,6 @@
     TimerCube,
     SwitchButton,
     SwitchCube,
-    MirrorCube,
+    RotatorCube,
     ChaosBall,
 }

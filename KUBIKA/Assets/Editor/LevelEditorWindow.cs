@@ -12,9 +12,13 @@ public class LevelEditorWindow : EditorWindow
 {
     UnityEngine.Object[] levelFiles;
     string[] levels;
-    int index = 0;
+    int levelIndex = 0;
+    int cubeTypeIndex = 0;
     private string levelName;
     private int miminumMoves;
+
+    string[] cubeTypes;
+    CubeTypes cubeTypes2;
 
     [MenuItem("Tools/Level Editor")]
     static void Init()
@@ -33,6 +37,8 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Space(20);
         SaveLevel();
         SaveCurrentLevel();
+
+        SelectCubeType();
     }
 
     private void PlaceCubes()
@@ -62,13 +68,28 @@ public class LevelEditorWindow : EditorWindow
             levels[i] = levelFiles[i].name;
         }
 
-        GUILayout.Space(26);
+        levelIndex = EditorGUI.Popup(new Rect(0, 20, position.width, 20), "Load Level : ", levelIndex, levels);
 
-        index = EditorGUI.Popup(new Rect(0, 0, position.width, 20), "Load Level : ", index, levels);
+        GUILayout.Space(70);
 
         if (GUILayout.Button("Load Level !"))
-            SaveAndLoad.instance.DevLoadLevel(levels[index]);
+            SaveAndLoad.instance.DevLoadLevel(levels[levelIndex]);
     }
+
+    private void SelectCubeType()
+    {
+        cubeTypes = new string[(int)CubeTypes.RotatorCube];
+        for (int i = 1; i < (int)CubeTypes.RotatorCube; i++)
+        {
+            cubeTypes2 = (CubeTypes)i;
+            cubeTypes[i] = cubeTypes2.ToString();
+        }
+
+        cubeTypeIndex = EditorGUI.Popup(new Rect(0, 40, position.width, 20), "Cube Type : ", cubeTypeIndex, cubeTypes);
+
+        LevelEditor.instance.currentCube = (CubeTypes)cubeTypeIndex;
+    }
+
     private void SaveLevel()
     {
         levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);

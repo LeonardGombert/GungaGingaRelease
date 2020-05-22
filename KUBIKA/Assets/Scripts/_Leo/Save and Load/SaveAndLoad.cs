@@ -265,7 +265,7 @@ namespace Kubika.Saving
                     case CubeTypes.SwitchCube:
                         break;
 
-                    case CubeTypes.MirrorCube:
+                    case CubeTypes.RotatorCube:
                         break;
 
                     case CubeTypes.ChaosBall:

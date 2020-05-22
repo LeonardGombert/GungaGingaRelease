@@ -406,12 +406,12 @@ namespace Kubika.CustomLevelEditor
                     switchButton.isStatic = true;
                     break;
 
-                case CubeTypes.MirrorCube:
-                    newCube.AddComponent(typeof(_RotateLocker));
-                    _RotateLocker mirrorCube = newCube.GetComponent<_RotateLocker>();
+                case CubeTypes.RotatorCube:
+                    newCube.AddComponent(typeof(_RotatorCube));
+                    _RotatorCube mirrorCube = newCube.GetComponent<_RotatorCube>();
 
                     mirrorCube.myIndex = GetCubeIndex();
-                    SetCubeType(mirrorCube.myIndex, CubeTypes.MirrorCube);
+                    SetCubeType(mirrorCube.myIndex, CubeTypes.RotatorCube);
                     mirrorCube.isStatic = true;
                     break;
 
