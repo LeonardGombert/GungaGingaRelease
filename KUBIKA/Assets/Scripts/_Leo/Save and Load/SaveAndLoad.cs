@@ -166,8 +166,10 @@ namespace Kubika.Saving
                 _Grid.instance.placedObjects.Add(newCube);
 
                 Debug.Log(recoveredNode.cubeType);
+                Debug.Log(recoveredNode.worldRotation);
 
                 newCube.transform.position = recoveredNode.worldPosition;
+                newCube.transform.rotation = Quaternion.Euler(recoveredNode.worldRotation);
                 newCube.transform.parent = _Grid.instance.gameObject.transform;
 
                 switch (recoveredNode.cubeType)

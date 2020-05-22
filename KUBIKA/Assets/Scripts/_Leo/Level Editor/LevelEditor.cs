@@ -1,8 +1,10 @@
 ﻿using Kubika.Game;
 using Kubika.Saving;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -28,10 +30,16 @@ namespace Kubika.CustomLevelEditor
 
         //PLACING CUBES
         private bool placeMultiple = true;
+        Vector3 intialUserPos;
         Vector3 userInputPosition;
 
         public LevelSetup levelSetup;
         public List<TextAsset> prefabLevels = new List<TextAsset>();
+
+        public bool isPlacing, isDeleting, isRotating;
+
+        // 1 = highly sensitive, 2 = less, etc.
+        public int rotationDampen;
 
         private void Awake()
         {
@@ -48,13 +56,18 @@ namespace Kubika.CustomLevelEditor
 
         private void Update()
         {
+            EditorLoop();
+        }
+
+        private void EditorLoop()
+        {
             //make sure the user isn't interacting with a UI element
             if (!EventSystem.current.IsPointerOverGameObject()
                 || !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
-                if (ScenesManager.isDevScene || ScenesManager.isLevelEditor)
+                if (ScenesManager.isLevelEditor || ScenesManager.isDevScene)
                 {
-                    PlaceAndDelete();
+                    DetectInputs();
                     CubeSelection();
                 }
             }
@@ -62,7 +75,7 @@ namespace Kubika.CustomLevelEditor
         }
 
         #region PLACE AND REMOVE CUBES
-        private void PlaceAndDelete()
+        private void DetectInputs()
         {
             /*
             //add the cubes you hit to a list of RaycastHits
@@ -97,19 +110,57 @@ namespace Kubika.CustomLevelEditor
                 deleteHits.Clear();
             }*/
 
-            //single click and place
-            if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (isPlacing)
             {
-                CheckUserPlatform();
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) PlaceCube(hit);
+                //single click and place
+                if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    GetUserPlatform();
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) PlaceCube(hit);
+                }
             }
 
-            //single click and delete
-            if (Input.GetMouseButtonDown(1) || Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Began)
+            if (isDeleting)
             {
-                CheckUserPlatform();
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) DeleteCube(hit);
+                //single click and delete
+                if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    GetUserPlatform();
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) DeleteCube(hit);
+                }
             }
+
+            if (isRotating)
+            {
+                //single click and place
+                if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    GetUserPlatform();
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(userInputPosition), out hit)) SelectCube(hit, userInputPosition);
+                }
+
+                //select cube and set the rotation to the difference between cube and finger w/ a preview
+                if (Input.GetMouseButton(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+                {
+                    GetUserPlatform();
+                    Camera.main.ScreenPointToRay(userInputPosition);
+                    RotateCube(hit, userInputPosition);
+                }
+
+                // one release, set the rotation
+                if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    SetCubeRotation(hit.collider.gameObject);
+                    hitIndex = 0;
+                }
+            }
+        }
+
+        private void SelectCube(RaycastHit hit, Vector3 userInputPosition)
+        {
+            intialUserPos = userInputPosition;
+            //get the index of the cube you just hit
+            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
         }
 
         private void PlaceCube(RaycastHit hit)
@@ -126,19 +177,19 @@ namespace Kubika.CustomLevelEditor
                 //create a new Cube and add the CubeObject component to store its index
                 GameObject newCube = Instantiate(SaveAndLoad.instance.cubePrefab);
 
-                newCube.transform.position = GetCubePosition(newCube);
-                newCube.transform.parent = grid.transform;
-
-                CubeType(newCube);
+                SetCubeCubeInfo(newCube);
                 grid.placedObjects.Add(newCube);
             }
+
+            hitIndex = 0;
         }
 
         private void DeleteCube(RaycastHit hit)
         {
+            //get the index of the cube you just hit
             hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
 
-            moveWeight = 0;
+            moveWeight = 0; //why is this here ? 
 
             //if there is a cube
             if (!IndexIsEmpty())
@@ -150,10 +201,51 @@ namespace Kubika.CustomLevelEditor
             grid.placedObjects.Remove(hit.collider.gameObject);
 
             if (!grid.placedObjects.Any()) grid.RefreshGrid();
+
+            hitIndex = 0;
         }
+
+        private void RotateCube(RaycastHit hit, Vector3 userInputPosition)
+        {
+            Quaternion newRotation; 
+
+            if (hitIndex != 0 && hit.collider.gameObject != null)
+            {
+                int rotationX = (int)CustomScaler.Scale((int)userInputPosition.x, 0, Camera.main.pixelWidth, -360, 360);
+                rotationX = rotationX / 10;
+
+                int rotationY = (int)CustomScaler.Scale((int)userInputPosition.y, 0, Camera.main.pixelHeight, -360, 360);
+                rotationY = rotationY / 10;
+
+                if (rotationX % 9 * rotationDampen == 0)
+                {
+                    Vector3 rotationVector = new Vector3(rotationX * 10, 
+                        hit.collider.gameObject.transform.rotation.y, 
+                        hit.collider.gameObject.transform.rotation.z);
+
+                    newRotation = Quaternion.Euler(rotationVector);
+
+                    Debug.Log(rotationVector);
+                    hit.collider.gameObject.transform.rotation = newRotation;
+                }
+
+                if (rotationY % 9 * rotationDampen == 0)
+                {
+                    Vector3 rotationVector = new Vector3(hit.collider.gameObject.transform.rotation.y,
+                        rotationY * 10,
+                        hit.collider.gameObject.transform.rotation.z);
+
+                    newRotation = Quaternion.Euler(rotationVector);
+
+                    Debug.Log(rotationVector);
+                    hit.collider.gameObject.transform.rotation = newRotation;
+                }
+            }
+        }
+
         #endregion
 
-        #region // GENERATE BASE GRID
+        #region GENERATE BASE GRID
         public void GenerateBaseGrid()
         {
             switch (levelSetup)
@@ -212,8 +304,12 @@ namespace Kubika.CustomLevelEditor
         }
 
         // Set all of the cube's information when it is placed
-        private void CubeType(GameObject newCube)
+        private void SetCubeCubeInfo(GameObject newCube)
         {
+            SetCubeOnPosition(newCube);
+            SetCubePosition(newCube);
+            SetCubeParent(newCube);
+
             switch (currentCube)
             {
                 case CubeTypes.StaticCube:
@@ -249,6 +345,7 @@ namespace Kubika.CustomLevelEditor
                 case CubeTypes.DeliveryCube:
                     newCube.AddComponent(typeof(_DeliveryCube));
                     _DeliveryCube deliveryCube = newCube.GetComponent<_DeliveryCube>();
+
                     deliveryCube.myIndex = GetCubeIndex();
                     SetCubeType(deliveryCube.myIndex, CubeTypes.DeliveryCube);
                     deliveryCube.isStatic = true;
@@ -334,9 +431,26 @@ namespace Kubika.CustomLevelEditor
             if (cubeNormal == Vector3.back) moveWeight = _DirectionCustom.backward; //- the grid size squared
         }
 
-        void SetCubeType(int cubeIndex, CubeTypes cubeType)
+        //get the position of the cube you are placing and set the cubeOnPosition
+        Vector3 GetCubePosition()
         {
-            grid.kuboGrid[cubeIndex - 1].cubeType = cubeType;
+            return grid.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
+        }
+
+        int GetCubeIndex()
+        {
+            return grid.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
+        }
+        Vector3 GetUserPlatform()
+        {
+            userInputPosition = Vector3.zero;
+
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) userInputPosition = Input.mousePosition;
+
+            if (Input.touchCount == 1) userInputPosition = Input.GetTouch(0).position;
+            else if (Input.touchCount == 2) userInputPosition = Input.GetTouch(1).position;
+
+            return userInputPosition;
         }
 
         bool IndexIsEmpty()
@@ -347,31 +461,33 @@ namespace Kubika.CustomLevelEditor
         #endregion
 
         #region SET NEW VALUES FOR CUBE
-        //get the position of the cube you are placing and set the cubeOnPosition
-        Vector3 GetCubePosition(GameObject newCube)
+        void SetCubeOnPosition(GameObject newCube)
         {
             //set the cubeOnPosition of the target node
             grid.kuboGrid[hitIndex - 1 + moveWeight].cubeOnPosition = newCube;
-
-            return grid.kuboGrid[hitIndex - 1 + moveWeight].worldPosition;
         }
 
-        int GetCubeIndex()
+        void SetCubeRotation(GameObject selectedCube)
         {
-            return grid.kuboGrid[hitIndex - 1 + moveWeight].nodeIndex;
+            grid.kuboGrid[hitIndex - 1 + moveWeight].worldRotation = selectedCube.transform.eulerAngles;
+            Debug.Log("my rotation is " + selectedCube.transform.eulerAngles);
         }
 
-        Vector3 CheckUserPlatform()
+        void SetCubePosition(GameObject newCube)
         {
-            if (Input.GetMouseButton(0)) userInputPosition = Input.mousePosition;
-            else if (Input.GetMouseButton(1)) userInputPosition = Input.mousePosition;
-            if (Input.touchCount == 1) userInputPosition = Input.GetTouch(0).position;
-            else if (Input.touchCount == 2) userInputPosition = Input.GetTouch(1).position;
-            else userInputPosition = Vector3.zero;
-
-            return userInputPosition;
+            //set the cubeOnPosition of the target node
+            newCube.transform.position = GetCubePosition();
         }
 
+        void SetCubeParent(GameObject newCube)
+        {
+            newCube.transform.parent = grid.transform;
+        }
+
+        void SetCubeType(int cubeIndex, CubeTypes cubeType)
+        {
+            grid.kuboGrid[cubeIndex - 1].cubeType = cubeType;
+        }
         #endregion
     }
 }

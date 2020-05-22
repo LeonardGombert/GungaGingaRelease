@@ -8,7 +8,6 @@ namespace Kubika.Game
     {
         //starts at 1
         public int myIndex;
-
         //use this to set node data
         public CubeTypes myCubeType;
         public CubeLayers myCubeLayer;

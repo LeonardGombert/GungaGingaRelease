@@ -74,9 +74,17 @@ namespace Kubika.CustomLevelEditor
                 }
             }
 
-            if (ScenesManager.isDevScene || ScenesManager.isLevelEditor && LevelEditor.instance != null) LevelEditor.instance.GenerateBaseGrid();
+            if (ScenesManager.isDevScene || ScenesManager.isLevelEditor && LevelEditor.instance != null) 
+                LevelEditor.instance.GenerateBaseGrid();
         }
 
+        public void RefreshGrid()
+        {
+            ResetGrid();
+            CreateGrid();
+        }
+
+        //used to clear a level
         public void ResetGrid()
         {
             //destroy all cubes in grid and reset nodes to base state
@@ -87,12 +95,7 @@ namespace Kubika.CustomLevelEditor
             }
         }
 
-        public void RefreshGrid()
-        {
-            ResetGrid();
-            CreateGrid();
-        }
-
+        //set all index to their default state
         public void ResetIndexGrid()
         {
             for (int i = 0; i < kuboGrid.Length; i++)

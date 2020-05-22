@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Kubika.Game;
 
 namespace Kubika.CustomLevelEditor
 {
@@ -18,6 +17,8 @@ namespace Kubika.CustomLevelEditor
         public CubeLayers cubeLayers;
 
         public int xCoord, yCoord, zCoord;
-        public Vector3 worldPosition;
+        
+        public Vector3 worldPosition;        
+        public Vector3 worldRotation;
     }
 }

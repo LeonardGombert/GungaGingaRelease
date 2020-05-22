@@ -24,17 +24,16 @@ namespace Kubika.Game
         public override void Update()
         {
             base.Update();
+
+            // ONLY CALL THIS WHEN CUBES HAVE FINISHED MOVING
             CheckForVictory();
         }
 
         private void CheckForVictory()
         {
-            //checks in every "direction"
-            foreach (int index in indexesToCheck)
-            {
-                touchingVictory = ProximityChecker(index, CubeTypes.VictoryCube);
-                if (touchingVictory) Debug.Log("Touching a Cube");
-            }
+            touchingVictory = ProximityChecker(_DirectionCustom.forward, CubeTypes.VictoryCube);
+            Debug.DrawRay(transform.position, _DirectionCustom.vectorForward, Color.green);
+            if (touchingVictory) Debug.Log("Touching a Cube");
         }
     }
 }
