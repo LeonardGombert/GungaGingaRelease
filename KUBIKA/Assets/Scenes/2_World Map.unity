@@ -877,9 +877,12 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   LimitStart: {fileID: 0}
   LimitEnd: {fileID: 0}
+  LimitStartScroll: {fileID: 0}
+  LimitEndScroll: {fileID: 0}
   isActive: 0
   ScrollPower: 0.1
-  distance: 0
+  distanceLimitCam: 0
+  distanceLimitScroll: 0
 --- !u!1 &66400846
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,9 +996,12 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   LimitStart: {fileID: 0}
   LimitEnd: {fileID: 0}
+  LimitStartScroll: {fileID: 0}
+  LimitEndScroll: {fileID: 0}
   isActive: 0
   ScrollPower: 0.1
-  distance: 0
+  distanceLimitCam: 0
+  distanceLimitScroll: 0
 --- !u!1 &67892435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,9 +1533,12 @@ MonoBehaviour:
   pivotVCam: {fileID: 421484161}
   LimitStart: {fileID: 1246634097}
   LimitEnd: {fileID: 85968081}
+  LimitStartScroll: {fileID: 845986439}
+  LimitEndScroll: {fileID: 1353484665}
   isActive: 0
-  ScrollPower: 0.1
-  distance: 0
+  ScrollPower: 1.5
+  distanceLimitCam: 0
+  distanceLimitScroll: 0
 --- !u!1 &124796982
 GameObject:
   m_ObjectHideFlags: 0
@@ -9146,9 +9155,12 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   LimitStart: {fileID: 0}
   LimitEnd: {fileID: 0}
+  LimitStartScroll: {fileID: 0}
+  LimitEndScroll: {fileID: 0}
   isActive: 0
   ScrollPower: 0.1
-  distance: 0
+  distanceLimitCam: 0
+  distanceLimitScroll: 0
 --- !u!4 &1068400501
 Transform:
   m_ObjectHideFlags: 0
@@ -13080,9 +13092,12 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   LimitStart: {fileID: 0}
   LimitEnd: {fileID: 0}
+  LimitStartScroll: {fileID: 0}
+  LimitEndScroll: {fileID: 0}
   isActive: 0
   ScrollPower: 0.1
-  distance: 0
+  distanceLimitCam: 0
+  distanceLimitScroll: 0
 --- !u!1 &1636103209
 GameObject:
   m_ObjectHideFlags: 0
@@ -16310,9 +16325,12 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   LimitStart: {fileID: 0}
   LimitEnd: {fileID: 0}
+  LimitStartScroll: {fileID: 0}
+  LimitEndScroll: {fileID: 0}
   isActive: 0
   ScrollPower: 0.1
-  distance: 0
+  distanceLimitCam: 0
+  distanceLimitScroll: 0
 --- !u!1 &2057403034
 GameObject:
   m_ObjectHideFlags: 0
