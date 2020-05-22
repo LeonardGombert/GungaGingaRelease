@@ -60,6 +60,13 @@ namespace Kubika.Game
 
         }
 
+        public void SetCubeInfo()
+        {
+            grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
+            grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
+        }
+
+
         public void DisableCube()
         {
             gameObject.SetActive(false);

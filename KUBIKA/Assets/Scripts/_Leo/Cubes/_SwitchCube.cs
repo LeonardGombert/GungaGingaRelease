@@ -1,12 +1,16 @@
-﻿namespace Kubika.Game
+﻿using Kubika.CustomLevelEditor;
+
+namespace Kubika.Game
 {
     public class _SwitchCube : CubeMove
     {
+        private bool isActive;
+
         // Start is called before the first frame update
         public override void Start()
         {
-            myCubeType = CubeTypes.SwitchCube;
-            myCubeLayer = CubeLayers.cubeMoveable;
+            myCubeType = CubeTypes.StaticCube;
+            myCubeLayer = CubeLayers.cubeFull;
             dynamicEnum = DynamicEnums.Switch;
 
             //call base.start AFTER assigning the cube's layers
@@ -20,6 +24,27 @@
         public override void Update()
         {
             base.Update();
+        }
+
+        public void StatusUpdate()
+        {
+            if(!isActive)
+            {
+                isStatic = true;
+                myCubeLayer = CubeLayers.cubeFull;
+                myCubeType = CubeTypes.StaticCube;
+
+                SetCubeInfo();
+            }
+
+            else if (isActive)
+            {
+                isStatic = false;
+                myCubeLayer = CubeLayers.cubeMoveable;
+                myCubeType = CubeTypes.SwitchCube;
+
+                SetCubeInfo();
+            }
         }
     }
 }

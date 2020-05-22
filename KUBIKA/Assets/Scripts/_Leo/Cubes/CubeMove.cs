@@ -82,8 +82,6 @@ namespace Kubika.Game
                 myCubeLayer = CubeLayers.cubeMoveable;
                 grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             }
-
-            TEMPORARY______SHIT();
         }
 
 
@@ -653,101 +651,5 @@ namespace Kubika.Game
         */
         #endregion
 
-        void TEMPORARY______SHIT()
-        {
-            if (TEST_DEBUG_PLAYER == true && _DataManager.instance.AreCubesEndingToFall(_DataManager.instance.moveCube.ToArray()) == true)
-            {
-                // X Axis
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    if (isMoving == false)
-                    {
-                        CheckingMove(myIndex, _DirectionCustom.left);
-                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                        /*else
-                        {
-                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                            outsideMoveTarget += _DirectionCustom.vectorLeft;
-                            StartCoroutine(MoveFromMap(outsideMoveTarget));
-                            Debug.LogError("Z AU BORD");
-                        }*/
-                    }
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                {
-                    if (isMoving == false)
-                    {
-                        // -X Axis
-                        CheckingMove(myIndex, _DirectionCustom.right);
-                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                        /*
-                        else
-                        {
-                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                            outsideMoveTarget += _DirectionCustom.vectorRight;
-                            StartCoroutine(MoveFromMap(outsideMoveTarget));
-                            Debug.LogError("S AU BORD");
-                        }*/
-                    }
-                }
-                else if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    if (isMoving == false)
-                    {
-                        // -Z Axis
-                        CheckingMove(myIndex, _DirectionCustom.backward);
-                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                        /*
-                        else
-                        {
-                            outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                            outsideMoveTarget += _DirectionCustom.vectorBack;
-                            StartCoroutine(MoveFromMap(outsideMoveTarget));
-                            Debug.LogError("Q AU BORD");
-                        }*/
-                    }
-                }
-                else if (Input.GetKeyDown(KeyCode.D))
-                {
-                    if (isMoving == false)
-                    {
-                        CheckingMove(myIndex, _DirectionCustom.forward);
-                        StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                        /*
-                             else
-                             {
-                                 outsideMoveTarget = new Vector3(xCoordLocal, yCoordLocal, zCoordLocal);
-                                 outsideMoveTarget += _DirectionCustom.vectorForward;
-                                 StartCoroutine(MoveFromMap(outsideMoveTarget));
-                                 Debug.LogError("D AU BORD");
-                             }*/
-                    }
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                // Y Axis
-                CheckingMove(myIndex, _DirectionCustom.up);
-                StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                /*
-                 else
-                 {
-                     Debug.LogError("R AU BORD");
-                 }*/
-            }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                // -Y Axis
-                CheckingMove(myIndex, _DirectionCustom.down);
-                StartCoroutine(_DataManager.instance.CubesAreCheckingMove());
-                /*
-                 else
-                 {
-                     Debug.LogError("F AU BORD");
-                 }*/
-            }
-
-
-        }
     }
 }

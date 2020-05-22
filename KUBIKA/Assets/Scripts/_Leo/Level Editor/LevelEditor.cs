@@ -27,7 +27,6 @@ namespace Kubika.CustomLevelEditor
         List<RaycastHit> placeHits = new List<RaycastHit>();
         List<RaycastHit> deleteHits = new List<RaycastHit>();
 
-
         //PLACING CUBES
         private bool placeMultiple = true;
         Vector3 intialUserPos;
