@@ -80,13 +80,20 @@ namespace Kubika.Game
         // Update is called once per frame
         void Update()
         {
-            RotationPlanete();
+            if (planeteView == true)
+            {
+                RotationPlanete();
 
-            if (Input.GetMouseButtonDown(0) || Input.touchCount == 1)
-                CheckTouch();
+                if (Input.GetMouseButtonDown(0) || Input.touchCount == 1)
+                    CheckTouch();
 
-            if (Application.isMobilePlatform == true)
-                CameraPhoneInput();
+                if (Application.isMobilePlatform == true)
+                    CameraPhoneInput();
+            }
+            else
+            {
+
+            }
             //else
             //CameraPCInput();
         }
@@ -99,7 +106,6 @@ namespace Kubika.Game
 
         void CheckTouch()
         {
-
 
             if (Application.isMobilePlatform == true)
             {
@@ -261,10 +267,11 @@ namespace Kubika.Game
             ZoomingSimple();
         }
 
+        #region SCROLL & ZOOM
         void Zooming(float difference)
         {
             currentZoommCam = baseVCam.m_Lens.OrthographicSize;
-            currentZoommCam = Mathf.Clamp(currentZoommCam + (difference * zoomPower), currentZoommCam - 20, currentZoommCam + 20);
+            currentZoommCam = Mathf.Clamp(currentZoommCam - (difference * zoomPower), currentZoommCam - 20, currentZoommCam + 20);
             baseVCam.m_Lens.OrthographicSize = currentZoommCam;
         }
 
@@ -302,6 +309,6 @@ namespace Kubika.Game
             currentZoommCam = Mathf.Clamp(currentZoommCam + (Input.mouseScrollDelta.y * zoomPower), currentZoommCam - 20, currentZoommCam + 20);
             baseVCam.m_Lens.OrthographicSize = currentZoommCam;
         }
-
+        #endregion
     }
 }
