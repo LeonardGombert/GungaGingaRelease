@@ -25,6 +25,7 @@ namespace Kubika.Game
 
         //BASE CAMERA
         public CinemachineVirtualCamera baseVCam;
+        public Camera MainCam;
 
         //INPUT
         Touch touch;
@@ -48,6 +49,7 @@ namespace Kubika.Game
         [Space(10)] public float zoomPower;
         //
         Vector3 currentCamPos;
+        float currentZoommCam;
         float currentCamZPos;
         //MOUV
         public Transform pivotMainCamera;
@@ -62,8 +64,6 @@ namespace Kubika.Game
         public static float KUBWestScreenAngle;
         public static float KUBSudScreenAngle;
         public static float KUBEstScreenAngle;
-
-        public CinemachineVirtualCamera cam;
 
 
 
@@ -99,6 +99,8 @@ namespace Kubika.Game
 
         void CheckTouch()
         {
+
+
             if (Application.isMobilePlatform == true)
             {
                 touch = Input.GetTouch(0);
@@ -228,14 +230,7 @@ namespace Kubika.Game
 
         void CameraPhoneInput()
         {
-            if (Input.touchCount == 1)
-            {
-                touch0 = Input.GetTouch(0);
-                ScrollingSimple(touch0.deltaPosition);
-
-
-            }
-            else if (Input.touchCount == 2)
+            if (Input.touchCount == 2)
             {
                 touch0 = Input.GetTouch(0);
                 touch1 = Input.GetTouch(1);
@@ -262,14 +257,15 @@ namespace Kubika.Game
                 mouse0 = Input.mousePosition;
                 ScrollingSimple(mouse0);
             }
+
+            ZoomingSimple();
         }
 
         void Zooming(float difference)
         {
-            currentCamPos = cam.transform.localPosition;
-            currentCamZPos = currentCamPos.z;
-            currentCamPos.z = Mathf.Clamp(currentCamZPos + (difference * zoomPower), currentCamZPos - 2, currentCamZPos + 2);
-            cam.transform.localPosition = currentCamPos;
+            currentZoommCam = baseVCam.m_Lens.OrthographicSize;
+            currentZoommCam = Mathf.Clamp(currentZoommCam + (difference * zoomPower), currentZoommCam - 20, currentZoommCam + 20);
+            baseVCam.m_Lens.OrthographicSize = currentZoommCam;
         }
 
         void Scrolling(Vector2 touch0Pos, Vector2 touch1Pos)
@@ -298,6 +294,13 @@ namespace Kubika.Game
             baseRotation.y = baseRotation.y + mediumYMouv;
             baseRotation.x = baseRotation.x - mediumXMouv;
             pivotMainCamera.eulerAngles = baseRotation;
+        }
+
+        void ZoomingSimple()
+        {
+            currentZoommCam = baseVCam.m_Lens.OrthographicSize;
+            currentZoommCam = Mathf.Clamp(currentZoommCam + (Input.mouseScrollDelta.y * zoomPower), currentZoommCam - 20, currentZoommCam + 20);
+            baseVCam.m_Lens.OrthographicSize = currentZoommCam;
         }
 
     }

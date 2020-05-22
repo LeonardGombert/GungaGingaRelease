@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 56.85
+    OrthographicSize: 56
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -876,6 +876,7 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   VectorXLimitStart: 0
   VectorXLimitEnd: 0
+  isActive: 0
 --- !u!1 &66400846
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +990,7 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   VectorXLimitStart: 0
   VectorXLimitEnd: 0
+  isActive: 0
 --- !u!1 &67892435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1492,7 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   VectorXLimitStart: 0
   VectorXLimitEnd: 0
+  isActive: 0
 --- !u!1 &124796982
 GameObject:
   m_ObjectHideFlags: 0
@@ -5454,7 +5457,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 20
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -8697,6 +8700,7 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   VectorXLimitStart: 0
   VectorXLimitEnd: 0
+  isActive: 0
 --- !u!4 &1068400501
 Transform:
   m_ObjectHideFlags: 0
@@ -12519,6 +12523,7 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   VectorXLimitStart: 0
   VectorXLimitEnd: 0
+  isActive: 0
 --- !u!1 &1636103209
 GameObject:
   m_ObjectHideFlags: 0
@@ -12546,8 +12551,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636103209}
-  m_LocalRotation: {x: 0.19561113, y: 0.42509088, z: -0.09423412, w: 0.8787229}
-  m_LocalPosition: {x: -24.440937, y: 38.947113, z: -62.73748}
+  m_LocalRotation: {x: -0.12509425, y: 0.870768, z: -0.2877177, w: 0.37859356}
+  m_LocalPosition: {x: -64.271416, y: 43.819283, z: 22.529762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 670972880}
@@ -12610,9 +12615,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 11.05
+  field of view: 60
   orthographic: 1
-  orthographic size: 4.7
+  orthographic size: 56
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -15140,10 +15145,10 @@ MonoBehaviour:
   nextFace: {fileID: 0}
   oldFace: {fileID: 0}
   baseVCam: {fileID: 14054313}
-  zoomPower: 0
+  MainCam: {fileID: 1636103213}
+  zoomPower: 0.1
   pivotMainCamera: {fileID: 1866396111}
   mouvPower: 0.1
-  cam: {fileID: 14054313}
 --- !u!4 &1982662060
 Transform:
   m_ObjectHideFlags: 0
@@ -15534,6 +15539,7 @@ MonoBehaviour:
   pivotVCam: {fileID: 0}
   VectorXLimitStart: 0
   VectorXLimitEnd: 0
+  isActive: 0
 --- !u!1 &2057403034
 GameObject:
   m_ObjectHideFlags: 0
