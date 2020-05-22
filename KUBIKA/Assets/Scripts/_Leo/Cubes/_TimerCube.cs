@@ -24,16 +24,14 @@ namespace Kubika.Game
 
             isStatic = true;
 
-            forward = backward = left = right = up = down = true;
-
             SetScanDirections();
         }
 
         // Update is called once per frame
         public override void Update()
         {
-            //ccall this when a cube is moved
-            if (Input.GetKeyDown(KeyCode.Space)) CubeListener();
+            //call this when all cubes have finished moving
+            CubeListener();
         }
 
         private void CubeListener()

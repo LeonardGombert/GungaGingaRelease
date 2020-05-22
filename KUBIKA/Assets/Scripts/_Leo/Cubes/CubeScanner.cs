@@ -8,12 +8,12 @@ namespace Kubika.Game
     public class CubeScanner : CubeBase
     {
         public int[] indexesToCheck = new int[6];
-        public bool forward, backward, left, right, up, down;
 
         // Start is called before the first frame update
         public override void Start()
         {
             base.Start();
+            SetScanDirections();
         }
 
         public override void Update()
@@ -24,23 +24,13 @@ namespace Kubika.Game
 
         public void SetScanDirections()
         {
-            if (up) indexesToCheck[0] = _DirectionCustom.up; //+ 1
-            else indexesToCheck[0] = 0;
-
-            if (down) indexesToCheck[1] = _DirectionCustom.down; //- 1
-            else indexesToCheck[1] = 0;
-
-            if (right) indexesToCheck[2] = _DirectionCustom.right; //+ the grid size
-            else indexesToCheck[2] = 0;
-
-            if (left) indexesToCheck[3] = _DirectionCustom.left; //- the grid size
-            else indexesToCheck[3] = 0;
-
-            if (forward) indexesToCheck[4] = _DirectionCustom.forward; //+ the grid size squared
-            else indexesToCheck[4] = 0;
-
-            if (backward) indexesToCheck[5] = _DirectionCustom.backward;//- the grid size squared
-            else indexesToCheck[5] = 0;
+            Debug.Log("Set");
+            indexesToCheck[0] = _DirectionCustom.up; //+ 1
+            indexesToCheck[1] = _DirectionCustom.down; //- 1
+            indexesToCheck[2] = _DirectionCustom.right; //+ the grid size
+            indexesToCheck[3] = _DirectionCustom.left; //- the grid size
+            indexesToCheck[4] = _DirectionCustom.forward; //+ the grid size squared
+            indexesToCheck[5] = _DirectionCustom.backward;//- the grid size squared
         }
 
         // Checks if the targeted index has a specific cube OfType on it
@@ -56,11 +46,11 @@ namespace Kubika.Game
                             && grid.kuboGrid[myIndex - 1 + index].cubeLayers == checkForLayer) return true;
                         else return false;
 
-                    //check for cubes on a layer
+                    //check for any cube type on a specific layer
                     else if (checkForLayer != CubeLayers.None
                         && grid.kuboGrid[myIndex - 1 + index].cubeLayers == checkForLayer) return true;
 
-                    //check for specific type of cube
+                    //check for a specific cube type on any layer
                     else if (checkForType != CubeTypes.None &&
                         grid.kuboGrid[myIndex - 1 + index].cubeType == checkForType) return true;
 
@@ -70,6 +60,6 @@ namespace Kubika.Game
             }
 
             else return false;
-        }        
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace Kubika.CustomLevelEditor
 
         // 1 = highly sensitive, 2 = less, etc.
         public int rotationDampen;
+        private bool placingButton;
 
         private void Awake()
         {
@@ -67,7 +68,7 @@ namespace Kubika.CustomLevelEditor
                 if (ScenesManager.isLevelEditor || ScenesManager.isDevScene)
                 {
                     DetectInputs();
-                    CubeSelection();
+                    if (!placingButton) CubeSelection();
                 }
             }
             else return;
@@ -206,7 +207,7 @@ namespace Kubika.CustomLevelEditor
 
         private void RotateCube(RaycastHit hit, Vector3 userInputPosition)
         {
-            Quaternion newRotation; 
+            Quaternion newRotation;
 
             if (hitIndex != 0 && hit.collider.gameObject != null)
             {
@@ -218,8 +219,8 @@ namespace Kubika.CustomLevelEditor
 
                 if (rotationX % 9 * rotationDampen == 0)
                 {
-                    Vector3 rotationVector = new Vector3(rotationX * 10, 
-                        hit.collider.gameObject.transform.rotation.y, 
+                    Vector3 rotationVector = new Vector3(rotationX * 10,
+                        hit.collider.gameObject.transform.rotation.y,
                         hit.collider.gameObject.transform.rotation.z);
 
                     newRotation = Quaternion.Euler(rotationVector);
@@ -393,6 +394,16 @@ namespace Kubika.CustomLevelEditor
                     switchCube.myIndex = GetCubeIndex();
                     SetCubeType(switchCube.myIndex, CubeTypes.SwitchCube);
                     switchCube.isStatic = true;
+                    break;
+
+                case CubeTypes.SwitchButton:
+                    placingButton = false;
+                    newCube.AddComponent(typeof(_SwitchButton));
+                    _SwitchButton switchButton = newCube.GetComponent<_SwitchButton>();
+
+                    switchButton.myIndex = GetCubeIndex();
+                    SetCubeType(switchButton.myIndex, CubeTypes.SwitchButton);
+                    switchButton.isStatic = true;
                     break;
 
                 case CubeTypes.MirrorCube:

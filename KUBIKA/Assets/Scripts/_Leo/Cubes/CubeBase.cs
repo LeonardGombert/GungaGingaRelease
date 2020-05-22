@@ -52,15 +52,15 @@ namespace Kubika.Game
             grid = _Grid.instance;
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
-            SetScriptablePreset();
+            //SetScriptablePreset();
         }
 
         public virtual void Update()
         {
-            SetScriptablePreset();
+            //SetScriptablePreset();
         }
 
-        public void SetCubeInfo()
+        public void SetCubeInfoInMMatrix()
         {
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;

@@ -6,6 +6,7 @@ namespace Kubika.Game
     public class _DeliveryCube : CubeScanner
     {
         bool touchingVictory;
+        private bool locked;
 
         // Start is called before the first frame update
         public override void Start()
@@ -31,9 +32,21 @@ namespace Kubika.Game
 
         private void CheckForVictory()
         {
-            touchingVictory = ProximityChecker(_DirectionCustom.forward, CubeTypes.VictoryCube);
-            Debug.DrawRay(transform.position, _DirectionCustom.vectorForward, Color.green);
-            if (touchingVictory) Debug.Log("Touching a Cube");
+            touchingVictory = ProximityChecker(_DirectionCustom.up, CubeTypes.VictoryCube);
+            Debug.DrawRay(transform.position, Vector3.up, Color.green);
+            
+            if (touchingVictory && locked == false)
+            {
+                locked = true;
+                VictoryConditionManager.instance.IncrementVictory();
+            }
+
+            // flip the bools when the delivery cube loses track of the victory cube
+            if(touchingVictory == false && locked == true)
+            {
+                locked = false;
+                VictoryConditionManager.instance.DecrementVictory();
+            }
         }
     }
 }

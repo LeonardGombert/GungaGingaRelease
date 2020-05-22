@@ -19,8 +19,6 @@ namespace Kubika.Game
 
             isStatic = false;
 
-            forward = backward = left = right = up = down = true;
-
             SetScanDirections();
         }
 
@@ -29,13 +27,12 @@ namespace Kubika.Game
         {
             base.Update();
 
-            if(Input.GetKeyDown(KeyCode.F1)) BlowUp();
-            if(Input.GetKeyDown(KeyCode.F2)) BlowAcross(myIndex - 1 + _DirectionCustom.right);
-            if(Input.GetKeyDown(KeyCode.F3)) BlowAcross(myIndex - 1 + _DirectionCustom.forward);
-
+            if(Input.GetKeyDown(KeyCode.F1)) BlowUp(); //replace with falling code
             if (nbrCubeEmptyBelow > 1) /*&&hasFallen)*/ BlowUp();
 
             // if a chaos ball hits the mine cube
+            /*if(Input.GetKeyDown(KeyCode.F2)) BlowAcross(myIndex - 1 + _DirectionCustom.right);
+            if(Input.GetKeyDown(KeyCode.F3)) BlowAcross(myIndex - 1 + _DirectionCustom.forward);*/
             //BlowAcross();
         }
 
@@ -56,6 +53,7 @@ namespace Kubika.Game
             }
         }
 
+        //for when the ball hits a mine
         private void BlowAcross(int ballIndex)
         {
             //explode on Z axis

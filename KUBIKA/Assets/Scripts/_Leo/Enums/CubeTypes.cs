@@ -9,6 +9,7 @@
     ConcreteCube,
     MineCube,
     TimerCube,
+    SwitchButton,
     SwitchCube,
     MirrorCube,
     ChaosBall,

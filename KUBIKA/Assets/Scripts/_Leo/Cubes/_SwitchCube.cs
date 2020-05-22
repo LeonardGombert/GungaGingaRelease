@@ -4,7 +4,7 @@ namespace Kubika.Game
 {
     public class _SwitchCube : CubeMove
     {
-        private bool isActive;
+        public bool isActive;
 
         // Start is called before the first frame update
         public override void Start()
@@ -34,7 +34,7 @@ namespace Kubika.Game
                 myCubeLayer = CubeLayers.cubeFull;
                 myCubeType = CubeTypes.StaticCube;
 
-                SetCubeInfo();
+                SetCubeInfoInMMatrix();
             }
 
             else if (isActive)
@@ -43,7 +43,7 @@ namespace Kubika.Game
                 myCubeLayer = CubeLayers.cubeMoveable;
                 myCubeType = CubeTypes.SwitchCube;
 
-                SetCubeInfo();
+                SetCubeInfoInMMatrix();
             }
         }
     }
