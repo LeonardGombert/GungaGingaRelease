@@ -20,6 +20,9 @@ namespace Kubika.Saving
 
         public GameObject cubePrefab;
 
+        string currentOpenLevelName;
+        int currentMinimumMoves;
+
         private void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
@@ -49,6 +52,10 @@ namespace Kubika.Saving
             //storing data in levelDataFile
             levelData.levelName = levelName;
             levelData.minimumMoves = minimumMoves;
+            
+            currentOpenLevelName = levelName;
+            currentMinimumMoves = minimumMoves;
+
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
 
             string json = JsonUtility.ToJson(levelData);
@@ -73,6 +80,13 @@ namespace Kubika.Saving
             Debug.Log("Level Saved by Dev at " + path);
         }
 
+        public void DevSavingCurrentLevel()
+        {
+            levelData.levelName = currentOpenLevelName;
+            levelData.minimumMoves = currentMinimumMoves;
+            DevSavingLevel(currentOpenLevelName, currentMinimumMoves);
+        }
+
         public void DevLoadLevel(string levelName)
         {
             Debug.Log("Dev is Loading a Level !");
@@ -90,6 +104,9 @@ namespace Kubika.Saving
                 ExtractAndRebuildLevel(levelData);
             }
 
+            currentOpenLevelName = levelData.levelName;
+            currentMinimumMoves = levelData.minimumMoves;
+
             levelData.nodesToSave.Clear();
             activeNodes.Clear();
         }
@@ -103,6 +120,9 @@ namespace Kubika.Saving
 
             //storing data in levelDataFile
             levelData.levelName = levelName;
+
+            currentOpenLevelName = levelName;
+
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
 
             string json = JsonUtility.ToJson(levelData);
@@ -127,6 +147,12 @@ namespace Kubika.Saving
             Debug.Log("Level Saved by User at " + path);
         }
 
+        public void UserSavingCurrentLevel()
+        {
+            levelData.levelName = currentOpenLevelName;
+            UserSavingLevel(currentOpenLevelName);
+        }
+
         public void UserLoadLevel(string levelName)
         {
             Debug.Log("User is Loading a Level !");
@@ -135,6 +161,7 @@ namespace Kubika.Saving
             string levelFile = levelName + ".json";
             string path = Path.Combine(folder, levelFile);
 
+
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
@@ -142,6 +169,8 @@ namespace Kubika.Saving
 
                 ExtractAndRebuildLevel(levelData);
             }
+
+            currentOpenLevelName = levelData.levelName;
 
             levelData.nodesToSave.Clear();
             activeNodes.Clear();
