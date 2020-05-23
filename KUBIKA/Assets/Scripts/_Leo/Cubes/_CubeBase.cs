@@ -58,7 +58,7 @@ namespace Kubika.Game
 
         public virtual void Update()
         {
-            SetScriptablePreset();
+            SetScriptablePreset(); /////////// DE LA MERDE
         }
 
         //Use to update Cube Info in Matrix
