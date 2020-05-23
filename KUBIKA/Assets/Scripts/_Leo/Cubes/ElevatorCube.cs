@@ -35,10 +35,14 @@ namespace Kubika.Game
             }
         }
 
-        void ScannerSet()
+        // Appel a la fin des mouvements de tous les cubes
+        void Scanning()
         {
-            baseCubeRotation = _DirectionCustom.ScannerSet(Vector3Int.up, transform);
-            _DirectionCustom.LocalScanner(baseCubeRotation);
+            if(grid.kuboGrid[ myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].cubeLayers == CubeLayers.cubeMoveable)
+            {
+                // Detect wall
+                Debug.Log("TEST CHECK NODE SCAN " + grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].nodeIndex);
+            }
             Debug.LogError("_baseCubeRotation_ | " + baseCubeRotation);
         }
     }

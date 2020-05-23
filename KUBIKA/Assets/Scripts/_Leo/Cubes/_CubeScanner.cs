@@ -22,6 +22,11 @@ namespace Kubika.Game
             base.Update();
         }
 
+        protected void ScannerSet()
+        {
+            baseCubeRotation = _DirectionCustom.ScannerSet(Vector3Int.up, transform);
+        }
+
 
         public void SetScanDirections()
         {
