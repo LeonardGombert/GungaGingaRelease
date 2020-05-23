@@ -7,11 +7,16 @@ namespace Kubika.Game
     public class ElevatorCube : _CubeScanner
     {
         // Start is called before the first frame update
+
+        public bool isGreen;
+
         public override  void Start()
         {
             myCubeType = CubeTypes.ElevatorCube;
             myCubeLayer = CubeLayers.cubeFull;
             dynamicEnum = DynamicEnums.Elevator;
+
+            ScannerSet();
 
             //call base.start AFTER assigning the cube's layers
             base.Start();
@@ -24,6 +29,17 @@ namespace Kubika.Game
         public override void Update()
         {
             base.Update();
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+                ScannerSet();
+            }
+        }
+
+        void ScannerSet()
+        {
+            baseCubeRotation = _DirectionCustom.ScannerSet(Vector3Int.up, transform);
+            _DirectionCustom.LocalScanner(baseCubeRotation);
+            Debug.LogError("_baseCubeRotation_ | " + baseCubeRotation);
         }
     }
 }

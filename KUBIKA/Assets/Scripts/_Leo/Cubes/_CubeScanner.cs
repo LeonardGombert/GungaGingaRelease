@@ -8,6 +8,7 @@ namespace Kubika.Game
     public class _CubeScanner : _CubeBase
     {
         public int[] indexesToCheck = new int[6];
+        protected int baseCubeRotation = 0;
 
         // Start is called before the first frame update
         public override void Start()
