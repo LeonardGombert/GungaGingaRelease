@@ -4,6 +4,7 @@ using Kubika.Saving;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,6 +47,8 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Space(70);
 
         LaunchGame();
+
+        //TestLevel();
     }
 
     private void PlaceCubes()
@@ -132,8 +135,48 @@ public class LevelEditorWindow : EditorWindow
     {
         if (GUI.Button(new Rect(0, 300, position.width, 45), "Launch Game"))
         {
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-            SceneManager.LoadSceneAsync((int)ScenesIndex.MANAGER, LoadSceneMode.Additive);
+            if(SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex((int)ScenesIndex.MANAGER))
+            {
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+                SceneManager.LoadSceneAsync((int)ScenesIndex.MANAGER, LoadSceneMode.Additive);
+            }
         }
     }
+    private void TestLevel()
+    {
+        if (GUI.Button(new Rect(0, 350, position.width, 45), "Test Level"))
+        {
+            levelName = SaveAndLoad.instance.currentOpenLevelName;
+            lockRotate = SaveAndLoad.instance.currentLevelLockRotate;
+            miminumMoves = SaveAndLoad.instance.currentMinimumMoves;
+
+            //SaveAndLoad.instance.DevSavingLevel(levelName, lockRotate, miminumMoves);
+
+            string folder = Application.dataPath + "/Resources/MainLevels";
+
+            string levelFile = "NO" + ".json";
+
+            string path = Path.Combine(folder, levelFile);
+
+            if (File.Exists(path))
+            {
+                // Load object
+                UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
+                // Select the object in the project folder
+                Selection.activeObject = obj;
+                // Also flash the folder yellow to highlight it
+                EditorGUIUtility.PingObject(obj);
+                
+                Debug.Log("Assining");
+                LevelsManager.instance.testLevel = (TextAsset)AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset));
+            }
+
+            //AsyncOperation asynchOp = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            //while (!asynchOp.isDone) return;
+
+            //SceneManager.LoadSceneAsync((int)ScenesIndex.MANAGER, LoadSceneMode.Additive);
+        }
+    }
+
 }

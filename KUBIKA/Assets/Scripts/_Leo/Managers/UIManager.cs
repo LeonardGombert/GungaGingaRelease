@@ -184,8 +184,6 @@ namespace Kubika.Game
 
         public void ButtonCallback(string button)
         {
-            Debug.Log("Checking");
-
             switch (button)
             {
                 #region //GAME INPUTS

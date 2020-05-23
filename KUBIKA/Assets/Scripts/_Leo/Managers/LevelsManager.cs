@@ -36,6 +36,8 @@ namespace Kubika.Game
         [FoldoutGroup("Level Editor ")] public List<LevelFile> playerLevelsInfo = new List<LevelFile>();
         #endregion
 
+        public TextAsset testLevel;
+
         public TextAsset _levelFile;
         public string _levelName;
         public int _minimumMoves;

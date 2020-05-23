@@ -393,7 +393,7 @@ PrefabInstance:
     - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}
       propertyPath: biome1.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}
@@ -414,7 +414,17 @@ PrefabInstance:
         type: 3}
       propertyPath: biome1.Array.data[0]
       value: 
-      objectReference: {fileID: 4900000, guid: 5f21fae9a7488a544a9cd40f4cbd801a, type: 3}
+      objectReference: {fileID: 4900000, guid: 27c4cfe8d6afc85439f0a4f01ae79b84, type: 3}
+    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
+        type: 3}
+      propertyPath: biome1.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: 4d4bf579672b952439a7464d4fdee28e, type: 3}
+    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
+        type: 3}
+      propertyPath: biome1.Array.data[2]
+      value: 
+      objectReference: {fileID: 4900000, guid: 0599bc08b5103bf49a060761e4ac4177, type: 3}
     - target: {fileID: 5858080383342632990, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}
       propertyPath: m_Name
