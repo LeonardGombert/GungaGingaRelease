@@ -56,6 +56,9 @@ namespace Kubika.Game
         //Level Editor
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelEditorCanvas;
 
+
+        [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelPassedCanvas;
+
         public Dropdown playerLevelsDropdown;
         public InputField saveLevelName;
 
@@ -127,6 +130,7 @@ namespace Kubika.Game
             gameCanvas.sortingOrder = 0;
             winCanvas.sortingOrder = 0;
             levelEditorCanvas.sortingOrder = 0;
+            levelPassedCanvas.sortingOrder = 0;
         }
 
         void TurnOffAllCanvases()
@@ -139,6 +143,7 @@ namespace Kubika.Game
             levelEditorCanvas.enabled = false;
             hamburgerMenuCanvas.enabled = false;
             hamburgerMenuCanvas2.enabled = false;
+            levelPassedCanvas.enabled = false;
         }
 
         private void WorldMapPriority()
@@ -165,8 +170,11 @@ namespace Kubika.Game
             ResetCanvasSortOrder();
             gameCanvas.enabled = true;
 
+            levelPassedCanvas.sortingOrder = 1010;
+
             if (hamburgerMenuCanvas != null) hamburgerMenuCanvas.enabled = true;
             if (hamburgerMenuCanvas2 != null) hamburgerMenuCanvas2.enabled = true;
+            if (levelPassedCanvas != null) levelPassedCanvas.enabled = false;
 
             hiddenMenuButtons.SetActive(false);
             gameCanvas.sortingOrder = 1000;
@@ -272,9 +280,17 @@ namespace Kubika.Game
             leftRotate.sprite = leftRotateOff;
         }
 
+        //opens next levell window
         public void OpenWinLevelWindow()
         {
+            levelPassedCanvas.enabled = true;
+        }
 
+        //called on button press
+        public void NextLevel()
+        {
+            levelPassedCanvas.enabled = false;
+            LevelsManager.instance._LoadNextLevel();
         }
 
         IEnumerator DimGame()

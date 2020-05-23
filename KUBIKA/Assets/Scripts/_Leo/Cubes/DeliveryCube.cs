@@ -19,25 +19,15 @@ namespace Kubika.Game
             base.Start();
 
             isStatic = true;
-            ScannerSet();
+            _DataManager.instance.EndFalling.AddListener(CheckForVictory);
+            _DataManager.instance.EndFalling.AddListener(ScannerSet);
         }
 
         // Update is called once per frame
         public override void Update()
         {
             base.Update();
-
-            // ONLY CALL THIS WHEN CUBES HAVE FINISHED MOVING
-            CheckForVictory();
-            ScannerSet();
         }
-
-        /*public override void ScannerSet()
-        {
-            baseCubeRotation = _DirectionCustom.ScannerSet(Vector3Int.up, transform);
-            _DirectionCustom.LocalScanner(baseCubeRotation);
-            Debug.LogError("_baseCubeRotation_ | " + baseCubeRotation);
-        }*/
 
         private void CheckForVictory()
         {

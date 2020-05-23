@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kubika.CustomLevelEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,11 +37,18 @@ namespace Kubika.Game
         // Call when a new level is loaded
         public void CheckVictoryCubes()
         {
-            victoryCubes = FindObjectsOfType<BaseVictoryCube>();
+            currentVictoryPoints = 0;
+            levelVictoryPoints = 0;
 
-            foreach (var item in victoryCubes)
+            for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
-                levelVictoryPoints++;
+                if (_Grid.instance.kuboGrid[i].cubeType >= CubeTypes.BaseVictoryCube &&
+                    _Grid.instance.kuboGrid[i].cubeType <= CubeTypes.SwitchVictoryCube)
+
+                {
+                    Debug.Log(i);
+                    levelVictoryPoints++;
+                }
             }
         }
 
@@ -58,7 +66,7 @@ namespace Kubika.Game
 
         private void VictoryConditionStatus()
         {
-            if(currentVictoryPoints == levelVictoryPoints)
+            if (currentVictoryPoints == levelVictoryPoints)
             {
                 StartCoroutine(WinCountdown());
             }

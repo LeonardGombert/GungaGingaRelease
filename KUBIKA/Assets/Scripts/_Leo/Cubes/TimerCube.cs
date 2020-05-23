@@ -25,13 +25,13 @@ namespace Kubika.Game
             isStatic = true;
 
             SetScanDirections();
+            _DataManager.instance.EndFalling.AddListener(CubeListener);
         }
 
         // Update is called once per frame
         public override void Update()
         {
-            //call this when all cubes have finished moving
-            CubeListener();
+            base.Update();
         }
 
         private void CubeListener()
