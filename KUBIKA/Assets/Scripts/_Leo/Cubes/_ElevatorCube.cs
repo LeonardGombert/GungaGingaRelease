@@ -10,7 +10,7 @@ namespace Kubika.Game
         public override  void Start()
         {
             myCubeType = CubeTypes.ElevatorCube;
-            myCubeLayer = CubeLayers.cubeMoveable;
+            myCubeLayer = CubeLayers.cubeFull;
             dynamicEnum = DynamicEnums.Elevator;
 
             //call base.start AFTER assigning the cube's layers

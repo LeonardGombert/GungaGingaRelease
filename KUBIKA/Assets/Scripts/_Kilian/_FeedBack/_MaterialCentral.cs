@@ -191,7 +191,11 @@ namespace Kubika.Game
 
         private void Start()
         {
+            MaterialSet();
+        }
 
+        public void MaterialSet()
+        {
             allCube = FindObjectsOfType<CubeBase>();
 
             ResetDynamicPacks(dynamicIndex);
