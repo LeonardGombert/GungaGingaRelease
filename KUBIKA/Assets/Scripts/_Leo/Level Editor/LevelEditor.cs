@@ -424,12 +424,12 @@ namespace Kubika.CustomLevelEditor
                     concreteCube.isStatic = true;
                     break;
 
-                case CubeTypes.MineCube:
+                case CubeTypes.BombCube:
                     newCube.AddComponent(typeof(BombCube));
                     BombCube mineCube = newCube.GetComponent<BombCube>();
 
                     mineCube.myIndex = GetCubeIndex();
-                    SetCubeType(mineCube.myIndex, CubeTypes.MineCube);
+                    SetCubeType(mineCube.myIndex, CubeTypes.BombCube);
                     mineCube.isStatic = true;
                     break;
 

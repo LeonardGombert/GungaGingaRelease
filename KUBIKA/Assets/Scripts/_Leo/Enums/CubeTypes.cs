@@ -20,7 +20,7 @@
 
     ElevatorCube, //moveable layer
     ConcreteCube, //moveable layer
-    MineCube, //moveable layer
+    BombCube, //moveable layer
     TimerCube, //moveable layer
     SwitchCube, //moveable & full layer
 
