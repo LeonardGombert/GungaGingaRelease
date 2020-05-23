@@ -255,6 +255,7 @@ namespace Kubika.Game
             grid.kuboGrid[indexTargetNode - 1].cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
             grid.kuboGrid[indexTargetNode - 1].cubeLayers = CubeLayers.cubeMoveable;
+            grid.kuboGrid[indexTargetNode - 1].cubeType = myCubeType;
 
             xCoordLocal = grid.kuboGrid[indexTargetNode - 1].xCoord;
             yCoordLocal = grid.kuboGrid[indexTargetNode - 1].yCoord;
@@ -308,6 +309,7 @@ namespace Kubika.Game
 
             grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
             grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
 
             basePos = transform.position;
             currentTime = 0;
@@ -330,6 +332,7 @@ namespace Kubika.Game
             nextNode.cubeOnPosition = gameObject;
             //set updated index to cubeMoveable
             nextNode.cubeLayers = CubeLayers.cubeMoveable;
+            nextNode.cubeType = myCubeType;
 
             //Debug.Log(" nextNode.nodeIndex-2 = " + nextNode.nodeIndex + " ||nextNode.cubeLayers " + nextNode.cubeLayers);
 
@@ -354,6 +357,7 @@ namespace Kubika.Game
 
             grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
             grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
 
             basePos = transform.position;
             currentTime = 0;

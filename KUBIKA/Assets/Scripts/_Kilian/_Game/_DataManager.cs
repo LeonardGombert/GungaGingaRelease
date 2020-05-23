@@ -235,6 +235,7 @@ namespace Kubika.Game
             {
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = CubeTypes.None;
                 //Debug.Log("DEELTE ALL = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers + " || Index = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex);
             }
 
@@ -249,6 +250,7 @@ namespace Kubika.Game
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = cBase.myCubeType;
 
                         }
                     }
@@ -263,6 +265,7 @@ namespace Kubika.Game
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = cBase.myCubeType;
                             //Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
 
                         }
@@ -283,6 +286,7 @@ namespace Kubika.Game
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = cBase.myCubeType;
                             //Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
 
 
