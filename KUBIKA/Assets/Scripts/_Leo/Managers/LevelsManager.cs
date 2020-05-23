@@ -18,7 +18,7 @@ namespace Kubika.Game
 
         #region MAIN LEVELS
         [FoldoutGroup("Biomes")] public List<LevelFile> masterList = new List<LevelFile>();
-        [FoldoutGroup("Biomes")] [ShowInInspector] Queue<LevelFile> levelQueue = new Queue<LevelFile>();  
+        [FoldoutGroup("Biomes")] [ShowInInspector] Queue<LevelFile> levelQueue = new Queue<LevelFile>();
 
         List<List<TextAsset>> listOfLists = new List<List<TextAsset>>();
 
@@ -126,11 +126,11 @@ namespace Kubika.Game
         {
             GetNextLevelInfo();
             StartCoroutine(LoadLevel());
-            
+
             DequeueLevel();
 
             _DataManager.instance.GameSet();
-           _MaterialCentral.instance.MaterialSet();
+            _MaterialCentral.instance.MaterialSet();
         }
 
         // Load the next level (extract the file)
@@ -142,10 +142,12 @@ namespace Kubika.Game
             else UIManager.instance.TurnOnRotate();
 
             string json = _levelFile.ToString();
-            
+
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
-            
-            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData); 
+
+            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
+
+            VictoryConditionManager.instance.CheckVictoryCubes();
 
             yield return null;
         }

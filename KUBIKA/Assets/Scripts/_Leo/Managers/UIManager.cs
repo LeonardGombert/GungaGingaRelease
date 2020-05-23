@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 namespace Kubika.Game
 {
@@ -269,6 +270,11 @@ namespace Kubika.Game
         {
             rightRotate.sprite = rightRotateOff;
             leftRotate.sprite = leftRotateOff;
+        }
+
+        public void OpenWinLevelWindow()
+        {
+
         }
 
         IEnumerator DimGame()

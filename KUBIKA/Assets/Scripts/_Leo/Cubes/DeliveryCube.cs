@@ -32,35 +32,31 @@ namespace Kubika.Game
             ScannerSet();
         }
 
-        void ScannerSet()
+        /*public override void ScannerSet()
         {
             baseCubeRotation = _DirectionCustom.ScannerSet(Vector3Int.up, transform);
             _DirectionCustom.LocalScanner(baseCubeRotation);
             Debug.LogError("_baseCubeRotation_ | " + baseCubeRotation);
-        }
+        }*/
 
         private void CheckForVictory()
         {
-            for (int i = (int)CubeTypes.BaseVictoryCube; i <= (int)CubeTypes.BombVictoryCube; i++)
+            //touchingVictory = ProximityChecker(_DirectionCustom.fixedUp, CubeTypes.BaseVictory, CubeLayers.None);
+            touchingVictory = VictoryChecker(_DirectionCustom.fixedUp);
+
+            Debug.DrawRay(transform.position, Vector3.up, Color.green);
+
+            if (touchingVictory && locked == false)
             {
-                //touchingVictory = ProximityChecker(_DirectionCustom.fixedUp, CubeTypes.BaseVictory, CubeLayers.None);
-                touchingVictory = VictoryChecker(_DirectionCustom.fixedUp);
+                locked = true;
+                VictoryConditionManager.instance.IncrementVictory();
+            }
 
-                Debug.DrawRay(transform.position, Vector3.up, Color.green);
-
-                if (touchingVictory && locked == false)
-                {
-                    locked = true;
-                    VictoryConditionManager.instance.IncrementVictory();
-                }
-
-                // flip the bools when the delivery cube loses track of the victory cube
-                if (touchingVictory == false && locked == true)
-                {
-                    locked = false;
-                    VictoryConditionManager.instance.DecrementVictory();
-                }
-
+            // flip the bools when the delivery cube loses track of the victory cube
+            if (touchingVictory == false && locked == true)
+            {
+                locked = false;
+                VictoryConditionManager.instance.DecrementVictory();
             }
         }
     }

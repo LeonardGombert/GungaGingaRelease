@@ -24,6 +24,7 @@ namespace Kubika.CustomLevelEditor
 
         public CubeTypes currentCube;
         public StaticEnums staticViz;
+        public FacingDirection facingDirection;
 
         List<RaycastHit> placeHits = new List<RaycastHit>();
         List<RaycastHit> deleteHits = new List<RaycastHit>();
@@ -84,7 +85,7 @@ namespace Kubika.CustomLevelEditor
 
             switch (received)
             {
-                case "isPlacing" :
+                case "isPlacing":
                     isPlacing = true;
                     break;
 
@@ -169,12 +170,12 @@ namespace Kubika.CustomLevelEditor
                 {
                     GetUserPlatform();
                     Camera.main.ScreenPointToRay(userInputPosition);
-                    RotateCube(hit, userInputPosition);
                 }
 
                 // one release, set the rotation
                 if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
+                    RotateCube(hit, userInputPosition);
                     SetCubeRotation(hit.collider.gameObject);
                     hitIndex = 0;
                 }
@@ -234,7 +235,7 @@ namespace Kubika.CustomLevelEditor
         {
             Quaternion newRotation;
 
-            if (hitIndex != 0 && hit.collider.gameObject != null)
+            /*if (hitIndex != 0 && hit.collider.gameObject != null)
             {
                 int rotationX = (int)CustomScaler.Scale((int)userInputPosition.x, 0, Camera.main.pixelWidth, -360, 360);
                 rotationX = rotationX / 10;
@@ -259,12 +260,28 @@ namespace Kubika.CustomLevelEditor
                     Vector3 rotationVector = new Vector3(hit.collider.gameObject.transform.rotation.y,
                         rotationY * 10,
                         hit.collider.gameObject.transform.rotation.z);
-
+                    
                     newRotation = Quaternion.Euler(rotationVector);
 
                     Debug.Log(rotationVector);
                     hit.collider.gameObject.transform.rotation = newRotation;
                 }
+            }*/
+
+
+            if (hitIndex != 0 && hit.collider.gameObject != null)
+            {
+                _CubeBase hitCube = hit.collider.gameObject.GetComponent<_CubeBase>();
+
+                if (hitCube.facingDirection < FacingDirection.left) hitCube.facingDirection++;
+                else hitCube.facingDirection = FacingDirection.up;
+
+                Vector3 rotationVector = CubeFacingDirection.CubeFacing(hitCube.facingDirection);
+
+                newRotation = Quaternion.Euler(rotationVector);
+                hit.collider.gameObject.transform.rotation = newRotation;
+
+                hitCube.SetCubeInfoInMatrix();
             }
         }
 
