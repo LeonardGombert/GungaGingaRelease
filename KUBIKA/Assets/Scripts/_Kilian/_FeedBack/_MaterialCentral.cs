@@ -12,7 +12,7 @@ namespace Kubika.Game
 
         [Space]
         [Header("ALL CUBES")]
-        CubeBase[] allCube;
+        _CubeBase[] allCube;
 
         [Space]
         public _StaticPack[] staticPack;
@@ -196,14 +196,14 @@ namespace Kubika.Game
 
         public void MaterialSet()
         {
-            allCube = FindObjectsOfType<CubeBase>();
+            allCube = FindObjectsOfType<_CubeBase>();
 
             ResetDynamicPacks(dynamicIndex);
             ResetStaticPacks(staticIndex);
             ResetEmotePacks(emoteIndex);
             ResetFxPacks(fxIndex);
 
-            foreach (CubeBase cube in allCube)
+            foreach (_CubeBase cube in allCube)
             {
                 cube.SetScriptablePreset();
             }
@@ -401,14 +401,14 @@ namespace Kubika.Game
 
         public void ChangeUniverseRight()
         {
-            allCube = FindObjectsOfType<CubeBase>(); // TODO DEGEU
+            allCube = FindObjectsOfType<_CubeBase>(); // TODO DEGEU
             Debug.Log("RIGHT UNIVERS");
             if(staticIndex < staticPack.Length)
             {
                 Debug.Log("Index = " + staticIndex);
                 staticIndex += 1;
                 ResetStaticPacks(staticIndex);
-                foreach (CubeBase cube in allCube)
+                foreach (_CubeBase cube in allCube)
                 {
                     cube.SetScriptablePreset();
                 }
@@ -417,14 +417,14 @@ namespace Kubika.Game
 
         public void ChangeUniverseLeft()
         {
-            allCube = FindObjectsOfType<CubeBase>();
+            allCube = FindObjectsOfType<_CubeBase>();
             Debug.Log("LEFT UNIVERS");
             if (staticIndex > 0)
             {
                 Debug.Log("Index = " + staticIndex);
                 staticIndex -= 1;
                 ResetStaticPacks(staticIndex);
-                foreach (CubeBase cube in allCube)
+                foreach (_CubeBase cube in allCube)
                 {
                     cube.SetScriptablePreset();
                 }

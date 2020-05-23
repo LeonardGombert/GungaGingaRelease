@@ -80,7 +80,7 @@ MonoBehaviour:
   Rotators_Contrast: 1
   Rotators_Saturation: 1
   Rotators_Brightness: 0
-  _BombTex: {fileID: 0}
+  _BombTex: {fileID: 2800000, guid: 3dbe77a7be2bc304cb8e7230cfbdcbd3, type: 3}
   _BombMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _BombColor: {r: 1, g: 1, b: 1, a: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   Ball_Contrast: 1
   Ball_Saturation: 1
   Ball_Brightness: 0
-  _PastilleTex: {fileID: 0}
+  _PastilleTex: {fileID: 2800000, guid: 5bbf292c6fa28d14485504176c1df930, type: 3}
   _PastilleMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _PastilleColor: {r: 1, g: 1, b: 1, a: 0}

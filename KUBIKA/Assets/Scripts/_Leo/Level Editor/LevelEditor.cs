@@ -1,4 +1,5 @@
-﻿using Kubika.Game;
+﻿using Kubika.Gam;
+using Kubika.Game;
 using Kubika.Saving;
 using System;
 using System.Collections;
@@ -184,13 +185,13 @@ namespace Kubika.CustomLevelEditor
         {
             intialUserPos = userInputPosition;
             //get the index of the cube you just hit
-            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<_CubeBase>().myIndex;
         }
 
         private void PlaceCube(RaycastHit hit)
         {
             //get the index of the cube you just hit
-            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<_CubeBase>().myIndex;
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);
@@ -211,7 +212,7 @@ namespace Kubika.CustomLevelEditor
         private void DeleteCube(RaycastHit hit)
         {
             //get the index of the cube you just hit
-            hitIndex = hit.collider.gameObject.GetComponent<CubeBase>().myIndex;
+            hitIndex = hit.collider.gameObject.GetComponent<_CubeBase>().myIndex;
 
             moveWeight = 0; //why is this here ? 
 
@@ -337,9 +338,9 @@ namespace Kubika.CustomLevelEditor
             switch (currentCube)
             {
                 case CubeTypes.StaticCube:
-                    newCube.AddComponent(typeof(_StaticCube));
+                    newCube.AddComponent(typeof(StaticCube));
 
-                    _StaticCube staticCube = newCube.GetComponent<_StaticCube>();
+                    StaticCube staticCube = newCube.GetComponent<StaticCube>();
                     staticCube.myIndex = GetCubeIndex();
                     SetCubeType(staticCube.myIndex, CubeTypes.StaticCube);
                     staticCube.isStatic = true;
@@ -348,27 +349,57 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.MoveableCube:
-                    newCube.AddComponent(typeof(_MoveableCube));
-                    _MoveableCube moveableCube = newCube.GetComponent<_MoveableCube>();
+                    newCube.AddComponent(typeof(MoveableCube));
+                    MoveableCube moveableCube = newCube.GetComponent<MoveableCube>();
 
                     moveableCube.myIndex = GetCubeIndex();
                     SetCubeType(moveableCube.myIndex, CubeTypes.MoveableCube);
                     moveableCube.isStatic = false;
                     break;
 
-                case CubeTypes.VictoryCube:
-                    newCube.AddComponent(typeof(_VictoryCube));
-                    _VictoryCube victoryCube = newCube.GetComponent<_VictoryCube>();
+                case CubeTypes.BaseVictoryCube:
+                    newCube.AddComponent(typeof(BaseVictoryCube));
+                    BaseVictoryCube victoryCube = newCube.GetComponent<BaseVictoryCube>();
 
                     victoryCube.myIndex = GetCubeIndex();
-                    SetCubeType(victoryCube.myIndex, CubeTypes.VictoryCube);
+                    SetCubeType(victoryCube.myIndex, CubeTypes.BaseVictoryCube);
 
                     victoryCube.isStatic = false;
                     break;
 
+                case CubeTypes.ConcreteVictoryCube:
+                    newCube.AddComponent(typeof(ConcreteVictoryCube));
+                    ConcreteVictoryCube concreteVictoryCube = newCube.GetComponent<ConcreteVictoryCube>();
+
+                    concreteVictoryCube.myIndex = GetCubeIndex();
+                    SetCubeType(concreteVictoryCube.myIndex, CubeTypes.ConcreteVictoryCube);
+
+                    concreteVictoryCube.isStatic = false;
+                    break;
+
+                case CubeTypes.BombVictoryCube:
+                    newCube.AddComponent(typeof(BombVictoryCube));
+                    BombVictoryCube bombVictoryCube = newCube.GetComponent<BombVictoryCube>();
+
+                    bombVictoryCube.myIndex = GetCubeIndex();
+                    SetCubeType(bombVictoryCube.myIndex, CubeTypes.BombVictoryCube);
+
+                    bombVictoryCube.isStatic = false;
+                    break;
+
+                case CubeTypes.SwitchVictoryCube:
+                    newCube.AddComponent(typeof(SwitchVictoryCube));
+                    SwitchVictoryCube switchVictoryCube = newCube.GetComponent<SwitchVictoryCube>();
+
+                    switchVictoryCube.myIndex = GetCubeIndex();
+                    SetCubeType(switchVictoryCube.myIndex, CubeTypes.SwitchVictoryCube);
+
+                    switchVictoryCube.isStatic = false;
+                    break;
+
                 case CubeTypes.DeliveryCube:
-                    newCube.AddComponent(typeof(_DeliveryCube));
-                    _DeliveryCube deliveryCube = newCube.GetComponent<_DeliveryCube>();
+                    newCube.AddComponent(typeof(DeliveryCube));
+                    DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
 
                     deliveryCube.myIndex = GetCubeIndex();
                     SetCubeType(deliveryCube.myIndex, CubeTypes.DeliveryCube);
@@ -376,8 +407,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.ElevatorCube:
-                    newCube.AddComponent(typeof(_ElevatorCube));
-                    _ElevatorCube elevatorCube = newCube.GetComponent<_ElevatorCube>();
+                    newCube.AddComponent(typeof(ElevatorCube));
+                    ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
 
                     elevatorCube.myIndex = GetCubeIndex();
                     SetCubeType(elevatorCube.myIndex, CubeTypes.ElevatorCube);
@@ -385,8 +416,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.ConcreteCube:
-                    newCube.AddComponent(typeof(_ConcreteCube));
-                    _ConcreteCube concreteCube = newCube.GetComponent<_ConcreteCube>();
+                    newCube.AddComponent(typeof(ConcreteCube));
+                    ConcreteCube concreteCube = newCube.GetComponent<ConcreteCube>();
 
                     concreteCube.myIndex = GetCubeIndex();
                     SetCubeType(concreteCube.myIndex, CubeTypes.ConcreteCube);
@@ -394,8 +425,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.MineCube:
-                    newCube.AddComponent(typeof(_MineCube));
-                    _MineCube mineCube = newCube.GetComponent<_MineCube>();
+                    newCube.AddComponent(typeof(BombCube));
+                    BombCube mineCube = newCube.GetComponent<BombCube>();
 
                     mineCube.myIndex = GetCubeIndex();
                     SetCubeType(mineCube.myIndex, CubeTypes.MineCube);
@@ -403,8 +434,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.TimerCube:
-                    newCube.AddComponent(typeof(_TimerCube));
-                    _TimerCube timerCube = newCube.GetComponent<_TimerCube>();
+                    newCube.AddComponent(typeof(TimerCube));
+                    TimerCube timerCube = newCube.GetComponent<TimerCube>();
 
                     timerCube.myIndex = GetCubeIndex();
                     SetCubeType(timerCube.myIndex, CubeTypes.TimerCube);
@@ -412,8 +443,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.SwitchCube:
-                    newCube.AddComponent(typeof(_SwitchCube));
-                    _SwitchCube switchCube = newCube.GetComponent<_SwitchCube>();
+                    newCube.AddComponent(typeof(SwitchCube));
+                    SwitchCube switchCube = newCube.GetComponent<SwitchCube>();
 
                     switchCube.myIndex = GetCubeIndex();
                     SetCubeType(switchCube.myIndex, CubeTypes.SwitchCube);
@@ -422,8 +453,8 @@ namespace Kubika.CustomLevelEditor
 
                 case CubeTypes.SwitchButton:
                     placingButton = false;
-                    newCube.AddComponent(typeof(_SwitchButton));
-                    _SwitchButton switchButton = newCube.GetComponent<_SwitchButton>();
+                    newCube.AddComponent(typeof(SwitchButton));
+                    SwitchButton switchButton = newCube.GetComponent<SwitchButton>();
 
                     switchButton.myIndex = GetCubeIndex();
                     SetCubeType(switchButton.myIndex, CubeTypes.SwitchButton);
@@ -431,8 +462,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.RotatorLeftTurner:
-                    newCube.AddComponent(typeof(_RotateLeftCube));
-                    _RotateLeftCube rotateLeftCube = newCube.GetComponent<_RotateLeftCube>();
+                    newCube.AddComponent(typeof(RotateLeftCube));
+                    RotateLeftCube rotateLeftCube = newCube.GetComponent<RotateLeftCube>();
 
                     rotateLeftCube.myIndex = GetCubeIndex();
                     SetCubeType(rotateLeftCube.myIndex, CubeTypes.RotatorLeftTurner);
@@ -440,8 +471,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.RotatorRightTurner:
-                    newCube.AddComponent(typeof(_RotateRightCube));
-                    _RotateRightCube rotateRightCube = newCube.GetComponent<_RotateRightCube>();
+                    newCube.AddComponent(typeof(RotateRightCube));
+                    RotateRightCube rotateRightCube = newCube.GetComponent<RotateRightCube>();
 
                     rotateRightCube.myIndex = GetCubeIndex();
                     SetCubeType(rotateRightCube.myIndex, CubeTypes.RotatorRightTurner);
@@ -449,8 +480,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.RotatorLocker:
-                    newCube.AddComponent(typeof(_RotatorLocker));
-                    _RotatorLocker rotatorLocker = newCube.GetComponent<_RotatorLocker>();
+                    newCube.AddComponent(typeof(RotatorLocker));
+                    RotatorLocker rotatorLocker = newCube.GetComponent<RotatorLocker>();
 
                     rotatorLocker.myIndex = GetCubeIndex();
                     SetCubeType(rotatorLocker.myIndex, CubeTypes.RotatorLocker);
@@ -458,8 +489,8 @@ namespace Kubika.CustomLevelEditor
                     break;
 
                 case CubeTypes.ChaosBall:
-                    newCube.AddComponent(typeof(_ChaosBall));
-                    _ChaosBall chaosBall = newCube.GetComponent<_ChaosBall>();
+                    newCube.AddComponent(typeof(ChaosBall));
+                    ChaosBall chaosBall = newCube.GetComponent<ChaosBall>();
 
                     chaosBall.myIndex = GetCubeIndex();
                     SetCubeType(chaosBall.myIndex, CubeTypes.ChaosBall);

@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+using Kubika.Gam;
 
 namespace Kubika.Saving
 {
@@ -210,8 +211,8 @@ namespace Kubika.Saving
                 switch (recoveredNode.cubeType)
                 {
                     case CubeTypes.StaticCube:
-                        newCube.AddComponent(typeof(_StaticCube));
-                        _StaticCube staticCube = newCube.GetComponent<_StaticCube>();
+                        newCube.AddComponent(typeof(StaticCube));
+                        StaticCube staticCube = newCube.GetComponent<StaticCube>();
 
                         //set the cube's index so that you can assign its other variables (position, leyer, type, etc.)
                         staticCube.myIndex = recoveredNode.nodeIndex;
@@ -224,8 +225,8 @@ namespace Kubika.Saving
                         break;
 
                     case CubeTypes.MoveableCube:
-                        newCube.AddComponent(typeof(_MoveableCube));
-                        _MoveableCube moveableCube = newCube.GetComponent<_MoveableCube>();
+                        newCube.AddComponent(typeof(MoveableCube));
+                        MoveableCube moveableCube = newCube.GetComponent<MoveableCube>();
 
                         moveableCube.myIndex = recoveredNode.nodeIndex;
 
@@ -234,20 +235,53 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[moveableCube.myIndex - 1].cubeType = CubeTypes.MoveableCube;
                         break;
 
-                    case CubeTypes.VictoryCube:
-                        newCube.AddComponent(typeof(_VictoryCube));
-                        _VictoryCube victoryCube = newCube.GetComponent<_VictoryCube>();
+                    case CubeTypes.BaseVictoryCube:
+                        newCube.AddComponent(typeof(BaseVictoryCube));
+                        BaseVictoryCube victoryCube = newCube.GetComponent<BaseVictoryCube>();
 
                         victoryCube.myIndex = recoveredNode.nodeIndex;
 
                         _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeOnPosition = newCube;
                         _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
-                        _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeType = CubeTypes.VictoryCube;
+                        _Grid.instance.kuboGrid[victoryCube.myIndex - 1].cubeType = CubeTypes.BaseVictoryCube;
+                        break;
+
+                    case CubeTypes.ConcreteVictoryCube:
+                        newCube.AddComponent(typeof(ConcreteVictoryCube));
+                        ConcreteVictoryCube concreteVictoryCube = newCube.GetComponent<ConcreteVictoryCube>();
+
+                        concreteVictoryCube.myIndex = recoveredNode.nodeIndex;
+
+                        _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                        _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].cubeType = CubeTypes.ConcreteVictoryCube;
+                        break;
+
+                    case CubeTypes.BombVictoryCube:
+                        newCube.AddComponent(typeof(BombVictoryCube));
+                        BombVictoryCube bombVictoryCube = newCube.GetComponent<BombVictoryCube>();
+
+                        bombVictoryCube.myIndex = recoveredNode.nodeIndex;
+
+                        _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                        _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].cubeType = CubeTypes.BombVictoryCube;
+                        break;
+
+                    case CubeTypes.SwitchVictoryCube:
+                        newCube.AddComponent(typeof(SwitchVictoryCube));
+                        SwitchVictoryCube switchVictoryCube = newCube.GetComponent<SwitchVictoryCube>();
+
+                        switchVictoryCube.myIndex = recoveredNode.nodeIndex;
+
+                        _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].cubeOnPosition = newCube;
+                        _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].cubeLayers = CubeLayers.cubeMoveable;
+                        _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].cubeType = CubeTypes.SwitchVictoryCube;
                         break;
 
                     case CubeTypes.DeliveryCube:
-                        newCube.AddComponent(typeof(_DeliveryCube));
-                        _DeliveryCube deliveryCube = newCube.GetComponent<_DeliveryCube>();
+                        newCube.AddComponent(typeof(DeliveryCube));
+                        DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
 
                         deliveryCube.myIndex = recoveredNode.nodeIndex;
 

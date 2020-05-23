@@ -4,16 +4,16 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(CubeMove))]
+[CustomEditor(typeof(_CubeMove))]
 public class CubeMoveEditor : OdinEditor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        CubeMove cubeScript = (CubeMove)target;
+        _CubeMove cubeScript = (_CubeMove)target;
 
-        _VictoryCube timerCube = cubeScript.gameObject.GetComponent<_VictoryCube>();
+        BaseVictoryCube timerCube = cubeScript.gameObject.GetComponent<BaseVictoryCube>();
 
         if(timerCube != null)
         {

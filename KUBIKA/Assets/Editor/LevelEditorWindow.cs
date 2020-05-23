@@ -22,7 +22,7 @@ public class LevelEditorWindow : EditorWindow
     private int miminumMoves;
 
     string[] cubeTypes;
-    CubeTypes cubeTypes2;
+    CubeTypes cubeTypesLength;
 
     [MenuItem("Tools/Level Editor")]
     static void Init()
@@ -118,12 +118,12 @@ public class LevelEditorWindow : EditorWindow
 
     private void SelectCubeType()
     {
-        cubeTypes = new string[(int)CubeTypes.RotatorLeftTurner + 1];
+        cubeTypes = new string[(int)CubeTypes.ChaosBall + 1];
 
-        for (int i = 1; i <= (int)CubeTypes.RotatorLeftTurner; i++)
+        for (int i = 1; i <= (int)CubeTypes.ChaosBall; i++)
         {
-            cubeTypes2 = (CubeTypes)i;
-            cubeTypes[i] = cubeTypes2.ToString();
+            cubeTypesLength = (CubeTypes)i;
+            cubeTypes[i] = cubeTypesLength.ToString();
         }
 
         cubeTypeIndex = EditorGUI.Popup(new Rect(0, 40, position.width, 20), "Cube Type : ", cubeTypeIndex, cubeTypes);

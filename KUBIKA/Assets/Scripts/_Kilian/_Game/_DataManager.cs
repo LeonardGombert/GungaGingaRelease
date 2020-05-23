@@ -14,8 +14,8 @@ namespace Kubika.Game
         public static _DataManager instance { get { return _instance; } }
 
         // MOVEABLE CUBE
-        public  CubeMove[] moveCubeArray;
-        public List<CubeMove> moveCube = new List<CubeMove>();
+        public  _CubeMove[] moveCubeArray;
+        public List<_CubeMove> moveCube = new List<_CubeMove>();
 
         //UNITY EVENT
         public UnityEvent StartChecking;
@@ -34,13 +34,13 @@ namespace Kubika.Game
         [Space]
         [Header("INDEX BANK")]
         public _DataMatrixScriptable indexBankScriptable;
-        public CubeBase[] baseCubeArray;
-        public List<CubeBase> baseCube = new List<CubeBase>();
+        public _CubeBase[] baseCubeArray;
+        public List<_CubeBase> baseCube = new List<_CubeBase>();
 
         ///////////////INPUT
         Platform platform;
         public RaycastHit aimingHit;
-        CubeMove cubeMove;
+        _CubeMove cubeMove;
 
         //TOUCH INPUT
         [HideInInspector] public Touch touch;
@@ -72,15 +72,15 @@ namespace Kubika.Game
 
         public void GameSet()
         {
-            moveCubeArray = FindObjectsOfType<CubeMove>(); // TODO : DEGEULASSE
-            baseCubeArray = FindObjectsOfType<CubeBase>();
+            moveCubeArray = FindObjectsOfType<_CubeMove>(); // TODO : DEGEULASSE
+            baseCubeArray = FindObjectsOfType<_CubeBase>();
 
-            foreach(CubeMove cube in moveCubeArray)
+            foreach(_CubeMove cube in moveCubeArray)
             {
                 moveCube.Add(cube);
             }
 
-            foreach (CubeBase cube in baseCubeArray)
+            foreach (_CubeBase cube in baseCubeArray)
             {
                 baseCube.Add(cube);
             }
@@ -128,9 +128,9 @@ namespace Kubika.Game
 
                         if (Physics.Raycast(rayTouch, out aimingHit))
                         {
-                            if(aimingHit.collider.gameObject.GetComponent<CubeMove>() == true)
+                            if(aimingHit.collider.gameObject.GetComponent<_CubeMove>() == true)
                             {
-                                cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
+                                cubeMove = aimingHit.collider.gameObject.GetComponent<_CubeMove>();
 
                                 if (cubeMove.isSelectable == true)
                                 {
@@ -179,9 +179,9 @@ namespace Kubika.Game
 
                 if (Physics.Raycast(rayPC, out aimingHit))
                 {
-                    if (aimingHit.collider.gameObject.GetComponent<CubeMove>() == true)
+                    if (aimingHit.collider.gameObject.GetComponent<_CubeMove>() == true)
                     {
-                        cubeMove = aimingHit.collider.gameObject.GetComponent<CubeMove>();
+                        cubeMove = aimingHit.collider.gameObject.GetComponent<_CubeMove>();
 
                         if (cubeMove.isSelectable == true)
                         {
@@ -217,7 +217,7 @@ namespace Kubika.Game
         #region MAKE FALL
         public void MakeFall()
         {
-            foreach (CubeMove cubes in moveCube)
+            foreach (_CubeMove cubes in moveCube)
             {
                 cubes.CheckIfFalling();
             }
@@ -231,7 +231,7 @@ namespace Kubika.Game
         {
             Debug.LogError("RotSte " + rotationState);
 
-            foreach (CubeBase cBase in baseCube)
+            foreach (_CubeBase cBase in baseCube)
             {
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
@@ -244,7 +244,7 @@ namespace Kubika.Game
             {
                 case 0:
                     {
-                        foreach (CubeBase cBase in baseCube)
+                        foreach (_CubeBase cBase in baseCube)
                         {
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
@@ -257,7 +257,7 @@ namespace Kubika.Game
                     {
 
 
-                        foreach (CubeBase cBase in baseCube)
+                        foreach (_CubeBase cBase in baseCube)
                         {
                             //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node1 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
@@ -277,7 +277,7 @@ namespace Kubika.Game
                     {
 
 
-                        foreach (CubeBase cBase in baseCube)
+                        foreach (_CubeBase cBase in baseCube)
                         {
                             //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node2 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
@@ -354,7 +354,7 @@ namespace Kubika.Game
 
         //////////////////////
 
-        public bool AreCubesCheckingMove(CubeMove[] cubeMove)
+        public bool AreCubesCheckingMove(_CubeMove[] cubeMove)
         {
             for (int i = 0; i < cubeMove.Length; i++)
             {
@@ -367,7 +367,7 @@ namespace Kubika.Game
             return true;
         }
 
-        public bool AreCubesCheckingFall(CubeMove[] cubeMove)
+        public bool AreCubesCheckingFall(_CubeMove[] cubeMove)
         {
             for (int i = 0; i < cubeMove.Length; i++)
             {
@@ -381,7 +381,7 @@ namespace Kubika.Game
         }
 
 
-        public bool AreCubesEndingToMove(CubeMove[] cubeMove)
+        public bool AreCubesEndingToMove(_CubeMove[] cubeMove)
         {
             Debug.LogError("CUBE-MOVE-LENGTH  = " + cubeMove.Length);
 
@@ -400,7 +400,7 @@ namespace Kubika.Game
         }
 
 
-        public bool AreCubesEndingToFall(CubeMove[] cubeMove)
+        public bool AreCubesEndingToFall(_CubeMove[] cubeMove)
         {
             for (int i = 0; i < cubeMove.Length; i++)
             {

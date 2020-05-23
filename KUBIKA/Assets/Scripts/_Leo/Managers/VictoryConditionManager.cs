@@ -13,7 +13,7 @@ namespace Kubika.Game
         private int currentVictoryPoints;
         public int levelVictoryPoints;
 
-        _VictoryCube[] victoryCubes;
+        BaseVictoryCube[] victoryCubes;
 
         private void Awake()
         {
@@ -36,7 +36,7 @@ namespace Kubika.Game
         // Call when a new level is loaded
         void CheckVictoryCubes()
         {
-            victoryCubes = FindObjectsOfType<_VictoryCube>();
+            victoryCubes = FindObjectsOfType<BaseVictoryCube>();
 
             foreach (var item in victoryCubes)
             {
