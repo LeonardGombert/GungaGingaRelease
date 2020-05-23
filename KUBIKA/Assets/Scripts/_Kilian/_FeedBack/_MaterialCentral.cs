@@ -187,6 +187,11 @@ namespace Kubika.Game
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
 
+        }
+
+        private void Start()
+        {
+
             allCube = FindObjectsOfType<CubeBase>();
 
             ResetDynamicPacks(dynamicIndex);
@@ -194,10 +199,10 @@ namespace Kubika.Game
             ResetEmotePacks(emoteIndex);
             ResetFxPacks(fxIndex);
 
-           /* foreach (CubeBase cube in allCube)
+            foreach (CubeBase cube in allCube)
             {
                 cube.SetScriptablePreset();
-            }*/
+            }
         }
 
 

@@ -37,6 +37,12 @@ namespace Kubika.Game
         protected Vector3 BaseScroll;
         protected Vector3 CurrentScroll;
 
+        protected Vector2 BaseScrollScreen;
+        protected Vector2 CurrentScrollScreen;
+        protected float CurrentPositionSymbol;
+        float actualPosScroll;
+        float actualPosCam;
+
         public void ActivatePSFB()
         {
             PS.Play();
@@ -92,21 +98,35 @@ namespace Kubika.Game
                 distanceLimitCam = Vector3.Distance(LimitStart.position, LimitEnd.position);
                 distanceLimitScroll = Vector3.Distance(LimitStartScroll.position, LimitEndScroll.position);
 
-                Debug.Log(" CAM = " + (Vector3.Distance(LimitStartScroll.position, CurrentScroll) / distanceLimitScroll) * 100  +
-                " || Scroll2 = " + (Vector3.Distance(LimitStartScroll.position, BaseScroll) / distanceLimitScroll) +
-                " || Scroll3 = " + (Vector3.Distance(BaseScroll, CurrentScroll) / distanceLimitScroll) +
-                " || Scroll4 = " + (Vector3.Distance(LimitStartScroll.position, BaseScroll) / distanceLimitScroll - (Vector3.Distance(BaseScroll, CurrentScroll) / distanceLimitScroll)) +
-                " || Scroll = " + (Vector3.Distance(LimitStartScroll.position, CurrentScroll) / distanceLimitScroll));
+                BaseScrollScreen = _Planete.instance.MainCam.WorldToScreenPoint(BaseScroll);
+                CurrentScrollScreen = _Planete.instance.MainCam.WorldToScreenPoint(CurrentScroll);
 
-                float actualPos_TEEEEEEES = ((Vector3.Distance(LimitStartScroll.position, BaseScroll) / distanceLimitScroll) - (Vector3.Distance(BaseScroll, CurrentScroll) / distanceLimitScroll));
+                CurrentPositionSymbol = Mathf.Sign(CurrentScrollScreen.y - BaseScrollScreen.y);
+
+                actualPosCam = InverseLerp(LimitStart.position, LimitEnd.position, pivotVCam.transform.position);
+                actualPosScroll = (((actualPosCam - ((Vector3.Distance(BaseScroll, CurrentScroll) / distanceLimitScroll) * CurrentPositionSymbol))));
 
                 //Debug.Log("actualPos_TEEEEEEES " + actualPos_TEEEEEEES);
 
-                currentPivotPosition = Vector3.Lerp(LimitStart.position, LimitEnd.position, actualPos_TEEEEEEES);
+
+                Debug.Log(" CAM = " + (Vector3.Distance(LimitStartScroll.position, CurrentScroll) / distanceLimitScroll) * 100 +
+                " || Scroll2 = " + (Vector3.Distance(LimitStartScroll.position, BaseScroll) / distanceLimitScroll) +
+                " || Scroll3 = " + ((Vector3.Distance(LimitStartScroll.position, BaseScroll) / distanceLimitScroll) - ((Vector3.Distance(BaseScroll, CurrentScroll) / distanceLimitScroll) * CurrentPositionSymbol)) +
+                " || Scroll4 = " + (Vector3.Distance(LimitStartScroll.position, BaseScroll) / distanceLimitScroll - (Vector3.Distance(BaseScroll, CurrentScroll) / distanceLimitScroll)) +
+                " || Scroll = " + actualPosCam);
+
+                currentPivotPosition = Vector3.Lerp(LimitStart.position, LimitEnd.position, Mathf.Abs(actualPosScroll));
                 pivotVCam.transform.position = currentPivotPosition;
             }
 
 
+        }
+
+        public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
+        {
+            Vector3 AB = b - a;
+            Vector3 AV = value - a;
+            return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
         }
 
         protected Vector3 PlanePositionDelta(Touch touch)
