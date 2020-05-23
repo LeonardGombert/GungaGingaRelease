@@ -127,6 +127,8 @@ namespace Kubika.Game
             GetNextLevelInfo();
             StartCoroutine(LoadLevel());
             DequeueLevel();
+            _DataManager.instance.GameSet();
+            //_FeedBackManager.instance.Materi();
         }
 
         // Load the next level (extract the file)
@@ -139,7 +141,7 @@ namespace Kubika.Game
 
             string json = _levelFile.ToString();
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
-            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
+            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData); 
 
             yield return null;
         }
