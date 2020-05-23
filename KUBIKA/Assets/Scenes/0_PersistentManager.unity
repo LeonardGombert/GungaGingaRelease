@@ -312,6 +312,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scenes Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4463558925420413007, guid: dc045b395035dc8459eacfd77e251c7d,
+        type: 3}
+      propertyPath: loadToScene
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc045b395035dc8459eacfd77e251c7d, type: 3}
 --- !u!1001 &5858080383929429452
@@ -345,7 +350,7 @@ PrefabInstance:
         type: 3}
       propertyPath: biome1.Array.data[0]
       value: 
-      objectReference: {fileID: 4900000, guid: cee5352aacd26d74fa1ce42849e90094, type: 3}
+      objectReference: {fileID: 4900000, guid: d3c5ba3f2cb3be54bb33a1b53364f761, type: 3}
     - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}
       propertyPath: biome1.Array.data[1]

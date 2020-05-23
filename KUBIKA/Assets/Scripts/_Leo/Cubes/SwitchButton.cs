@@ -41,7 +41,7 @@ namespace Kubika.Game
 
         private void CheckIfPressed()
         {
-            isPressed = ProximityChecker(_DirectionCustom.up, CubeTypes.None, CubeLayers.cubeMoveable);
+            isPressed = AnyMoveableChecker(_DirectionCustom.up);
             Debug.DrawRay(transform.position, Vector3.up, Color.green);
 
             if (isPressed == true && locked == false)

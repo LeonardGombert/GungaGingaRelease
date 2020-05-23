@@ -31,7 +31,7 @@ namespace Kubika.Game
 
         void CheckIfTouched()
         {
-            pressedDown = ProximityChecker(_DirectionCustom.up, CubeTypes.None, CubeLayers.cubeMoveable);
+            pressedDown = AnyMoveableChecker(_DirectionCustom.up);
             Debug.DrawRay(transform.position, Vector3.up, Color.green);
 
             //locked == false ensures that the function doesn't loop

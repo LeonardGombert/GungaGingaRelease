@@ -66,7 +66,7 @@ namespace Kubika.Game
                 // check in every "direction"
                 foreach (int index in indexesToCheck)
                 {
-                    touchedCube = ProximityChecker(index, CubeTypes.None, CubeLayers.cubeMoveable);
+                    touchedCube = AnyMoveableChecker(index);
 
                     // if you touch a cube
                     if (touchedCube)
