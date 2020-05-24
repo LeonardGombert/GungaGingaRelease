@@ -279,6 +279,7 @@ namespace Kubika.CustomLevelEditor
                 Vector3 rotationVector = CubeFacingDirection.CubeFacing(hitCube.facingDirection);
 
                 newRotation = Quaternion.Euler(rotationVector);
+
                 hit.collider.gameObject.transform.rotation = newRotation;
 
                 hitCube.SetCubeInfoInMatrix();

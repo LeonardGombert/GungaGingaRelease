@@ -37,6 +37,7 @@ namespace Kubika.Game
         #endregion
 
         public TextAsset testLevel;
+        public string testingKubiCode;
 
         public TextAsset _levelFile;
         public string _levelName;
@@ -89,44 +90,37 @@ namespace Kubika.Game
         }
 
         // called when Game Scene is loaded, load specific level or set to baseState
-        public void BakeLevels(string levelKubicode = "None")
+        public void BakeLevels(string levelKubicode)
         {
-            //if you want to load a specific level
-            if (levelKubicode != "None")
+            Debug.Log("I'm looking for a specific level named " + levelKubicode);
+
+            for (int i = 0; i < masterList.Count; i++)
             {
-                Debug.Log("I'm looking for a specific level named " + levelKubicode);
+                if (masterList[i].Kubicode != levelKubicode) Debug.Log(masterList[i].Kubicode);
 
-                for (int i = 0; i < masterList.Count; i++)
+                else if (masterList[i].Kubicode == levelKubicode)
                 {
-                    if (masterList[i].Kubicode != levelKubicode) Debug.Log(masterList[i].Kubicode);
-
-                    else if (masterList[i].Kubicode == levelKubicode)
-                    {
-                        Debug.Log("Found specific level");
-                        LoadSpecific(i);
-                        break;
-                    }
+                    Debug.Log("Found specific level");
+                    LoadSpecific(i);
+                    break;
                 }
             }
+        }
 
-            else CopyToQueue();
+        internal void BakeLevels(object kubiCode)
+        {
+            throw new NotImplementedException();
         }
 
         private void LoadSpecific(int startingIndex)
         {
+            levelQueue.Clear();
+
             for (int i = startingIndex; i < masterList.Count; i++)
             {
                 levelQueue.Enqueue(masterList[i]);
                 _LoadNextLevel();
             }
-        }
-
-        // Reset the queue to its base state
-        private void CopyToQueue()
-        {
-            levelQueue.Clear();
-
-            foreach (LevelFile level in masterList) levelQueue.Enqueue(level);
         }
 
         public void RefreshUserLevels()

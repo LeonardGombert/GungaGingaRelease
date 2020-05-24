@@ -62,6 +62,8 @@ namespace Kubika.Game
         public Dropdown playerLevelsDropdown;
         public InputField saveLevelName;
 
+        private string loadToKubiCode;
+
         void Awake()
         {
             if (_instance != null && _instance != this) Destroy(this);
@@ -88,8 +90,7 @@ namespace Kubika.Game
 
                 case ScenesIndex.GAME_SCENE:
                     GameCanvasPriority();
-                    LevelsManager.instance.BakeLevels("Worl103");
-                    //LevelsManager.instance._LoadNextLevel();
+                    LevelsManager.instance.BakeLevels(loadToKubiCode);
                     break;
 
                 case ScenesIndex.WIN:
@@ -296,6 +297,12 @@ namespace Kubika.Game
         {
             levelPassedCanvas.enabled = false;
             LevelsManager.instance._LoadNextLevel();
+        }
+
+        //called from "Continue" Play button
+        public void LoadLevelFromWM(string kubiCode)
+        {
+            loadToKubiCode = kubiCode;
         }
 
         IEnumerator DimGame()
