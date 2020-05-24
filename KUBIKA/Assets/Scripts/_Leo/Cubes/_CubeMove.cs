@@ -460,6 +460,8 @@ namespace Kubika.Game
                                 {
                                     isReadyToMove = true;
                                     soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                                    Debug.Log("TAAAAAAAREGT MOVE " + soloMoveTarget.nodeIndex + " ||MyIndex " + myIndex);
+
                                     if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
                                     {
                                         pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<_CubeMove>();
