@@ -8,13 +8,11 @@ namespace Kubika.Game
     public class _CubeScanner : _CubeBase
     {
         public int[] indexesToCheck = new int[6];
-        public int baseCubeRotation = 0;
 
         // Start is called before the first frame update
         public override void Start()
         {
             base.Start();
-            SetScanDirections();
         }
 
         public override void Update()
@@ -24,7 +22,7 @@ namespace Kubika.Game
 
         protected void ScannerSet()
         {
-            baseCubeRotation = _DirectionCustom.ScannerSet(Vector3.up, transform);
+            facingDirection = CubeFacingDirection.CubeFacingFromRotation(transform.localEulerAngles);
         }
 
 

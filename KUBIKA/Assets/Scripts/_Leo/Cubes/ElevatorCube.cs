@@ -85,11 +85,11 @@ namespace Kubika.Game
             isCheckingMove = true;
             if (isGreen)
             {
-                if (MatrixLimitCalcul(myIndex, _DirectionCustom.LocalScanner(baseCubeRotation)))
+                if (MatrixLimitCalcul(myIndex, _DirectionCustom.LocalScanner(facingDirection)))
                 {
-                    if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].cubeLayers == CubeLayers.cubeMoveable)
+                    if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(facingDirection)].cubeLayers == CubeLayers.cubeMoveable)
                     {
-                        CheckingMove(myIndex, _DirectionCustom.LocalScanner(baseCubeRotation));
+                        CheckingMove(myIndex, _DirectionCustom.LocalScanner(facingDirection));
                         StartCoroutine(_DataManager.instance.CubesAndElevatorAreCheckingMove());
                         cubeIsStillInPlace = true;
                     }
@@ -106,19 +106,19 @@ namespace Kubika.Game
             }
             else
             {
-                if (MatrixLimitCalcul(myIndex, _DirectionCustom.LocalScanner(baseCubeRotation)))
+                if (MatrixLimitCalcul(myIndex, _DirectionCustom.LocalScanner(facingDirection)))
                 {
-                    if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.LocalScanner(baseCubeRotation))].cubeLayers == CubeLayers.cubeMoveable)
+                    if (grid.kuboGrid[myIndex - 1 + (_DirectionCustom.LocalScanner(facingDirection))].cubeLayers == CubeLayers.cubeMoveable)
                     {
 
-                        if (grid.kuboGrid[myIndex - 1 + (-_DirectionCustom.LocalScanner(baseCubeRotation))].cubeLayers == CubeLayers.cubeMoveable && cubeIsStillInPlace == false)
+                        if (grid.kuboGrid[myIndex - 1 + (-_DirectionCustom.LocalScanner(facingDirection))].cubeLayers == CubeLayers.cubeMoveable && cubeIsStillInPlace == false)
                         {
-                            CheckingMove(myIndex, -_DirectionCustom.LocalScanner(baseCubeRotation));
+                            CheckingMove(myIndex, -_DirectionCustom.LocalScanner(facingDirection));
                             StartCoroutine(_DataManager.instance.CubesAndElevatorAreCheckingMove());
                         }
-                        else if (grid.kuboGrid[myIndex - 1 + (-_DirectionCustom.LocalScanner(baseCubeRotation))].cubeLayers == CubeLayers.cubeEmpty)
+                        else if (grid.kuboGrid[myIndex - 1 + (-_DirectionCustom.LocalScanner(facingDirection))].cubeLayers == CubeLayers.cubeEmpty)
                         {
-                            CheckingMove(myIndex, -_DirectionCustom.LocalScanner(baseCubeRotation));
+                            CheckingMove(myIndex, -_DirectionCustom.LocalScanner(facingDirection));
                             StartCoroutine(_DataManager.instance.CubesAndElevatorAreCheckingMove());
                             cubeIsStillInPlace = false;
                         }

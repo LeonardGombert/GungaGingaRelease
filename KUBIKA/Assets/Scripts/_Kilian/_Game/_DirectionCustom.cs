@@ -37,61 +37,29 @@ namespace Kubika.Game
                                         (rotationState == 2 ? -1 : 0));
         public static int fixedLeft => -right;
 
-        public static int ScannerSet(Vector3 localDirection, Transform transform)
+        public static int LocalScanner(FacingDirection facingDirection)
         {
-            if (localDirection == transform.TransformDirection(Vector3.up))
-            {
-                return 1;
-            }
-            else if (localDirection == transform.TransformDirection(Vector3.down))
-            {
-                return 2;
-            }
-            else if (localDirection == transform.TransformDirection(Vector3.forward))
-            {
-                return 4; // FIX DE MERDE
-            }
-            else if (localDirection == transform.TransformDirection(Vector3.back))
-            {
-                return 3; // FIX DE MERDE
-            }
-            else if (localDirection == transform.TransformDirection(Vector3.right))
-            {
-                return 6; // FIX DE MERDE
-            }
-            else if (localDirection == transform.TransformDirection(Vector3.left))
-            {
-                return 5; // FIX DE MERDE
-            }
-            else
-            {
-                return 69;
-            }
-        }
-
-        public static int LocalScanner(int localDirection)
-        {
-            if (localDirection == 1)
+            if (facingDirection == FacingDirection.up)
             {
                 return fixedUp;
             }
-            else if (localDirection == 2)
+            else if (facingDirection == FacingDirection.down)
             {
                 return fixedDown;
             }
-            else if (localDirection == 3)
+            else if (facingDirection == FacingDirection.forward)
             {
                 return fixedForward;
             }
-            else if (localDirection == 4)
+            else if (facingDirection == FacingDirection.backward)
             {
                 return fixedBackward;
             }
-            else if (localDirection == 5)
+            else if (facingDirection == FacingDirection.right)
             {
                 return fixedRight;
             }
-            else if (localDirection == 6)
+            else if (facingDirection == FacingDirection.left)
             {
                 return fixedLeft;
             }
