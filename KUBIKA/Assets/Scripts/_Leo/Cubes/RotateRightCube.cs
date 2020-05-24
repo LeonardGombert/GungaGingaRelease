@@ -12,10 +12,6 @@ namespace Kubika.Game
         // Start is called before the first frame update
         public override void Start()
         {
-            myCubeType = CubeTypes.RotatorRightTurner;
-            myCubeLayer = CubeLayers.cubeMoveable;
-            dynamicEnum = DynamicEnums.Rotators;
-
             //call base.start AFTER assigning the cube's layers
             base.Start();
 

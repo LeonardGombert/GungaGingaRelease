@@ -5,10 +5,6 @@
         // Start is called before the first frame update
         public override void Start()
         {
-            myCubeType = CubeTypes.ChaosBall;
-            myCubeLayer = CubeLayers.cubeMoveable;
-            dynamicEnum = DynamicEnums.Ball;
-
             //call base.start AFTER assigning the cube's layers
             base.Start();
 

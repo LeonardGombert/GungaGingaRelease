@@ -23,7 +23,6 @@ namespace Kubika.CustomLevelEditor
         _Grid grid;
 
         public CubeTypes currentCube;
-        public StaticEnums staticViz;
         public FacingDirection facingDirection;
 
         List<RaycastHit> placeHits = new List<RaycastHit>();
@@ -176,7 +175,7 @@ namespace Kubika.CustomLevelEditor
                 {
                     RotateCube(hit, userInputPosition);
                     SetCubeRotation(hit.collider.gameObject);
-                    hitIndex = 0;
+                    //hitIndex = 0;
                 }
             }
         }
@@ -194,6 +193,9 @@ namespace Kubika.CustomLevelEditor
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);
+            EditorGUIUtility.PingObject(hit.collider.gameObject);
+            Debug.Log("Target index is " + hitIndex);
+            Debug.Log("Move Weight is " + moveWeight);
 
             //if the current node doesn't have a cube on it, place a new cube
             if (currentCube != CubeTypes.None && IndexIsEmpty())
@@ -205,7 +207,7 @@ namespace Kubika.CustomLevelEditor
                 grid.placedObjects.Add(newCube);
             }
 
-            hitIndex = 0;
+            //hitIndex = 0;
         }
 
         private void DeleteCube(RaycastHit hit)
@@ -226,7 +228,7 @@ namespace Kubika.CustomLevelEditor
 
             if (!grid.placedObjects.Any()) grid.RefreshGrid();
 
-            hitIndex = 0;
+            //hitIndex = 0;
         }
 
         private void RotateCube(RaycastHit hit, Vector3 userInputPosition)
@@ -269,7 +271,7 @@ namespace Kubika.CustomLevelEditor
 
             if (hitIndex != 0 && hit.collider.gameObject != null)
             {
-               //get the cube
+                //get the cube
                 _CubeBase hitCube = hit.collider.gameObject.GetComponent<_CubeBase>();
 
                 //increment the enum if it isn't the last one, else reset it to the first
@@ -356,7 +358,7 @@ namespace Kubika.CustomLevelEditor
             SetCubeOnPosition(newCube);
             SetCubePosition(newCube);
             SetCubeParent(newCube);
-            
+
             Debug.Log(currentCube);
 
             switch (currentCube)
@@ -364,140 +366,134 @@ namespace Kubika.CustomLevelEditor
                 case CubeTypes.FullStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
                     StaticCube staticCube = newCube.GetComponent<StaticCube>();
-                    staticCube.staticEnum = StaticEnums.Full;
-                    SendInfoToCube(staticCube as _CubeBase, CubeTypes.FullStaticCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(staticCube as _CubeBase, CubeTypes.FullStaticCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.EmptyStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
                     StaticCube emptyStaticCube = newCube.GetComponent<StaticCube>();
-                    emptyStaticCube.staticEnum = StaticEnums.Empty;
-                    SendInfoToCube(emptyStaticCube as _CubeBase, CubeTypes.EmptyStaticCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(emptyStaticCube as _CubeBase, CubeTypes.EmptyStaticCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.TopStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
                     StaticCube topStaticCube = newCube.GetComponent<StaticCube>();
-                    topStaticCube.staticEnum = StaticEnums.Top;
-                    SendInfoToCube(topStaticCube as _CubeBase, CubeTypes.TopStaticCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(topStaticCube as _CubeBase, CubeTypes.TopStaticCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.CornerStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
                     StaticCube cornerStaticCube = newCube.GetComponent<StaticCube>();
-                    cornerStaticCube.staticEnum = StaticEnums.Corner;
-                    SendInfoToCube(cornerStaticCube as _CubeBase, CubeTypes.CornerStaticCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(cornerStaticCube as _CubeBase, CubeTypes.CornerStaticCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.TripleStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
                     StaticCube tripleStaticCube = newCube.GetComponent<StaticCube>();
-                    tripleStaticCube.staticEnum = StaticEnums.Triple;
-                    SendInfoToCube(tripleStaticCube as _CubeBase, CubeTypes.TripleStaticCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(tripleStaticCube as _CubeBase, CubeTypes.TripleStaticCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.QuadStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
                     StaticCube quadStaticCube = newCube.GetComponent<StaticCube>();
-                    quadStaticCube.staticEnum = StaticEnums.Quad;
-                    SendInfoToCube(quadStaticCube as _CubeBase, CubeTypes.QuadStaticCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(quadStaticCube as _CubeBase, CubeTypes.QuadStaticCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.MoveableCube:
                     newCube.AddComponent(typeof(MoveableCube));
                     MoveableCube moveableCube = newCube.GetComponent<MoveableCube>();
-                    SendInfoToCube(moveableCube as _CubeBase, CubeTypes.MoveableCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(moveableCube as _CubeBase, CubeTypes.MoveableCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.BaseVictoryCube:
                     newCube.AddComponent(typeof(BaseVictoryCube));
                     BaseVictoryCube victoryCube = newCube.GetComponent<BaseVictoryCube>();
-                    SendInfoToCube(victoryCube as _CubeBase, CubeTypes.BaseVictoryCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(victoryCube as _CubeBase, CubeTypes.BaseVictoryCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.ConcreteVictoryCube:
                     newCube.AddComponent(typeof(ConcreteVictoryCube));
                     ConcreteVictoryCube concreteVictoryCube = newCube.GetComponent<ConcreteVictoryCube>();
-                    SendInfoToCube(concreteVictoryCube as _CubeBase, CubeTypes.ConcreteVictoryCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(concreteVictoryCube as _CubeBase, CubeTypes.ConcreteVictoryCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.BombVictoryCube:
                     newCube.AddComponent(typeof(BombVictoryCube));
                     BombVictoryCube bombVictoryCube = newCube.GetComponent<BombVictoryCube>();
-                    SendInfoToCube(bombVictoryCube as _CubeBase, CubeTypes.BombVictoryCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(bombVictoryCube as _CubeBase, CubeTypes.BombVictoryCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.SwitchVictoryCube:
                     newCube.AddComponent(typeof(SwitchVictoryCube));
                     SwitchVictoryCube switchVictoryCube = newCube.GetComponent<SwitchVictoryCube>();
-                    SendInfoToCube(switchVictoryCube as _CubeBase, CubeTypes.SwitchVictoryCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(switchVictoryCube as _CubeBase, CubeTypes.SwitchVictoryCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.DeliveryCube:
                     newCube.AddComponent(typeof(DeliveryCube));
                     DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
-                    SendInfoToCube(deliveryCube as _CubeBase, CubeTypes.DeliveryCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(deliveryCube as _CubeBase, CubeTypes.DeliveryCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.ElevatorCube:
                     newCube.AddComponent(typeof(ElevatorCube));
                     ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-                    SendInfoToCube(elevatorCube as _CubeBase, CubeTypes.ElevatorCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(elevatorCube as _CubeBase, CubeTypes.ElevatorCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.ConcreteCube:
                     newCube.AddComponent(typeof(ConcreteCube));
                     ConcreteCube concreteCube = newCube.GetComponent<ConcreteCube>();
-                    SendInfoToCube(concreteCube as _CubeBase, CubeTypes.ConcreteCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(concreteCube as _CubeBase, CubeTypes.ConcreteCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.BombCube:
                     newCube.AddComponent(typeof(BombCube));
                     BombCube mineCube = newCube.GetComponent<BombCube>();
-                    SendInfoToCube(mineCube as _CubeBase, CubeTypes.BombCube, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(mineCube as _CubeBase, CubeTypes.BombCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.TimerCube:
                     newCube.AddComponent(typeof(TimerCube));
                     TimerCube timerCube = newCube.GetComponent<TimerCube>();
-                    SendInfoToCube(timerCube as _CubeBase, CubeTypes.TimerCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(timerCube as _CubeBase, CubeTypes.TimerCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.SwitchCube:
                     newCube.AddComponent(typeof(SwitchCube));
                     SwitchCube switchCube = newCube.GetComponent<SwitchCube>();
-                    SendInfoToCube(switchCube as _CubeBase, CubeTypes.SwitchCube, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(switchCube as _CubeBase, CubeTypes.SwitchCube, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.SwitchButton:
                     placingButton = false;
                     newCube.AddComponent(typeof(SwitchButton));
                     SwitchButton switchButton = newCube.GetComponent<SwitchButton>();
-                    SendInfoToCube(switchButton as _CubeBase, CubeTypes.SwitchButton, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(switchButton as _CubeBase, CubeTypes.SwitchButton, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.RotatorLeftTurner:
                     newCube.AddComponent(typeof(RotateLeftCube));
                     RotateLeftCube rotateLeftCube = newCube.GetComponent<RotateLeftCube>();
-                    SendInfoToCube(rotateLeftCube as _CubeBase, CubeTypes.RotatorLeftTurner, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(rotateLeftCube as _CubeBase, CubeTypes.RotatorLeftTurner, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.RotatorRightTurner:
                     newCube.AddComponent(typeof(RotateRightCube));
                     RotateRightCube rotateRightCube = newCube.GetComponent<RotateRightCube>();
-                    SendInfoToCube(rotateRightCube as _CubeBase, CubeTypes.RotatorRightTurner, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(rotateRightCube as _CubeBase, CubeTypes.RotatorRightTurner, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.RotatorLocker:
                     newCube.AddComponent(typeof(RotatorLocker));
                     RotatorLocker rotatorLocker = newCube.GetComponent<RotatorLocker>();
-                    SendInfoToCube(rotatorLocker as _CubeBase, CubeTypes.RotatorLocker, CubeLayers.cubeFull, true);
+                    SendInfoToNodeAndCube(rotatorLocker as _CubeBase, CubeTypes.RotatorLocker, CubeLayers.cubeFull, true);
                     break;
 
                 case CubeTypes.ChaosBall:
                     newCube.AddComponent(typeof(ChaosBall));
                     ChaosBall chaosBall = newCube.GetComponent<ChaosBall>();
-                    SendInfoToCube(chaosBall as _CubeBase, CubeTypes.ChaosBall, CubeLayers.cubeMoveable, false);
+                    SendInfoToNodeAndCube(chaosBall as _CubeBase, CubeTypes.ChaosBall, CubeLayers.cubeMoveable, false);
                     break;
 
                 default:
@@ -505,12 +501,18 @@ namespace Kubika.CustomLevelEditor
             }
         }
 
-        void SendInfoToCube(_CubeBase cubeBase, CubeTypes cubeType, CubeLayers cubeLayer, bool _static)
+        void SendInfoToNodeAndCube(_CubeBase cubeBase, CubeTypes cubeType, CubeLayers cubeLayer, bool _static)
         {
+            //Node info
             grid.kuboGrid[GetCubeIndex() - 1].cubeType = cubeType;
             grid.kuboGrid[GetCubeIndex() - 1].cubeLayers = cubeLayer;
             grid.kuboGrid[GetCubeIndex() - 1].cubeOnPosition = cubeBase.gameObject;
+
+            //Cube info
+            cubeBase.myIndex = GetCubeIndex();
             cubeBase.isStatic = _static;
+            cubeBase.myCubeLayer = cubeLayer;
+            cubeBase.myCubeType = cubeType;
         }
 
         #endregion

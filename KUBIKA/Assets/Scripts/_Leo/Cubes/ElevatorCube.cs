@@ -55,10 +55,6 @@ namespace Kubika.Game
 
         public override  void Start()
         {
-            myCubeType = CubeTypes.ElevatorCube;
-            myCubeLayer = CubeLayers.cubeFull;
-            dynamicEnum = DynamicEnums.Elevator;
-
             //ScannerSet();
             _DataManager.instance.EndFalling.AddListener(CheckingIfCanPush);
 

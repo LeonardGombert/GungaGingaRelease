@@ -220,7 +220,7 @@ namespace Kubika.Saving
                 _Grid.instance.placedObjects.Add(newCube);
 
                 // get the kuboGrid and set the information on each of the nodes
-                SetNodeInfo(newCube, recoveredNode.nodeIndex, recoveredNode.worldPosition, recoveredNode.worldRotation, recoveredNode.facingDirection);
+                SetNodeInfo(newCube, recoveredNode.nodeIndex, recoveredNode.worldPosition, recoveredNode.worldRotation, recoveredNode.facingDirection, recoveredNode.cubeLayers, recoveredNode.cubeType);
                 
                 Debug.Log(recoveredNode.cubeType);
 
@@ -231,42 +231,36 @@ namespace Kubika.Saving
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube fullStaticCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(fullStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.FullStaticCube, true);
-                        fullStaticCube.staticEnum = StaticEnums.Full;
                         break;
 
                     case CubeTypes.EmptyStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube emptyCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(emptyCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.EmptyStaticCube, true);
-                        emptyCube.staticEnum = StaticEnums.Empty;
                         break;
 
                     case CubeTypes.TopStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube topStaticCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(topStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TopStaticCube, true);
-                        topStaticCube.staticEnum = StaticEnums.Top;
                         break;
 
                     case CubeTypes.CornerStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube cornerStaticCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(cornerStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.CornerStaticCube, true);
-                        cornerStaticCube.staticEnum = StaticEnums.Corner;
                         break;
 
                     case CubeTypes.TripleStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube tripleStaticCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(tripleStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TripleStaticCube, true);
-                        tripleStaticCube.staticEnum = StaticEnums.Triple;
                         break;
 
                     case CubeTypes.QuadStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube quadStaticCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(quadStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.QuadStaticCube, true);
-                        quadStaticCube.staticEnum = StaticEnums.Quad;
                         break; 
 
                     case CubeTypes.MoveableCube:
@@ -291,7 +285,6 @@ namespace Kubika.Saving
                         newCube.AddComponent(typeof(BombVictoryCube));
                         BombVictoryCube bombVictoryCube = newCube.GetComponent<BombVictoryCube>();
                         SetCubeInfo(bombVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BombVictoryCube, false);
-                        bombVictoryCube.dynamicEnum = DynamicEnums.Bomb;
                         break;
 
                     case CubeTypes.SwitchVictoryCube:
@@ -378,23 +371,27 @@ namespace Kubika.Saving
             Debug.Log("Level Loaded !");
         }
 
-        void SetNodeInfo(GameObject newCube, int nodeIndex, Vector3 worldPosition, Vector3 worldRotation, FacingDirection facingDirection)
+        void SetNodeInfo(GameObject newCube, int nodeIndex, Vector3 worldPosition, Vector3 worldRotation, FacingDirection facingDirection, CubeLayers cubeLayers, CubeTypes cubeTypes)
         {
             grid.kuboGrid[currentNode.nodeIndex - 1].cubeOnPosition = newCube;
             grid.kuboGrid[currentNode.nodeIndex - 1].nodeIndex = nodeIndex;
             grid.kuboGrid[currentNode.nodeIndex - 1].worldPosition = worldPosition;
             grid.kuboGrid[currentNode.nodeIndex - 1].worldRotation = worldRotation;
             grid.kuboGrid[currentNode.nodeIndex - 1].facingDirection = facingDirection;
+            grid.kuboGrid[currentNode.nodeIndex - 1].cubeLayers = cubeLayers;
+            grid.kuboGrid[currentNode.nodeIndex - 1].cubeType = cubeTypes;
         }
 
         //set the node's information relevant to the cube type, then send the Transform information to the cube
         void SetCubeInfo(_CubeBase cube, CubeLayers cubeLayers, CubeTypes cubeTypes, bool _static)
         {
-            cube.isStatic = _static;
             cube.myIndex = currentNode.nodeIndex;
+            cube.myCubeType = cubeTypes;
+            cube.myCubeLayer = cubeLayers;
+            cube.isStatic = _static;
             cube.facingDirection = currentNode.facingDirection;
-            grid.kuboGrid[cube.myIndex - 1].cubeLayers = cubeLayers;
-            grid.kuboGrid[cube.myIndex - 1].cubeType = cubeTypes;
+
+            //sets rotation and position according to the values of the relevant node in kuboGrid
             cube.OnLoadSetTransform();
         }
     }

@@ -8,10 +8,6 @@ namespace Kubika.Game
     {
         public override void Start()
         {
-            myCubeLayer = CubeLayers.cubeMoveable;
-            myCubeType = CubeTypes.MoveableCube;
-            dynamicEnum = DynamicEnums.Base;
-
             //call base.start AFTER assigning the cube's layers
             base.Start();
 

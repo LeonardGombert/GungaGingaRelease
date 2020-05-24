@@ -17,11 +17,6 @@ namespace Kubika.Game
         public bool isStatic;
         public _Grid grid;
 
-        // MATERIAL / FEEDBACK PRESENT
-        [Space]
-        public DynamicEnums dynamicEnum;
-        public StaticEnums staticEnum;
-
         [Space]
         [Header("MATERIAL INFOS")]
         public Texture _MainTex;

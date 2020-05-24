@@ -15,10 +15,6 @@ namespace Kubika.Game
         // Start is called before the first frame update
         public override void Start()
         {
-            myCubeType = CubeTypes.TimerCube;
-            myCubeLayer = CubeLayers.cubeFull;
-            dynamicEnum = DynamicEnums.Counter;
-
             //call base.start AFTER assigning the cube's layers
             base.Start();
 
