@@ -23,6 +23,7 @@ namespace Kubika.Game
             base.Start();
 
             isStatic = true;
+            _DataManager.instance.EndFalling.AddListener(CheckIfPressed);
         }
 
         void OnEnable()
@@ -34,9 +35,6 @@ namespace Kubika.Game
         public override void Update()
         {
             base.Update();
-
-            //Call when all cubes have moved
-            CheckIfPressed();
         }
 
         private void CheckIfPressed()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kubika.CustomLevelEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Kubika.Game
         private static VictoryConditionManager _instance;
         public static VictoryConditionManager instance { get { return _instance; } }
 
-        private int currentVictoryPoints;
+        public int currentVictoryPoints;
         public int levelVictoryPoints;
 
         BaseVictoryCube[] victoryCubes;
@@ -30,17 +31,24 @@ namespace Kubika.Game
         // Update is called once per frame
         void Update()
         {
-
+            VictoryConditionStatus();
         }
 
         // Call when a new level is loaded
-        void CheckVictoryCubes()
+        public void CheckVictoryCubes()
         {
-            victoryCubes = FindObjectsOfType<BaseVictoryCube>();
+            currentVictoryPoints = 0;
+            levelVictoryPoints = 0;
 
-            foreach (var item in victoryCubes)
+            for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
-                levelVictoryPoints++;
+                if (_Grid.instance.kuboGrid[i].cubeType >= CubeTypes.BaseVictoryCube &&
+                    _Grid.instance.kuboGrid[i].cubeType <= CubeTypes.SwitchVictoryCube)
+
+                {
+                    Debug.Log(i);
+                    levelVictoryPoints++;
+                }
             }
         }
 
@@ -54,6 +62,21 @@ namespace Kubika.Game
         {
             Debug.Log("I've lost track of a Victory cube");
             currentVictoryPoints--;
+        }
+
+        private void VictoryConditionStatus()
+        {
+            if (currentVictoryPoints == levelVictoryPoints)
+            {
+                StartCoroutine(WinCountdown());
+            }
+        }
+
+        //use this to call all win animations etc.
+        private IEnumerator WinCountdown()
+        {
+            UIManager.instance.OpenWinLevelWindow();
+            yield return null;
         }
     }
 }

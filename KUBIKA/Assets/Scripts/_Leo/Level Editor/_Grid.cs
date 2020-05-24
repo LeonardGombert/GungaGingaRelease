@@ -80,19 +80,8 @@ namespace Kubika.CustomLevelEditor
 
         public void RefreshGrid()
         {
-            ResetGrid();
+            ResetIndexGrid();
             CreateGrid();
-        }
-
-        //used to clear a level
-        public void ResetGrid()
-        {
-            //destroy all cubes in grid and reset nodes to base state
-            foreach (Node node in kuboGrid)
-            {
-                node.cubeLayers = CubeLayers.cubeEmpty;
-                Destroy(node.cubeOnPosition);
-            }
         }
 
         //set all index to their default state
@@ -100,8 +89,16 @@ namespace Kubika.CustomLevelEditor
         {
             for (int i = 0; i < kuboGrid.Length; i++)
             {
-                kuboGrid[i].cubeOnPosition = null;
                 kuboGrid[i].cubeLayers = CubeLayers.cubeEmpty;
+                kuboGrid[i].cubeType = CubeTypes.None;
+
+                if(kuboGrid[i].cubeOnPosition != null)
+                {
+                    Destroy(kuboGrid[i].cubeOnPosition.gameObject);
+                    kuboGrid[i].cubeOnPosition = null;
+                }
+
+                placedObjects.Clear();
             }
         }
     }

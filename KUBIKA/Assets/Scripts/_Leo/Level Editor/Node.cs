@@ -17,6 +17,8 @@ namespace Kubika.CustomLevelEditor
 
         public CubeLayers cubeLayers;
 
+        public FacingDirection facingDirection;
+
         public int xCoord, yCoord, zCoord;
         
         public Vector3 worldPosition;        

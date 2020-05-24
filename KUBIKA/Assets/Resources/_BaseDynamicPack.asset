@@ -114,7 +114,7 @@ MonoBehaviour:
   Ball_Contrast: 1
   Ball_Saturation: 1
   Ball_Brightness: 0
-  _PastilleTex: {fileID: 2800000, guid: 5bbf292c6fa28d14485504176c1df930, type: 3}
+  _PastilleTex: {fileID: 2800000, guid: 0afee44f747a78d478d4ae54facf72ec, type: 3}
   _PastilleMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _PastilleColor: {r: 1, g: 1, b: 1, a: 0}

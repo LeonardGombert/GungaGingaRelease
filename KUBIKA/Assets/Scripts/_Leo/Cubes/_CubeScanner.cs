@@ -41,12 +41,13 @@ namespace Kubika.Game
 
         public bool VictoryChecker(int targetIndex)
         {
-            if (grid.kuboGrid[targetIndex - 1 + targetIndex] != null)
+            if (grid.kuboGrid[myIndex - 1 + targetIndex] != null)
             {
-                if (grid.kuboGrid[targetIndex - 1 + targetIndex].cubeOnPosition != null)
+                Debug.Log("Cheking in ");
+                if (grid.kuboGrid[myIndex - 1 + targetIndex].cubeOnPosition != null)
                 {
-                    if (grid.kuboGrid[targetIndex - 1 + targetIndex].cubeType >= CubeTypes.BaseVictoryCube
-                        && grid.kuboGrid[targetIndex - 1 + targetIndex].cubeType <= CubeTypes.SwitchVictoryCube) return true;
+                    if (grid.kuboGrid[myIndex - 1 + targetIndex].cubeType >= CubeTypes.BaseVictoryCube
+                        && grid.kuboGrid[myIndex - 1 + targetIndex].cubeType <= CubeTypes.SwitchVictoryCube) return true;
                     else return false;
                 }
                 else return false;
@@ -57,12 +58,12 @@ namespace Kubika.Game
 
         public bool AnyMoveableChecker(int targetIndex)
         {
-            if (grid.kuboGrid[targetIndex - 1 + targetIndex] != null)
+            if (grid.kuboGrid[myIndex - 1 + targetIndex] != null)
             {
-                if (grid.kuboGrid[targetIndex - 1 + targetIndex].cubeOnPosition != null)
+                if (grid.kuboGrid[myIndex - 1 + targetIndex].cubeOnPosition != null)
                 {
-                    if (grid.kuboGrid[targetIndex - 1 + targetIndex].cubeType >= CubeTypes.BaseVictoryCube
-                        && grid.kuboGrid[targetIndex - 1 + targetIndex].cubeType <= CubeTypes.ChaosBall) return true;
+                    if (grid.kuboGrid[myIndex - 1 + targetIndex].cubeType >= CubeTypes.BaseVictoryCube
+                        && grid.kuboGrid[myIndex - 1 + targetIndex].cubeType <= CubeTypes.ChaosBall) return true;
                     else return false;
                 }
                 else return false;

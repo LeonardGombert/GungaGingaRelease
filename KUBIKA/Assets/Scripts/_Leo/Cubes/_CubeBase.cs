@@ -1,4 +1,5 @@
 ﻿using Kubika.CustomLevelEditor;
+using System;
 using UnityEngine;
 
 namespace Kubika.Game
@@ -11,6 +12,7 @@ namespace Kubika.Game
         //use this to set node data
         public CubeTypes myCubeType;
         public CubeLayers myCubeLayer;
+        public FacingDirection facingDirection;
 
         public bool isStatic;
         public _Grid grid;
@@ -53,6 +55,7 @@ namespace Kubika.Game
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
             grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
+            grid.kuboGrid[myIndex - 1].facingDirection = facingDirection;
 
             SetScriptablePreset();
         }
@@ -68,6 +71,7 @@ namespace Kubika.Game
             grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
             grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
             grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
+            grid.kuboGrid[myIndex - 1].facingDirection = facingDirection;
         }
 
 

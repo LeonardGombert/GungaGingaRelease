@@ -18,7 +18,7 @@ namespace Kubika.Game
 
         #region MAIN LEVELS
         [FoldoutGroup("Biomes")] public List<LevelFile> masterList = new List<LevelFile>();
-        [FoldoutGroup("Biomes")] [ShowInInspector] Queue<LevelFile> levelQueue = new Queue<LevelFile>();  
+        [FoldoutGroup("Biomes")] [ShowInInspector] Queue<LevelFile> levelQueue = new Queue<LevelFile>();
 
         List<List<TextAsset>> listOfLists = new List<List<TextAsset>>();
 
@@ -37,9 +37,11 @@ namespace Kubika.Game
         #endregion
 
         public TextAsset testLevel;
+        public string testingKubiCode;
 
         public TextAsset _levelFile;
         public string _levelName;
+        public string _Kubicode;
         public int _minimumMoves;
         public bool _lockRotate;
 
@@ -68,7 +70,6 @@ namespace Kubika.Game
             listOfLists.Add(biome7);
 
             InitializeLists();
-            CopyToQueue();
 
             yield return null;
         }
@@ -88,12 +89,33 @@ namespace Kubika.Game
             }
         }
 
-        // Reset the queue to its base state
-        private void CopyToQueue()
+        // called when Game Scene is loaded, load specific level or set to baseState
+        public void BakeLevels(string levelKubicode)
+        {
+            Debug.Log("I'm looking for a specific level named " + levelKubicode);
+
+            for (int i = 0; i < masterList.Count; i++)
+            {
+                if (masterList[i].Kubicode != levelKubicode) Debug.Log(masterList[i].Kubicode);
+
+                else if (masterList[i].Kubicode == levelKubicode)
+                {
+                    Debug.Log("Found specific level");
+                    LoadSpecific(i);
+                    break;
+                }
+            }
+        }
+
+        private void LoadSpecific(int startingIndex)
         {
             levelQueue.Clear();
 
-            foreach (LevelFile level in masterList) levelQueue.Enqueue(level);
+            for (int i = startingIndex; i < masterList.Count; i++)
+            {
+                levelQueue.Enqueue(masterList[i]);
+            }
+            _LoadNextLevel();
         }
 
         public void RefreshUserLevels()
@@ -117,6 +139,7 @@ namespace Kubika.Game
         void GetNextLevelInfo()
         {
             _levelName = levelQueue.Peek().levelName;
+            _Kubicode = levelQueue.Peek().Kubicode;
             _levelFile = levelQueue.Peek().levelFile;
             _minimumMoves = levelQueue.Peek().minimumMoves;
             _lockRotate = levelQueue.Peek().lockRotate;
@@ -126,11 +149,11 @@ namespace Kubika.Game
         {
             GetNextLevelInfo();
             StartCoroutine(LoadLevel());
-            
+
             DequeueLevel();
 
             _DataManager.instance.GameSet();
-           _MaterialCentral.instance.MaterialSet();
+            _MaterialCentral.instance.MaterialSet();
         }
 
         // Load the next level (extract the file)
@@ -142,10 +165,12 @@ namespace Kubika.Game
             else UIManager.instance.TurnOnRotate();
 
             string json = _levelFile.ToString();
-            
+
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
-            
-            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData); 
+
+            SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
+
+            VictoryConditionManager.instance.CheckVictoryCubes();
 
             yield return null;
         }
@@ -171,5 +196,7 @@ namespace Kubika.Saving
         public TextAsset levelFile;
         public int minimumMoves;
         public bool lockRotate;
+
+        public string Kubicode;
     }
 }

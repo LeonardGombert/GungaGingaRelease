@@ -10,6 +10,7 @@ namespace Kubika.Saving
         public Biomes levelBiome;
         public int minimumMoves;
         public bool lockRotate;
+        public string Kubicode;
         public List<Node> nodesToSave;
     }
 

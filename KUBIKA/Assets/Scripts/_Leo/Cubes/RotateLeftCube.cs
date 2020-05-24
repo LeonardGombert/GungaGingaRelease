@@ -20,13 +20,13 @@ namespace Kubika.Game
             base.Start();
 
             isStatic = false;
+
+            _DataManager.instance.EndFalling.AddListener(CheckIfTouched);
         }
         // Update is called once per frame
         public override void Update()
         {
             base.Update();
-
-            CheckIfTouched();
         }
 
         void CheckIfTouched()

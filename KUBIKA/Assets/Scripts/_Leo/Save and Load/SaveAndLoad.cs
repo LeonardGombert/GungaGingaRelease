@@ -22,6 +22,7 @@ namespace Kubika.Saving
         public GameObject cubePrefab;
 
         public string currentOpenLevelName;
+        public string currentKubicode;
         public bool currentLevelLockRotate;
         public int currentMinimumMoves;
 
@@ -44,7 +45,7 @@ namespace Kubika.Saving
             return levelData;
         }
 
-        public void DevSavingLevel(string levelName, bool rotateLock, int minimumMoves = 0)
+        public void DevSavingLevel(string levelName, string kubiCode, bool rotateLock, int minimumMoves = 0)
         {
             for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
@@ -55,10 +56,13 @@ namespace Kubika.Saving
             levelData.levelName = levelName;
             levelData.lockRotate = rotateLock;
             levelData.minimumMoves = minimumMoves;
+            levelData.Kubicode = kubiCode;
 
             currentOpenLevelName = levelName;
+            currentKubicode = kubiCode;
             currentLevelLockRotate = rotateLock;
             currentMinimumMoves = minimumMoves;
+
 
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
 
@@ -87,10 +91,11 @@ namespace Kubika.Saving
         public void DevSavingCurrentLevel()
         {
             levelData.levelName = currentOpenLevelName;
+            levelData.Kubicode = currentKubicode;
             levelData.lockRotate = currentLevelLockRotate;
             levelData.minimumMoves = currentMinimumMoves;
 
-            DevSavingLevel(currentOpenLevelName, currentLevelLockRotate, currentMinimumMoves);
+            DevSavingLevel(currentOpenLevelName, currentKubicode, currentLevelLockRotate, currentMinimumMoves);
         }
 
         public void DevLoadLevel(string levelName)
@@ -111,6 +116,7 @@ namespace Kubika.Saving
             }
 
             currentOpenLevelName = levelData.levelName;
+            currentKubicode = levelData.Kubicode;
             currentLevelLockRotate = levelData.lockRotate;
             currentMinimumMoves = levelData.minimumMoves;
 
@@ -157,6 +163,8 @@ namespace Kubika.Saving
         public void UserSavingCurrentLevel()
         {
             levelData.levelName = currentOpenLevelName;
+            levelData.Kubicode = currentKubicode;
+
             UserSavingLevel(currentOpenLevelName);
         }
 
@@ -192,8 +200,7 @@ namespace Kubika.Saving
         public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
             // start by resetting the grid's nodes to their base states
-            _Grid.instance.ResetGrid();
-            _Grid.instance.placedObjects.Clear();
+            _Grid.instance.ResetIndexGrid();
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
@@ -204,7 +211,7 @@ namespace Kubika.Saving
                 Debug.Log(recoveredNode.cubeType);
                 Debug.Log(recoveredNode.worldRotation);
 
-                newCube.transform.position = recoveredNode.worldPosition;
+                newCube.transform.position = _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].worldPosition;
                 newCube.transform.rotation = Quaternion.Euler(recoveredNode.worldRotation);
                 newCube.transform.parent = _Grid.instance.gameObject.transform;
 
