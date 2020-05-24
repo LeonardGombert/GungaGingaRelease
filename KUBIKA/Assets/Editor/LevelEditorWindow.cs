@@ -42,6 +42,7 @@ public class LevelEditorWindow : EditorWindow
             RotateCubes();
             GUILayout.Space(20);
             SaveLevel();
+            SaveTestLevel();
             SaveCurrentLevel();
 
             GUILayout.Space(70);
@@ -107,6 +108,12 @@ public class LevelEditorWindow : EditorWindow
         if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, kubiCode, lockRotate, miminumMoves);
     }
 
+    private void SaveTestLevel()
+    {
+        if (GUILayout.Button("Save Test Level")) SaveAndLoad.instance.DevSavingLevel(levelName, kubiCode, lockRotate, miminumMoves, true);
+    }
+
+
     private void SaveCurrentLevel()
     {
         if (GUILayout.Button("Save Current Level"))
@@ -137,7 +144,7 @@ public class LevelEditorWindow : EditorWindow
 
     private void LaunchGame()
     {
-        if (GUI.Button(new Rect(0, 325, position.width, 45), "Launch Game"))
+        if (GUI.Button(new Rect(0, 350, position.width, 45), "Launch Game"))
         {
             if(SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex((int)ScenesIndex.MANAGER))
             {

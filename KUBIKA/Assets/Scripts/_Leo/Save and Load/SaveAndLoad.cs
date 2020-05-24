@@ -49,7 +49,7 @@ namespace Kubika.Saving
             return levelData;
         }
 
-        public void DevSavingLevel(string levelName, string kubiCode, bool rotateLock, int minimumMoves = 0)
+        public void DevSavingLevel(string levelName, string kubiCode, bool rotateLock, int minimumMoves = 0, bool testLevel = false)
         {
             for (int i = 0; i < _Grid.instance.kuboGrid.Length; i++)
             {
@@ -71,7 +71,10 @@ namespace Kubika.Saving
             foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
 
             string json = JsonUtility.ToJson(levelData);
-            string folder = Application.dataPath + "/Resources/MainLevels";
+            string folder;
+
+            if (!testLevel) folder = Application.dataPath + "/Resources/MainLevels";
+            else folder = Application.dataPath + "/Resources/TestLevels";
 
             string levelFile = "";
 

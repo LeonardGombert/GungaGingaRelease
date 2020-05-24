@@ -31,7 +31,6 @@ namespace Kubika.CustomLevelEditor
 
         //PLACING CUBES
         private bool placeMultiple = true;
-        Vector3 intialUserPos;
         Vector3 userInputPosition;
 
         public LevelSetup levelSetup;
@@ -184,7 +183,6 @@ namespace Kubika.CustomLevelEditor
 
         private void SelectCube(RaycastHit hit, Vector3 userInputPosition)
         {
-            intialUserPos = userInputPosition;
             //get the index of the cube you just hit
             hitIndex = hit.collider.gameObject.GetComponent<_CubeBase>().myIndex;
         }

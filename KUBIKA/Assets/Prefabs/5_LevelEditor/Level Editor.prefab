@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCube: 1
   staticViz: 0
+  facingDirection: 0
   levelSetup: 0
   prefabLevels:
   - {fileID: 4900000, guid: 84756c6721ca69540a911dd7d54030c4, type: 3}
