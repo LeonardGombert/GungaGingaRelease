@@ -387,10 +387,12 @@ namespace Kubika.Game
             {
                 if (cubeMove[i].isCheckingMove == true)
                 {
+                    Debug.Log("CUBE_CHECKINGmove = TRUE");
                     return false;
                 }
             }
 
+            Debug.Log("CUBE_CHECKINGmove = TRUE");
             return true;
         }
 
@@ -449,10 +451,12 @@ namespace Kubika.Game
             {
                 if (elevators[i].isCheckingMove == true)
                 {
+                    Debug.Log("ELEVATOR_CHECKINGmove = FALSE");
                     return false;
                 }
             }
 
+            Debug.Log("ELEVATOR_CHECKINGmove = TRUE");
             return true;
         }
 
@@ -467,31 +471,36 @@ namespace Kubika.Game
                 }
             }
 
+            Debug.Log("TRUE 1_1_1_1_1_1_ ");
             return true;
         }
 
         public bool AreCubesAndElevatorsCheckingMove(ElevatorCube[] elevators, _CubeMove[] cubeMove)
         {
-            if(AreElevatorsCheckingMove(elevators) == false && AreCubesCheckingMove(cubeMove) == false)
+            if(AreElevatorsCheckingMove(elevators) == true && AreCubesCheckingMove(cubeMove) == true)
             {
-                return false;
+                Debug.Log("ELE & Cube Checking False");
+                return true;
             }
             else
             {
-                return true;
+                Debug.Log("ELE & Cube Checking True");
+                return false;
             }
 
         }
 
         public bool AreCubesAndElevatorsMoving(ElevatorCube[] elevators, _CubeMove[] cubeMove)
         {
-            if (AreElevatorsEndingToMove(elevators) == false && AreCubesEndingToMove(cubeMove) == false)
+            if (AreElevatorsEndingToMove(elevators) == true && AreCubesEndingToMove(cubeMove) == true)
             {
-                return false;
+                Debug.Log("ELE & Cube MOving False");
+                return true;
             }
             else
             {
-                return true;
+                Debug.Log("ELE & Cube MOving True");
+                return false;
             }
 
         }
