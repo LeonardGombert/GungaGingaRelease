@@ -1,9 +1,6 @@
 ﻿using Kubika.CustomLevelEditor;
 using Kubika.Game;
 using Kubika.Saving;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -35,21 +32,24 @@ public class LevelEditorWindow : EditorWindow
 
     void OnGUI()
     {
-        LoadLevel();
-        SelectCubeType();
+        if (Application.isPlaying)
+        {
+            LoadLevel();
+            SelectCubeType();
 
-        PlaceCubes();
-        DeleteCubes();
-        RotateCubes();
-        GUILayout.Space(20);
-        SaveLevel();
-        SaveCurrentLevel();
+            PlaceCubes();
+            DeleteCubes();
+            RotateCubes();
+            GUILayout.Space(20);
+            SaveLevel();
+            SaveCurrentLevel();
 
-        GUILayout.Space(70);
+            GUILayout.Space(70);
 
-        LaunchGame();
+            LaunchGame();
 
-        //TestLevel();
+            //TestLevel();
+        }
     }
 
     private void PlaceCubes()
