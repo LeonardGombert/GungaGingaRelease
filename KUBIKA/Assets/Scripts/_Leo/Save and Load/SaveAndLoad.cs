@@ -67,8 +67,11 @@ namespace Kubika.Saving
             currentLevelLockRotate = rotateLock;
             currentMinimumMoves = minimumMoves;
 
-
-            foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
+            foreach (Node node in activeNodes)
+            {
+                node.savedCubeType = Node.ConvertTypeToString(node.cubeType);
+                levelData.nodesToSave.Add(node);
+            }
 
             string json = JsonUtility.ToJson(levelData);
             string folder;
@@ -213,6 +216,8 @@ namespace Kubika.Saving
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
+                recoveredNode.cubeType = Node.ConvertStringToCubeType(recoveredNode.savedCubeType);
+
                 currentNode = recoveredNode;
                 
                 GameObject newCube = Instantiate(cubePrefab);

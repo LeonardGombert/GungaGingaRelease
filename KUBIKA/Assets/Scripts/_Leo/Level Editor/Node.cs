@@ -13,9 +13,10 @@ namespace Kubika.CustomLevelEditor
         public GameObject cubeOnPosition;
 
         //used for saving and loading levels
-        public string cubeType;
+        public CubeTypes cubeType;
 
         public CubeLayers cubeLayers;
+        public string savedCubeType;
 
         public FacingDirection facingDirection;
 
@@ -23,5 +24,25 @@ namespace Kubika.CustomLevelEditor
         
         public Vector3 worldPosition;        
         public Vector3 worldRotation;
+
+        public static string ConvertTypeToString(CubeTypes cubetypes)
+        {
+            return cubetypes.ToString();
+        }
+
+        public static CubeTypes ConvertStringToCubeType(string cubetypes)
+        {
+            CubeTypes cubeType = CubeTypes.None;
+
+            for (int i = 0; i < (int)CubeTypes.Count; i++)
+            {
+                cubeType = (CubeTypes)i;
+
+                if (cubeType.ToString() == cubetypes)
+                    break;
+            }
+            Debug.Log("Node is " + cubeType.ToString());
+            return cubeType;
+        }
     }
 }

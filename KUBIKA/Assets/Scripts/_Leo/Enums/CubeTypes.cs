@@ -33,4 +33,6 @@
     SwitchCube, //moveable & full layer
 
     ChaosBall, //moveable layer
+    
+    Count
 }

@@ -67,7 +67,7 @@ namespace Kubika.CustomLevelEditor
                         currentNode.nodeIndex = index;
                         currentNode.worldPosition = nodePosition;
                         currentNode.cubeLayers = CubeLayers.cubeEmpty;
-                        currentNode.cubeType = CubeTypes.None.ToString();
+                        currentNode.cubeType = CubeTypes.None;
                         currentNode.facingDirection = FacingDirection.forward;
 
                         kuboGrid[index - 1] = currentNode;
