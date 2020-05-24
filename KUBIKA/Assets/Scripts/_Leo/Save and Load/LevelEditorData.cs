@@ -7,7 +7,6 @@ namespace Kubika.Saving
     public class LevelEditorData
     {
         public string levelName;
-        public Biomes levelBiome;
         public int minimumMoves;
         public bool lockRotate;
         public string Kubicode;

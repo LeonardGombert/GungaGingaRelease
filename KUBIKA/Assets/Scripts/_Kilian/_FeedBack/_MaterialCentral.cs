@@ -460,6 +460,22 @@ namespace Kubika.Game
 
         }
 
+        public void ChangeUniverse(Biomes newBiome)
+        {
+            allCube = FindObjectsOfType<_CubeBase>(); // TODO DEGEU
+            Debug.Log("RIGHT UNIVERS");
+            if (staticIndex < staticPack.Length)
+            {
+                Debug.Log("Index = " + staticIndex);
+                staticIndex = (int)newBiome;
+                ResetStaticPacks(staticIndex);
+                foreach (_CubeBase cube in allCube)
+                {
+                    cube.SetScriptablePreset();
+                }
+            }
+        }
+
         public void ChangeUniverseRight()
         {
             allCube = FindObjectsOfType<_CubeBase>(); // TODO DEGEU

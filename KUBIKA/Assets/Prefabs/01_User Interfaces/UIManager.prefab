@@ -69,5 +69,7 @@ MonoBehaviour:
   worldMapCanvas: {fileID: 0}
   levelEditorCanvas: {fileID: 0}
   levelPassedCanvas: {fileID: 0}
+  FunctionMode: {fileID: 0}
+  DecoratorMode: {fileID: 0}
   playerLevelsDropdown: {fileID: 0}
   saveLevelName: {fileID: 0}
