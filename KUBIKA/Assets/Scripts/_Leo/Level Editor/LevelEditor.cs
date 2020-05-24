@@ -185,9 +185,6 @@ namespace Kubika.CustomLevelEditor
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);
-            EditorGUIUtility.PingObject(hit.collider.gameObject);
-            Debug.Log("Target index is " + hitIndex);
-            Debug.Log("Move Weight is " + moveWeight);
 
             //if the current node doesn't have a cube on it, place a new cube
             if (currentCube != CubeTypes.None && IndexIsEmpty())

@@ -29,6 +29,7 @@ namespace Kubika.Saving
         public int currentMinimumMoves;
         
         _Grid grid;
+        private Biomes currentBiome;
 
         private void Awake()
         {
@@ -58,12 +59,16 @@ namespace Kubika.Saving
 
             //storing data in levelDataFile
             levelData.levelName = levelName;
+            levelData.biome = _MaterialCentral.instance.staticIndex;
             levelData.lockRotate = rotateLock;
             levelData.minimumMoves = minimumMoves;
             levelData.Kubicode = kubiCode;
 
+
+
             currentOpenLevelName = levelName;
             currentKubicode = kubiCode;
+            currentBiome = _MaterialCentral.instance.staticIndex;
             currentLevelLockRotate = rotateLock;
             currentMinimumMoves = minimumMoves;
 
@@ -102,6 +107,7 @@ namespace Kubika.Saving
         {
             levelData.levelName = currentOpenLevelName;
             levelData.Kubicode = currentKubicode;
+            levelData.biome = currentBiome;
             levelData.lockRotate = currentLevelLockRotate;
             levelData.minimumMoves = currentMinimumMoves;
 
@@ -127,6 +133,7 @@ namespace Kubika.Saving
 
             currentOpenLevelName = levelData.levelName;
             currentKubicode = levelData.Kubicode;
+            currentBiome = levelData.biome;
             currentLevelLockRotate = levelData.lockRotate;
             currentMinimumMoves = levelData.minimumMoves;
 
@@ -143,11 +150,12 @@ namespace Kubika.Saving
 
             //storing data in levelDataFile
             levelData.levelName = levelName;
+            levelData.biome = _MaterialCentral.instance.staticIndex;
 
             currentOpenLevelName = levelName;
 
             foreach (Node node in activeNodes)
-            {
+            { 
                 node.savedCubeType = Node.ConvertTypeToString(node.cubeType);
                 levelData.nodesToSave.Add(node);
             }
@@ -178,6 +186,7 @@ namespace Kubika.Saving
         {
             levelData.levelName = currentOpenLevelName;
             levelData.Kubicode = currentKubicode;
+            levelData.biome = currentBiome;
 
             UserSavingLevel(currentOpenLevelName);
         }
@@ -200,6 +209,8 @@ namespace Kubika.Saving
             }
 
             currentOpenLevelName = levelData.levelName;
+            currentKubicode = levelData.Kubicode;
+            currentBiome = levelData.biome;
 
             levelData.nodesToSave.Clear();
             activeNodes.Clear();
@@ -222,6 +233,9 @@ namespace Kubika.Saving
             {
                 // EXTREMELY IMPORTANT -> CONVERTS THE CUBE'S TYPE FROM STRING TO ENUM
                 recoveredNode.cubeType = Node.ConvertStringToCubeType(recoveredNode.savedCubeType);
+
+                //Set the universe textures
+                _MaterialCentral.instance.ChangeUniverse(recoveredData.biome);
 
                 currentNode = recoveredNode;
                 
@@ -382,7 +396,6 @@ namespace Kubika.Saving
                         break;
                 }
             }
-
             Debug.Log("Level Loaded !");
         }
 
