@@ -94,12 +94,15 @@ namespace Kubika.Game
             //if you want to load a specific level
             if (levelKubicode != "None")
             {
+                Debug.Log("I'm looking for a specific level named " + levelKubicode);
+
                 for (int i = 0; i < masterList.Count; i++)
                 {
-                    if (masterList[i].Kubicode != levelKubicode) return;
+                    if (masterList[i].Kubicode != levelKubicode) Debug.Log(masterList[i].Kubicode);
 
                     else if (masterList[i].Kubicode == levelKubicode)
                     {
+                        Debug.Log("Found specific level");
                         LoadSpecific(i);
                         break;
                     }
@@ -114,6 +117,7 @@ namespace Kubika.Game
             for (int i = startingIndex; i < masterList.Count; i++)
             {
                 levelQueue.Enqueue(masterList[i]);
+                _LoadNextLevel();
             }
         }
 

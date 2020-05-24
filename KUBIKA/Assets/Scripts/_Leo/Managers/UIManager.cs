@@ -88,7 +88,8 @@ namespace Kubika.Game
 
                 case ScenesIndex.GAME_SCENE:
                     GameCanvasPriority();
-                    LevelsManager.instance._LoadNextLevel();
+                    LevelsManager.instance.BakeLevels("Worl103");
+                    //LevelsManager.instance._LoadNextLevel();
                     break;
 
                 case ScenesIndex.WIN:

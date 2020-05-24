@@ -59,6 +59,7 @@ namespace Kubika.Saving
             levelData.Kubicode = kubiCode;
 
             currentOpenLevelName = levelName;
+            currentKubicode = kubiCode;
             currentLevelLockRotate = rotateLock;
             currentMinimumMoves = minimumMoves;
 
@@ -90,9 +91,9 @@ namespace Kubika.Saving
         public void DevSavingCurrentLevel()
         {
             levelData.levelName = currentOpenLevelName;
+            levelData.Kubicode = currentKubicode;
             levelData.lockRotate = currentLevelLockRotate;
             levelData.minimumMoves = currentMinimumMoves;
-            levelData.Kubicode = currentKubicode;
 
             DevSavingLevel(currentOpenLevelName, currentKubicode, currentLevelLockRotate, currentMinimumMoves);
         }
@@ -115,9 +116,9 @@ namespace Kubika.Saving
             }
 
             currentOpenLevelName = levelData.levelName;
+            currentKubicode = levelData.Kubicode;
             currentLevelLockRotate = levelData.lockRotate;
             currentMinimumMoves = levelData.minimumMoves;
-            levelData.Kubicode = currentKubicode;
 
             levelData.nodesToSave.Clear();
             activeNodes.Clear();

@@ -106,7 +106,6 @@ namespace Kubika.Game
 
         void CheckTouch()
         {
-
             if (Application.isMobilePlatform == true)
             {
                 touch = Input.GetTouch(0);

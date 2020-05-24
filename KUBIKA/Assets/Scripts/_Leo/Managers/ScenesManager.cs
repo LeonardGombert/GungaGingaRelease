@@ -46,7 +46,6 @@ namespace Kubika.Game
         
         public void _LoadScene(ScenesIndex targetScene)
         {
-            if (targetScene == ScenesIndex.GAME_SCENE) LevelsManager.instance.BakeLevels("Worl103");
             StartCoroutine(LoadScene(targetScene));
         }
 
