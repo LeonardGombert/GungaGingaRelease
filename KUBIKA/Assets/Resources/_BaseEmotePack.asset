@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _BaseEmoteTex: {fileID: 2800000, guid: 3fffe61d9e68e5c4f998fbcef86c1c67, type: 3}
   _BetonEmoteTex: {fileID: 2800000, guid: beefc1401892b0f40b43acbb139543c5, type: 3}
-  _ElevatorEmoteTex: {fileID: 2800000, guid: 3fffe61d9e68e5c4f998fbcef86c1c67, type: 3}
-  _CounterEmoteTex: {fileID: 2800000, guid: 3fffe61d9e68e5c4f998fbcef86c1c67, type: 3}
-  _RotatorsEmoteTex: {fileID: 2800000, guid: 3fffe61d9e68e5c4f998fbcef86c1c67, type: 3}
+  _ElevatorEmoteTex: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _CounterEmoteTex: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
+  _RotatorsEmoteTex: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
   _BombEmoteTex: {fileID: 2800000, guid: 41c93a8dda30d3c4f9c1e43cc836c978, type: 3}
   _SwitchEmoteTex: {fileID: 2800000, guid: 64e5b9c1261f975468d9cd70e74daa5e, type: 3}
   _BallEmoteTex: {fileID: 2800000, guid: 3fffe61d9e68e5c4f998fbcef86c1c67, type: 3}
-  _PastilleEmoteTex: {fileID: 2800000, guid: 3fffe61d9e68e5c4f998fbcef86c1c67, type: 3}
+  _PastilleEmoteTex: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}

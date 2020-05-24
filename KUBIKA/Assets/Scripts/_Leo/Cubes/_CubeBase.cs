@@ -393,8 +393,100 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
+                case CubeTypes.BaseVictoryCube:
+                    {
+                        _MainTex = _MaterialCentral.instance.actualPack._BaseVTex;
+                        _MainMesh = _MaterialCentral.instance.actualPack._BaseVMesh;
+                        _MainColor = _MaterialCentral.instance.actualPack._BaseVColor;
 
-                    case CubeTypes.CornerStaticCube:
+                        _Hue = _MaterialCentral.instance.actualPack.BaseV_Hue;
+                        _Contrast = _MaterialCentral.instance.actualPack.BaseV_Contrast;
+                        _Saturation = _MaterialCentral.instance.actualPack.BaseV_Saturation;
+                        _Brightness = _MaterialCentral.instance.actualPack.BaseV_Brightness;
+
+                        _InsideTex = _MaterialCentral.instance.actualPack._BaseVTexInside;
+                        _InsideColor = _MaterialCentral.instance.actualPack._BaseVColorInside;
+                        _InsideStrength = _MaterialCentral.instance.actualPack._BaseVInsideStrength;
+
+                        _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                        _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                        _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
+                        _EmoteTex = _MaterialCentral.instance.actualPack._BaseEmoteTex;
+                        _EmoteStrength = 1;
+                    }
+                    break;
+                case CubeTypes.ConcreteVictoryCube:
+                    {
+                        _MainTex = _MaterialCentral.instance.actualPack._BetonVTex;
+                        _MainMesh = _MaterialCentral.instance.actualPack._BetonVMesh;
+                        _MainColor = _MaterialCentral.instance.actualPack._BetonVColor;
+
+                        _Hue = _MaterialCentral.instance.actualPack.BetonV_Hue;
+                        _Contrast = _MaterialCentral.instance.actualPack.BetonV_Contrast;
+                        _Saturation = _MaterialCentral.instance.actualPack.BetonV_Saturation;
+                        _Brightness = _MaterialCentral.instance.actualPack.BetonV_Brightness;
+
+                        _InsideTex = _MaterialCentral.instance.actualPack._BetonVTexInside;
+                        _InsideColor = _MaterialCentral.instance.actualPack._BetonVColorInside;
+                        _InsideStrength = _MaterialCentral.instance.actualPack._BetonVInsideStrength;
+
+                        _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                        _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                        _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
+                        _EmoteTex = _MaterialCentral.instance.actualPack._BetonEmoteTex;
+                        _EmoteStrength = 1;
+                    }
+                    break;
+                case CubeTypes.BombVictoryCube:
+                    {
+                        _MainTex = _MaterialCentral.instance.actualPack._BombVTex;
+                        _MainMesh = _MaterialCentral.instance.actualPack._BombVMesh;
+                        _MainColor = _MaterialCentral.instance.actualPack._BombVColor;
+
+                        _Hue = _MaterialCentral.instance.actualPack.BombV_Hue;
+                        _Contrast = _MaterialCentral.instance.actualPack.BombV_Contrast;
+                        _Saturation = _MaterialCentral.instance.actualPack.BombV_Saturation;
+                        _Brightness = _MaterialCentral.instance.actualPack.BombV_Brightness;
+
+                        _InsideTex = _MaterialCentral.instance.actualPack._BombVTexInside;
+                        _InsideColor = _MaterialCentral.instance.actualPack._BombVColorInside;
+                        _InsideStrength = _MaterialCentral.instance.actualPack._BombVInsideStrength;
+
+                        _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                        _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                        _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
+                        _EmoteTex = _MaterialCentral.instance.actualPack._BombEmoteTex;
+                        _EmoteStrength = 1;
+                    }
+                    break;
+                case CubeTypes.SwitchVictoryCube:
+                    {
+                        _MainTex = _MaterialCentral.instance.actualPack._SwitchVTexOn; ///////
+                        _MainMesh = _MaterialCentral.instance.actualPack._SwitchVMesh;
+                        _MainColor = _MaterialCentral.instance.actualPack._SwitchVColor;
+
+                        _Hue = _MaterialCentral.instance.actualPack.SwitchV_Hue;
+                        _Contrast = _MaterialCentral.instance.actualPack.SwitchV_Contrast;
+                        _Saturation = _MaterialCentral.instance.actualPack.SwitchV_Saturation;
+                        _Brightness = _MaterialCentral.instance.actualPack.SwitchV_Brightness;
+
+                        _InsideTex = _MaterialCentral.instance.actualPack._SwitchVTexInside;
+                        _InsideColor = _MaterialCentral.instance.actualPack._SwitchVColorInside;
+                        _InsideStrength = _MaterialCentral.instance.actualPack._SwitchVInsideStrength;
+
+                        _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                        _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                        _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
+                        _EmoteTex = _MaterialCentral.instance.actualPack._SwitchEmoteTex;
+                        _EmoteStrength = 1;
+                    }
+                    break;
+
+                case CubeTypes.CornerStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._CornerTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._CornerMesh;
