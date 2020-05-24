@@ -399,7 +399,7 @@ namespace Kubika.Game
                         }
                         break;
 
-                    case StaticEnums.Corner:
+                    case CubeTypes.CornerStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._CornerTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._CornerMesh;
@@ -422,7 +422,8 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case StaticEnums.Empty:
+
+                    case CubeTypes.EmptyStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._EmptyTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._EmptyMesh;
@@ -445,7 +446,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case StaticEnums.Full:
+                    case CubeTypes.FullStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._FullTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._FullMesh;
@@ -468,7 +469,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case StaticEnums.Quad:
+                    case CubeTypes.QuadStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._QuadTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._QuadMesh;
@@ -491,7 +492,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case StaticEnums.Top:
+                    case CubeTypes.TopStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._TopTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._TopMesh;
@@ -514,7 +515,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case StaticEnums.Triple:
+                    case CubeTypes.TripleStaticCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._TripleTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._TripleMesh;
