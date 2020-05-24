@@ -271,15 +271,20 @@ namespace Kubika.CustomLevelEditor
 
             if (hitIndex != 0 && hit.collider.gameObject != null)
             {
+               //get the cube
                 _CubeBase hitCube = hit.collider.gameObject.GetComponent<_CubeBase>();
 
+                //increment the enum if it isn't the last one, else reset it to the first
                 if (hitCube.facingDirection < FacingDirection.left) hitCube.facingDirection++;
                 else hitCube.facingDirection = FacingDirection.up;
 
+                //returns the coordinates that the cube should adopt according to its enum
                 Vector3 rotationVector = CubeFacingDirection.CubeFacing(hitCube.facingDirection);
 
+                //convert the coordinates to a euler angle
                 newRotation = Quaternion.Euler(rotationVector);
 
+                //assign the quaternion to the cube's transform
                 hit.collider.gameObject.transform.rotation = newRotation;
 
                 hitCube.SetCubeInfoInMatrix();

@@ -22,7 +22,7 @@ namespace Kubika.Game
 
         protected void ScannerSet()
         {
-            facingDirection = CubeFacingDirection.CubeFacingFromRotation(transform.localEulerAngles);
+            //facingDirection = CubeFacingDirection.CubeFacingFromRotation(transform.localEulerAngles);
         }
 
 

@@ -27,6 +27,8 @@ namespace Kubika.Saving
         public string currentKubicode;
         public bool currentLevelLockRotate;
         public int currentMinimumMoves;
+        
+        _Grid grid;
 
         private void Awake()
         {
@@ -201,22 +203,24 @@ namespace Kubika.Saving
 
         public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
+            grid = _Grid.instance;
+
             // start by resetting the grid's nodes to their base states
-            _Grid.instance.ResetIndexGrid();
+            grid.ResetIndexGrid();
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
                 currentNode = recoveredNode;
-
+                
                 GameObject newCube = Instantiate(cubePrefab);
 
                 _Grid.instance.placedObjects.Add(newCube);
 
-                _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = newCube;
-                _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].worldPosition = recoveredNode.worldPosition;
-                _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].worldRotation = recoveredNode.worldRotation;
-                _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].nodeIndex = recoveredNode.nodeIndex;
-                _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].facingDirection = recoveredNode.facingDirection;
+                grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = newCube;
+                grid.kuboGrid[recoveredNode.nodeIndex - 1].worldPosition = recoveredNode.worldPosition;
+                grid.kuboGrid[recoveredNode.nodeIndex - 1].worldRotation = recoveredNode.worldRotation;
+                grid.kuboGrid[recoveredNode.nodeIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                grid.kuboGrid[recoveredNode.nodeIndex - 1].facingDirection = recoveredNode.facingDirection;
 
                 switch (recoveredNode.cubeType)
                 {
@@ -325,9 +329,9 @@ namespace Kubika.Saving
 
                     default:
                         //set epmty cubes as cubeEmpty
-                        _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = null;
-                        _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-                        _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeType = CubeTypes.None;
+                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = null;
+                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeType = CubeTypes.None;
                         break;
                 }
             }
@@ -338,8 +342,8 @@ namespace Kubika.Saving
         void SetCubeInfo(_CubeBase cube, CubeLayers cubeLayers, CubeTypes cubeTypes)
         {
             cube.myIndex = currentNode.nodeIndex;
-            _Grid.instance.kuboGrid[cube.myIndex - 1].cubeLayers = cubeLayers;
-            _Grid.instance.kuboGrid[cube.myIndex - 1].cubeType = cubeTypes;
+            grid.kuboGrid[cube.myIndex - 1].cubeLayers = cubeLayers;
+            grid.kuboGrid[cube.myIndex - 1].cubeType = cubeTypes;
             cube.OnoadSetTransform();
         }
     }
