@@ -59,7 +59,7 @@ namespace Kubika.Game
             myCubeLayer = CubeLayers.cubeFull;
             dynamicEnum = DynamicEnums.Elevator;
 
-            ScannerSet();
+            //ScannerSet();
             _DataManager.instance.EndFalling.AddListener(CheckingIfCanPush);
 
             //call base.start AFTER assigning the cube's layers
@@ -75,7 +75,7 @@ namespace Kubika.Game
             base.Update();
             if(Input.GetKeyDown(KeyCode.B))
             {
-                ScannerSet();
+                //ScannerSet();
                 CheckingIfCanPush();
             }
         }
