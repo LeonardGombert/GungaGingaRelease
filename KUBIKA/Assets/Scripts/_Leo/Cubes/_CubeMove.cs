@@ -440,7 +440,7 @@ namespace Kubika.Game
             if (MatrixLimitCalcul(index, nodeDirection))
             {
                 indexTargetNode = index + nodeDirection;
-                Debug.Log("---CheckSoloMove--- ");
+                Debug.Log("---CheckSoloMove--- | " + nodeDirection);
 
                 switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
                 {
