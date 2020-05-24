@@ -222,12 +222,47 @@ namespace Kubika.Saving
                 // check the node's cube type and setup the relevant cube and its transform + individual information
                 switch (recoveredNode.cubeType)
                 {
-                    case CubeTypes.StaticCube:
+                    case CubeTypes.FullStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
-                        StaticCube staticCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(staticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.StaticCube);
-                        staticCube.staticEnum = StaticEnums.Empty;
+                        StaticCube fullStaticCube = newCube.GetComponent<StaticCube>();
+                        SetCubeInfo(fullStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.FullStaticCube);
+                        fullStaticCube.staticEnum = StaticEnums.Full;
                         break;
+
+                    case CubeTypes.EmptyStaticCube:
+                        newCube.AddComponent(typeof(StaticCube));
+                        StaticCube emptyCube = newCube.GetComponent<StaticCube>();
+                        SetCubeInfo(emptyCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.EmptyStaticCube);
+                        emptyCube.staticEnum = StaticEnums.Empty;
+                        break;
+
+                    case CubeTypes.TopStaticCube:
+                        newCube.AddComponent(typeof(StaticCube));
+                        StaticCube topStaticCube = newCube.GetComponent<StaticCube>();
+                        SetCubeInfo(topStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TopStaticCube);
+                        topStaticCube.staticEnum = StaticEnums.Top;
+                        break;
+
+                    case CubeTypes.CornerStaticCube:
+                        newCube.AddComponent(typeof(StaticCube));
+                        StaticCube cornerStaticCube = newCube.GetComponent<StaticCube>();
+                        SetCubeInfo(cornerStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.CornerStaticCube);
+                        cornerStaticCube.staticEnum = StaticEnums.Corner;
+                        break;
+
+                    case CubeTypes.TripleStaticCube:
+                        newCube.AddComponent(typeof(StaticCube));
+                        StaticCube tripleStaticCube = newCube.GetComponent<StaticCube>();
+                        SetCubeInfo(tripleStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TripleStaticCube);
+                        tripleStaticCube.staticEnum = StaticEnums.Triple;
+                        break;
+
+                    case CubeTypes.QuadStaticCube:
+                        newCube.AddComponent(typeof(StaticCube));
+                        StaticCube quadStaticCube = newCube.GetComponent<StaticCube>();
+                        SetCubeInfo(quadStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.QuadStaticCube);
+                        quadStaticCube.staticEnum = StaticEnums.Quad;
+                        break; 
 
                     case CubeTypes.MoveableCube:
                         newCube.AddComponent(typeof(MoveableCube));

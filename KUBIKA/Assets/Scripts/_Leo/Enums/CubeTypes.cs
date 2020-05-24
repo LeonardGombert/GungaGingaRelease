@@ -1,7 +1,13 @@
 ﻿public enum CubeTypes
 {
     None = 0, //empty layer
-    StaticCube, //full layer
+    FullStaticCube, //full layer
+    EmptyStaticCube, //full layer
+    TopStaticCube, //full layer
+    CornerStaticCube, //full layer
+    TripleStaticCube, //full layer
+    QuadStaticCube, //full layer
+
     RotatorLocker, //full layer
     DeliveryCube, //full layer
     SwitchButton, //full layer

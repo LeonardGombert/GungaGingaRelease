@@ -9,7 +9,7 @@ namespace Kubika.Game
         // Start is called before the first frame update
         public override void Start()
         {
-            myCubeType = CubeTypes.StaticCube;
+            myCubeType = CubeTypes.SwitchCube;
             myCubeLayer = CubeLayers.cubeFull;
             dynamicEnum = DynamicEnums.Switch;
 
@@ -32,7 +32,7 @@ namespace Kubika.Game
             {
                 isStatic = true;
                 myCubeLayer = CubeLayers.cubeFull;
-                myCubeType = CubeTypes.StaticCube;
+                myCubeType = CubeTypes.SwitchCube;
 
                 SetCubeInfoInMatrix();
             }

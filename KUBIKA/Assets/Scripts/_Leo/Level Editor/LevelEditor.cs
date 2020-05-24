@@ -48,7 +48,7 @@ namespace Kubika.CustomLevelEditor
             if (_instance != null && _instance != this) Destroy(this);
             else _instance = this;
 
-            currentCube = CubeTypes.StaticCube;
+            currentCube = CubeTypes.FullStaticCube;
         }
 
         private void Start()
@@ -203,7 +203,7 @@ namespace Kubika.CustomLevelEditor
                 //create a new Cube and add the CubeObject component to store its index
                 GameObject newCube = Instantiate(SaveAndLoad.instance.cubePrefab);
 
-                SetCubeCubeInfo(newCube);
+                OnPlaceCube(newCube);
                 grid.placedObjects.Add(newCube);
             }
 
@@ -341,19 +341,19 @@ namespace Kubika.CustomLevelEditor
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                if (currentCube == CubeTypes.StaticCube) currentCube = CubeTypes.ChaosBall;
+                if (currentCube == CubeTypes.FullStaticCube) currentCube = CubeTypes.ChaosBall;
                 else currentCube--;
             }
 
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                if (currentCube == CubeTypes.ChaosBall) currentCube = CubeTypes.StaticCube;
+                if (currentCube == CubeTypes.ChaosBall) currentCube = CubeTypes.FullStaticCube;
                 else currentCube++;
             }
         }
 
         // Set all of the cube's information when it is placed
-        private void SetCubeCubeInfo(GameObject newCube)
+        private void OnPlaceCube(GameObject newCube)
         {
             SetCubeOnPosition(newCube);
             SetCubePosition(newCube);
@@ -361,170 +361,157 @@ namespace Kubika.CustomLevelEditor
 
             switch (currentCube)
             {
-                case CubeTypes.StaticCube:
+                case CubeTypes.FullStaticCube:
                     newCube.AddComponent(typeof(StaticCube));
-
                     StaticCube staticCube = newCube.GetComponent<StaticCube>();
-                    staticCube.myIndex = GetCubeIndex();
-                    SetCubeType(staticCube.myIndex, CubeTypes.StaticCube);
-                    staticCube.isStatic = true;
+                    staticCube.staticEnum = StaticEnums.Full;
+                    SendInfoToCube(staticCube as _CubeBase, CubeTypes.FullStaticCube, true);
+                    break;
 
-                    staticCube.staticEnum = StaticEnums.Empty;
+                case CubeTypes.EmptyStaticCube:
+                    newCube.AddComponent(typeof(StaticCube));
+                    StaticCube emptyStaticCube = newCube.GetComponent<StaticCube>();
+                    emptyStaticCube.staticEnum = StaticEnums.Empty;
+                    SendInfoToCube(emptyStaticCube as _CubeBase, CubeTypes.EmptyStaticCube, true);
+                    break;
+
+                case CubeTypes.TopStaticCube:
+                    newCube.AddComponent(typeof(StaticCube));
+                    StaticCube topStaticCube = newCube.GetComponent<StaticCube>();
+                    topStaticCube.staticEnum = StaticEnums.Top;
+                    SendInfoToCube(topStaticCube as _CubeBase, CubeTypes.TopStaticCube, true);
+                    break;
+
+                case CubeTypes.CornerStaticCube:
+                    newCube.AddComponent(typeof(StaticCube));
+                    StaticCube cornerStaticCube = newCube.GetComponent<StaticCube>();
+                    cornerStaticCube.staticEnum = StaticEnums.Corner;
+                    SendInfoToCube(cornerStaticCube as _CubeBase, CubeTypes.CornerStaticCube, true);
+                    break;
+
+                case CubeTypes.TripleStaticCube:
+                    newCube.AddComponent(typeof(StaticCube));
+                    StaticCube tripleStaticCube = newCube.GetComponent<StaticCube>();
+                    tripleStaticCube.staticEnum = StaticEnums.Triple;
+                    SendInfoToCube(tripleStaticCube as _CubeBase, CubeTypes.TripleStaticCube, true);
+                    break;
+
+                case CubeTypes.QuadStaticCube:
+                    newCube.AddComponent(typeof(StaticCube));
+                    StaticCube quadStaticCube = newCube.GetComponent<StaticCube>();
+                    quadStaticCube.staticEnum = StaticEnums.Quad;
+                    SendInfoToCube(quadStaticCube as _CubeBase, CubeTypes.QuadStaticCube, true);
                     break;
 
                 case CubeTypes.MoveableCube:
                     newCube.AddComponent(typeof(MoveableCube));
                     MoveableCube moveableCube = newCube.GetComponent<MoveableCube>();
-
-                    moveableCube.myIndex = GetCubeIndex();
-                    SetCubeType(moveableCube.myIndex, CubeTypes.MoveableCube);
-                    moveableCube.isStatic = false;
+                    SendInfoToCube(moveableCube as _CubeBase, CubeTypes.MoveableCube, false);
                     break;
 
                 case CubeTypes.BaseVictoryCube:
                     newCube.AddComponent(typeof(BaseVictoryCube));
                     BaseVictoryCube victoryCube = newCube.GetComponent<BaseVictoryCube>();
-
-                    victoryCube.myIndex = GetCubeIndex();
-                    SetCubeType(victoryCube.myIndex, CubeTypes.BaseVictoryCube);
-
-                    victoryCube.isStatic = false;
+                    SendInfoToCube(victoryCube as _CubeBase, CubeTypes.BaseVictoryCube, false);
                     break;
 
                 case CubeTypes.ConcreteVictoryCube:
                     newCube.AddComponent(typeof(ConcreteVictoryCube));
                     ConcreteVictoryCube concreteVictoryCube = newCube.GetComponent<ConcreteVictoryCube>();
-
-                    concreteVictoryCube.myIndex = GetCubeIndex();
-                    SetCubeType(concreteVictoryCube.myIndex, CubeTypes.ConcreteVictoryCube);
-
-                    concreteVictoryCube.isStatic = false;
+                    SendInfoToCube(concreteVictoryCube as _CubeBase, CubeTypes.ConcreteVictoryCube, false);
                     break;
 
                 case CubeTypes.BombVictoryCube:
                     newCube.AddComponent(typeof(BombVictoryCube));
                     BombVictoryCube bombVictoryCube = newCube.GetComponent<BombVictoryCube>();
-
-                    bombVictoryCube.myIndex = GetCubeIndex();
-                    SetCubeType(bombVictoryCube.myIndex, CubeTypes.BombVictoryCube);
-
-                    bombVictoryCube.isStatic = false;
+                    SendInfoToCube(bombVictoryCube as _CubeBase, CubeTypes.BombVictoryCube, false);
                     break;
 
                 case CubeTypes.SwitchVictoryCube:
                     newCube.AddComponent(typeof(SwitchVictoryCube));
                     SwitchVictoryCube switchVictoryCube = newCube.GetComponent<SwitchVictoryCube>();
-
-                    switchVictoryCube.myIndex = GetCubeIndex();
-                    SetCubeType(switchVictoryCube.myIndex, CubeTypes.SwitchVictoryCube);
-
-                    switchVictoryCube.isStatic = false;
+                    SendInfoToCube(switchVictoryCube as _CubeBase, CubeTypes.SwitchVictoryCube, true);
                     break;
 
                 case CubeTypes.DeliveryCube:
                     newCube.AddComponent(typeof(DeliveryCube));
                     DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
-
-                    deliveryCube.myIndex = GetCubeIndex();
-                    SetCubeType(deliveryCube.myIndex, CubeTypes.DeliveryCube);
-                    deliveryCube.isStatic = true;
+                    SendInfoToCube(deliveryCube as _CubeBase, CubeTypes.DeliveryCube, true);
                     break;
 
                 case CubeTypes.ElevatorCube:
                     newCube.AddComponent(typeof(ElevatorCube));
                     ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-
-                    elevatorCube.myIndex = GetCubeIndex();
-                    SetCubeType(elevatorCube.myIndex, CubeTypes.ElevatorCube);
-                    elevatorCube.isStatic = true;
+                    SendInfoToCube(elevatorCube as _CubeBase, CubeTypes.ElevatorCube, false);
                     break;
 
                 case CubeTypes.ConcreteCube:
                     newCube.AddComponent(typeof(ConcreteCube));
                     ConcreteCube concreteCube = newCube.GetComponent<ConcreteCube>();
-
-                    concreteCube.myIndex = GetCubeIndex();
-                    SetCubeType(concreteCube.myIndex, CubeTypes.ConcreteCube);
-                    concreteCube.isStatic = true;
+                    SendInfoToCube(concreteCube as _CubeBase, CubeTypes.ConcreteCube, false);
                     break;
 
                 case CubeTypes.BombCube:
                     newCube.AddComponent(typeof(BombCube));
                     BombCube mineCube = newCube.GetComponent<BombCube>();
-
-                    mineCube.myIndex = GetCubeIndex();
-                    SetCubeType(mineCube.myIndex, CubeTypes.BombCube);
-                    mineCube.isStatic = true;
+                    SendInfoToCube(mineCube as _CubeBase, CubeTypes.BombCube, false);
                     break;
 
                 case CubeTypes.TimerCube:
                     newCube.AddComponent(typeof(TimerCube));
                     TimerCube timerCube = newCube.GetComponent<TimerCube>();
-
-                    timerCube.myIndex = GetCubeIndex();
-                    SetCubeType(timerCube.myIndex, CubeTypes.TimerCube);
-                    timerCube.isStatic = true;
+                    SendInfoToCube(timerCube as _CubeBase, CubeTypes.TimerCube, true);
                     break;
 
                 case CubeTypes.SwitchCube:
                     newCube.AddComponent(typeof(SwitchCube));
                     SwitchCube switchCube = newCube.GetComponent<SwitchCube>();
-
-                    switchCube.myIndex = GetCubeIndex();
-                    SetCubeType(switchCube.myIndex, CubeTypes.SwitchCube);
-                    switchCube.isStatic = true;
+                    SendInfoToCube(switchCube as _CubeBase, CubeTypes.SwitchCube, true);
                     break;
 
                 case CubeTypes.SwitchButton:
                     placingButton = false;
                     newCube.AddComponent(typeof(SwitchButton));
                     SwitchButton switchButton = newCube.GetComponent<SwitchButton>();
-
-                    switchButton.myIndex = GetCubeIndex();
-                    SetCubeType(switchButton.myIndex, CubeTypes.SwitchButton);
-                    switchButton.isStatic = true;
+                    SendInfoToCube(switchButton as _CubeBase, CubeTypes.SwitchButton, true);
                     break;
 
                 case CubeTypes.RotatorLeftTurner:
                     newCube.AddComponent(typeof(RotateLeftCube));
                     RotateLeftCube rotateLeftCube = newCube.GetComponent<RotateLeftCube>();
-
-                    rotateLeftCube.myIndex = GetCubeIndex();
-                    SetCubeType(rotateLeftCube.myIndex, CubeTypes.RotatorLeftTurner);
-                    rotateLeftCube.isStatic = true;
+                    SendInfoToCube(rotateLeftCube as _CubeBase, CubeTypes.RotatorLeftTurner, true);
                     break;
 
                 case CubeTypes.RotatorRightTurner:
                     newCube.AddComponent(typeof(RotateRightCube));
                     RotateRightCube rotateRightCube = newCube.GetComponent<RotateRightCube>();
-
-                    rotateRightCube.myIndex = GetCubeIndex();
-                    SetCubeType(rotateRightCube.myIndex, CubeTypes.RotatorRightTurner);
-                    rotateRightCube.isStatic = true;
+                    SendInfoToCube(rotateRightCube as _CubeBase, CubeTypes.RotatorRightTurner, true);
                     break;
 
                 case CubeTypes.RotatorLocker:
                     newCube.AddComponent(typeof(RotatorLocker));
                     RotatorLocker rotatorLocker = newCube.GetComponent<RotatorLocker>();
-
-                    rotatorLocker.myIndex = GetCubeIndex();
-                    SetCubeType(rotatorLocker.myIndex, CubeTypes.RotatorLocker);
-                    rotatorLocker.isStatic = true;
+                    SendInfoToCube(rotatorLocker as _CubeBase, CubeTypes.RotatorLocker, true);
                     break;
 
                 case CubeTypes.ChaosBall:
                     newCube.AddComponent(typeof(ChaosBall));
                     ChaosBall chaosBall = newCube.GetComponent<ChaosBall>();
-
-                    chaosBall.myIndex = GetCubeIndex();
-                    SetCubeType(chaosBall.myIndex, CubeTypes.ChaosBall);
-                    chaosBall.isStatic = true;
+                    SendInfoToCube(chaosBall as _CubeBase, CubeTypes.ChaosBall, false);
                     break;
 
                 default:
                     break;
             }
         }
+
+        void SendInfoToCube(_CubeBase cubeBase, CubeTypes cubeType, bool _static)
+        {
+            cubeBase.myIndex = GetCubeIndex();
+            SetCubeType(cubeBase.myIndex, cubeType);
+            cubeBase.isStatic = _static;
+        }
+
         #endregion
 
         #region GET OFFSET AND CHECK INDEX STATE

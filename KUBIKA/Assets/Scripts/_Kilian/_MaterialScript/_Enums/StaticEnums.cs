@@ -1,6 +1,6 @@
 ﻿public enum StaticEnums
 {
-    Null,
+    Null = 0,
     Full,
     Empty,
     Top,
