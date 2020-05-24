@@ -103,7 +103,6 @@ namespace Kubika.Game
                     {
                         Debug.Log("-4-");
                         isCheckingMove = false;
-                        cubeIsStillInPlace == false
                     }
                 }
                 else

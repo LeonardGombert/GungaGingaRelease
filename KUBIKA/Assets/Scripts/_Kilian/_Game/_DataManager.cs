@@ -165,12 +165,9 @@ namespace Kubika.Game
 
                     case TouchPhase.Ended:
                         {
-                            if (cubeMove != null)
-                            {
-                                EndSwipe.Invoke();
-                                cubeMove.isSeletedNow = false;
-                                cubeMove = null;
-                            }
+                            EndSwipe.Invoke();
+                            cubeMove.isSeletedNow = false;
+                            cubeMove = null;
                         }
                         break;
                 }
@@ -215,12 +212,9 @@ namespace Kubika.Game
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                if (cubeMove != null)
-                {
-                    EndSwipe.Invoke();
-                    cubeMove.isSeletedNow = false;
-                    cubeMove = null;
-                }
+                EndSwipe.Invoke();
+                cubeMove.isSeletedNow = false;
+                cubeMove = null;
             }
 
         }
@@ -316,8 +310,8 @@ namespace Kubika.Game
                     break;
             }
 
-        }
 
+        }
         #endregion
 
         #region TIMED EVENT

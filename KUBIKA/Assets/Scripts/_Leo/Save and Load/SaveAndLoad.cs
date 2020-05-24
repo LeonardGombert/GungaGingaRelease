@@ -296,7 +296,7 @@ namespace Kubika.Saving
                     case CubeTypes.DeliveryCube:
                         newCube.AddComponent(typeof(DeliveryCube));
                         DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
-                        SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.DeliveryCube, true);
+                        SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.DeliveryCube, true);
                         break;
 
                     case CubeTypes.BlueElevatorCube:

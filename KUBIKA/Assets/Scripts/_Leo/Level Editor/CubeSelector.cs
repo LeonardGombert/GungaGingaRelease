@@ -15,6 +15,7 @@ namespace Kubika.Game
         // called on button press
         public void ChangeCubeSelection()
         {
+            UIManager.instance.ButtonCallback("LEVELEDITOR_isPlacing");
             Debug.Log("You've pressed " + selectedCubeType.ToString());
             LevelEditor.instance.currentCube = selectedCubeType;
         }

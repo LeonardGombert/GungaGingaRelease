@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
+using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
@@ -249,6 +250,24 @@ namespace Kubika.Game
                     StartCoroutine(DimGame());
                     break;
                 #endregion
+
+                #region //LEVEL EDITOR
+                case "LEVELEDITOR_isPlacing":
+                    LevelEditor.instance.SwitchAction("isPlacing");
+                    break;
+
+                case "LEVELEDITOR_isDeleting":
+                    LevelEditor.instance.SwitchAction("isDeleting");
+                    break;
+
+                case "LEVELEDITOR_isRotating":
+                    LevelEditor.instance.SwitchAction("isRotating");
+                    break;
+
+                case "LEVELEDITOR_TestLevel":
+                    LevelEditor.instance.SwitchAction("isRotating");
+                    break;
+                #endregion 
 
                 case "MAIN_MENU":
                     StartCoroutine(DimGame());

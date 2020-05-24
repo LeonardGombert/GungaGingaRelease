@@ -13,7 +13,7 @@ namespace Kubika.CustomLevelEditor
         public GameObject cubeOnPosition;
 
         //used for saving and loading levels
-        public CubeTypes cubeType;
+        public string cubeType;
 
         public CubeLayers cubeLayers;
 

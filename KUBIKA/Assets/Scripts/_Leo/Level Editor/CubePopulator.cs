@@ -24,12 +24,6 @@ namespace Kubika.Game
             PopulateGrid();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private void PopulateGrid()
         {
             GameObject newObj;
@@ -39,6 +33,18 @@ namespace Kubika.Game
                 newObj = Instantiate(prefab, transform);
                 newObj.GetComponent<Image>().color = UnityEngine.Random.ColorHSV();
                 newObj.GetComponent<CubeSelector>().selectedCubeType = (CubeTypes) i + 1;
+            }
+        }
+
+        public void StaticCubePopulator()
+        {
+            GameObject newObj;
+
+            for (int i = (int)CubeTypes.RotatorLocker; i < numberToCreate; i++)
+            {
+                newObj = Instantiate(prefab, transform);
+                newObj.GetComponent<Image>().color = UnityEngine.Random.ColorHSV();
+                newObj.GetComponent<CubeSelector>().selectedCubeType = (CubeTypes)i + 1;
             }
         }
     }
