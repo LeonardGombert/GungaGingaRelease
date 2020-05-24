@@ -189,11 +189,9 @@ namespace Kubika.Game
 
         public void SetScriptablePreset()
         {
-            if (dynamicEnum != DynamicEnums.Null && staticEnum == StaticEnums.Null)
-            {
-                switch(dynamicEnum)
+                switch(myCubeType)
                 {
-                    case DynamicEnums.Base:
+                    case CubeTypes.MoveableCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._BaseTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._BaseMesh; 
@@ -216,7 +214,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1; 
                         }
                         break;
-                    case DynamicEnums.Beton:
+                    case CubeTypes.ConcreteCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._BetonTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._BetonMesh;
@@ -239,7 +237,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case DynamicEnums.Counter:
+                    case CubeTypes.TimerCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._CounterTex9; /////
                             _MainMesh = _MaterialCentral.instance.actualPack._CounterMesh;
@@ -262,7 +260,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case DynamicEnums.Bomb:
+                    case CubeTypes.BombCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._BombTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._BombMesh;
@@ -285,7 +283,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case DynamicEnums.Elevator:
+                    case CubeTypes.ElevatorCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._ElevatorTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._ElevatorMesh;
@@ -308,7 +306,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case DynamicEnums.Ball:
+                    case CubeTypes.ChaosBall:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._BallTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._BallMesh;
@@ -331,7 +329,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case DynamicEnums.Switch:
+                    case CubeTypes.SwitchCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._SwitchTexOn; ///////
                             _MainMesh = _MaterialCentral.instance.actualPack._SwitchMesh;
@@ -354,7 +352,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case DynamicEnums.Rotators:
+                    case CubeTypes.RotatorLeftTurner:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._RotatorsTexLeft; ////////
                             _MainMesh = _MaterialCentral.instance.actualPack._RotatorsMesh;
@@ -377,7 +375,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case DynamicEnums.Pastille:
+                    case CubeTypes.DeliveryCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._PastilleTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._PastilleMesh;
@@ -400,12 +398,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                }
-            }
-            else if (dynamicEnum == DynamicEnums.Null && staticEnum != StaticEnums.Null)
-            {
-                switch(staticEnum)
-                {
+
                     case StaticEnums.Corner:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._CornerTex;
@@ -544,7 +537,7 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                }
+                
             }
 
             SetMaterial();
