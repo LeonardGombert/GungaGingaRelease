@@ -287,6 +287,7 @@ namespace Kubika.CustomLevelEditor
                 //assign the quaternion to the cube's transform
                 hit.collider.gameObject.transform.rotation = newRotation;
 
+                //set the rotation info in node grid
                 hitCube.SetCubeInfoInMatrix();
             }
         }

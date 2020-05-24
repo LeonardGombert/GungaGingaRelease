@@ -76,7 +76,7 @@ namespace Kubika.Game
         }
 
         //call when level is loaded, places cube in world
-        public void OnoadSetTransform()
+        public void OnLoadSetTransform()
         {
             transform.position = _Grid.instance.kuboGrid[myIndex - 1].worldPosition;
             transform.rotation = Quaternion.Euler(_Grid.instance.kuboGrid[myIndex - 1].worldRotation);

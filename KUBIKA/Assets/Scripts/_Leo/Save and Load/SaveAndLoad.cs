@@ -217,9 +217,9 @@ namespace Kubika.Saving
                 _Grid.instance.placedObjects.Add(newCube);
 
                 grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = newCube;
+                grid.kuboGrid[recoveredNode.nodeIndex - 1].nodeIndex = recoveredNode.nodeIndex;
                 grid.kuboGrid[recoveredNode.nodeIndex - 1].worldPosition = recoveredNode.worldPosition;
                 grid.kuboGrid[recoveredNode.nodeIndex - 1].worldRotation = recoveredNode.worldRotation;
-                grid.kuboGrid[recoveredNode.nodeIndex - 1].nodeIndex = recoveredNode.nodeIndex;
                 grid.kuboGrid[recoveredNode.nodeIndex - 1].facingDirection = recoveredNode.facingDirection;
 
                 switch (recoveredNode.cubeType)
@@ -342,9 +342,10 @@ namespace Kubika.Saving
         void SetCubeInfo(_CubeBase cube, CubeLayers cubeLayers, CubeTypes cubeTypes)
         {
             cube.myIndex = currentNode.nodeIndex;
+            cube.facingDirection = currentNode.facingDirection;
             grid.kuboGrid[cube.myIndex - 1].cubeLayers = cubeLayers;
             grid.kuboGrid[cube.myIndex - 1].cubeType = cubeTypes;
-            cube.OnoadSetTransform();
+            cube.OnLoadSetTransform();
         }
     }
 }
