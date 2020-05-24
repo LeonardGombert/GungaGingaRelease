@@ -299,10 +299,16 @@ namespace Kubika.Saving
                         SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.DeliveryCube, true);
                         break;
 
-                    case CubeTypes.ElevatorCube:
+                    case CubeTypes.BlueElevatorCube:
                         newCube.AddComponent(typeof(ElevatorCube));
-                        ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-                        SetCubeInfo(elevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ElevatorCube, false);
+                        ElevatorCube blueElevatorCube = newCube.GetComponent<ElevatorCube>();
+                        SetCubeInfo(blueElevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BlueElevatorCube, false);
+                        break;
+
+                    case CubeTypes.GreenElevatorCube:
+                        newCube.AddComponent(typeof(ElevatorCube));
+                        ElevatorCube greenElevatorCube = newCube.GetComponent<ElevatorCube>();
+                        SetCubeInfo(greenElevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.GreenElevatorCube, false);
                         break;
 
                     case CubeTypes.ConcreteCube:

@@ -85,11 +85,6 @@ namespace Kubika.Game
             transform.parent = _Grid.instance.gameObject.transform;
         }
 
-        private void OnDestroy()
-        {
-            ResetCubeInfo();
-        }
-
         public void DisableCube()
         {
             gameObject.SetActive(false);
@@ -295,7 +290,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case CubeTypes.ElevatorCube:
+                    case CubeTypes.BlueElevatorCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._ElevatorTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._ElevatorMesh;

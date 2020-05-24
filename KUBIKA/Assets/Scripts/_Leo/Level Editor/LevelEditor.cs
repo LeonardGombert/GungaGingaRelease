@@ -209,6 +209,7 @@ namespace Kubika.CustomLevelEditor
             //if there is a cube
             if (!IndexIsEmpty())
             {
+                currentHitCube.ResetCubeInfo();
                 //reset the grid info
                 Destroy(currentHitCube.gameObject);
             }
@@ -418,10 +419,16 @@ namespace Kubika.CustomLevelEditor
                     SendInfoToCube(deliveryCube as _CubeBase, CubeTypes.DeliveryCube, CubeLayers.cubeFull, true);
                     break;
 
-                case CubeTypes.ElevatorCube:
+                case CubeTypes.BlueElevatorCube:
                     newCube.AddComponent(typeof(ElevatorCube));
-                    ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-                    SendInfoToCube(elevatorCube as _CubeBase, CubeTypes.ElevatorCube, CubeLayers.cubeMoveable, false);
+                    ElevatorCube blueElevatorCube = newCube.GetComponent<ElevatorCube>();
+                    SendInfoToCube(blueElevatorCube as _CubeBase, CubeTypes.BlueElevatorCube, CubeLayers.cubeMoveable, false);
+                    break;
+
+                case CubeTypes.GreenElevatorCube:
+                    newCube.AddComponent(typeof(ElevatorCube));
+                    ElevatorCube greenElevatorCube = newCube.GetComponent<ElevatorCube>();
+                    SendInfoToCube(greenElevatorCube as _CubeBase, CubeTypes.GreenElevatorCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.ConcreteCube:
