@@ -49,19 +49,19 @@ namespace Kubika.Game
             }
             else if (localDirection == transform.TransformDirection(Vector3.forward))
             {
-                return 3;
+                return 4; // FIX DE MERDE
             }
             else if (localDirection == transform.TransformDirection(Vector3.back))
             {
-                return 4;
+                return 3; // FIX DE MERDE
             }
             else if (localDirection == transform.TransformDirection(Vector3.right))
             {
-                return 5;
+                return 6; // FIX DE MERDE
             }
             else if (localDirection == transform.TransformDirection(Vector3.left))
             {
-                return 6;
+                return 5; // FIX DE MERDE
             }
             else
             {

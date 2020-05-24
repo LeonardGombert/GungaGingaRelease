@@ -26,6 +26,7 @@ namespace Kubika.Game
         public bool isFalling;
         public bool isMoving;
         public bool isOutside;
+        public bool isOverNothing;
         public bool isReadyToMove;
 
         //FALL MOVE
@@ -40,6 +41,7 @@ namespace Kubika.Game
         [Header("OUTSIDE")]
         public int nbrDeCubeFallOutside = 10;
         Vector3 moveOutsideTarget;
+        [HideInInspector] public Vector3 moveOutsideTargetCustomVector;
         Vector3 fallOutsideTarget;
 
         // COORD SYSTEM
@@ -351,7 +353,6 @@ namespace Kubika.Game
         public IEnumerator MoveFromMap(Vector3 nextPosition)
         {
             isMoving = true;
-            isOutside = true;
 
             moveOutsideTarget = new Vector3(nextPosition.x * grid.offset, nextPosition.y * grid.offset, nextPosition.z * grid.offset);
 
@@ -392,7 +393,14 @@ namespace Kubika.Game
         public void MoveToTarget()
         {
             Debug.Log("MoveToTarget-MOVING");
-            StartCoroutine(Move(soloMoveTarget));
+            if (isOutside == false)
+            {
+                StartCoroutine(Move(soloMoveTarget));
+            }
+            else
+            {
+                StartCoroutine(MoveFromMap(moveOutsideTargetCustomVector));
+            }
         }
 
         public void MoveToTargetPile()
@@ -407,9 +415,10 @@ namespace Kubika.Game
             isReadyToMove = false;
             pileNodeCubeMove = null;
             pushNextNodeCubeMove = null;
+            isOverNothing = false;
         }
 
-        void CheckingMove(int index, int nodeDirection)
+        public void CheckingMove(int index, int nodeDirection)
         {
             isMoving = true;
             isCheckingMove = true;
@@ -417,60 +426,13 @@ namespace Kubika.Game
             _DataManager.instance.StartMoving.AddListener(MoveToTarget);
             CheckSoloMove(index, nodeDirection);
         }
-        void CheckingPile(int index, int nodeDirection)
+        public void CheckingPile(int index, int nodeDirection)
         {
             isMoving = true;
             isCheckingMove = true;
             Debug.Log("CheckingPike");
             _DataManager.instance.StartMoving.AddListener(MoveToTargetPile);
             CheckPileMove(index, nodeDirection);
-        }
-
-        public bool MatrixLimitCalcul(int index, int nodeDirection)
-        {
-            // X
-            if (nodeDirection == _DirectionCustom.left)
-            {
-                if (((index - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (index / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
-                    return true;
-                else return false;
-            }
-            // -X
-            else if (nodeDirection == _DirectionCustom.right)
-            {
-                if ((index + grid.gridSize) / ((grid.gridSize * grid.gridSize) * (index / (grid.gridSize * grid.gridSize) + 1)) != 1)
-                    return true;
-                else return false;
-            }
-            // Z
-            else if (nodeDirection == _DirectionCustom.forward)
-            {
-                if ((index + (grid.gridSize * grid.gridSize)) / ((grid.gridSize * grid.gridSize * grid.gridSize)) != 1)
-                    return true;
-                else return false;
-            }
-            // -Z
-            else if (nodeDirection == _DirectionCustom.backward)
-            {
-                if (index - (grid.gridSize * grid.gridSize) >= 0)
-                    return true;
-                else return false;
-            }
-            // Y
-            else if (nodeDirection == _DirectionCustom.up)
-            {
-                if (index % grid.gridSize != 0)
-                    return true;
-                else return false;
-            }
-            // -Y
-            else if (nodeDirection == _DirectionCustom.down)
-            {
-                if ((index - 1) % grid.gridSize != 0)
-                    return true;
-                else return false;
-            }
-            else return false;
         }
 
         public void CheckSoloMove(int index, int nodeDirection)
@@ -492,24 +454,41 @@ namespace Kubika.Game
                     case CubeLayers.cubeEmpty:
                         {
                             Debug.Log("EMPTY ");
-                            if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers == CubeLayers.cubeMoveable || grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers == CubeLayers.cubeFull)
+                            if (isOverNothing == false)
                             {
+                                if (grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers == CubeLayers.cubeMoveable || grid.kuboGrid[indexTargetNode - 1 + _DirectionCustom.down].cubeLayers == CubeLayers.cubeFull)
+                                {
+                                    isReadyToMove = true;
+                                    soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                                    if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
+                                    {
+                                        pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<_CubeMove>();
+                                        pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
+                                    }
+                                    Debug.Log("EMPTY-CAN MOVE-");
+                                }
+                                else
+                                {
+                                    isReadyToMove = true;
+                                    Debug.Log("EMPTY-CANNOT MOVE-");
+                                    soloMoveTarget = grid.kuboGrid[myIndex - 1];
+                                }
+                                isCheckingMove = false;
+                            }
+                            else
+                            {
+
                                 isReadyToMove = true;
                                 soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
-                                if(grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
+                                if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
                                 {
                                     pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<_CubeMove>();
                                     pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
                                 }
                                 Debug.Log("EMPTY-CAN MOVE-");
+
+                                isCheckingMove = false;
                             }
-                            else
-                            {
-                                isReadyToMove = true;
-                                Debug.Log("EMPTY-CANNOT MOVE-");
-                                soloMoveTarget = grid.kuboGrid[myIndex - 1];
-                            }
-                            isCheckingMove = false;
                         }
                         break;
                     case CubeLayers.cubeMoveable:

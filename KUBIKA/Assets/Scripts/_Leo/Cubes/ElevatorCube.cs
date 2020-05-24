@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
@@ -9,6 +10,49 @@ namespace Kubika.Game
         // Start is called before the first frame update
 
         public bool isGreen;
+        _CubeMove pushCube;
+
+        // BOOL ACTION
+        [Space]
+        [Header("BOOL ACTION")]
+        public bool isCheckingMove;
+        public bool isMoving;
+        public bool isOutside;
+        public bool isReadyToMove;
+        public bool cubeIsStillInPlace;
+
+        // LERP
+        Vector3 currentPos;
+        Vector3 basePos;
+        float currentTime;
+        public float moveTime = 0.5f;
+
+        // COORD SYSTEM
+        [Space]
+        [Header("COORD SYSTEM")]
+        public int xCoordLocal;
+        public int yCoordLocal;
+        public int zCoordLocal;
+
+        //FALL OUTSIDE
+        [Space]
+        [Header("OUTSIDE")]
+        public int nbrDeCubeFallOutside = 10;
+        Vector3 moveOutsideTarget;
+
+        // MOVE
+        [Space]
+        [Header("MOVE")]
+        public Node soloMoveTarget;
+        public Node soloPileTarget;
+        public Vector3 outsideMoveTarget;
+        int indexTargetNode;
+
+        //PUSH
+        public _CubeMove pushNextNodeCubeMove;
+
+        //PILE
+        public _CubeMove pileNodeCubeMove;
 
         public override  void Start()
         {
@@ -32,18 +76,217 @@ namespace Kubika.Game
             if(Input.GetKeyDown(KeyCode.B))
             {
                 ScannerSet();
+                Scanning();
             }
         }
 
         // Appel a la fin des mouvements de tous les cubes
         void Scanning()
         {
-            if(grid.kuboGrid[ myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].cubeLayers == CubeLayers.cubeMoveable)
-            {
-                // Detect wall
-                Debug.Log("TEST CHECK NODE SCAN " + grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].nodeIndex);
-            }
-            Debug.LogError("_baseCubeRotation_ | " + baseCubeRotation);
+
+            Debug.Log("TEST CHECK NODE SCAN " + grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].nodeIndex + " || Name = " + transform.name + " || " + transform.TransformDirection(Vector3.forward) + " || Vector3 " + Vector3.up);
+
         }
+
+        void CheckingIfCanPush()
+        {
+            isCheckingMove = true;
+
+            if(MatrixLimitCalcul(myIndex, _DirectionCustom.LocalScanner(baseCubeRotation)))
+            {
+                if(grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].cubeLayers == CubeLayers.cubeMoveable)
+                {
+                    pushCube = grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(baseCubeRotation)].cubeOnPosition.GetComponent<_CubeMove>();
+
+                    CheckingMove(myIndex,  _DirectionCustom.LocalScanner(baseCubeRotation));
+                    StartCoroutine(_DataManager.instance.CubesAndElevatorAreCheckingMove());
+                }
+                else
+                {
+                    isCheckingMove = false;
+                }
+            }
+            else
+            {
+                isCheckingMove = false;
+            }
+        }
+
+        #region MOVE
+
+        public IEnumerator Move(Node nextNode)
+        {
+            isMoving = true;
+            Debug.Log("IS MOVING || isMoving = " + isMoving);
+
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
+
+            basePos = transform.position;
+            currentTime = 0;
+
+            while (currentTime <= 1)
+            {
+                currentTime += Time.deltaTime;
+                currentTime = (currentTime / moveTime);
+
+                currentPos = Vector3.Lerp(basePos, nextNode.worldPosition, currentTime);
+
+                transform.position = currentPos;
+                yield return transform.position;
+            }
+
+            //Debug.Log(" nextNode.nodeIndex-1 = " + nextNode.nodeIndex + " ||nextNode.cubeLayers " + nextNode.cubeLayers);
+
+
+            myIndex = nextNode.nodeIndex;
+            nextNode.cubeOnPosition = gameObject;
+            //set updated index to cubeMoveable
+            nextNode.cubeLayers = CubeLayers.cubeFull;
+            nextNode.cubeType = myCubeType;
+
+            //Debug.Log(" nextNode.nodeIndex-2 = " + nextNode.nodeIndex + " ||nextNode.cubeLayers " + nextNode.cubeLayers);
+
+            xCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].xCoord;
+            yCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].yCoord;
+            zCoordLocal = grid.kuboGrid[nextNode.nodeIndex - 1].zCoord;
+
+            isMoving = false;
+
+
+            Debug.Log("END MOVING ");
+
+        }
+
+        public IEnumerator MoveFromMap(Vector3 nextPosition)
+        {
+            isMoving = true;
+            isOutside = true;
+
+            moveOutsideTarget = new Vector3(nextPosition.x * grid.offset, nextPosition.y * grid.offset, nextPosition.z * grid.offset);
+
+            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
+
+            basePos = transform.position;
+            currentTime = 0;
+
+            while (currentTime <= 1)
+            {
+                currentTime += Time.deltaTime;
+                currentTime = (currentTime / moveTime);
+
+                currentPos = Vector3.Lerp(basePos, moveOutsideTarget, currentTime);
+
+                transform.position = currentPos;
+                yield return transform.position;
+            }
+
+            myIndex = indexTargetNode;
+
+            xCoordLocal = Mathf.RoundToInt(moveOutsideTarget.x / grid.offset);
+            yCoordLocal = Mathf.RoundToInt(moveOutsideTarget.y / grid.offset);
+            zCoordLocal = Mathf.RoundToInt(moveOutsideTarget.z / grid.offset);
+
+            isMoving = false;
+
+        }
+
+        public void MoveToTarget()
+        {
+            Debug.Log("MoveToTarget-MOVING");
+            StartCoroutine(Move(soloMoveTarget));
+        }
+
+        public void ResetReadyToMove()
+        {
+            Debug.Log("RESET");
+            isReadyToMove = false;
+            pileNodeCubeMove = null;
+            pushNextNodeCubeMove = null;
+        }
+
+        void CheckingMove(int index, int nodeDirection)
+        {
+            isMoving = true;
+            isCheckingMove = true;
+            Debug.Log("CheckingMove ");
+            _DataManager.instance.StartMoving.AddListener(MoveToTarget);
+            CheckSoloMove(index, nodeDirection);
+        }
+
+        public void CheckSoloMove(int index, int nodeDirection)
+        {
+            if (MatrixLimitCalcul(index, nodeDirection))
+            {
+                indexTargetNode = index + nodeDirection;
+                Debug.Log("---CheckSoloMove--- ");
+
+                switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                {
+                    case CubeLayers.cubeFull:
+                        {
+                            Debug.Log("STUCK ");
+                            soloMoveTarget = grid.kuboGrid[myIndex - 1];
+                            isCheckingMove = false;
+                        }
+                        break;
+                    case CubeLayers.cubeEmpty:
+                        {
+                            Debug.Log("EMPTY ");
+
+                            isReadyToMove = true;
+                            soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                            if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
+                            {
+                                pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<_CubeMove>();
+                                pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
+                            }
+                            Debug.Log("EMPTY-CAN MOVE-");
+
+                            isCheckingMove = false;
+                        }
+                        break;
+                    case CubeLayers.cubeMoveable:
+                        {
+                            Debug.Log("MOVE ");
+                            pushNextNodeCubeMove = grid.kuboGrid[indexTargetNode - 1].cubeOnPosition.GetComponent<_CubeMove>();
+                            if (pushNextNodeCubeMove.isReadyToMove == false)
+                            {
+                                if(grid.kuboGrid[indexTargetNode + nodeDirection - 1].cubeLayers == CubeLayers.cubeEmpty && grid.kuboGrid[indexTargetNode + nodeDirection + _DirectionCustom.down - 1].cubeLayers == CubeLayers.cubeEmpty)
+                                {
+                                    pushNextNodeCubeMove.isOverNothing = true;
+                                }
+                                else if(MatrixLimitCalcul(indexTargetNode, nodeDirection))
+                                {
+                                    pushNextNodeCubeMove.isOutside = true;
+                                }
+                                pushNextNodeCubeMove.CheckingMove(indexTargetNode, nodeDirection);
+                            }
+                            CheckSoloMove(indexTargetNode, nodeDirection);
+
+                        }
+                        break;
+                }
+
+            }
+            else
+            {
+                Debug.Log("MATRIX LIMIT SOLO");
+                soloMoveTarget = grid.kuboGrid[myIndex - 1];
+                isCheckingMove = false;
+            }
+
+
+        }
+
+
+
+        #endregion
+
+
+
     }
 }

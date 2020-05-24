@@ -14,8 +14,10 @@ namespace Kubika.Game
         public static _DataManager instance { get { return _instance; } }
 
         // MOVEABLE CUBE
-        public  _CubeMove[] moveCubeArray;
+        public _CubeMove[] moveCubeArray;
+        public ElevatorCube[] elevatorsArray;
         public List<_CubeMove> moveCube = new List<_CubeMove>();
+        public List<ElevatorCube> elevators = new List<ElevatorCube>();
 
         //UNITY EVENT
         public UnityEvent StartChecking;
@@ -74,8 +76,14 @@ namespace Kubika.Game
         {
             moveCubeArray = FindObjectsOfType<_CubeMove>(); // TODO : DEGEULASSE
             baseCubeArray = FindObjectsOfType<_CubeBase>();
+            elevatorsArray = FindObjectsOfType<ElevatorCube>();
 
-            foreach(_CubeMove cube in moveCubeArray)
+            foreach (ElevatorCube elevator in elevatorsArray)
+            {
+                elevators.Add(elevator);
+            }
+
+            foreach (_CubeMove cube in moveCubeArray)
             {
                 moveCube.Add(cube);
             }
@@ -128,7 +136,7 @@ namespace Kubika.Game
 
                         if (Physics.Raycast(rayTouch, out aimingHit))
                         {
-                            if(aimingHit.collider.gameObject.GetComponent<_CubeMove>() == true)
+                            if (aimingHit.collider.gameObject.GetComponent<_CubeMove>() == true)
                             {
                                 cubeMove = aimingHit.collider.gameObject.GetComponent<_CubeMove>();
 
@@ -319,6 +327,17 @@ namespace Kubika.Game
             StartCoroutine(CubesAreEndingToMove());
         }
 
+        public IEnumerator CubesAndElevatorAreCheckingMove()
+        {
+            while (AreCubesAndElevatorsCheckingMove(elevators.ToArray(), moveCube.ToArray()) == false)
+            {
+                yield return null;
+            }
+            Debug.LogError("DATA- CHECK-END");
+            //EndFalling.RemoveAllListeners();
+            StartMoving.Invoke();
+            StartCoroutine(CubesAreEndingToMove());
+        }
 
         public IEnumerator CubesAreEndingToMove()
         {
@@ -416,6 +435,36 @@ namespace Kubika.Game
 
             return true;
         }
+
+
+        ///// ELEVATOR
+
+        public bool AreElevatorsCheckingMove(ElevatorCube[] elevators)
+        {
+            for (int i = 0; i < elevators.Length; i++)
+            {
+                if (elevators[i].isCheckingMove == true)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool AreCubesAndElevatorsCheckingMove(ElevatorCube[] elevators, _CubeMove[] cubeMove)
+        {
+            if(AreElevatorsCheckingMove(elevators) == false && AreCubesCheckingMove(cubeMove) == false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
         #endregion
 
 

@@ -98,6 +98,55 @@ namespace Kubika.Game
             grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
         }
 
+
+        public bool MatrixLimitCalcul(int index, int nodeDirection)
+        {
+            // X
+            if (nodeDirection == _DirectionCustom.left)
+            {
+                if (((index - grid.gridSize) + (grid.gridSize * grid.gridSize) - 1) / ((grid.gridSize * grid.gridSize) * (index / (grid.gridSize * grid.gridSize)) + (grid.gridSize * grid.gridSize)) != 0)
+                    return true;
+                else return false;
+            }
+            // -X
+            else if (nodeDirection == _DirectionCustom.right)
+            {
+                if ((index + grid.gridSize) / ((grid.gridSize * grid.gridSize) * (index / (grid.gridSize * grid.gridSize) + 1)) != 1)
+                    return true;
+                else return false;
+            }
+            // Z
+            else if (nodeDirection == _DirectionCustom.forward)
+            {
+                if ((index + (grid.gridSize * grid.gridSize)) / ((grid.gridSize * grid.gridSize * grid.gridSize)) != 1)
+                    return true;
+                else return false;
+            }
+            // -Z
+            else if (nodeDirection == _DirectionCustom.backward)
+            {
+                if (index - (grid.gridSize * grid.gridSize) >= 0)
+                    return true;
+                else return false;
+            }
+            // Y
+            else if (nodeDirection == _DirectionCustom.up)
+            {
+                if (index % grid.gridSize != 0)
+                    return true;
+                else return false;
+            }
+            // -Y
+            else if (nodeDirection == _DirectionCustom.down)
+            {
+                if ((index - 1) % grid.gridSize != 0)
+                    return true;
+                else return false;
+            }
+            else return false;
+        }
+
+
         #region MATERIAL
 
         public void SetMaterial()
