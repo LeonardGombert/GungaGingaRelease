@@ -221,6 +221,8 @@ namespace Kubika.Saving
 
                 // get the kuboGrid and set the information on each of the nodes
                 SetNodeInfo(newCube, recoveredNode.nodeIndex, recoveredNode.worldPosition, recoveredNode.worldRotation, recoveredNode.facingDirection);
+                
+                Debug.Log(recoveredNode.cubeType);
 
                 // check the node's cube type and setup the relevant cube and its transform + individual information
                 switch (recoveredNode.cubeType)
@@ -228,139 +230,140 @@ namespace Kubika.Saving
                     case CubeTypes.FullStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube fullStaticCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(fullStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.FullStaticCube);
+                        SetCubeInfo(fullStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.FullStaticCube, true);
                         fullStaticCube.staticEnum = StaticEnums.Full;
                         break;
 
                     case CubeTypes.EmptyStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube emptyCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(emptyCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.EmptyStaticCube);
+                        SetCubeInfo(emptyCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.EmptyStaticCube, true);
                         emptyCube.staticEnum = StaticEnums.Empty;
                         break;
 
                     case CubeTypes.TopStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube topStaticCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(topStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TopStaticCube);
+                        SetCubeInfo(topStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TopStaticCube, true);
                         topStaticCube.staticEnum = StaticEnums.Top;
                         break;
 
                     case CubeTypes.CornerStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube cornerStaticCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(cornerStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.CornerStaticCube);
+                        SetCubeInfo(cornerStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.CornerStaticCube, true);
                         cornerStaticCube.staticEnum = StaticEnums.Corner;
                         break;
 
                     case CubeTypes.TripleStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube tripleStaticCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(tripleStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TripleStaticCube);
+                        SetCubeInfo(tripleStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TripleStaticCube, true);
                         tripleStaticCube.staticEnum = StaticEnums.Triple;
                         break;
 
                     case CubeTypes.QuadStaticCube:
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube quadStaticCube = newCube.GetComponent<StaticCube>();
-                        SetCubeInfo(quadStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.QuadStaticCube);
+                        SetCubeInfo(quadStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.QuadStaticCube, true);
                         quadStaticCube.staticEnum = StaticEnums.Quad;
                         break; 
 
                     case CubeTypes.MoveableCube:
                         newCube.AddComponent(typeof(MoveableCube));
                         MoveableCube moveableCube = newCube.GetComponent<MoveableCube>();
-                        SetCubeInfo(moveableCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.MoveableCube);
+                        SetCubeInfo(moveableCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.MoveableCube, false);
                         break;
 
                     case CubeTypes.BaseVictoryCube:
                         newCube.AddComponent(typeof(BaseVictoryCube));
                         BaseVictoryCube baseVictoryCube = newCube.GetComponent<BaseVictoryCube>();
-                        SetCubeInfo(baseVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BaseVictoryCube);
+                        SetCubeInfo(baseVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BaseVictoryCube, false);
                         break;
 
                     case CubeTypes.ConcreteVictoryCube:
                         newCube.AddComponent(typeof(ConcreteVictoryCube));
                         ConcreteVictoryCube concreteVictoryCube = newCube.GetComponent<ConcreteVictoryCube>();
-                        SetCubeInfo(concreteVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ConcreteVictoryCube);
+                        SetCubeInfo(concreteVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ConcreteVictoryCube, false);
                         break;
 
                     case CubeTypes.BombVictoryCube:
                         newCube.AddComponent(typeof(BombVictoryCube));
                         BombVictoryCube bombVictoryCube = newCube.GetComponent<BombVictoryCube>();
-                        SetCubeInfo(bombVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BombVictoryCube);
+                        SetCubeInfo(bombVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BombVictoryCube, false);
+                        bombVictoryCube.dynamicEnum = DynamicEnums.Bomb;
                         break;
 
                     case CubeTypes.SwitchVictoryCube:
                         newCube.AddComponent(typeof(SwitchVictoryCube));
                         SwitchVictoryCube switchVictoryCube = newCube.GetComponent<SwitchVictoryCube>();
-                        SetCubeInfo(switchVictoryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.SwitchVictoryCube);
+                        SetCubeInfo(switchVictoryCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.SwitchVictoryCube, true);
                         break;
 
                     case CubeTypes.DeliveryCube:
                         newCube.AddComponent(typeof(DeliveryCube));
                         DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
-                        SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.DeliveryCube);
+                        SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.DeliveryCube, true);
                         break;
 
                     case CubeTypes.ElevatorCube:
                         newCube.AddComponent(typeof(ElevatorCube));
                         ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-                        SetCubeInfo(elevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ElevatorCube);
+                        SetCubeInfo(elevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ElevatorCube, false);
                         break;
 
                     case CubeTypes.ConcreteCube:
                         newCube.AddComponent(typeof(ConcreteCube));
                         ConcreteCube concreteCube = newCube.GetComponent<ConcreteCube>();
-                        SetCubeInfo(concreteCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ConcreteCube);
+                        SetCubeInfo(concreteCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ConcreteCube, false);
                         break;
 
                     case CubeTypes.BombCube:
                         newCube.AddComponent(typeof(BombCube));
                         BombCube bombCube = newCube.GetComponent<BombCube>();
-                        SetCubeInfo(bombCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BombCube);
+                        SetCubeInfo(bombCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BombCube, false);
                         break;
 
                     case CubeTypes.TimerCube:
                         newCube.AddComponent(typeof(TimerCube));
                         TimerCube timerCube = newCube.GetComponent<TimerCube>();
-                        SetCubeInfo(timerCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TimerCube);
+                        SetCubeInfo(timerCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.TimerCube, true);
                         break;
 
                     case CubeTypes.SwitchButton:
                         newCube.AddComponent(typeof(SwitchButton));
                         SwitchButton switchButton = newCube.GetComponent<SwitchButton>();
-                        SetCubeInfo(switchButton as _CubeBase, CubeLayers.cubeFull, CubeTypes.SwitchButton);
+                        SetCubeInfo(switchButton as _CubeBase, CubeLayers.cubeFull, CubeTypes.SwitchButton, true);
                         break;
 
                     case CubeTypes.SwitchCube:
                         newCube.AddComponent(typeof(SwitchCube));
                         SwitchCube switchCube = newCube.GetComponent<SwitchCube>();
-                        SetCubeInfo(switchCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.SwitchCube);
+                        SetCubeInfo(switchCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.SwitchCube, true);
                         break;
 
                     case CubeTypes.RotatorRightTurner:
                         newCube.AddComponent(typeof(RotateRightCube));
                         RotateRightCube rotatorRightTurn = newCube.GetComponent<RotateRightCube>();
-                        SetCubeInfo(rotatorRightTurn as _CubeBase, CubeLayers.cubeFull, CubeTypes.RotatorRightTurner);
+                        SetCubeInfo(rotatorRightTurn as _CubeBase, CubeLayers.cubeFull, CubeTypes.RotatorRightTurner, true);
                         break;
 
                     case CubeTypes.RotatorLeftTurner:
                         newCube.AddComponent(typeof(RotateLeftCube));
                         RotateLeftCube rotatorLeftTurn = newCube.GetComponent<RotateLeftCube>();
-                        SetCubeInfo(rotatorLeftTurn as _CubeBase, CubeLayers.cubeFull, CubeTypes.RotatorLeftTurner);
+                        SetCubeInfo(rotatorLeftTurn as _CubeBase, CubeLayers.cubeFull, CubeTypes.RotatorLeftTurner, true);
                         break;
 
                     case CubeTypes.RotatorLocker:
                         newCube.AddComponent(typeof(RotatorLocker));
                         RotatorLocker rotatorLocker = newCube.GetComponent<RotatorLocker>();
-                        SetCubeInfo(rotatorLocker as _CubeBase, CubeLayers.cubeFull, CubeTypes.RotatorLocker);
+                        SetCubeInfo(rotatorLocker as _CubeBase, CubeLayers.cubeFull, CubeTypes.RotatorLocker, true);
                         break;
 
                     case CubeTypes.ChaosBall:
                         newCube.AddComponent(typeof(ChaosBall));
                         ChaosBall chaosBall = newCube.GetComponent<ChaosBall>();
-                        SetCubeInfo(chaosBall as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ChaosBall);
+                        SetCubeInfo(chaosBall as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ChaosBall, false);
                         break;
 
                     default:
@@ -385,8 +388,9 @@ namespace Kubika.Saving
         }
 
         //set the node's information relevant to the cube type, then send the Transform information to the cube
-        void SetCubeInfo(_CubeBase cube, CubeLayers cubeLayers, CubeTypes cubeTypes)
+        void SetCubeInfo(_CubeBase cube, CubeLayers cubeLayers, CubeTypes cubeTypes, bool _static)
         {
+            cube.isStatic = _static;
             cube.myIndex = currentNode.nodeIndex;
             cube.facingDirection = currentNode.facingDirection;
             grid.kuboGrid[cube.myIndex - 1].cubeLayers = cubeLayers;

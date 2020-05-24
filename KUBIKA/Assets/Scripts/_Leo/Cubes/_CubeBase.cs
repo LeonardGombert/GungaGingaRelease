@@ -52,12 +52,6 @@ namespace Kubika.Game
         public virtual void Start()
         {
             grid = _Grid.instance;
-            //facingDirection = CubeFacingDirection.CubeFacingFromRotation(transform.localEulerAngles);
-            grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
-            grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
-            grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
-            grid.kuboGrid[myIndex - 1].facingDirection = facingDirection;
-
             SetScriptablePreset();
         }
 
