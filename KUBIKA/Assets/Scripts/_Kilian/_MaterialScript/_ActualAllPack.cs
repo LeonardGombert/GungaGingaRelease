@@ -129,6 +129,69 @@ namespace Kubika.Game
         [Range(0, 2)] public float Pastille_Contrast;
         [Range(0, 2)] public float Pastille_Saturation;
         [Range(-1, 1)] public float Pastille_Brightness;
+
+        //////// Victory
+        [Header("BombV")]
+        public Texture _BombVTex;
+        public Mesh _BombVMesh;
+        public Color _BombVColor;
+        public Texture _BombVTexInside;
+        public float _BombVInsideStrength;
+        public Color _BombVColorInside;
+        [Range(-360, 360)] public float BombV_Hue;
+        [Range(0, 2)] public float BombV_Contrast;
+        [Range(0, 2)] public float BombV_Saturation;
+        [Range(-1, 1)] public float BombV_Brightness;
+
+        [Header("BallV")]
+        public Texture _BallVTex;
+        public Mesh _BallVMesh;
+        public Color _BallVColor;
+        public Texture _BallVTexInside;
+        public float _BallVInsideStrength;
+        public Color _BallVColorInside;
+        [Range(-360, 360)] public float BallV_Hue;
+        [Range(0, 2)] public float BallV_Contrast;
+        [Range(0, 2)] public float BallV_Saturation;
+        [Range(-1, 1)] public float BallV_Brightness;
+
+        [Header("SwitchV")]
+        public Texture _SwitchVTexOn;
+        public Texture _SwitchVTexOff;
+        public Texture _SwitchVTexInside;
+        public Mesh _SwitchVMesh;
+        public Color _SwitchVColor;
+        public Color _SwitchVColorInside;
+        public float _SwitchVInsideStrength;
+        [Range(-360, 360)] public float SwitchV_Hue;
+        [Range(0, 2)] public float SwitchV_Contrast;
+        [Range(0, 2)] public float SwitchV_Saturation;
+        [Range(-1, 1)] public float SwitchV_Brightness;
+
+        [Header("BaseV")]
+        public Texture _BaseVTex;
+        public Mesh _BaseVMesh;
+        public Color _BaseVColor;
+        public Texture _BaseVTexInside;
+        public float _BaseVInsideStrength;
+        public Color _BaseVColorInside;
+        [Range(-360, 360)] public float BaseV_Hue;
+        [Range(0, 2)] public float BaseV_Contrast;
+        [Range(0, 2)] public float BaseV_Saturation;
+        [Range(-1, 1)] public float BaseV_Brightness;
+
+        [Header("BetonV")]
+        public Texture _BetonVTex;
+        public Mesh _BetonVMesh;
+        public Color _BetonVColor;
+        public Texture _BetonVTexInside;
+        public float _BetonVInsideStrength;
+        public Color _BetonVColorInside;
+        [Range(-360, 360)] public float BetonV_Hue;
+        [Range(0, 2)] public float BetonV_Contrast;
+        [Range(0, 2)] public float BetonV_Saturation;
+        [Range(-1, 1)] public float BetonV_Brightness;
+
         #endregion
 
         #region STATIC

@@ -325,6 +325,67 @@ namespace Kubika.Game
             actualPack.Pastille_Contrast = dynamicPack[index].Pastille_Contrast;
             actualPack.Pastille_Saturation = dynamicPack[index].Pastille_Saturation;
             actualPack.Pastille_Brightness = dynamicPack[index].Pastille_Brightness;
+
+
+            // VICTORY
+
+            actualPack._BaseVTex = dynamicPack[index]._BaseVTex;
+            actualPack._BaseVMesh = dynamicPack[index]._BaseVMesh;
+            actualPack._BaseVColor = dynamicPack[index]._BaseVColor;
+            actualPack._BaseVTexInside = dynamicPack[index]._BaseVTexInside;
+            actualPack._BaseVInsideStrength = dynamicPack[index]._BaseVInsideStrength;
+            actualPack._BaseVColorInside = dynamicPack[index]._BaseVColorInside;
+            actualPack.BaseV_Hue = dynamicPack[index].BaseV_Hue;
+            actualPack.BaseV_Contrast = dynamicPack[index].BaseV_Contrast;
+            actualPack.BaseV_Saturation = dynamicPack[index].BaseV_Saturation;
+            actualPack.BaseV_Brightness = dynamicPack[index].BaseV_Brightness;
+
+            actualPack._BetonVTex = dynamicPack[index]._BetonVTex;
+            actualPack._BetonVMesh = dynamicPack[index]._BetonVMesh;
+            actualPack._BetonVColor = dynamicPack[index]._BetonVColor;
+            actualPack._BetonVTexInside = dynamicPack[index]._BetonVTexInside;
+            actualPack._BetonVInsideStrength = dynamicPack[index]._BetonVInsideStrength;
+            actualPack._BetonVColorInside = dynamicPack[index]._BetonVColorInside;
+            actualPack.BetonV_Hue = dynamicPack[index].BetonV_Hue;
+            actualPack.BetonV_Contrast = dynamicPack[index].BetonV_Contrast;
+            actualPack.BetonV_Saturation = dynamicPack[index].BetonV_Saturation;
+            actualPack.BetonV_Brightness = dynamicPack[index].BetonV_Brightness;
+
+            actualPack._BombVTex = dynamicPack[index]._BombVTex;
+            actualPack._BombVMesh = dynamicPack[index]._BombVMesh;
+            actualPack._BombVColor = dynamicPack[index]._BombVColor;
+            actualPack._BombVTexInside = dynamicPack[index]._BombVTexInside;
+            actualPack._BombVInsideStrength = dynamicPack[index]._BombVInsideStrength;
+            actualPack._BombVColorInside = dynamicPack[index]._BombVColorInside;
+            actualPack.BombV_Hue = dynamicPack[index].BombV_Hue;
+            actualPack.BombV_Contrast = dynamicPack[index].BombV_Contrast;
+            actualPack.BombV_Saturation = dynamicPack[index].BombV_Saturation;
+            actualPack.BombV_Brightness = dynamicPack[index].BombV_Brightness;
+
+            actualPack._SwitchVTexOn = dynamicPack[index]._SwitchVTexOn;
+            actualPack._SwitchVTexOff = dynamicPack[index]._SwitchVTexOff;
+            actualPack._SwitchVMesh = dynamicPack[index]._SwitchVMesh;
+            actualPack._SwitchVColor = dynamicPack[index]._SwitchVColor;
+            actualPack._SwitchVTexInside = dynamicPack[index]._SwitchVTexInside;
+            actualPack._SwitchVInsideStrength = dynamicPack[index]._SwitchVInsideStrength;
+            actualPack._SwitchVColorInside = dynamicPack[index]._SwitchVColorInside;
+            actualPack.SwitchV_Hue = dynamicPack[index].SwitchV_Hue;
+            actualPack.SwitchV_Contrast = dynamicPack[index].SwitchV_Contrast;
+            actualPack.SwitchV_Saturation = dynamicPack[index].SwitchV_Saturation;
+            actualPack.SwitchV_Brightness = dynamicPack[index].SwitchV_Brightness;
+
+            actualPack._BallVTex = dynamicPack[index]._BallVTex;
+            actualPack._BallVMesh = dynamicPack[index]._BallVMesh;
+            actualPack._BallVColor = dynamicPack[index]._BallVColor;
+            actualPack._BallVTexInside = dynamicPack[index]._BallVTexInside;
+            actualPack._BallVInsideStrength = dynamicPack[index]._BallVInsideStrength;
+            actualPack._BallVColorInside = dynamicPack[index]._BallVColorInside;
+            actualPack.BallV_Hue = dynamicPack[index].BallV_Hue;
+            actualPack.BallV_Contrast = dynamicPack[index].BallV_Contrast;
+            actualPack.BallV_Saturation = dynamicPack[index].BallV_Saturation;
+            actualPack.BallV_Brightness = dynamicPack[index].BallV_Brightness;
+
+
             #endregion
 
         }
