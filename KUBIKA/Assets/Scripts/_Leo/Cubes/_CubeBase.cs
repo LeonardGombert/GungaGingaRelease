@@ -76,8 +76,6 @@ namespace Kubika.Game
 
             //grid.kuboGrid[myIndex - 1].worldPosition = Vector3.zero; -> DON'T RESET WORLDPOS because cubes must reset to nodePos
             grid.kuboGrid[myIndex - 1].worldRotation = Vector3.zero;
-
-            grid.placedObjects.Remove(gameObject);
         }
 
         //call when level is loaded, places cube in world

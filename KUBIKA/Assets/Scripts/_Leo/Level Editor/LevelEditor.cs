@@ -1,6 +1,7 @@
 ﻿using Kubika.Gam;
 using Kubika.Game;
 using Kubika.Saving;
+using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -212,8 +213,9 @@ namespace Kubika.CustomLevelEditor
                 Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);
             }
 
+            grid.placedObjects.Remove(hit.collider.gameObject);
             //if there are no more gridObjects, redraw the grid
-            if (!grid.placedObjects.Any()) grid.RefreshGrid();
+            if (grid.placedObjects.Count == 0) grid.RefreshGrid();
         }
 
         private void RotateCube(RaycastHit hit, Vector3 userInputPosition)
