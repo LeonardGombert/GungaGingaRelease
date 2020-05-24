@@ -9,7 +9,7 @@ namespace Kubika.Game
     {
         // Start is called before the first frame update
 
-        public bool isGreen;
+        public bool isGreen = true;
 
         // BOOL ACTION
         [Space]
