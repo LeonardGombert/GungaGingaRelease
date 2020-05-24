@@ -107,11 +107,6 @@ namespace Kubika.Game
             }
         }
 
-        internal void BakeLevels(object kubiCode)
-        {
-            throw new NotImplementedException();
-        }
-
         private void LoadSpecific(int startingIndex)
         {
             levelQueue.Clear();
@@ -119,8 +114,8 @@ namespace Kubika.Game
             for (int i = startingIndex; i < masterList.Count; i++)
             {
                 levelQueue.Enqueue(masterList[i]);
-                _LoadNextLevel();
             }
+            _LoadNextLevel();
         }
 
         public void RefreshUserLevels()
