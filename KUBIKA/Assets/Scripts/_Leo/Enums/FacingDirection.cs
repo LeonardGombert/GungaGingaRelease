@@ -1,42 +1,44 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CubeFacingDirection : MonoBehaviour
+namespace Kubika.Game
 {
-    public static Vector3 CubeFacing(FacingDirection facingDirection)
+    public class CubeFacingDirection : MonoBehaviour
     {
-        Vector3 vectorResult = Vector3.up;
-
-        switch (facingDirection)
+        public static Vector3 CubeFacing(FacingDirection facingDirection)
         {
-            case FacingDirection.up:
-                vectorResult = new Vector3(270, 0, 0);
-                break;
-            case FacingDirection.down:
-                vectorResult = new Vector3(90, 0, 0);
-                break;
-            case FacingDirection.forward:
-                vectorResult = new Vector3(0, 0, 0);
-                break;
-            case FacingDirection.backward:
-                vectorResult = new Vector3(180, 0, 0);
-                break;
-            case FacingDirection.right:
-                vectorResult = new Vector3(0, 90, 0);
-                break;
-            case FacingDirection.left:
-                vectorResult = new Vector3(0, 270, 0);
-                break;
+            Vector3 vectorResult = Vector3.up;
 
-            default:
-                break;
+            switch (facingDirection)
+            {
+                case FacingDirection.up:
+                    vectorResult = new Vector3(270, 0, 0);
+                    break;
+                case FacingDirection.down:
+                    vectorResult = new Vector3(90, 0, 0);
+                    break;
+                case FacingDirection.forward:
+                    vectorResult = new Vector3(0, 0, 0);
+                    break;
+                case FacingDirection.backward:
+                    vectorResult = new Vector3(180, 0, 0);
+                    break;
+                case FacingDirection.right:
+                    vectorResult = new Vector3(0, 90, 0);
+                    break;
+                case FacingDirection.left:
+                    vectorResult = new Vector3(0, 270, 0);
+                    break;
+
+                default:
+                    break;
+            }
+
+            Debug.Log(vectorResult);
+            return vectorResult;
         }
-
-        Debug.Log(vectorResult);
-        return vectorResult;
     }
 }
+
 public enum FacingDirection
 {
     up,

@@ -18,6 +18,7 @@ public class LevelEditorWindow : EditorWindow
     int levelIndex = 0;
     int cubeTypeIndex = 0;
     private string levelName;
+    private string kubiCode;
     private bool lockRotate;
     private int miminumMoves;
 
@@ -88,6 +89,7 @@ public class LevelEditorWindow : EditorWindow
         {
             SaveAndLoad.instance.DevLoadLevel(levels[levelIndex]);
             levelName = SaveAndLoad.instance.currentOpenLevelName;
+            kubiCode = SaveAndLoad.instance.currentKubicode;
             lockRotate = SaveAndLoad.instance.currentLevelLockRotate;
             miminumMoves = SaveAndLoad.instance.currentMinimumMoves;
         }
@@ -96,12 +98,13 @@ public class LevelEditorWindow : EditorWindow
     private void SaveLevel()
     {
         levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);
+        kubiCode = EditorGUILayout.TextField("KudiCode", kubiCode);
         lockRotate = EditorGUILayout.Toggle("Lock Rotation ?", lockRotate);
         miminumMoves = EditorGUILayout.IntField("Minimum Moves to Beat", miminumMoves);
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, lockRotate, miminumMoves);
+        if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, kubiCode, lockRotate, miminumMoves);
     }
 
     private void SaveCurrentLevel()
@@ -109,6 +112,7 @@ public class LevelEditorWindow : EditorWindow
         if (GUILayout.Button("Save Current Level"))
         {
             SaveAndLoad.instance.currentOpenLevelName = levelName;
+            SaveAndLoad.instance.currentKubicode = kubiCode;
             SaveAndLoad.instance.currentLevelLockRotate = lockRotate;
             SaveAndLoad.instance.currentMinimumMoves = miminumMoves;
 
@@ -133,7 +137,7 @@ public class LevelEditorWindow : EditorWindow
 
     private void LaunchGame()
     {
-        if (GUI.Button(new Rect(0, 300, position.width, 45), "Launch Game"))
+        if (GUI.Button(new Rect(0, 325, position.width, 45), "Launch Game"))
         {
             if(SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex((int)ScenesIndex.MANAGER))
             {
@@ -147,6 +151,7 @@ public class LevelEditorWindow : EditorWindow
         if (GUI.Button(new Rect(0, 350, position.width, 45), "Test Level"))
         {
             levelName = SaveAndLoad.instance.currentOpenLevelName;
+            kubiCode = SaveAndLoad.instance.currentKubicode;
             lockRotate = SaveAndLoad.instance.currentLevelLockRotate;
             miminumMoves = SaveAndLoad.instance.currentMinimumMoves;
 

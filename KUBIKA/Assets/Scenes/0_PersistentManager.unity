@@ -326,51 +326,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[0].levelFile
-      value: 
-      objectReference: {fileID: 4900000, guid: 84756c6721ca69540a911dd7d54030c4, type: 3}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[0].levelName
-      value: Yes
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[0].minimumMoves
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[0]
-      value: 
-      objectReference: {fileID: 4900000, guid: d3c5ba3f2cb3be54bb33a1b53364f761, type: 3}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[1]
-      value: 
-      objectReference: {fileID: 4900000, guid: d3c5ba3f2cb3be54bb33a1b53364f761, type: 3}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[2]
-      value: 
-      objectReference: {fileID: 4900000, guid: d3c5ba3f2cb3be54bb33a1b53364f761, type: 3}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[3]
-      value: 
-      objectReference: {fileID: 4900000, guid: d3c5ba3f2cb3be54bb33a1b53364f761, type: 3}
-    - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
-        type: 3}
-      propertyPath: biome1.Array.data[4]
-      value: 
-      objectReference: {fileID: 4900000, guid: 27c4cfe8d6afc85439f0a4f01ae79b84, type: 3}
     - target: {fileID: 5858080383342632990, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}
       propertyPath: m_Name

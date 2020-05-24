@@ -253,6 +253,10 @@ namespace Kubika.Game
                     ScenesManager.instance._LoadScene(ScenesIndex.TITLE_WORLD_MAP);
                     break;
 
+                case "TITLE_WORLDMAP":
+                    ScenesManager.instance._LoadScene(ScenesIndex.TITLE_WORLD_MAP);
+                    break;
+
                 default:
                     break;
             }

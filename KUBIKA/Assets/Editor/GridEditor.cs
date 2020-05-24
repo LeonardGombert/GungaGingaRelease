@@ -14,7 +14,7 @@ public class GridEditor : OdinEditor
 
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Redraw Grid")) grid.RefreshGrid();
-        if (GUILayout.Button("Clear Level")) grid.ResetGrid();
+        if (GUILayout.Button("Clear Level")) grid.ResetIndexGrid();
         EditorGUILayout.EndHorizontal();
     }
 }

@@ -40,6 +40,7 @@ namespace Kubika.Game
 
         public TextAsset _levelFile;
         public string _levelName;
+        public string _Kubicode;
         public int _minimumMoves;
         public bool _lockRotate;
 
@@ -68,7 +69,6 @@ namespace Kubika.Game
             listOfLists.Add(biome7);
 
             InitializeLists();
-            CopyToQueue();
 
             yield return null;
         }
@@ -85,6 +85,35 @@ namespace Kubika.Game
                     LevelFile levelInfo = UserLevelFiles.ConvertToLevelInfo(level);
                     masterList.Add(levelInfo);
                 }
+            }
+        }
+
+        // called when Game Scene is loaded, load specific level or set to baseState
+        public void BakeLevels(string levelKubicode = "None")
+        {
+            //if you want to load a specific level
+            if (levelKubicode != "None")
+            {
+                for (int i = 0; i < masterList.Count; i++)
+                {
+                    if (masterList[i].Kubicode != levelKubicode) return;
+
+                    else if (masterList[i].Kubicode == levelKubicode)
+                    {
+                        LoadSpecific(i);
+                        break;
+                    }
+                }
+            }
+
+            else CopyToQueue();
+        }
+
+        private void LoadSpecific(int startingIndex)
+        {
+            for (int i = startingIndex; i < masterList.Count; i++)
+            {
+                levelQueue.Enqueue(masterList[i]);
             }
         }
 
@@ -117,6 +146,7 @@ namespace Kubika.Game
         void GetNextLevelInfo()
         {
             _levelName = levelQueue.Peek().levelName;
+            _Kubicode = levelQueue.Peek().Kubicode;
             _levelFile = levelQueue.Peek().levelFile;
             _minimumMoves = levelQueue.Peek().minimumMoves;
             _lockRotate = levelQueue.Peek().lockRotate;
@@ -173,5 +203,7 @@ namespace Kubika.Saving
         public TextAsset levelFile;
         public int minimumMoves;
         public bool lockRotate;
+
+        public string Kubicode;
     }
 }
