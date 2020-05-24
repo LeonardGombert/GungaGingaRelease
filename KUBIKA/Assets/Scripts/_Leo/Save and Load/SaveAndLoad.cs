@@ -361,7 +361,6 @@ namespace Kubika.Saving
 
                     default:
                         //set epmty cubes as cubeEmpty
-                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = null;
                         grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                         grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeType = CubeTypes.None;
                         break;

@@ -210,7 +210,7 @@ namespace Kubika.CustomLevelEditor
             if (!IndexIsEmpty())
             {
                 //reset the grid info
-                Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);
+                Destroy(currentHitCube.gameObject);
             }
 
             grid.placedObjects.Remove(hit.collider.gameObject);
