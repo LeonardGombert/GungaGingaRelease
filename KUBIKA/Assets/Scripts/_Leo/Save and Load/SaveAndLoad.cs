@@ -216,12 +216,10 @@ namespace Kubika.Saving
 
                 _Grid.instance.placedObjects.Add(newCube);
 
-                grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = newCube;
-                grid.kuboGrid[recoveredNode.nodeIndex - 1].nodeIndex = recoveredNode.nodeIndex;
-                grid.kuboGrid[recoveredNode.nodeIndex - 1].worldPosition = recoveredNode.worldPosition;
-                grid.kuboGrid[recoveredNode.nodeIndex - 1].worldRotation = recoveredNode.worldRotation;
-                grid.kuboGrid[recoveredNode.nodeIndex - 1].facingDirection = recoveredNode.facingDirection;
+                // get the kuboGrid and set the information on each of the nodes
+                SetNodeInfo(newCube, recoveredNode.nodeIndex, recoveredNode.worldPosition, recoveredNode.worldRotation, recoveredNode.facingDirection);
 
+                // check the node's cube type and setup the relevant cube and its transform + individual information
                 switch (recoveredNode.cubeType)
                 {
                     case CubeTypes.StaticCube:
@@ -339,6 +337,16 @@ namespace Kubika.Saving
             Debug.Log("Level Loaded !");
         }
 
+        void SetNodeInfo(GameObject newCube, int nodeIndex, Vector3 worldPosition, Vector3 worldRotation, FacingDirection facingDirection)
+        {
+            grid.kuboGrid[currentNode.nodeIndex - 1].cubeOnPosition = newCube;
+            grid.kuboGrid[currentNode.nodeIndex - 1].nodeIndex = nodeIndex;
+            grid.kuboGrid[currentNode.nodeIndex - 1].worldPosition = worldPosition;
+            grid.kuboGrid[currentNode.nodeIndex - 1].worldRotation = worldRotation;
+            grid.kuboGrid[currentNode.nodeIndex - 1].facingDirection = facingDirection;
+        }
+
+        //set the node's information relevant to the cube type, then send the Transform information to the cube
         void SetCubeInfo(_CubeBase cube, CubeLayers cubeLayers, CubeTypes cubeTypes)
         {
             cube.myIndex = currentNode.nodeIndex;
