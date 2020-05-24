@@ -230,6 +230,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[staticCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[staticCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[staticCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[staticCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
 
                         staticCube.staticEnum = StaticEnums.Empty;
                         break;
@@ -246,6 +247,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[moveableCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[moveableCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[moveableCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[moveableCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.BaseVictoryCube:
@@ -260,6 +262,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[victoryCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[victoryCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[victoryCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[victoryCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.ConcreteVictoryCube:
@@ -274,6 +277,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[concreteVictoryCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.BombVictoryCube:
@@ -288,6 +292,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[bombVictoryCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.SwitchVictoryCube:
@@ -301,6 +306,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[switchVictoryCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.DeliveryCube:
@@ -315,6 +321,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[deliveryCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.ElevatorCube:
@@ -329,6 +336,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[elevatorCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[elevatorCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[elevatorCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[elevatorCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.ConcreteCube:
@@ -343,6 +351,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[concreteCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[concreteCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[concreteCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[concreteCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.BombCube:
@@ -357,6 +366,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[bombCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[bombCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[bombCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[bombCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.TimerCube:
@@ -371,6 +381,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[timerCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[timerCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[timerCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[timerCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.SwitchButton:
@@ -385,6 +396,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[switchButton.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[switchButton.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[switchButton.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[switchButton.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.SwitchCube:
@@ -399,6 +411,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[switchCube.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[switchCube.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[switchCube.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[switchCube.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.RotatorRightTurner:
@@ -413,6 +426,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[rotatorRightTurn.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[rotatorRightTurn.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[rotatorRightTurn.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[rotatorRightTurn.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.RotatorLeftTurner:
@@ -427,6 +441,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[rotatorLeftTurn.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[rotatorLeftTurn.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[rotatorLeftTurn.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[rotatorLeftTurn.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.RotatorLocker:
@@ -441,6 +456,7 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[rotatorLocker.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[rotatorLocker.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[rotatorLocker.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[rotatorLocker.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     case CubeTypes.ChaosBall:
@@ -455,11 +471,13 @@ namespace Kubika.Saving
                         _Grid.instance.kuboGrid[chaosBall.myIndex - 1].worldPosition = recoveredNode.worldPosition;
                         _Grid.instance.kuboGrid[chaosBall.myIndex - 1].worldRotation = recoveredNode.worldRotation;
                         _Grid.instance.kuboGrid[chaosBall.myIndex - 1].nodeIndex = recoveredNode.nodeIndex;
+                        _Grid.instance.kuboGrid[chaosBall.myIndex - 1].facingDirection = recoveredNode.facingDirection;
                         break;
 
                     default:
                         //set epmty cubes as cubeEmpty
                         _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+                        _Grid.instance.kuboGrid[recoveredNode.nodeIndex - 1].cubeType = CubeTypes.None;
                         break;
                 }
             }
