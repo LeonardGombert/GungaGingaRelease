@@ -81,7 +81,7 @@ MonoBehaviour:
   Rotators_Saturation: 1
   Rotators_Brightness: 0
   _BombTex: {fileID: 2800000, guid: 1e4afe53d622ded488b447157c51fe7b, type: 3}
-  _BombMesh: {fileID: 8467973019869391972, guid: 143f8f9c6d40cfc4391538fa3fc99c33,
+  _BombMesh: {fileID: 8467973019869391972, guid: e3767b9250d77b44b8a2349f01935963,
     type: 3}
   _BombColor: {r: 1, g: 1, b: 1, a: 0}
   _BombTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
@@ -126,13 +126,13 @@ MonoBehaviour:
   Pastille_Saturation: 1
   Pastille_Brightness: 0
   _BombVTex: {fileID: 2800000, guid: 1e4afe53d622ded488b447157c51fe7b, type: 3}
-  _BombVMesh: {fileID: 8467973019869391972, guid: 143f8f9c6d40cfc4391538fa3fc99c33,
+  _BombVMesh: {fileID: 8467973019869391972, guid: e3767b9250d77b44b8a2349f01935963,
     type: 3}
   _BombVColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
   _BombVTexInside: {fileID: 0}
   _BombVInsideStrength: 0
   _BombVColorInside: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
-  BombV_Hue: 0
+  BombV_Hue: -60
   BombV_Contrast: 1
   BombV_Saturation: 1
   BombV_Brightness: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   _SwitchVColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
   _SwitchVColorInside: {r: 0.48235294, g: 0.6627451, b: 0.6784314, a: 0}
   _SwitchVInsideStrength: 1
-  SwitchV_Hue: 0
+  SwitchV_Hue: -205
   SwitchV_Contrast: 1
   SwitchV_Saturation: 1
   SwitchV_Brightness: 0
@@ -166,14 +166,14 @@ MonoBehaviour:
   _BaseVTexInside: {fileID: 0}
   _BaseVInsideStrength: 0
   _BaseVColorInside: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
-  BaseV_Hue: 0
+  BaseV_Hue: -183
   BaseV_Contrast: 1
   BaseV_Saturation: 1
   BaseV_Brightness: 0
   _BetonVTex: {fileID: 2800000, guid: 30c5fc19cab7743448ba30818b21f7eb, type: 3}
   _BetonVMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
-  _BetonVColor: {r: 1, g: 1, b: 1, a: 0}
+  _BetonVColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 0}
   _BetonVTexInside: {fileID: 0}
   _BetonVInsideStrength: 0
   _BetonVColorInside: {r: 1, g: 1, b: 1, a: 0}
