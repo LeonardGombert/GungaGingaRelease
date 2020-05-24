@@ -129,18 +129,18 @@ MonoBehaviour:
   _BombVMesh: {fileID: 8467973019869391972, guid: e3767b9250d77b44b8a2349f01935963,
     type: 3}
   _BombVColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
-  _BombVTexInside: {fileID: 0}
+  _BombVTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
   _BombVInsideStrength: 0
   _BombVColorInside: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
-  BombV_Hue: -60
+  BombV_Hue: -59
   BombV_Contrast: 1
   BombV_Saturation: 1
-  BombV_Brightness: 0
+  BombV_Brightness: -0.1
   _BallVTex: {fileID: 0}
   _BallVMesh: {fileID: -2007969562899309102, guid: 1bc23e44f51e525489fb29a0fbe2fcd1,
     type: 3}
   _BallVColor: {r: 0, g: 0, b: 0, a: 0}
-  _BallVTexInside: {fileID: 0}
+  _BallVTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
   _BallVInsideStrength: 0
   _BallVColorInside: {r: 0, g: 0, b: 0, a: 0}
   BallV_Hue: 0
@@ -155,15 +155,15 @@ MonoBehaviour:
   _SwitchVColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
   _SwitchVColorInside: {r: 0.48235294, g: 0.6627451, b: 0.6784314, a: 0}
   _SwitchVInsideStrength: 1
-  SwitchV_Hue: -205
+  SwitchV_Hue: -195
   SwitchV_Contrast: 1
   SwitchV_Saturation: 1
-  SwitchV_Brightness: 0
+  SwitchV_Brightness: -0.08
   _BaseVTex: {fileID: 2800000, guid: 9776ab2659ceadb47a032377626341ea, type: 3}
   _BaseVMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
   _BaseVColor: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
-  _BaseVTexInside: {fileID: 0}
+  _BaseVTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
   _BaseVInsideStrength: 0
   _BaseVColorInside: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 0}
   BaseV_Hue: -183
@@ -173,11 +173,11 @@ MonoBehaviour:
   _BetonVTex: {fileID: 2800000, guid: 30c5fc19cab7743448ba30818b21f7eb, type: 3}
   _BetonVMesh: {fileID: 3375544620813248742, guid: 0ae77374bea2cff47809586cda7594c9,
     type: 3}
-  _BetonVColor: {r: 1, g: 0.4009434, b: 0.4009434, a: 0}
-  _BetonVTexInside: {fileID: 0}
+  _BetonVColor: {r: 1, g: 0.19607843, b: 0.19607843, a: 0}
+  _BetonVTexInside: {fileID: 2800000, guid: 669c548353b665841a806aca66a3e856, type: 3}
   _BetonVInsideStrength: 0
   _BetonVColorInside: {r: 1, g: 1, b: 1, a: 0}
   BetonV_Hue: 0
   BetonV_Contrast: 1
   BetonV_Saturation: 1
-  BetonV_Brightness: 0
+  BetonV_Brightness: 0.19
