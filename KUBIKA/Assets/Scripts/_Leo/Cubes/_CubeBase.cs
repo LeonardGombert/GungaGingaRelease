@@ -75,6 +75,14 @@ namespace Kubika.Game
             grid.kuboGrid[myIndex - 1].facingDirection = facingDirection;
         }
 
+        //call when level is loaded, places cube in world
+        public void OnoadSetTransform()
+        {
+            transform.position = _Grid.instance.kuboGrid[myIndex - 1].worldPosition;
+            transform.rotation = Quaternion.Euler(_Grid.instance.kuboGrid[myIndex - 1].worldRotation);
+            transform.parent = _Grid.instance.gameObject.transform;
+        }
+
 
         public void DisableCube()
         {
