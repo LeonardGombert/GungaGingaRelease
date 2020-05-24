@@ -30,7 +30,7 @@ namespace Kubika.Game
                 myCubeLayer = CubeLayers.cubeFull;
                 myCubeType = CubeTypes.SwitchCube;
 
-                SetCubeInfoInMatrix();
+                SetRelevantNodeInfo();
             }
 
             else if (isActive)
@@ -39,7 +39,7 @@ namespace Kubika.Game
                 myCubeLayer = CubeLayers.cubeMoveable;
                 myCubeType = CubeTypes.SwitchCube;
 
-                SetCubeInfoInMatrix();
+                SetRelevantNodeInfo();
             }
         }
     }
