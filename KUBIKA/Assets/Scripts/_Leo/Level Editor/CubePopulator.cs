@@ -52,9 +52,9 @@ namespace Kubika.Game
         {
             GameObject newObj;
 
-            gridGroup.constraintCount = (int)Biomes.Chaos - 1;
+            gridGroup.constraintCount = (int)Biomes.Count - 1;
 
-            for (int i = 1; i < (int)Biomes.Count - 1; i++)
+            for (int i = 1; i < (int)Biomes.Count; i++)
             {
                 newObj = Instantiate(prefab, transform);
                 newObj.GetComponent<Image>().color = UnityEngine.Random.ColorHSV();

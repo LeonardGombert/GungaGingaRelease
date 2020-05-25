@@ -22,6 +22,9 @@ public class LevelEditorWindow : EditorWindow
     string[] cubeTypes;
     CubeTypes cubeTypesLength;
 
+    private string[] levelBiomes;
+    private int biomesIndex;
+
     [MenuItem("Tools/Level Editor")]
     static void Init()
     {
@@ -93,6 +96,7 @@ public class LevelEditorWindow : EditorWindow
             kubiCode = SaveAndLoad.instance.currentKubicode;
             lockRotate = SaveAndLoad.instance.currentLevelLockRotate;
             miminumMoves = SaveAndLoad.instance.currentMinimumMoves;
+            biomesIndex = (int)SaveAndLoad.instance.currentBiome;
         }
     }
 
@@ -100,10 +104,23 @@ public class LevelEditorWindow : EditorWindow
     {
         levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);
         kubiCode = EditorGUILayout.TextField("KudiCode", kubiCode);
+
+        levelBiomes = new string[(int)Biomes.Count];
+
+        for (int i = 0; i < (int)Biomes.Count; i++)
+        {
+            var temp = (Biomes)i;
+            levelBiomes[i] = temp.ToString();
+        }
+
+        biomesIndex = EditorGUI.Popup(new Rect(0, 255, position.width, 20), "Level Biome is : ", biomesIndex, levelBiomes);
+        
+        _MaterialCentral.instance.staticIndex = (Biomes)biomesIndex; //change the current biome
+
         lockRotate = EditorGUILayout.Toggle("Lock Rotation ?", lockRotate);
         miminumMoves = EditorGUILayout.IntField("Minimum Moves to Beat", miminumMoves);
 
-        EditorGUILayout.Space();
+        EditorGUILayout.Space(20);
 
         if (GUILayout.Button("Save Level")) SaveAndLoad.instance.DevSavingLevel(levelName, kubiCode, lockRotate, miminumMoves);
     }
@@ -144,7 +161,7 @@ public class LevelEditorWindow : EditorWindow
 
     private void LaunchGame()
     {
-        if (GUI.Button(new Rect(0, 350, position.width, 45), "Launch Game"))
+        if (GUI.Button(new Rect(0, 375, position.width, 45), "Launch Game"))
         {
             if(SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex((int)ScenesIndex.MANAGER))
             {

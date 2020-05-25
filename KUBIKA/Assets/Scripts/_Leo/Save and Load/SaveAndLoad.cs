@@ -27,9 +27,9 @@ namespace Kubika.Saving
         public string currentKubicode;
         public bool currentLevelLockRotate;
         public int currentMinimumMoves;
-        
+        public Biomes currentBiome; //sets itself on save
+
         _Grid grid;
-        private Biomes currentBiome;
 
         private void Awake()
         {
@@ -63,8 +63,6 @@ namespace Kubika.Saving
             levelData.lockRotate = rotateLock;
             levelData.minimumMoves = minimumMoves;
             levelData.Kubicode = kubiCode;
-
-
 
             currentOpenLevelName = levelName;
             currentKubicode = kubiCode;

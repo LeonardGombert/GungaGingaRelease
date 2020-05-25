@@ -7,6 +7,6 @@
     Ruins = 4,
     Temple = 5,
     Statues = 6,
-    Chaos = 7,
-    Count
+    Count,
+    Chaos, // extra level 
 };
