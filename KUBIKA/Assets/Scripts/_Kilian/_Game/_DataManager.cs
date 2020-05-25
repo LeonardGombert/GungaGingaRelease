@@ -244,7 +244,6 @@ namespace Kubika.Game
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = null;
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                 _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = CubeTypes.None;
-                //Debug.Log("DEELTE ALL = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers + " || Index = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex);
             }
 
             /////// DEMON SCRIPT TODO DEGEULASS
@@ -268,20 +267,13 @@ namespace Kubika.Game
 
 
                         foreach (_CubeBase cBase in baseCube)
-                        {
-                            //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node1 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
+                        {                          
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex1;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
-                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = cBase.myCubeType;
-                            //Debug.Log("-1- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
+                            _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = cBase.myCubeType;                           
 
                         }
-                        /*for (int i = 0; i < baseCube.Length; i++)
-                        {
-
-                            //Debug.Log("-2- _Grid " + (baseCube[i].myIndex - 1) + " || LOCAL" + (baseCube[i].myIndex) + " || LE " + _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].nodeIndex);
-                        }*/
                     }
                     break;
                 case 2:
@@ -290,22 +282,13 @@ namespace Kubika.Game
 
                         foreach (_CubeBase cBase in baseCube)
                         {
-                            //Debug.Log("cBase INdex = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || node0 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex0 + " || node2 = " + indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2 + " || Name = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition.name);
+                            
                             cBase.myIndex = indexBankScriptable.indexBank[cBase.myIndex - 1].nodeIndex2;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeOnPosition = cBase.gameObject;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers = cBase.myCubeLayer;
                             _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeType = cBase.myCubeType;
-                            //Debug.Log("-2- " + _Grid.instance.kuboGrid[cBase.myIndex - 1].nodeIndex + " || Layer = " + _Grid.instance.kuboGrid[cBase.myIndex - 1].cubeLayers);
-
-
                         }
 
-                        /*for (int i = 0; i < baseCube.Length; i++)
-                        {
-                            _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].cubeOnPosition = baseCube[i].gameObject;
-                            _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].cubeLayers = baseCube[i].layer;
-                            //Debug.Log("-2- _Grid " + (baseCube[i].myIndex - 1) + " || LOCAL" + (baseCube[i].myIndex) + " || LE " + _Grid.instance.kuboGrid[baseCube[i].myIndex - 1].nodeIndex);
-                        }*/
                     }
                     break;
             }
@@ -336,7 +319,7 @@ namespace Kubika.Game
             Debug.LogError("DATA- CHECK-END");
             //EndFalling.RemoveAllListeners();
             StartMoving.Invoke();
-            StartCoroutine(CubesAreEndingToMove());
+            StartCoroutine(CubesAndElevatorsAreEndingToMove());
         }
 
         public IEnumerator CubesAreEndingToMove()
@@ -350,6 +333,21 @@ namespace Kubika.Game
             EndMoving.Invoke();
             MakeFall();
         }
+
+        public IEnumerator CubesAndElevatorsAreEndingToMove()
+        {
+            while (AreCubesAndElevatorsMoving(elevators.ToArray(), moveCube.ToArray()) == false)
+            {
+                yield return null;
+            }
+            Debug.LogError("DATA- MOVE-END");
+            StartMoving.RemoveAllListeners();
+            EndMoving.Invoke();
+            MakeFall();
+        }
+
+
+        
 
         public IEnumerator CubesAreCheckingFall()
         {
@@ -383,10 +381,12 @@ namespace Kubika.Game
             {
                 if (cubeMove[i].isCheckingMove == true)
                 {
+                    Debug.Log("CUBE_CHECKINGmove = TRUE");
                     return false;
                 }
             }
 
+            Debug.Log("CUBE_CHECKINGmove = TRUE");
             return true;
         }
 
@@ -445,22 +445,56 @@ namespace Kubika.Game
             {
                 if (elevators[i].isCheckingMove == true)
                 {
+                    Debug.Log("ELEVATOR_CHECKINGmove = FALSE");
                     return false;
                 }
             }
 
+            Debug.Log("ELEVATOR_CHECKINGmove = TRUE");
+            return true;
+        }
+
+        public bool AreElevatorsEndingToMove(ElevatorCube[] elevators)
+        {
+            for (int i = 0; i < elevators.Length; i++)
+            {
+                if (elevators[i].isMoving == true)
+                {
+                    Debug.Log("elevators[i].isMoving1_1_1_1_1_1_ = " + elevators[i].isMoving);
+                    return false;
+                }
+            }
+
+            Debug.Log("TRUE 1_1_1_1_1_1_ ");
             return true;
         }
 
         public bool AreCubesAndElevatorsCheckingMove(ElevatorCube[] elevators, _CubeMove[] cubeMove)
         {
-            if(AreElevatorsCheckingMove(elevators) == false && AreCubesCheckingMove(cubeMove) == false)
+            if(AreElevatorsCheckingMove(elevators) == true && AreCubesCheckingMove(cubeMove) == true)
             {
-                return false;
+                Debug.Log("ELE & Cube Checking False");
+                return true;
             }
             else
             {
+                Debug.Log("ELE & Cube Checking True");
+                return false;
+            }
+
+        }
+
+        public bool AreCubesAndElevatorsMoving(ElevatorCube[] elevators, _CubeMove[] cubeMove)
+        {
+            if (AreElevatorsEndingToMove(elevators) == true && AreCubesEndingToMove(cubeMove) == true)
+            {
+                Debug.Log("ELE & Cube MOving False");
                 return true;
+            }
+            else
+            {
+                Debug.Log("ELE & Cube MOving True");
+                return false;
             }
 
         }
