@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
+using Kubika.CustomLevelEditor;
 
 namespace Kubika.Game
 {
@@ -59,6 +60,10 @@ namespace Kubika.Game
 
         [FoldoutGroup("Scene Canvases")] [SerializeField] Canvas levelPassedCanvas;
 
+        [FoldoutGroup("Level Editor")] [SerializeField] GameObject optionsWindow;
+        [FoldoutGroup("Level Editor")] [SerializeField] GameObject FunctionMode;
+        [FoldoutGroup("Level Editor")] [SerializeField] GameObject DecoratorMode;
+
         public Dropdown playerLevelsDropdown;
         public InputField saveLevelName;
 
@@ -99,6 +104,7 @@ namespace Kubika.Game
 
                 case ScenesIndex.LEVEL_EDITOR:
                     LevelEditorPriority();
+                    FunctionModePriority();
                     break;
 
                 case ScenesIndex.CUSTOM_LEVELS:
@@ -164,6 +170,8 @@ namespace Kubika.Game
             if (hamburgerMenuCanvas2 != null) hamburgerMenuCanvas2.enabled = true;
 
             hiddenMenuButtons.SetActive(false);
+            optionsWindow.SetActive(false);
+
             levelEditorCanvas.sortingOrder = 1000;
         }
 
@@ -192,6 +200,20 @@ namespace Kubika.Game
             winCanvas.enabled = true;
             winCanvas.sortingOrder = 1000;
         }
+
+        void FunctionModePriority()
+        {
+            LevelEditor.instance.currentCube = CubeTypes.MoveableCube; //optional, remove to let player pick Cube
+            FunctionMode.SetActive(true);
+            DecoratorMode.SetActive(false);
+        }
+        void DecoratorModePriority()
+        {
+            LevelEditor.instance.currentCube = CubeTypes.FullStaticCube; //optional, remove to let player pick Cube
+            DecoratorMode.SetActive(true);
+            FunctionMode.SetActive(false);
+        }
+
 
         public void ButtonCallback(string button)
         {
@@ -250,6 +272,42 @@ namespace Kubika.Game
                     break;
                 #endregion
 
+                #region //LEVEL EDITOR
+                case "LEVELEDITOR_isPlacing":
+                    LevelEditor.instance.SwitchAction("isPlacing");
+                    break;
+
+                case "LEVELEDITOR_isDeleting":
+                    LevelEditor.instance.SwitchAction("isDeleting");
+                    break;
+
+                case "LEVELEDITOR_isRotating":
+                    LevelEditor.instance.SwitchAction("isRotating");
+                    break;
+
+                case "LEVELEDITOR_TestLevel":
+                    LevelEditor.instance.SwitchAction("");
+                    break;
+
+                case "LEVELEDITOR_Options":
+                    OpenOptionsWindow();
+                    break;
+
+                case "LEVELEDITOR_FXMode":
+                    break;
+
+                case "LEVELEDITOR_EmoteMode":
+                    break;
+
+                case "LEVELEDITOR_FunctionMode":
+                    FunctionModePriority();
+                    break;
+
+                case "LEVELEDITOR_DecoratorMode":
+                    DecoratorModePriority();
+                    break;
+                #endregion 
+
                 case "MAIN_MENU":
                     StartCoroutine(DimGame());
                     ScenesManager.instance._LoadScene(ScenesIndex.TITLE_WORLD_MAP);
@@ -290,6 +348,11 @@ namespace Kubika.Game
         public void OpenWinLevelWindow()
         {
             levelPassedCanvas.enabled = true;
+        }
+
+        void OpenOptionsWindow()
+        {
+            optionsWindow.SetActive(!optionsWindow.activeInHierarchy);
         }
 
         //called on button press

@@ -45,13 +45,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCube: 1
   facingDirection: 0
-  levelSetup: 3
+  levelSetup: 2
   prefabLevels:
-  - {fileID: 4900000, guid: 2af1ea3a45b869543987687eb7975a85, type: 3}
-  - {fileID: 4900000, guid: 7b59ebd3680bdc244b7211e19a0f3e24, type: 3}
+  - {fileID: 4900000, guid: 052c21d1142cc2b48860ec5e22bd1400, type: 3}
+  - {fileID: 4900000, guid: fb6b51697d0c56b4785afe17097ba47c, type: 3}
+  - {fileID: 4900000, guid: 2e0d8711a4fe7654fb82e3c3a8514d22, type: 3}
   - {fileID: 4900000, guid: e489fd179cf74a34ca596583a6b476c4, type: 3}
   - {fileID: 4900000, guid: 54d2756d4edba134db6001cf53212550, type: 3}
-  - {fileID: 4900000, guid: 5416f6f5bf68dd9418635ba4a28ad267, type: 3}
   isPlacing: 0
   isDeleting: 0
   isRotating: 0

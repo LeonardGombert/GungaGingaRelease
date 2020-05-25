@@ -8,12 +8,6 @@
     TripleStaticCube, //full layer
     QuadStaticCube, //full layer
 
-    RotatorLocker, //full layer
-    DeliveryCube, //full layer
-    SwitchButton, //full layer
-    RotatorRightTurner, //full layer
-    RotatorLeftTurner, //full layer
-
     //less than 6 means full
     //bigger than 6 means it's moveable
 
@@ -24,11 +18,23 @@
     BombVictoryCube, //moveable layer
     SwitchVictoryCube, //moveable layer
 
-    ElevatorCube, //moveable layer
+    DeliveryCube, //full layer
+
+    BlueElevatorCube, //moveable layer
+    GreenElevatorCube, //moveable layer
+
     ConcreteCube, //moveable layer
     BombCube, //moveable layer
     TimerCube, //moveable layer
+
+    SwitchButton, //full layer
     SwitchCube, //moveable & full layer
 
+    RotatorRightTurner, //full layer
+    RotatorLeftTurner, //full layer
+    RotatorLocker, //full layer
+
     ChaosBall, //moveable layer
+    
+    Count //use to get the total count of enums
 }

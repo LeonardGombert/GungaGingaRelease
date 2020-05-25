@@ -312,11 +312,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scenes Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 4463558925420413007, guid: dc045b395035dc8459eacfd77e251c7d,
-        type: 3}
-      propertyPath: loadToScene
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc045b395035dc8459eacfd77e251c7d, type: 3}
 --- !u!1001 &5858080383929429452
@@ -329,7 +324,7 @@ PrefabInstance:
     - target: {fileID: 5858080383342632984, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}
       propertyPath: testingKubiCode
-      value: Worl101
+      value: Worl103
       objectReference: {fileID: 0}
     - target: {fileID: 5858080383342632990, guid: 02cb5f1c23274d848ba72171ad90c663,
         type: 3}

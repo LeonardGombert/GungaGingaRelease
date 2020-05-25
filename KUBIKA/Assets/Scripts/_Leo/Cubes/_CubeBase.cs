@@ -70,12 +70,11 @@ namespace Kubika.Game
         //called on Cube Destroy, which actives on editor deleteCube()
         public void ResetCubeInfo()
         {
-            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
-            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
 
-            //grid.kuboGrid[myIndex - 1].worldPosition = Vector3.zero; -> DON'T RESET WORLDPOS because cubes must reset to nodePos
-            grid.kuboGrid[myIndex - 1].worldRotation = Vector3.zero;
+            //_Grid.instance.kuboGrid[myIndex - 1].worldPosition = Vector3.zero; -> DON'T RESET WORLDPOS because cubes must reset to nodePos
+            _Grid.instance.kuboGrid[myIndex - 1].worldRotation = Vector3.zero;
         }
 
         //call when level is loaded, places cube in world
@@ -84,11 +83,6 @@ namespace Kubika.Game
             transform.position = _Grid.instance.kuboGrid[myIndex - 1].worldPosition;
             transform.rotation = Quaternion.Euler(_Grid.instance.kuboGrid[myIndex - 1].worldRotation);
             transform.parent = _Grid.instance.gameObject.transform;
-        }
-
-        private void OnDestroy()
-        {
-            ResetCubeInfo();
         }
 
         public void DisableCube()
@@ -105,17 +99,17 @@ namespace Kubika.Game
         //gets called when you "hide"/"destroy a cube
         void HideCubeProcedure()
         {
-            grid.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
-            grid.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
-            grid.kuboGrid[myIndex - 1].cubeOnPosition = null;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeType = CubeTypes.None;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeOnPosition = null;
         }
 
         // call when "reactivating" cubes
         void ReviveCubeProcedure()
         {
-            grid.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
-            grid.kuboGrid[myIndex - 1].cubeType = myCubeType;
-            grid.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeLayers = myCubeLayer;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeType = myCubeType;
+            _Grid.instance.kuboGrid[myIndex - 1].cubeOnPosition = gameObject;
         }
 
 
@@ -296,7 +290,7 @@ namespace Kubika.Game
                             _EmoteStrength = 1;
                         }
                         break;
-                    case CubeTypes.ElevatorCube:
+                    case CubeTypes.BlueElevatorCube:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._ElevatorTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._ElevatorMesh;

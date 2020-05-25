@@ -68,7 +68,7 @@ namespace Kubika.CustomLevelEditor
                         currentNode.worldPosition = nodePosition;
                         currentNode.cubeLayers = CubeLayers.cubeEmpty;
                         currentNode.cubeType = CubeTypes.None;
-                        currentNode.facingDirection = FacingDirection.up;
+                        currentNode.facingDirection = FacingDirection.forward;
 
                         kuboGrid[index - 1] = currentNode;
                     }
@@ -96,7 +96,6 @@ namespace Kubika.CustomLevelEditor
                 if(kuboGrid[i].cubeOnPosition != null)
                 {
                     Destroy(kuboGrid[i].cubeOnPosition.gameObject);
-                    kuboGrid[i].cubeOnPosition = null;
                 }
 
                 placedObjects.Clear();

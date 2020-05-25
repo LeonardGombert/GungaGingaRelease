@@ -43,20 +43,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c08f27d15b46db4bb3f4778a6e40240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCubeArray: []
+  elevatorsArray: []
   moveCube: []
-  EndChecking:
+  elevators: []
+  StartChecking:
     m_PersistentCalls:
       m_Calls: []
-  EndMoveChecking:
+  StartMoving:
     m_PersistentCalls:
       m_Calls: []
   EndMoving:
     m_PersistentCalls:
       m_Calls: []
+  StartFalling:
+    m_PersistentCalls:
+      m_Calls: []
   EndFalling:
     m_PersistentCalls:
       m_Calls: []
+  StartSwipe:
+    m_PersistentCalls:
+      m_Calls: []
+  EndSwipe:
+    m_PersistentCalls:
+      m_Calls: []
   actualRotation: 0
-  indexBankScriptable: {fileID: 11400000, guid: d359a46e83d75aa4bb3f6cdc3aaa501c,
+  indexBankScriptable: {fileID: 11400000, guid: 20292aa4ca457024eb45bc26bf6fc21e,
     type: 2}
+  baseCubeArray: []
   baseCube: []
+  inputPosition: {x: 0, y: 0, z: 0}
+  swipeMinimalDistance: 100

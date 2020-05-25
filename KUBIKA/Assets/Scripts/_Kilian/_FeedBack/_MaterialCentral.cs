@@ -16,7 +16,7 @@ namespace Kubika.Game
 
         [Space]
         public _StaticPack[] staticPack;
-        public int staticIndex;
+        public Biomes staticIndex;
         public _DynamicPack[] dynamicPack;
         public int dynamicIndex;
         public _EmotePack[] emotePack;
@@ -199,7 +199,7 @@ namespace Kubika.Game
             allCube = FindObjectsOfType<_CubeBase>();
 
             ResetDynamicPacks(dynamicIndex);
-            ResetStaticPacks(staticIndex);
+            ResetStaticPacks((int)staticIndex);
             ResetEmotePacks(emoteIndex);
             ResetFxPacks(fxIndex);
 
@@ -460,15 +460,31 @@ namespace Kubika.Game
 
         }
 
+        public void ChangeUniverse(Biomes newBiome)
+        {
+            allCube = FindObjectsOfType<_CubeBase>(); // TODO DEGEU
+            Debug.Log("RIGHT UNIVERS");
+            if ((int)staticIndex < staticPack.Length)
+            {
+                Debug.Log("Index = " + (int)staticIndex);
+                staticIndex = newBiome;
+                ResetStaticPacks((int)staticIndex);
+                foreach (_CubeBase cube in allCube)
+                {
+                    cube.SetScriptablePreset();
+                }
+            }
+        }
+
         public void ChangeUniverseRight()
         {
             allCube = FindObjectsOfType<_CubeBase>(); // TODO DEGEU
             Debug.Log("RIGHT UNIVERS");
-            if(staticIndex < staticPack.Length)
+            if((int)staticIndex < staticPack.Length)
             {
-                Debug.Log("Index = " + staticIndex);
+                Debug.Log("Index = " + (int)staticIndex);
                 staticIndex += 1;
-                ResetStaticPacks(staticIndex);
+                ResetStaticPacks((int)staticIndex);
                 foreach (_CubeBase cube in allCube)
                 {
                     cube.SetScriptablePreset();
@@ -480,11 +496,11 @@ namespace Kubika.Game
         {
             allCube = FindObjectsOfType<_CubeBase>();
             Debug.Log("LEFT UNIVERS");
-            if (staticIndex > 0)
+            if ((int)staticIndex > 0)
             {
-                Debug.Log("Index = " + staticIndex);
+                Debug.Log("Index = " + (int)staticIndex);
                 staticIndex -= 1;
-                ResetStaticPacks(staticIndex);
+                ResetStaticPacks((int)staticIndex);
                 foreach (_CubeBase cube in allCube)
                 {
                     cube.SetScriptablePreset();

@@ -29,6 +29,7 @@ namespace Kubika.Saving
         public int currentMinimumMoves;
         
         _Grid grid;
+        private Biomes currentBiome;
 
         private void Awake()
         {
@@ -58,17 +59,24 @@ namespace Kubika.Saving
 
             //storing data in levelDataFile
             levelData.levelName = levelName;
+            levelData.biome = _MaterialCentral.instance.staticIndex;
             levelData.lockRotate = rotateLock;
             levelData.minimumMoves = minimumMoves;
             levelData.Kubicode = kubiCode;
 
+
+
             currentOpenLevelName = levelName;
             currentKubicode = kubiCode;
+            currentBiome = _MaterialCentral.instance.staticIndex;
             currentLevelLockRotate = rotateLock;
             currentMinimumMoves = minimumMoves;
 
-
-            foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
+            foreach (Node node in activeNodes)
+            {
+                node.savedCubeType = Node.ConvertTypeToString(node.cubeType);
+                levelData.nodesToSave.Add(node);
+            }
 
             string json = JsonUtility.ToJson(levelData);
             string folder;
@@ -99,6 +107,7 @@ namespace Kubika.Saving
         {
             levelData.levelName = currentOpenLevelName;
             levelData.Kubicode = currentKubicode;
+            levelData.biome = currentBiome;
             levelData.lockRotate = currentLevelLockRotate;
             levelData.minimumMoves = currentMinimumMoves;
 
@@ -124,6 +133,7 @@ namespace Kubika.Saving
 
             currentOpenLevelName = levelData.levelName;
             currentKubicode = levelData.Kubicode;
+            currentBiome = levelData.biome;
             currentLevelLockRotate = levelData.lockRotate;
             currentMinimumMoves = levelData.minimumMoves;
 
@@ -140,10 +150,15 @@ namespace Kubika.Saving
 
             //storing data in levelDataFile
             levelData.levelName = levelName;
+            levelData.biome = _MaterialCentral.instance.staticIndex;
 
             currentOpenLevelName = levelName;
 
-            foreach (Node node in activeNodes) levelData.nodesToSave.Add(node);
+            foreach (Node node in activeNodes)
+            { 
+                node.savedCubeType = Node.ConvertTypeToString(node.cubeType);
+                levelData.nodesToSave.Add(node);
+            }
 
             string json = JsonUtility.ToJson(levelData);
             string levelFile = levelName + ".json";
@@ -171,6 +186,7 @@ namespace Kubika.Saving
         {
             levelData.levelName = currentOpenLevelName;
             levelData.Kubicode = currentKubicode;
+            levelData.biome = currentBiome;
 
             UserSavingLevel(currentOpenLevelName);
         }
@@ -193,6 +209,8 @@ namespace Kubika.Saving
             }
 
             currentOpenLevelName = levelData.levelName;
+            currentKubicode = levelData.Kubicode;
+            currentBiome = levelData.biome;
 
             levelData.nodesToSave.Clear();
             activeNodes.Clear();
@@ -213,6 +231,12 @@ namespace Kubika.Saving
 
             foreach (Node recoveredNode in recoveredData.nodesToSave)
             {
+                // EXTREMELY IMPORTANT -> CONVERTS THE CUBE'S TYPE FROM STRING TO ENUM
+                recoveredNode.cubeType = Node.ConvertStringToCubeType(recoveredNode.savedCubeType);
+
+                //Set the universe textures
+                _MaterialCentral.instance.ChangeUniverse(recoveredData.biome);
+
                 currentNode = recoveredNode;
                 
                 GameObject newCube = Instantiate(cubePrefab);
@@ -296,13 +320,19 @@ namespace Kubika.Saving
                     case CubeTypes.DeliveryCube:
                         newCube.AddComponent(typeof(DeliveryCube));
                         DeliveryCube deliveryCube = newCube.GetComponent<DeliveryCube>();
-                        SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.DeliveryCube, true);
+                        SetCubeInfo(deliveryCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.DeliveryCube, true);
                         break;
 
-                    case CubeTypes.ElevatorCube:
+                    case CubeTypes.BlueElevatorCube:
                         newCube.AddComponent(typeof(ElevatorCube));
-                        ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-                        SetCubeInfo(elevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.ElevatorCube, false);
+                        ElevatorCube blueElevatorCube = newCube.GetComponent<ElevatorCube>();
+                        SetCubeInfo(blueElevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BlueElevatorCube, false);
+                        break;
+
+                    case CubeTypes.GreenElevatorCube:
+                        newCube.AddComponent(typeof(ElevatorCube));
+                        ElevatorCube greenElevatorCube = newCube.GetComponent<ElevatorCube>();
+                        SetCubeInfo(greenElevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.GreenElevatorCube, false);
                         break;
 
                     case CubeTypes.ConcreteCube:
@@ -361,13 +391,11 @@ namespace Kubika.Saving
 
                     default:
                         //set epmty cubes as cubeEmpty
-                        grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeOnPosition = null;
                         grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeLayers = CubeLayers.cubeEmpty;
                         grid.kuboGrid[recoveredNode.nodeIndex - 1].cubeType = CubeTypes.None;
                         break;
                 }
             }
-
             Debug.Log("Level Loaded !");
         }
 

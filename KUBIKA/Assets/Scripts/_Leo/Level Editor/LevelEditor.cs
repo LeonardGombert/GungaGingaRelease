@@ -185,9 +185,6 @@ namespace Kubika.CustomLevelEditor
 
             //calculate where you're placing the new cube
             CubeOffset(hit.normal);
-            EditorGUIUtility.PingObject(hit.collider.gameObject);
-            Debug.Log("Target index is " + hitIndex);
-            Debug.Log("Move Weight is " + moveWeight);
 
             //if the current node doesn't have a cube on it, place a new cube
             if (currentCube != CubeTypes.None && IndexIsEmpty())
@@ -209,8 +206,9 @@ namespace Kubika.CustomLevelEditor
             //if there is a cube
             if (!IndexIsEmpty())
             {
+                currentHitCube.ResetCubeInfo();
                 //reset the grid info
-                Destroy(grid.kuboGrid[hitIndex - 1].cubeOnPosition);
+                Destroy(currentHitCube.gameObject);
             }
 
             grid.placedObjects.Remove(hit.collider.gameObject);
@@ -418,10 +416,16 @@ namespace Kubika.CustomLevelEditor
                     SendInfoToCube(deliveryCube as _CubeBase, CubeTypes.DeliveryCube, CubeLayers.cubeFull, true);
                     break;
 
-                case CubeTypes.ElevatorCube:
+                case CubeTypes.BlueElevatorCube:
                     newCube.AddComponent(typeof(ElevatorCube));
-                    ElevatorCube elevatorCube = newCube.GetComponent<ElevatorCube>();
-                    SendInfoToCube(elevatorCube as _CubeBase, CubeTypes.ElevatorCube, CubeLayers.cubeMoveable, false);
+                    ElevatorCube blueElevatorCube = newCube.GetComponent<ElevatorCube>();
+                    SendInfoToCube(blueElevatorCube as _CubeBase, CubeTypes.BlueElevatorCube, CubeLayers.cubeMoveable, false);
+                    break;
+
+                case CubeTypes.GreenElevatorCube:
+                    newCube.AddComponent(typeof(ElevatorCube));
+                    ElevatorCube greenElevatorCube = newCube.GetComponent<ElevatorCube>();
+                    SendInfoToCube(greenElevatorCube as _CubeBase, CubeTypes.GreenElevatorCube, CubeLayers.cubeMoveable, false);
                     break;
 
                 case CubeTypes.ConcreteCube:
