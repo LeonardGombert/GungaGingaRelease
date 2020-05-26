@@ -140,8 +140,8 @@ namespace Kubika.Game
                 Debug.LogError("transform.eulerAngles.z " + (int)transform.eulerAngles.z + " ||  " + (int)transform.eulerAngles.z % 360);
 
                 _DirectionCustom.rotationState = (int)transform.eulerAngles.z % 360 == 0 ? 0 :
-                                            ((int)transform.eulerAngles.z % 360 == 120 ? 1 :
-                                            ((int)transform.eulerAngles.z % 360 == 240 ? 2 : 0)); 
+                                            ((int)transform.eulerAngles.z % 360 >= 110 && (int)transform.eulerAngles.z % 360 <= 130 ? 1 :
+                                            ((int)transform.eulerAngles.z % 360 >= 230 && (int)transform.eulerAngles.z % 360 <= 250 ? 2 : 0)); 
 
                 Debug.LogError("ROTATION-STATE " + _DirectionCustom.rotationState);
 
