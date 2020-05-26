@@ -23,14 +23,13 @@ namespace Kubika.Game
         public override void Update()
         {
             base.Update();
+            Debug.Log("Cheking in " + myIndex + _DirectionCustom.LocalScanner(facingDirection));
         }
 
         private void CheckForVictory()
         {
             //touchingVictory = ProximityChecker(_DirectionCustom.fixedUp, CubeTypes.BaseVictory, CubeLayers.None);
-            touchingVictory = VictoryChecker(_DirectionCustom.fixedUp);
-
-            Debug.DrawRay(transform.position, Vector3.up, Color.green);
+            touchingVictory = VictoryChecker(_DirectionCustom.LocalScanner(facingDirection));
 
             if (touchingVictory && locked == false)
             {

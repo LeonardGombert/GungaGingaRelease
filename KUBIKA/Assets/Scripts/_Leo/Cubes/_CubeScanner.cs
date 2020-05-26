@@ -41,7 +41,6 @@ namespace Kubika.Game
         {
             if (grid.kuboGrid[myIndex - 1 + targetIndex] != null)
             {
-                Debug.Log("Cheking in ");
                 if (grid.kuboGrid[myIndex - 1 + targetIndex].cubeOnPosition != null)
                 {
                     if (grid.kuboGrid[myIndex - 1 + targetIndex].cubeType >= CubeTypes.BaseVictoryCube

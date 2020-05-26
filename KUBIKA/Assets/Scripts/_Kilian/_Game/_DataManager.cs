@@ -104,13 +104,11 @@ namespace Kubika.Game
 
                     if (baseCube != null)
                     {
-                        Debug.Log("My base cube index is " + baseCube.myIndex);
                         baseCubeArray.Add(baseCube);
                     }
 
                     if (elevatorCube != null)
                     {
-                        Debug.Log("My elevator cube index is " + elevatorCube.myIndex);
                         elevatorsArray.Add(elevatorCube);
                     }
                 }

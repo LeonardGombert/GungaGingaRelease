@@ -95,7 +95,7 @@ namespace Kubika.Game
         {
             for (int i = 0; i < masterList.Count; i++)
             {
-                if (masterList[i].Kubicode != levelKubicode) Debug.Log(masterList[i].Kubicode);
+                if (masterList[i].Kubicode != levelKubicode) continue;
 
                 else if (masterList[i].Kubicode == levelKubicode)
                 {
