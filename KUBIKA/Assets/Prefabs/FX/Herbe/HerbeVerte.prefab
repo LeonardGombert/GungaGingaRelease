@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8649982429254124902}
   - component: {fileID: 8649982429254124903}
   m_Layer: 0
-  m_Name: Herbe (1)
+  m_Name: HerbeVerte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8649982429254124900}
-  m_LocalRotation: {x: 0, y: 0.37460658, z: 0, w: 0.92718387}
+  m_LocalRotation: {x: 0, y: 0.37460664, z: 0, w: 0.92718387}
   m_LocalPosition: {x: -1.95, y: 1.5700002, z: -12.39}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 44.000004, z: 0}
 --- !u!33 &8649982429254124897
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -95,11 +95,12 @@ MonoBehaviour:
   _MainTex: {fileID: 2800000, guid: de78d34e66b53094d9de7846a1c2ee5b, type: 3}
   _MainTexNormal: {fileID: 2800000, guid: de78d34e66b53094d9de7846a1c2ee5b, type: 3}
   _MainTexVariation: {fileID: 2800000, guid: 645c8997c0663e4458275eba5e338007, type: 3}
-  _ColorMin: {r: 0.66721, g: 1, b: 0.5518868, a: 1}
-  _ColorMax: {r: 0.48490563, g: 1, b: 0.3066038, a: 1}
+  _ColorMin: {r: 0.47592562, g: 0.8773585, b: 0.53226703, a: 1}
+  _ColorMax: {r: 0.3836865, g: 0.8490566, b: 0.22027414, a: 1}
   numberOfVariations: 4
-  _WindSpeed: 49.21
-  _WindMouv: 0.15
+  _WindSpeed: 50
+  _WindMouv: 0.01
   _WindOffset: 0.5
+  _WindStrength: 0.07
   meshRenderer: {fileID: 8649982429254124902}
   meshFilter: {fileID: 8649982429254124897}

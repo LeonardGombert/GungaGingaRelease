@@ -15,6 +15,7 @@
             _WindSpeed("_WindSpeed", Float) = 0.5
             _WindMouv("_WindMouv", Float) = 0.5
             _WindOffset("_WindOffset", Float) = 0.5
+            _WindStrength("_WindStrength", Float) = 0.5
 
         }
             SubShader
@@ -38,6 +39,7 @@
                     half _WindSpeed;
                     half _WindMouv;
                     half _WindOffset;
+                    half _WindStrength;
 
                     fixed4 _Color;
 
@@ -75,7 +77,7 @@
                         o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
                         //Offset && Tilling
-                        o.vertex.x += step(0, o.uv.y - _WindOffset) * sin(((_Time.x * _WindSpeed) + (o.worldPos.x * _WindMouv + o.worldPos.z * _WindMouv)));
+                        o.vertex.x += step(0, o.uv.y - _WindOffset) * (sin(((_Time.x * _WindSpeed) + (o.worldPos.x * _WindMouv + o.worldPos.z * _WindMouv))) * _WindStrength);
 
                         return o;
                     }

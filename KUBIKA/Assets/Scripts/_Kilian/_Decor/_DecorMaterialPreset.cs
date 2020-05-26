@@ -25,6 +25,7 @@ namespace Kubika.Game
         public float _WindSpeed;
         public float _WindMouv;
         public float _WindOffset;
+        public float _WindStrength;
 
         Vector3 startRotation;
 
@@ -78,6 +79,7 @@ namespace Kubika.Game
             MatProp.SetFloat("_WindSpeed", _WindSpeed);
             MatProp.SetFloat("_WindMouv", _WindMouv);
             MatProp.SetFloat("_WindOffset", _WindOffset);
+            MatProp.SetFloat("_WindStrength", _WindStrength);
 
 
             meshRenderer.SetPropertyBlock(MatProp);
