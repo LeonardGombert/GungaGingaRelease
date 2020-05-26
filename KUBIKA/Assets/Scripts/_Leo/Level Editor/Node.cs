@@ -41,7 +41,6 @@ namespace Kubika.CustomLevelEditor
                 if (cubeType.ToString() == cubetypes)
                     break;
             }
-            Debug.Log("Node is " + cubeType.ToString());
             return cubeType;
         }
     }

@@ -41,6 +41,7 @@ namespace Kubika.Game
 
         public TextAsset _levelFile;
         public string _levelName;
+        public Biomes _levelBiome;
         public string _Kubicode;
         public int _minimumMoves;
         public bool _lockRotate;
@@ -92,15 +93,12 @@ namespace Kubika.Game
         // called when Game Scene is loaded, load specific level or set to baseState
         public void BakeLevels(string levelKubicode)
         {
-            Debug.Log("I'm looking for a specific level named " + levelKubicode);
-
             for (int i = 0; i < masterList.Count; i++)
             {
                 if (masterList[i].Kubicode != levelKubicode) Debug.Log(masterList[i].Kubicode);
 
                 else if (masterList[i].Kubicode == levelKubicode)
                 {
-                    Debug.Log("Found specific level");
                     LoadSpecific(i);
                     break;
                 }
@@ -125,8 +123,6 @@ namespace Kubika.Game
             while (UIManager.instance == null) return;
             UIManager.instance.playerLevelsDropdown.ClearOptions();
 
-            Debug.Log("Cleared");
-
             foreach (string levelName in levelNames)
             {
                 UIManager.instance.playerLevelsDropdown.options.Add(new Dropdown.OptionData(levelName));
@@ -139,6 +135,7 @@ namespace Kubika.Game
         void GetNextLevelInfo()
         {
             _levelName = levelQueue.Peek().levelName;
+            _levelBiome = levelQueue.Peek().levelBiome;
             _Kubicode = levelQueue.Peek().Kubicode;
             _levelFile = levelQueue.Peek().levelFile;
             _minimumMoves = levelQueue.Peek().minimumMoves;
@@ -151,16 +148,11 @@ namespace Kubika.Game
             StartCoroutine(LoadLevel());
 
             DequeueLevel();
-
-            _DataManager.instance.GameSet();
-            _MaterialCentral.instance.MaterialSet();
         }
 
         // Load the next level (extract the file)
         IEnumerator LoadLevel()
         {
-            Debug.Log("1, 2, 3, 4");
-
             if (_lockRotate) UIManager.instance.TurnOffRotate();
             else UIManager.instance.TurnOnRotate();
 
@@ -168,9 +160,18 @@ namespace Kubika.Game
 
             LevelEditorData levelData = JsonUtility.FromJson<LevelEditorData>(json);
 
+            SaveAndLoad.instance.finishedBuilding = false;
+
             SaveAndLoad.instance.ExtractAndRebuildLevel(levelData);
 
+            while (!SaveAndLoad.instance.finishedBuilding) yield return null;
+
+            // once the level is loaded 
+
             VictoryConditionManager.instance.CheckVictoryCubes();
+            _DataManager.instance.GameSet();
+            _MaterialCentral.instance.MaterialSet();
+            _MaterialCentral.instance.ChangeUniverse(_levelBiome);
 
             yield return null;
         }
@@ -196,6 +197,7 @@ namespace Kubika.Saving
         public TextAsset levelFile;
         public int minimumMoves;
         public bool lockRotate;
+        public Biomes levelBiome;
 
         public string Kubicode;
     }

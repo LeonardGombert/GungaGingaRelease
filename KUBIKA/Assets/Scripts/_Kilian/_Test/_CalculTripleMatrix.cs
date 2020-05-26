@@ -26,7 +26,7 @@ namespace Kubika.Game
                 CreateGrid2();
             }
 
-            if(Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 AssignDataBank();
             }
@@ -162,7 +162,7 @@ namespace Kubika.Game
                 for (int y = 0; y < grid1.Length; y++)
                 {
 
-                    if(grid0[i].worldPosition == grid1[y].worldPosition)
+                    if (grid0[i].worldPosition == grid1[y].worldPosition)
                     {
                         indexBankScriptable.indexBank[i].nodeIndex2 = grid1[y].nodeIndex;
                         break;
@@ -180,7 +180,15 @@ namespace Kubika.Game
 
             }
 
+            ForceSerialization();
+        }
 
+        //saves the scriptable values
+        void ForceSerialization()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
         }
 
         #endregion

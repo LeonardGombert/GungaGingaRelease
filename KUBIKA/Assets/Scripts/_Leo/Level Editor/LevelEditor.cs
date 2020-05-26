@@ -419,13 +419,15 @@ namespace Kubika.CustomLevelEditor
                 case CubeTypes.BlueElevatorCube:
                     newCube.AddComponent(typeof(ElevatorCube));
                     ElevatorCube blueElevatorCube = newCube.GetComponent<ElevatorCube>();
-                    SendInfoToCube(blueElevatorCube as _CubeBase, CubeTypes.BlueElevatorCube, CubeLayers.cubeMoveable, false);
+                    blueElevatorCube.isGreen = false;
+                    SendInfoToCube(blueElevatorCube as _CubeBase, CubeTypes.BlueElevatorCube, CubeLayers.cubeFull, false);
                     break;
 
                 case CubeTypes.GreenElevatorCube:
                     newCube.AddComponent(typeof(ElevatorCube));
                     ElevatorCube greenElevatorCube = newCube.GetComponent<ElevatorCube>();
-                    SendInfoToCube(greenElevatorCube as _CubeBase, CubeTypes.GreenElevatorCube, CubeLayers.cubeMoveable, false);
+                    greenElevatorCube.isGreen = true;
+                    SendInfoToCube(greenElevatorCube as _CubeBase, CubeTypes.GreenElevatorCube, CubeLayers.cubeFull, false);
                     break;
 
                 case CubeTypes.ConcreteCube:

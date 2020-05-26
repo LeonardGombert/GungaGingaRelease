@@ -25,7 +25,7 @@ namespace Kubika.Game
         // Start is called before the first frame update
         void Start()
         {
-
+            _DataManager.instance.EndFalling.AddListener(VictoryConditionStatus);
         }
 
         // Update is called once per frame

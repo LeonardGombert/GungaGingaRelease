@@ -23,6 +23,7 @@ public class LevelEditorWindow : EditorWindow
     CubeTypes cubeTypesLength;
 
     private string[] levelBiomes;
+    private Biomes levelBiome;
     private int biomesIndex;
 
     [MenuItem("Tools/Level Editor")]
@@ -105,17 +106,9 @@ public class LevelEditorWindow : EditorWindow
         levelName = EditorGUILayout.TextField("Load/Save Level Name", levelName);
         kubiCode = EditorGUILayout.TextField("KudiCode", kubiCode);
 
-        levelBiomes = new string[(int)Biomes.Count];
+        levelBiome = (Biomes)EditorGUILayout.EnumPopup("Level Biome is ", levelBiome);
 
-        for (int i = 0; i < (int)Biomes.Count; i++)
-        {
-            var temp = (Biomes)i;
-            levelBiomes[i] = temp.ToString();
-        }
-
-        biomesIndex = EditorGUI.Popup(new Rect(0, 255, position.width, 20), "Level Biome is : ", biomesIndex, levelBiomes);
-        
-        _MaterialCentral.instance.staticIndex = (Biomes)biomesIndex; //change the current biome
+        _MaterialCentral.instance.staticIndex = levelBiome; //change the current biome
 
         lockRotate = EditorGUILayout.Toggle("Lock Rotation ?", lockRotate);
         miminumMoves = EditorGUILayout.IntField("Minimum Moves to Beat", miminumMoves);

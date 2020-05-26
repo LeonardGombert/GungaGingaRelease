@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Kubika.CustomLevelEditor;
+using System;
 
 namespace Kubika.Game
 {
@@ -14,8 +15,14 @@ namespace Kubika.Game
         public static _DataManager instance { get { return _instance; } }
 
         // MOVEABLE CUBE
-        public _CubeMove[] moveCubeArray;
-        public ElevatorCube[] elevatorsArray;
+        //public _CubeBase[] baseCubeArray;
+        //public _CubeMove[] moveCubeArray;
+        //public ElevatorCube[] elevatorsArray;
+
+        public List<_CubeBase> baseCubeArray = new List<_CubeBase>();
+        public List<_CubeMove> moveCubeArray = new List<_CubeMove>();
+        public List<ElevatorCube> elevatorsArray = new List<ElevatorCube>();
+
         public List<_CubeMove> moveCube = new List<_CubeMove>();
         public List<ElevatorCube> elevators = new List<ElevatorCube>();
 
@@ -36,7 +43,6 @@ namespace Kubika.Game
         [Space]
         [Header("INDEX BANK")]
         public _DataMatrixScriptable indexBankScriptable;
-        public _CubeBase[] baseCubeArray;
         public List<_CubeBase> baseCube = new List<_CubeBase>();
 
         ///////////////INPUT
@@ -74,9 +80,57 @@ namespace Kubika.Game
 
         public void GameSet()
         {
+            #region LIST VERSION            
+            baseCubeArray = new List<_CubeBase>();
+            moveCubeArray = new List<_CubeMove>();
+            elevatorsArray = new List<ElevatorCube>();
+
+            baseCube = new List<_CubeBase>();
+            moveCube = new List<_CubeMove>();
+            elevators = new List<ElevatorCube>();
+
+            foreach (var item in _Grid.instance.kuboGrid)
+            {
+                if (item.cubeOnPosition != null)
+                {
+                    _CubeBase baseCube = item.cubeOnPosition.gameObject.GetComponent<_CubeBase>();
+                    _CubeMove cubeMove = item.cubeOnPosition.gameObject.GetComponent<_CubeMove>();
+                    ElevatorCube elevatorCube = item.cubeOnPosition.gameObject.GetComponent<ElevatorCube>();
+
+                    if (cubeMove != null)
+                    {
+                        moveCubeArray.Add(cubeMove);
+                    }
+
+                    if (baseCube != null)
+                    {
+                        Debug.Log("My base cube index is " + baseCube.myIndex);
+                        baseCubeArray.Add(baseCube);
+                    }
+
+                    if (elevatorCube != null)
+                    {
+                        Debug.Log("My elevator cube index is " + elevatorCube.myIndex);
+                        elevatorsArray.Add(elevatorCube);
+                    }
+                }
+            }
+            #endregion
+
+            #region ARRAY VERSION
+            /*elevators.Clear();
+            moveCube.Clear();
+            baseCube.Clear();
+
+            Array.Clear(moveCubeArray, 0, moveCubeArray.Length);
+            Array.Clear(baseCubeArray, 0, baseCubeArray.Length);
+            Array.Clear(elevatorsArray, 0, elevatorsArray.Length);
+
             moveCubeArray = FindObjectsOfType<_CubeMove>(); // TODO : DEGEULASSE
             baseCubeArray = FindObjectsOfType<_CubeBase>();
-            elevatorsArray = FindObjectsOfType<ElevatorCube>();
+            elevatorsArray = FindObjectsOfType<ElevatorCube>(); */
+            #endregion
+
 
             foreach (ElevatorCube elevator in elevatorsArray)
             {

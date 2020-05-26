@@ -29,6 +29,8 @@ namespace Kubika.Saving
         public int currentMinimumMoves;
         public Biomes currentBiome; //sets itself on save
 
+        public bool finishedBuilding = false;
+
         _Grid grid;
 
         private void Awake()
@@ -153,7 +155,7 @@ namespace Kubika.Saving
             currentOpenLevelName = levelName;
 
             foreach (Node node in activeNodes)
-            { 
+            {
                 node.savedCubeType = Node.ConvertTypeToString(node.cubeType);
                 levelData.nodesToSave.Add(node);
             }
@@ -222,6 +224,8 @@ namespace Kubika.Saving
 
         public void ExtractAndRebuildLevel(LevelEditorData recoveredData)
         {
+            finishedBuilding = false;
+
             grid = _Grid.instance;
 
             // start by resetting the grid's nodes to their base states
@@ -236,15 +240,13 @@ namespace Kubika.Saving
                 _MaterialCentral.instance.ChangeUniverse(recoveredData.biome);
 
                 currentNode = recoveredNode;
-                
+
                 GameObject newCube = Instantiate(cubePrefab);
 
                 _Grid.instance.placedObjects.Add(newCube);
 
                 // get the kuboGrid and set the information on each of the nodes
                 SetNodeInfo(newCube, recoveredNode.nodeIndex, recoveredNode.worldPosition, recoveredNode.worldRotation, recoveredNode.facingDirection, recoveredNode.cubeLayers, recoveredNode.cubeType);
-                
-                Debug.Log(recoveredNode.cubeType);
 
                 // check the node's cube type and setup the relevant cube and its transform + individual information
                 switch (recoveredNode.cubeType)
@@ -283,7 +285,7 @@ namespace Kubika.Saving
                         newCube.AddComponent(typeof(StaticCube));
                         StaticCube quadStaticCube = newCube.GetComponent<StaticCube>();
                         SetCubeInfo(quadStaticCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.QuadStaticCube, true);
-                        break; 
+                        break;
 
                     case CubeTypes.MoveableCube:
                         newCube.AddComponent(typeof(MoveableCube));
@@ -324,13 +326,15 @@ namespace Kubika.Saving
                     case CubeTypes.BlueElevatorCube:
                         newCube.AddComponent(typeof(ElevatorCube));
                         ElevatorCube blueElevatorCube = newCube.GetComponent<ElevatorCube>();
-                        SetCubeInfo(blueElevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.BlueElevatorCube, false);
+                        blueElevatorCube.isGreen = false;
+                        SetCubeInfo(blueElevatorCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.BlueElevatorCube, false);
                         break;
 
                     case CubeTypes.GreenElevatorCube:
                         newCube.AddComponent(typeof(ElevatorCube));
                         ElevatorCube greenElevatorCube = newCube.GetComponent<ElevatorCube>();
-                        SetCubeInfo(greenElevatorCube as _CubeBase, CubeLayers.cubeMoveable, CubeTypes.GreenElevatorCube, false);
+                        greenElevatorCube.isGreen = true;
+                        SetCubeInfo(greenElevatorCube as _CubeBase, CubeLayers.cubeFull, CubeTypes.GreenElevatorCube, false);
                         break;
 
                     case CubeTypes.ConcreteCube:
@@ -394,7 +398,8 @@ namespace Kubika.Saving
                         break;
                 }
             }
-            Debug.Log("Level Loaded !");
+
+            finishedBuilding = true;
         }
 
         void SetNodeInfo(GameObject newCube, int nodeIndex, Vector3 worldPosition, Vector3 worldRotation, FacingDirection facingDirection, CubeLayers cubeLayers, CubeTypes cubeTypes)

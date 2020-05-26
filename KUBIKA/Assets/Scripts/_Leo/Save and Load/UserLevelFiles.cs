@@ -7,7 +7,7 @@ namespace Kubika.Saving
 {
     public class UserLevelFiles : MonoBehaviour
     {
-        // use this function to extract information from text file asset
+        // use this function to extract information from text file asset and into a LevelFile
         public static LevelFile ConvertToLevelInfo(TextAsset levelFile)
         {
             LevelFile levelInfo = new LevelFile();
@@ -15,6 +15,7 @@ namespace Kubika.Saving
 
             levelInfo.levelFile = levelFile;
             levelInfo.levelName = levelData.levelName;
+            levelInfo.levelBiome = levelData.biome;
             levelInfo.Kubicode = levelData.Kubicode;
             levelInfo.minimumMoves = levelData.minimumMoves;
             levelInfo.lockRotate = levelData.lockRotate;
