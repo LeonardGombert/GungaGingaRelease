@@ -50,7 +50,7 @@ namespace Kubika.Game
 
         //PUSH
         public _CubeMove pushNextNodeCubeMove;
-
+         
         //PILE
         public _CubeMove pileNodeCubeMove;
 
