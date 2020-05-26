@@ -84,6 +84,7 @@ namespace Kubika.Game
 
                 lerpValue = 0;
                 currentValue = 0;
+                Debug.LogError("START_ROTATION " + transform.eulerAngles.z);
 
 
                 // There is two axis of rotation (left and right) , TODO = OPTI
