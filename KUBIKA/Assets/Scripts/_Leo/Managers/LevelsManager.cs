@@ -185,7 +185,7 @@ namespace Kubika.Game
 
         public void RestartLevel()
         {
-            throw new NotImplementedException();
+            LoadLevel();
         }
     }
 }

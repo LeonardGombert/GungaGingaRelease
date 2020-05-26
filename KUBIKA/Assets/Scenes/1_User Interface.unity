@@ -1675,6 +1675,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4751833530132570143, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751833530132570143, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751833530132570143, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751833530132570143, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751833530132570143, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751833530132570143, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8388216808308738775, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4163245710987387166}
+    - target: {fileID: 8388216808308738775, guid: d7bddebc1a960e14e877e68f440735e4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: GAME_Restart
+      objectReference: {fileID: 0}
     - target: {fileID: 9122809464436392814, guid: d7bddebc1a960e14e877e68f440735e4,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1809,11 +1849,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Burger Menu UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 9122809465856123248, guid: d7bddebc1a960e14e877e68f440735e4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9122809465856123249, guid: d7bddebc1a960e14e877e68f440735e4,
         type: 3}
