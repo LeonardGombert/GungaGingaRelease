@@ -4,30 +4,31 @@ using UnityEngine;
 
 namespace Kubika.Game
 {
+    [ExecuteInEditMode]
     public class _DecorMaterialPreset : MonoBehaviour
     {
 
         [Space]
         [Header("MATERIAL INFOS")]
         public Texture _MainTex;
-        public Mesh _MainMesh;
-        public Color _MainColor;
+        public Texture _MainTexNormal;
+        public Texture _MainTexVariation;
 
-        [Range(-360, 360)] public float _Hue;
-        [Range(0, 2)] public float _Contrast;
-        [Range(0, 2)] public float _Saturation;
-        [Range(-1, 1)] public float _Brightness;
+        [Space]
+        public Color _ColorMin;
+        public Color _ColorMax; 
+        Color _Color; 
+        public float numberOfVariations;
+        float actualColorChoice;
 
-        public Texture _EmoteTex;
-        public float _EmoteStrength;
+        [Space]
+        public float _WindSpeed;
+        public float _WindMouv;
+        public float _WindOffset;
+        public float _WindStrength;
 
-        public Texture _InsideTex;
-        public Color _InsideColor;
-        public float _InsideStrength;
+        Vector3 startRotation;
 
-        public Texture _EdgeTex;
-        public Color _EdgeColor;
-        public float _EdgeStrength;
 
         [HideInInspector] public MeshRenderer meshRenderer;
         [HideInInspector] public MeshFilter meshFilter;
@@ -36,13 +37,32 @@ namespace Kubika.Game
         // Start is called before the first frame update
         void Start()
         {
+            startRotation = transform.localEulerAngles;
+            startRotation.y = Random.Range(1, 360);
+            transform.localEulerAngles = startRotation;
 
+            SetMaterialRandomValues();
+            SetMaterial();
         }
 
-        // Update is called once per frame
         void Update()
         {
+            SetMaterial();
+        }
 
+        void SetMaterialRandomValues()
+        {
+            actualColorChoice = Random.Range(1, numberOfVariations);
+            _Color = Color.Lerp(_ColorMin, _ColorMax, actualColorChoice / numberOfVariations);
+
+            if(Random.Range(1,5) == 3)
+            {
+                _MainTex = _MainTexVariation;
+            }
+            else
+            {
+                _MainTex = _MainTexNormal;
+            }
         }
 
         public void SetMaterial()
@@ -53,25 +73,14 @@ namespace Kubika.Game
 
             meshRenderer.GetPropertyBlock(MatProp);
 
-            meshFilter.mesh = _MainMesh;
-
             MatProp.SetTexture("_MainTex", _MainTex);
-            MatProp.SetTexture("_InsideTex", _InsideTex);
-            MatProp.SetTexture("_EdgeTex", _EdgeTex);
-            MatProp.SetTexture("_Emote", _EmoteTex);
+            MatProp.SetColor("_Color", _Color);
 
-            MatProp.SetColor("_MainColor", _MainColor);
-            MatProp.SetColor("_InsideColor", _InsideColor);
-            MatProp.SetColor("_EdgeColor", _EdgeColor);
+            MatProp.SetFloat("_WindSpeed", _WindSpeed);
+            MatProp.SetFloat("_WindMouv", _WindMouv);
+            MatProp.SetFloat("_WindOffset", _WindOffset);
+            MatProp.SetFloat("_WindStrength", _WindStrength);
 
-            MatProp.SetFloat("_InsideTexStrength", _InsideStrength);
-            MatProp.SetFloat("_EdgeTexStrength", _EdgeStrength);
-            MatProp.SetFloat("_EmoteStrength", _EmoteStrength);
-
-            MatProp.SetFloat("_Hue", _Hue);
-            MatProp.SetFloat("_Contrast", _Contrast);
-            MatProp.SetFloat("_Saturation", _Saturation);
-            MatProp.SetFloat("_Brightness", _Brightness);
 
             meshRenderer.SetPropertyBlock(MatProp);
         }
