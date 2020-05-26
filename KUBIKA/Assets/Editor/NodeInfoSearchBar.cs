@@ -13,8 +13,8 @@ public class NodeInfoSearchBar : EditorWindow
     CubeTypes cubeType;
     CubeLayers cubeLayers;
     FacingDirection facingDirection;
-    Vector3 worldPosition;
     GameObject cubeOnPosition;
+    Vector3 worldPosition;
 
     [MenuItem("Tools/Node SearchBar")]
     static void Init()
@@ -47,7 +47,6 @@ public class NodeInfoSearchBar : EditorWindow
 
         DrawWindow();
         DrawInfo();
-
     }
 
     private void DrawWindow()
@@ -70,8 +69,8 @@ public class NodeInfoSearchBar : EditorWindow
         cubeType = (CubeTypes)EditorGUILayout.EnumPopup("My CubeType is ", cubeType);
         cubeLayers = (CubeLayers)EditorGUILayout.EnumPopup("My CubeLayer is ", cubeLayers);
         facingDirection = (FacingDirection)EditorGUILayout.EnumPopup("My FacingDirection is ", facingDirection);
-        worldPosition = (Vector3)EditorGUILayout.Vector3Field("The Object's Position is ", worldPosition);
         cubeOnPosition = (GameObject)EditorGUILayout.ObjectField("The Object is ", cubeOnPosition, typeof(GameObject), true);
+        worldPosition = (Vector3)EditorGUILayout.Vector3Field("The Object's Position is ", worldPosition);
     }
 
 }

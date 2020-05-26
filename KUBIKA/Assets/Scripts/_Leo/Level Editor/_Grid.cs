@@ -96,6 +96,7 @@ namespace Kubika.CustomLevelEditor
                 if(kuboGrid[i].cubeOnPosition != null)
                 {
                     Destroy(kuboGrid[i].cubeOnPosition.gameObject);
+                    kuboGrid[i].cubeOnPosition = null;
                 }
 
                 placedObjects.Clear();
