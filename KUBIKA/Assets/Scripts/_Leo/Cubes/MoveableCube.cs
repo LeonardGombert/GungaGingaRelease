@@ -10,8 +10,6 @@ namespace Kubika.Game
         {
             //call base.start AFTER assigning the cube's layers
             base.Start();
-
-            isStatic = false;
         }
 
         public override void Update()

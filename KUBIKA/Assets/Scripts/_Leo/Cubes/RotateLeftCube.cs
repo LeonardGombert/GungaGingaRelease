@@ -15,8 +15,6 @@ namespace Kubika.Game
             //call base.start AFTER assigning the cube's layers
             base.Start();
 
-            isStatic = false;
-
             _DataManager.instance.EndFalling.AddListener(CheckIfTouched);
         }
         // Update is called once per frame

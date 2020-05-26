@@ -153,6 +153,8 @@ namespace Kubika.Game
         // Load the next level (extract the file)
         IEnumerator LoadLevel()
         {
+            _KUBRotation.instance.ResetRotation();
+
             if (_lockRotate) UIManager.instance.TurnOffRotate();
             else UIManager.instance.TurnOnRotate();
 

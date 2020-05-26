@@ -11,9 +11,6 @@ namespace Kubika.Game
         {
             //call base.start AFTER assigning the cube's layers
             base.Start();
-
-            //starts as a static cube
-            isStatic = true;
         }
 
         // Update is called once per frame

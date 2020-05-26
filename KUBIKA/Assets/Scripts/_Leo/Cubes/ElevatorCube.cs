@@ -68,7 +68,6 @@ namespace Kubika.Game
 
             //starts as a static cube
             CheckCubeType();
-            isStatic = true;
         }
 
         // Update is called once per frame

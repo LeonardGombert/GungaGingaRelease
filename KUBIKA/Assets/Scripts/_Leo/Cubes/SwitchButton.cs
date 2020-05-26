@@ -17,8 +17,6 @@ namespace Kubika.Game
         {
             //call base.start AFTER assigning the cube's layers
             base.Start();
-
-            isStatic = true;
             _DataManager.instance.EndFalling.AddListener(CheckIfPressed);
         }
 

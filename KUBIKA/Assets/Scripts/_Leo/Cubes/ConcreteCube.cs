@@ -9,7 +9,6 @@
             base.Start();
 
             //starts as a static cube
-            isStatic = true;
             isSelectable = false;
         }
 
