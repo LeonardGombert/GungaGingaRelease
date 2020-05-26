@@ -69,5 +69,19 @@ namespace Kubika.Game
             }
             else return false;
         }
+
+
+        protected Vector3 outsideCoord(int myIndexParam, int knowedDirection)
+        {
+            int newXCoord = grid.kuboGrid[myIndexParam - 1].xCoord - grid.kuboGrid[myIndexParam - 1 + knowedDirection].xCoord;
+            int newYCoord = grid.kuboGrid[myIndexParam - 1].yCoord - grid.kuboGrid[myIndexParam - 1 + knowedDirection].yCoord;
+            int newZCoord = grid.kuboGrid[myIndexParam - 1].zCoord - grid.kuboGrid[myIndexParam - 1 + knowedDirection].zCoord;
+
+            newXCoord += grid.kuboGrid[myIndexParam - 1].xCoord;
+            newYCoord += grid.kuboGrid[myIndexParam - 1].yCoord;
+            newZCoord += grid.kuboGrid[myIndexParam - 1].zCoord;
+
+            return new Vector3(newXCoord, newYCoord, newZCoord);
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace Kubika.Game
         public bool isOutside;
         public bool isReadyToMove;
         public bool cubeIsStillInPlace;
+        public bool IsMovingUpDown;
 
         // LERP
         Vector3 currentPos;
@@ -53,6 +54,9 @@ namespace Kubika.Game
         //PILE
         public _CubeMove pileNodeCubeMove;
 
+        // UP / DOWN MOVE
+        List<_CubeMove> cubeMoveUpDown = new List<_CubeMove>();
+
         public override  void Start()
         {
             //ScannerSet();
@@ -63,6 +67,7 @@ namespace Kubika.Game
             base.Start();
 
             //starts as a static cube
+            CheckCubeType();
             isStatic = true;
         }
 
@@ -77,6 +82,18 @@ namespace Kubika.Game
             }
         }
 
+        void CheckCubeType()
+        {
+            if(myCubeType == CubeTypes.GreenElevatorCube)
+            {
+                isGreen = true;
+            }
+            else
+            {
+                isGreen = false;
+            }
+        }
+
         void CheckingIfCanPush()
         {
             isCheckingMove = true;
@@ -85,7 +102,7 @@ namespace Kubika.Game
                 Debug.Log("-0-");
                 if (MatrixLimitCalcul(myIndex, _DirectionCustom.LocalScanner(facingDirection)))
                 {
-                    Debug.Log("-1-");
+                    Debug.Log("-1- = " + (myIndex - 1 + _DirectionCustom.LocalScanner(facingDirection)));
                     if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.LocalScanner(facingDirection)].cubeLayers == CubeLayers.cubeEmpty)
                     {
                         isCheckingMove = false;
@@ -155,6 +172,7 @@ namespace Kubika.Game
 
         public IEnumerator Move(Node nextNode)
         {
+
             isMoving = true;
             isCheckingMove = false;
             Debug.Log("IS MOVINGELEVATOR || isMoving = " + isMoving);
@@ -237,7 +255,16 @@ namespace Kubika.Game
 
         public void MoveToTarget()
         {
-            isGreen ^= true;
+            if(isGreen == true)
+            {
+                isGreen = false;
+                ChangeElevatorTexture(_MaterialCentral.instance.actualPack._ElevatorBackTex);
+            }
+            else 
+            {
+                isGreen = true;
+                ChangeElevatorTexture(_MaterialCentral.instance.actualPack._ElevatorTex);
+            }
 
             Debug.Log("IS_GREEN_INVERTEEEEEEED = " + isGreen);
 
@@ -259,6 +286,7 @@ namespace Kubika.Game
             isReadyToMove = false;
             pileNodeCubeMove = null;
             pushNextNodeCubeMove = null;
+            IsMovingUpDown = false;
         }
 
         void CheckingMove(int index, int nodeDirection)
@@ -289,36 +317,71 @@ namespace Kubika.Game
                         {
                             Debug.Log("EMPTYELEVATOR ");
 
-                            isReadyToMove = true;
-                            soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
-                            if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
+                            if (nodeDirection == _DirectionCustom.up)
                             {
-                                pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<_CubeMove>();
-                                pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
-                            }
-                            Debug.Log("EMPTY-CAN MOVE-ELEVATOR");
+                                Debug.Log("CAN MOVE UP");
+                                isReadyToMove = true;
+                                IsMovingUpDown = true;
+                                soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
 
-                            isCheckingMove = false;
+                                isCheckingMove = false;
+                            }
+                            else if (nodeDirection == _DirectionCustom.down)
+                            {
+                                Debug.Log("CAN MOVE DOWN");
+                                isReadyToMove = true;
+                                IsMovingUpDown = true;
+                                soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                                GoingDownCheck(myIndex, -nodeDirection);
+                            }
+                            else
+                            {
+
+                                isReadyToMove = true;
+                                soloMoveTarget = grid.kuboGrid[myIndex + nodeDirection - 1];
+                                if (grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeLayers == CubeLayers.cubeMoveable && MatrixLimitCalcul(myIndex, _DirectionCustom.up))
+                                {
+                                    pileNodeCubeMove = grid.kuboGrid[myIndex - 1 + _DirectionCustom.up].cubeOnPosition.GetComponent<_CubeMove>();
+                                    pileNodeCubeMove.CheckingPile(pileNodeCubeMove.myIndex - 1, nodeDirection);
+                                }
+                                Debug.Log("EMPTY-CAN MOVE-ELEVATOR");
+
+                                isCheckingMove = false;
+                            }
                         }
                         break;
                     case CubeLayers.cubeMoveable:
                         {
                             pushNextNodeCubeMove = grid.kuboGrid[indexTargetNode - 1].cubeOnPosition.GetComponent<_CubeMove>();
-                            if (pushNextNodeCubeMove.isReadyToMove == false)
-                            {
-                                if (grid.kuboGrid[indexTargetNode + nodeDirection - 1].cubeLayers == CubeLayers.cubeEmpty && grid.kuboGrid[indexTargetNode + nodeDirection + _DirectionCustom.down - 1].cubeLayers == CubeLayers.cubeEmpty)
-                                {
-                                    Debug.Log("OVER NOTHING");
-                                    pushNextNodeCubeMove.isOverNothing = true;
-                                }
-                                else if(!MatrixLimitCalcul(indexTargetNode, nodeDirection))
-                                {
-                                    Debug.Log("OUSIDE");
-                                    pushNextNodeCubeMove.isOutside = true;
-                                }
 
-                                Debug.Log("APPLY DIRECTION " + nodeDirection);
-                                pushNextNodeCubeMove.CheckingMove(indexTargetNode, nodeDirection);
+                            if (nodeDirection == _DirectionCustom.up || nodeDirection == _DirectionCustom.down)
+                            {
+                                Debug.Log("DETECT MOVE UP / DOWN");
+                                pushNextNodeCubeMove.soloMoveTarget = grid.kuboGrid[indexTargetNode - 1 + nodeDirection];
+                                _DataManager.instance.StartMoving.AddListener(pushNextNodeCubeMove.MoveToTarget);
+                                pushNextNodeCubeMove.isReadyToMove = true;
+                                cubeMoveUpDown.Add(pushNextNodeCubeMove);
+                            }
+                            else
+                            {
+                                if (pushNextNodeCubeMove.isReadyToMove == false)
+                                {
+                                    /*if (grid.kuboGrid[indexTargetNode + nodeDirection - 1].cubeLayers == CubeLayers.cubeEmpty && grid.kuboGrid[indexTargetNode + nodeDirection + _DirectionCustom.down - 1].cubeLayers == CubeLayers.cubeEmpty)
+                                    {
+                                        Debug.Log("OVER NOTHING");
+                                        pushNextNodeCubeMove.isOverNothing = true;
+                                    }
+                                    else if(!MatrixLimitCalcul(indexTargetNode, nodeDirection))
+                                    {
+                                        Debug.Log("OUSIDE");
+                                        pushNextNodeCubeMove.isOutside = true;
+                                    }*/
+
+                                    Debug.Log("APPLY DIRECTION " + nodeDirection);
+                                    pushNextNodeCubeMove.isReadyToMove = true;
+                                    pushNextNodeCubeMove.isMovingAndSTFU = true;
+                                    pushNextNodeCubeMove.CheckingMove(indexTargetNode, nodeDirection);
+                                }
                             }
                             CheckSoloMove(indexTargetNode, nodeDirection);
 
@@ -335,23 +398,66 @@ namespace Kubika.Game
                 isCheckingMove = false;
             }
 
-
         }
 
-        Vector3 outsideCoord(int myIndexParam, int knowedDirection)
+        void GoingDownCheck(int index, int nodeDirection)
         {
-            int newXCoord = grid.kuboGrid[myIndexParam - 1].xCoord - grid.kuboGrid[myIndexParam - 1 + knowedDirection].xCoord;
-            int newYCoord = grid.kuboGrid[myIndexParam - 1].yCoord - grid.kuboGrid[myIndexParam - 1 + knowedDirection].yCoord;
-            int newZCoord = grid.kuboGrid[myIndexParam - 1].zCoord - grid.kuboGrid[myIndexParam - 1 + knowedDirection].zCoord;
+            if (MatrixLimitCalcul(index, nodeDirection))
+            {
+                indexTargetNode = index + nodeDirection;
+                Debug.Log("---CheckSoloMoveELEVATOR-GoingDownCheck-- | " + nodeDirection);
 
-            newXCoord += grid.kuboGrid[myIndexParam - 1].xCoord;
-            newYCoord += grid.kuboGrid[myIndexParam - 1].yCoord;
-            newZCoord += grid.kuboGrid[myIndexParam - 1].zCoord;
+                switch (grid.kuboGrid[indexTargetNode - 1].cubeLayers)
+                {
+                    case CubeLayers.cubeFull:
+                        {
+                            Debug.Log("GoingDownCheck STUCKELEVATOR ");
+                            isCheckingMove = false;
+                        }
+                        break;
+                    case CubeLayers.cubeEmpty:
+                        {
+                            Debug.Log("GoingDownCheck EMPTYELEVATOR ");
 
-            return new Vector3(newXCoord, newYCoord, newZCoord);
+                            isCheckingMove = false;
+                        }
+                        break;
+                    case CubeLayers.cubeMoveable:
+                        {
+                            pushNextNodeCubeMove = grid.kuboGrid[indexTargetNode - 1].cubeOnPosition.GetComponent<_CubeMove>();
+
+                            Debug.Log("GoingDownCheck DETECT MOVE UP / DOWN");
+                            pushNextNodeCubeMove.soloMoveTarget = grid.kuboGrid[indexTargetNode - 1 - nodeDirection];
+                            _DataManager.instance.StartMoving.AddListener(pushNextNodeCubeMove.MoveToTarget);
+                            pushNextNodeCubeMove.isReadyToMove = true;
+                            cubeMoveUpDown.Add(pushNextNodeCubeMove);
+
+                            GoingDownCheck(indexTargetNode, nodeDirection);
+                            cubeIsStillInPlace = true;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("MATRIX LIMIT SOLOELEVATOR");
+                isCheckingMove = false;
+            }
         }
 
 
+        #endregion
+
+        #region FEEDBACK
+
+        protected void ChangeElevatorTexture(Texture newTex)
+        {
+            meshRenderer.GetPropertyBlock(MatProp);
+
+            MatProp.SetTexture("_MainTex", newTex);
+
+            meshRenderer.SetPropertyBlock(MatProp);
+        }
 
         #endregion
 

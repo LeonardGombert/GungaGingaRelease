@@ -52,7 +52,7 @@ namespace Kubika.Game
 
         public virtual void Update()
         {
-            SetScriptablePreset(); /////////// DE LA MERDE
+            //SetScriptablePreset(); /////////// DE LA MERDE
         }
 
         //Use to update Cube Info in Matrix, called on place and rotate cube
@@ -292,7 +292,7 @@ namespace Kubika.Game
                         break;
                     case CubeTypes.BlueElevatorCube:
                         {
-                            _MainTex = _MaterialCentral.instance.actualPack._ElevatorTex;
+                            _MainTex = _MaterialCentral.instance.actualPack._ElevatorBackTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._ElevatorMesh;
                             _MainColor = _MaterialCentral.instance.actualPack._ElevatorColor;
 
@@ -313,7 +313,30 @@ namespace Kubika.Game
                             _EmoteStrength = 0;
                         }
                         break;
-                    case CubeTypes.ChaosBall:
+                case CubeTypes.GreenElevatorCube:
+                    {
+                        _MainTex = _MaterialCentral.instance.actualPack._ElevatorTex;
+                        _MainMesh = _MaterialCentral.instance.actualPack._ElevatorMesh;
+                        _MainColor = _MaterialCentral.instance.actualPack._ElevatorColor;
+
+                        _Hue = _MaterialCentral.instance.actualPack.Elevator_Hue;
+                        _Contrast = _MaterialCentral.instance.actualPack.Elevator_Contrast;
+                        _Saturation = _MaterialCentral.instance.actualPack.Elevator_Saturation;
+                        _Brightness = _MaterialCentral.instance.actualPack.Elevator_Brightness;
+
+                        _InsideTex = _MaterialCentral.instance.actualPack._ElevatorTexInside;
+                        _InsideColor = _MaterialCentral.instance.actualPack._ElevatorColorInside;
+                        _InsideStrength = _MaterialCentral.instance.actualPack._ElevatorInsideStrength;
+
+                        _EdgeTex = _MaterialCentral.instance.actualPack._EdgeTex;
+                        _EdgeColor = _MaterialCentral.instance.actualPack._EdgeColor;
+                        _EdgeStrength = _MaterialCentral.instance.actualPack._EdgeTexStrength;
+
+                        _EmoteTex = _MaterialCentral.instance.actualPack._ElevatorEmoteTex;
+                        _EmoteStrength = 0;
+                    }
+                    break;
+                case CubeTypes.ChaosBall:
                         {
                             _MainTex = _MaterialCentral.instance.actualPack._BallTex;
                             _MainMesh = _MaterialCentral.instance.actualPack._BallMesh;
