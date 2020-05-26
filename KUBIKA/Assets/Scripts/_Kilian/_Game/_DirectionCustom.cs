@@ -25,16 +25,16 @@ namespace Kubika.Game
 
         /// LOCAL MODE
         public static int fixedForward => rotationState == 0 ? (matrixLengthDirection * matrixLengthDirection) :
-                                (rotationState == 1 ? 1 :
-                                (rotationState == 2 ? -matrixLengthDirection : 0));
+                                (rotationState == 1 ? matrixLengthDirection :
+                                (rotationState == 2 ? 1 : 0));
         public static int fixedBackward => -forward;
         public static int fixedUp => rotationState == 0 ? 1 :
-                                        (rotationState == 1 ? matrixLengthDirection :
-                                        (rotationState == 2 ? (matrixLengthDirection * matrixLengthDirection) : 0));
+                                        (rotationState == 1 ? (matrixLengthDirection * matrixLengthDirection) :
+                                        (rotationState == 2 ? matrixLengthDirection : 0));
         public static int fixedDown => -up;
         public static int fixedRight => rotationState == 0 ? matrixLengthDirection :
-                                        (rotationState == 1 ? -(matrixLengthDirection * matrixLengthDirection) :
-                                        (rotationState == 2 ? -1 : 0));
+                                        (rotationState == 1 ? 1 :
+                                        (rotationState == 2 ? (matrixLengthDirection * matrixLengthDirection) : 0));
         public static int fixedLeft => -right;
 
         public static int LocalScanner(FacingDirection facingDirection)

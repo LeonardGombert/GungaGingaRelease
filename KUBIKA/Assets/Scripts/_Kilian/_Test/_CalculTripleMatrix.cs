@@ -177,7 +177,6 @@ namespace Kubika.Game
                         break;
                     }
                 }
-
             }
 
 
