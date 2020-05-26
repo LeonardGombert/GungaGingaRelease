@@ -72,6 +72,16 @@ namespace Kubika.Game
                 StartCoroutine(Rotate(false));
         }
 
+        public void ResetRotation()
+        {
+            moveRot = transform.eulerAngles;
+            moveRot.z = 0;
+            transform.eulerAngles = moveRot;
+
+            _DirectionCustom.rotationState = 0;
+            actualRotation = 0;
+        }
+
 
         public IEnumerator Rotate(bool rightSide)
         {
@@ -85,7 +95,6 @@ namespace Kubika.Game
                 lerpValue = 0;
                 currentValue = 0;
                 Debug.LogError("START_ROTATION " + transform.eulerAngles.z);
-
 
                 // There is two axis of rotation (left and right) , TODO = OPTI
                 if (rightSide)
